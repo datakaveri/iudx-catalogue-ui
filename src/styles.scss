@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --highlight: #4B7FD4;
+    --secondary: #6c6c6c;
+    --tertiary: #989898;
+    --border: #CCCCCC;
+    --primary: #444444;
+    --white: #FFFFFF;
+    --background: #white;
+    --error: #BD4931;
+    --warning: #FFA700;
+}
+
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    outline: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    color: var(--primary);
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+  
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.6);
+}
+
+::-webkit-input-placeholder { /* Edge */
+    font-weight: 400;
+    color: var(--border);
+}
+  
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-weight: 400;
+    color: var(--border);
+}
+  
+::placeholder {
+    font-weight: 400;
+    color: var(--border);
+}
+
+body {
+    background: var(--background);
+}
+
+button, a {
+    cursor: pointer;
+}
