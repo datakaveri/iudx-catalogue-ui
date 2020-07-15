@@ -28,6 +28,11 @@ const routes: Routes = [
     component: SearchResultsComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'datasets',
+        pathMatch: 'full'
+      },
+      {
         path: 'datasets',
         component: DatasetListComponent
       },

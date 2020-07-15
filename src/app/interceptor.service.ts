@@ -58,6 +58,19 @@ export class InterceptorService {
     });
   }
 
+  get_api_wl(route) {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.api_url + route).subscribe((data: any) => {
+        resolve(data);
+      }, (err) => {
+        if (err.status == 401) this.authorization_error_alert();
+        else if (err.status == 400 || err.status == 404 || err.status == 403) this.technical_error_alert(err);
+        else if (err.status == 500 || err.status == 501 || err.status == 502 || err.status == 503 || err.status == 504) this.server_error_alert();
+        reject(err);
+      });
+    });
+  }
+
   authorization_error_alert() {
     //code to be filled later
   }
