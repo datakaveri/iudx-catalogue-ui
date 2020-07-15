@@ -1,0 +1,32 @@
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style-type: none;
+}
+
+.header-container,.navList{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.navigation{
+    display: flex;
+    flex-basis: 25%;
+}
+
+.navList{
+    flex-basis: 100%;
+    justify-content: space-around;
+}
+
+.navLink{
+    font-weight: 500;
+}
+
+.logo{
+     width: 115px;
+}
