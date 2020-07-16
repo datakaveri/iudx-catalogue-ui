@@ -1,0 +1,73 @@
+// ---------------- Landing Page ----------- //
+
+a{
+    text-decoration:none;
+}
+
+.landingPage-container{
+   position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45%;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    height: 30%;
+}
+
+.search{
+    display: flex;
+    align-items: center;
+    border:1px solid #ccc;
+    border-radius: 10px;
+    padding: 12px;
+
+    &-icon{
+        display:flex;
+        justify-content: center;
+        padding-right: 8px;
+        align-items: center;
+        flex-basis:5%
+    }
+
+    &-box{
+        border: none;
+        flex-basis:77%
+    }
+
+    &-text {
+        flex-basis:18%;
+        text-align: center;
+        font-weight: 600;
+        opacity: .8;
+    }
+
+    img{
+        width: 25px;
+    }
+}
+
+.tagLine,.buttonsContainer {
+    text-align:center;
+      font-weight: 500;
+      opacity: .8;
+}
+
+.buttonsContainer{
+    width: 80%;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.search-btn{
+   padding: 12px 16px;
+    flex-basis: 23%;
+    background: #F4F4F4;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-weight: 500;
+    color: #000;
+}
