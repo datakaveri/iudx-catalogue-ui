@@ -1,10 +1,11 @@
 <!-- <p>change-city works!</p> -->
-<div class="searchCity">
+<div class="searchCity" *ngIf="changeCityValue">
     <div class="searchCity__container">
         <div class="searchBox">
             <span class="searchBox__icon searchBox__icon--search"><img src='../../assets/search.png'></span>
             <input type="text" class="searchBox__input" placeholder="Search City...">
-            <span class="searchBox__icon searchBox__icon--close"><img src='../../assets/cross.png'></span>
+            <span (click)='changeValue()' class="searchBox__icon searchBox__icon--close"><img
+                    src='../../assets/cross.png'></span>
         </div>
         <div class="searchCity__contentBox">
             <div class="searchCity__item">

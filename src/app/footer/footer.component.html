@@ -1,8 +1,8 @@
 <footer>
     <div class="footer__container">
         <div class="footer__left">
-            <p class='footer__left--content'>Showing content for: <span class="city">Varanasi</span> <span
-                    class="city__change"> Change City</span></p>
+            <p class='footer__left--content'>Showing content for: <span class="city">Varanasi</span><a
+                    (click)='toggleChangeCity()' class="city__change"> Change City</a></p>
         </div>
         <div class="footer__right">
             <ul class="footer__list">
@@ -14,5 +14,4 @@
         </div>
     </div>
 </footer>
-
-<app-change-city></app-change-city>
+<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"></app-change-city>

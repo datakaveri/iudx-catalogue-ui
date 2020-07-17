@@ -12,4 +12,14 @@ export class AdvancedSearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // showAdvanceSearch: boolean = false;
+
+  // toggleAdvanceSearch() {
+  //   if (this.showAdvanceSearch === false) {
+  //     this.showAdvanceSearch = true;
+  //   } else {
+  //     this.showAdvanceSearch = false;
+  //   }
+  // }
+
 }

@@ -7,6 +7,7 @@ import { DatasetListComponent } from './dataset-list/dataset-list.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { MapViewComponent } from './map-view/map-view.component';
 import { HomeComponent } from './home/home.component';
+import { ChangeCityComponent } from './change-city/change-city.component';
 
 const routes: Routes = [
   {
@@ -15,12 +16,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent
+        component: LandingPageComponent,
       },
       {
         path: 'advanced-search',
         component: AdvancedSearchComponent
-      }
+      },
+
     ]
   },
   {
