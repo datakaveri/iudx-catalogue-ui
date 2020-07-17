@@ -6,7 +6,7 @@ li {
   list-style-type: none;
 }
 
-.header-container,
+.header,
 .navList {
   display: flex;
   justify-content: space-between;
@@ -17,6 +17,7 @@ li {
 .navigation {
   display: flex;
   flex-basis: 25%;
+  position: relative;
 }
 
 .navList {
@@ -31,4 +32,67 @@ li {
 .logo {
   width: 130px;
   padding-left: 20px;
+}
+
+
+// HOVER FUNCTIONALITY
+
+.developers,
+.documentation {
+  top: 90%;
+  position: absolute;
+  width: 80%;
+}
+
+.developers {
+  right: 20%;
+  height: 22vh;
+  width: 80%;
+  display: none;
+}
+
+.documentation {
+  right: 10%;
+  height: 12vh;
+  display: none;
+}
+
+
+.developers__container,
+.documentation__container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  height: 100%;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.developers__item,
+.documentation__item {
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.developers__description,
+.documentation__description {
+  color: #ccc;
+  font-size: 16px;
+}
+
+.arrow {
+  position: absolute;
+  top: -15px;
+  color: #ccc;
+
+  &__developers {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__documentation {
+    right: 15%;
+  }
 }
