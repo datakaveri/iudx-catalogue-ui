@@ -12,4 +12,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showDevCard: boolean = false;
+  showDocCard: boolean = false;
+
 }

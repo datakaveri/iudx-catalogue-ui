@@ -42,19 +42,18 @@ li {
   top: 90%;
   position: absolute;
   width: 80%;
+  transition: all .2s ease-in;
 }
 
 .developers {
   right: 20%;
   height: 22vh;
   width: 80%;
-  display: none;
 }
 
 .documentation {
   right: 10%;
   height: 12vh;
-  display: none;
 }
 
 

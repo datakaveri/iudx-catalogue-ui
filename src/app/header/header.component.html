@@ -5,10 +5,12 @@
     <nav class='navigation'>
         <ul class="navList">
             <li class="navItem"><a href="" class="navLink">Blogs</a></li>
-            <li class="navItem"><a href="" class="navLink">Developers</a></li>
-            <li class="navItem"><a href="" class="navLink">Documentation</a></li>
+            <li (mouseover)="showDevCard=true" (mouseout)="showDevCard=false" class="navItem"><a href=""
+                    class="navLink">Developers</a></li>
+            <li (mouseover)="showDocCard=true" (mouseout)="showDocCard=false" class="navItem"><a href=""
+                    class="navLink">Documentation</a></li>
         </ul>
-        <div class="developers">
+        <div *ngIf="showDevCard" class="developers">
             <span class="arrow arrow__developers">&#9650;</span>
             <div class="developers__container">
                 <div class="developers__item">
@@ -26,7 +28,7 @@
             </div>
         </div>
 
-        <div class="documentation">
+        <div *ngIf="showDocCard" class="documentation">
             <span class="arrow arrow__documentation">&#9650;</span>
             <div class="documentation__container">
                 <div class="documentation__item">
