@@ -1,12 +1,6 @@
-// .container {
-//   display: flex;
-//   justify-content: left;
-//   margin-left: 20px;
-// }
-
 .main-content {
   margin-left: 30px;
-  width: 1600px;
+  max-width: 1600px;
 }
 .search-div,
 .search-div button {
@@ -16,7 +10,7 @@
 .search-div {
   margin-top: 50px;
   width: 65%;
-  height: 45px;
+  height: 40px;
   // margin: 0 auto;
   border: 1px solid #ccc;
 }
@@ -30,7 +24,7 @@
 }
 .search-div button {
   width: 15%;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 5px;
 }
 .search-div img {
@@ -38,7 +32,9 @@
   width: 20px;
   // text-align: center;
 }
-
+// .para-style {
+//   padding-top: 60px;
+// }
 .filter-div {
   display: flex;
 }
@@ -52,13 +48,18 @@
 }
 .search-style {
   border-bottom: 1px solid rgb(209, 200, 200);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding-bottom: 7px;
 }
 .search-style img {
   // padding-left: 20px;
   width: 20px;
 }
 .search-style input {
-  margin-top: 30px;
+  // margin-top: 30px;
   padding-left: 10px;
   border: none;
 }
@@ -68,7 +69,10 @@
   justify-content: space-between;
 }
 .box-left {
-  // flex-basis: 15%;
+  flex-basis: 17%;
+}
+.box-left-container {
+  width: 100%;
 }
 .box-right {
   width: 80%;
@@ -80,11 +84,13 @@
   padding-bottom: 15px;
 }
 .box-style {
-  box-shadow: 1px -1px 1px 0px #f3ecec;
-  padding-left: 25px;
-  padding-top: 8px;
-  min-width: 1000px;
+  box-shadow: 1px 1px 10px 0px #f3ecec;
+  width: 100%;
+  align-items: center;
+  width: 98%;
   transition: background-color 0.2s;
+  margin-bottom: 10px;
+  padding: 15px 25px;
 }
 
 .box-style p,
@@ -110,4 +116,27 @@
 }
 .checkbox-round:checked {
   background-color: gray;
+}
+
+.link-container {
+  display: flex;
+  align-items: center;
+}
+
+.bold-color {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.pagination-box {
+  position: fixed;
+  //   border: 1px solid red;
+  left: 50%;
+  top: 95%;
+}
+.cards-div {
+  width: 100%;
+}
+.para-style p {
+  color: rgb(148, 145, 145);
 }

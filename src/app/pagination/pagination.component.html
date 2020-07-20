@@ -1,1 +1,34 @@
-<p>pagination works!</p>
+<div class="pagination-container">
+  <div class="pagination" aria-label="Pagination" *ngIf="maxPages > 1">
+    <ul class="pagination-list">
+      <li class="pagination-item" [class.disabled]="current == 1">
+        <a
+          href="javascript:;"
+          class="pagination-link"
+          (click)="setPage(current - 1, itemsPerPage)"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li
+        class="pagination-item-value"
+        *ngFor="let page of pages"
+        [class.active]="page == current"
+      >
+        <a href="javascript:;" (click)="setPage(page, itemsPerPage)">{{
+          page
+        }}</a>
+      </li>
+      <li [class.disabled]="current == maxPages">
+        <a
+          href="javascript:;"
+          (click)="setPage(current + 1, itemsPerPage)"
+          aria-label="Next"
+        >
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

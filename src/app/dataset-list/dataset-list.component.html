@@ -1,7 +1,9 @@
 <div class="main-content">
   <div class="search-div">
     <input type="text" />
-    <button type="submit"><img src="../../assets/search.png" /> Search</button>
+    <button type="submit">
+      <img src="../../assets/search.png" /><span>Search</span>
+    </button>
   </div>
   <br />
   <div class="para-style">
@@ -62,8 +64,6 @@
           <p>Provider: Provider 1</p>
 
           <a><h2>View All Resource Items</h2></a>
-
-          <br />
         </div>
         <div class="box-style">
           <h3>
@@ -76,8 +76,6 @@
           <p>Provider: Provider 1</p>
 
           <a><h2>View All Resource Items</h2></a>
-
-          <br />
         </div>
         <div class="box-style">
           <h3>
@@ -90,11 +88,15 @@
           <p>Provider: Provider 1</p>
 
           <a><h2>View All Resource Items</h2></a>
-
-          <br />
         </div>
       </div>
-      <div class="pagination-box"></div>
+      <div class="pagination-box">
+        <app-pagination
+          [maxPages]="6"
+          [current]="1"
+          [itemsPerPage]="10"
+        ></app-pagination>
+      </div>
     </div>
   </div>
 </div>
