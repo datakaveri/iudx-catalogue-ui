@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { LoaderComponent } from './loader/loader.component';
 import { NotifierComponent } from './notifier/notifier.component';
 import { AlertComponent } from './alert/alert.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { AlertComponent } from './alert/alert.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

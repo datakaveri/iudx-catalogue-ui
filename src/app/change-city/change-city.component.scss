@@ -12,6 +12,8 @@
   -webkit-box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+
 
   &__container {
     width: 100%;
@@ -27,7 +29,12 @@
   &__title {
     font-size: 18px;
     font-weight: 600;
-    color: #444444
+
+    color: #444444;
+
+    img {
+      width: 30%;
+    }
   }
 
   &__description {
@@ -86,6 +93,13 @@
   img {
     width: 25px;
   }
+}
 
-
+.fadeIn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
 }

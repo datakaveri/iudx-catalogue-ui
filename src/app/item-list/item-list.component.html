@@ -1,1 +1,161 @@
-<p>item-list works!</p>
+<div class="main-content">
+  <div class="search-div">
+    <input type="text" />
+    <button type="submit">
+      <img src="../../assets/search.png" /><span>Search</span>
+    </button>
+  </div>
+  <div class="anchor-group">
+    <a
+      routerLink="/search/items"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >List</a
+    >
+    <a routerLink="/search/map">Map</a>
+  </div>
+  <br />
+  <div class="para-style">
+    <p>
+      <span class="bold-color">200</span> datasets for
+      <span class="bold-color">Pollution</span> matching search criteria
+    </p>
+  </div>
+  <br />
+  <div class="box-container">
+    <div class="box-left">
+      <div class="box-left-container">
+        <!-- search starts for ResourcsGroup -->
+        <div class="filter-div">
+          <h2>Resource Group</h2>
+          <img src="../../assets/filter.png" />
+        </div>
+        <div class="search-style">
+          <img src="../../assets/search.png" />
+          <input type="text" placeholder="Search..." />
+        </div>
+        <br />
+        <div class="checkbox">
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" checked="checked" />
+            <span class="checkmark"></span>
+            Resource Group 1
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span> Resource Group 2
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span>
+            Resource Group 3
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span>
+            Resource Group 4
+          </label>
+        </div>
+        <br />
+        <!-- search starts for Provider -->
+        <div class="filter-div">
+          <h2>Provider</h2>
+          <img src="../../assets/filter.png" />
+        </div>
+        <div class="search-style">
+          <img src="../../assets/search.png" />
+          <input type="text" placeholder="Search..." />
+        </div>
+        <br />
+        <div class="checkbox">
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" checked="checked" />
+            <span class="checkmark"></span>
+            Provider 1
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span> Provider 2
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span>
+            Provider 3
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span>
+            Provider 4
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="box-right">
+      <div class="cards-div">
+        <div class="box-style">
+          <h3>
+            Resource Item 1 &nbsp;<span style="color: darkgray;"
+              >&nbsp;&#40; 144 resource items &#41;</span
+            >
+          </h3>
+
+          <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
+          <p>Provider: Provider 1</p>
+          <p><span>Resource group:</span> Resource Group 1</p>
+
+          <div class="link-container">
+            <a style="padding-right: 15px;"><h2>View Details</h2></a>
+
+            <a><h2>Get Latest Data</h2></a>
+          </div>
+        </div>
+        <div class="box-style">
+          <h3>
+            Resource Item 1 &nbsp; >
+          </h3>
+
+          <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
+          <p>Provider: Provider 1</p>
+          <p><span>Resource group:</span> Resource Group 1</p>
+
+          <div class="link-container">
+            <a style="padding-right: 15px;"><h2>View Details</h2></a>
+
+            <a><h2>Get Latest Data</h2></a>
+          </div>
+        </div>
+        <div class="box-style">
+          <h3>
+            Resource Item 1 &nbsp;<span style="color: darkgray;"
+              >&nbsp;&#40; 144 resource items &#41;</span
+            >
+          </h3>
+
+          <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
+          <p>Provider: Provider 1</p>
+          <p><span>Resource group:</span> Resource Group 1</p>
+
+          <div class="link-container">
+            <a style="padding-right: 15px;"><h2>View Details</h2></a>
+
+            <a><h2>Get Latest Data</h2></a>
+          </div>
+        </div>
+      </div>
+      <div class="pagination-box">
+        <app-pagination
+          [maxPages]="maxPages"
+          [current]="currentPage"
+          [itemsPerPage]="itemsPerPage"
+          (changePage)="pageChanged($event)"
+        ></app-pagination>
+      </div>
+    </div>
+  </div>
+</div>

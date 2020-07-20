@@ -1,1 +1,102 @@
-<p>dataset-list works!</p>
+<div class="main-content">
+  <div class="search-div">
+    <input type="text" />
+    <button type="submit">
+      <img src="../../assets/search.png" /><span>Search</span>
+    </button>
+  </div>
+  <br />
+  <div class="para-style">
+    <p>
+      <span>200</span> datasets for <span>Pollution</span> matching search
+      criteria
+    </p>
+  </div>
+  <br />
+  <div class="box-container">
+    <div class="box-left">
+      <div class="box-left-container">
+        <div class="filter-div">
+          <h2>Provider</h2>
+          <img src="../../assets/filter.png" />
+        </div>
+        <div class="search-style">
+          <img src="../../assets/search.png" />
+          <input type="text" placeholder="Search..." />
+        </div>
+        <br />
+        <div class="checkbox">
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" checked="checked" />
+            <span class="checkmark"></span>
+            Provider 1
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span> Provider 2
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span>
+            Provider 3
+          </label>
+
+          <label class="checkbox-container">
+            <input class="checkbox-round" type="checkbox" />
+            <span class="checkmark"></span>
+            Provider 4
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="box-right">
+      <div class="cards-div">
+        <div class="box-style">
+          <h3>
+            Resource Group 1 &nbsp;<span style="color: darkgray;"
+              >&nbsp;&#40; 144 resource items &#41;</span
+            >
+          </h3>
+
+          <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
+          <p>Provider: Provider 1</p>
+
+          <a><h2>View All Resource Items</h2></a>
+        </div>
+        <div class="box-style">
+          <h3>
+            Resource Group 1 &nbsp;<span style="color: darkgray;"
+              >&nbsp;&#40; 144 resource items &#41;</span
+            >
+          </h3>
+
+          <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
+          <p>Provider: Provider 1</p>
+
+          <a><h2>View All Resource Items</h2></a>
+        </div>
+        <div class="box-style">
+          <h3>
+            Resource Group 1 &nbsp;<span style="color: darkgray;"
+              >&nbsp;&#40; 144 resource items &#41;</span
+            >
+          </h3>
+
+          <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
+          <p>Provider: Provider 1</p>
+
+          <a><h2>View All Resource Items</h2></a>
+        </div>
+      </div>
+      <div class="pagination-box">
+        <app-pagination
+          [maxPages]="6"
+          [current]="1"
+          [itemsPerPage]="10"
+        ></app-pagination>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+}
+.pagination-list li {
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+}
+
+.pagination-item-value a {
+  padding: 0 6px;
+  opacity: 0.3;
+  font-weight: 600;
+}
+
+.active {
+  background-color: lightgray;
+}
