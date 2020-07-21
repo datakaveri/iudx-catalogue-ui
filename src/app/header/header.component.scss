@@ -6,23 +6,25 @@ li {
   list-style-type: none;
 }
 
+.header {
+  padding: 20px 25px;
+}
+
 .header,
 .navList {
   display: flex;
   justify-content: space-between;
-  padding: 20px 25px;
   align-items: center;
 }
 
 .navigation {
   display: flex;
-  flex-basis: 25%;
+  width: 425px;
   position: relative;
 }
 
 .navList {
   flex-basis: 100%;
-  justify-content: space-around;
 }
 
 .navLink {
@@ -31,7 +33,6 @@ li {
 
 .logo {
   width: 130px;
-  padding-left: 20px;
 }
 
 
@@ -39,15 +40,15 @@ li {
 
 .developers,
 .documentation {
-  top: 90%;
+  top: 160%;
   position: absolute;
-  width: 80%;
+  width: 90%;
 }
 
 .developers {
   right: 20%;
   height: 20vh;
-  width: 80%;
+  width: 85%;
 }
 
 .documentation {

@@ -19,7 +19,7 @@ li {
   }
 
   &__left {
-    flex-basis: 20%;
+    flex-basis: 50%;
 
     &--content {
       color: #8c8c8c;
@@ -27,13 +27,16 @@ li {
   }
 
   &__right {
-    flex-basis: 35%;
+    flex-basis: 50%;
+    display: flex;
+    justify-content: flex-end;
   }
 
   &__list {
-    width: 100%;
+    width: 70%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    min-width: 500px;
   }
 
   &__item {

@@ -7,7 +7,7 @@ a {
   left: 50%;
   top: 45%;
   transform: translate(-50%, -50%);
-  width: 35%;
+  width: 800px;
   height: 57%;
 
   &__container {
@@ -42,26 +42,28 @@ a {
     text-align: center;
     height: 5%;
     margin-bottom: 20px;
+    font-size: 18px;
 
   }
 
   &__title,
   &__type {
     color: var(--primary);
-    font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
 
   }
 
   &__type {
-    flex-basis: 20%;
+    font-size: 16px;
+    flex-basis: 15%;
   }
 
   &__input {
-    flex-basis: 75%;
+    flex-basis: 80%;
   }
 
   &__inputBox {
+    box-sizing: border-box;
     font-weight: 500;
     width: 100%;
     padding: 8px;
@@ -86,4 +88,8 @@ a {
   font-weight: 600;
   text-align: center;
   color: #676767;
+}
+
+::placeholder {
+  color: var(--tertiary);
 }
