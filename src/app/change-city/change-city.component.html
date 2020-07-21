@@ -2,7 +2,8 @@
     <div class="searchCity__container">
         <div class="searchBox">
             <span class="searchBox__icon searchBox__icon--search"><img src='../../assets/search.png'></span>
-            <input (input)="handleChange()" type="text" class="searchBox__input" placeholder="Search City...">
+            <input (input)="handleChange()" [(ngModel)]="query" type="text" class="searchBox__input"
+                placeholder="Search City...">
             <span (click)='changeValue()' class="searchBox__icon searchBox__icon--close"><img
                     src='../../assets/cross.png'></span>
         </div>
