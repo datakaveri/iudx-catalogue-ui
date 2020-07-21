@@ -2,11 +2,13 @@
   margin-left: 30px;
   max-width: 1600px;
 }
+
 .search-div,
 .search-div button {
   display: flex;
   align-items: center;
 }
+
 .search-div {
   margin-top: 50px;
   width: 65%;
@@ -14,24 +16,29 @@
   // margin: 0 auto;
   border: 1px solid #ccc;
 }
+
 .search-div input,
 .search-div button {
   height: 100%;
   border: none;
 }
+
 .search-div input {
   width: 85%;
 }
+
 .search-div button {
   width: 15%;
   justify-content: space-evenly;
   padding: 5px;
 }
+
 .search-div img {
   padding-left: 3px;
   width: 20px;
   // text-align: center;
 }
+
 // .para-style {
 //   padding-top: 60px;
 // }
@@ -47,6 +54,7 @@
   width: 20px;
   padding-left: 15px;
 }
+
 .search-style {
   border-bottom: 1px solid rgb(209, 200, 200);
   width: 100%;
@@ -55,10 +63,12 @@
   margin-top: 20px;
   padding-bottom: 7px;
 }
+
 .search-style img {
   // padding-left: 20px;
   width: 20px;
 }
+
 .search-style input {
   //   margin-top: 30px;
   padding-left: 10px;
@@ -69,22 +79,27 @@
   display: flex;
   justify-content: space-between;
 }
+
 .box-left {
   flex-basis: 17%;
 }
+
 .box-left-container {
   width: 100%;
 }
+
 .box-right {
   width: 80%;
   // flex-basis: 80%;
   border-left: 1px solid #ccc;
   padding-left: 15px;
 }
+
 .checkbox-container {
   display: block;
   padding-bottom: 15px;
 }
+
 .box-style {
   box-shadow: 1px 1px 10px 0px #f3ecec;
   width: 100%;
@@ -99,13 +114,16 @@
 .box-style h2 {
   padding-top: 10px;
 }
+
 .box-style h2 {
   color: #34925e;
 }
+
 .box-style a:hover {
   text-decoration: underline;
   color: #03a89e;
 }
+
 .checkbox-round {
   width: 15px;
   height: 15px;
@@ -116,40 +134,49 @@
   outline: none;
   cursor: pointer;
 }
+
 .checkbox-round:checked {
   background-color: gray;
 }
+
 .link-container {
   display: flex;
   align-items: center;
 }
+
 .anchor-group {
   display: flex;
   align-items: center;
   float: right;
   margin-top: -45px;
 }
+
 .anchor-group a {
   border: 1px solid #ccc;
-  padding: 6px 24px; /* Some padding */
+  padding: 6px 24px;
+  /* Some padding */
   text-decoration: none;
 }
+
 .bold-color {
   color: var(--primary);
   font-weight: 500;
 }
+
 .pagination-box {
   position: fixed;
-  //   border: 1px solid red;
   left: 50%;
-  top: 95%;
+  top: 90%;
 }
+
 .cards-div {
   width: 100%;
 }
+
 .para-style p {
   color: rgb(148, 145, 145);
 }
+
 .active {
   background-color: #dddddd;
 }
