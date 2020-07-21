@@ -3,10 +3,11 @@
   --highlight: #4B7FD4;
   --secondary: #6c6c6c;
   --tertiary: #989898;
-  --border: #CCC;
-  --primary: #444444;
+  --border: #DDDDDD;
+  --primary: #2C2C2C;
   --white: #FFFFFF;
   --background: #FFFFFF;
+  --off-white: #F4F4F4;
   --error: #BD4931;
   --warning: #FFA700;
 }
@@ -17,11 +18,16 @@
   outline: 0;
   margin: 0;
   padding: 0;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--primary);
   line-height: 1.5;
   letter-spacing: 0.5px;
 }
+
+//optimal: 14px
+//smaller links: 12px
+//header: 18px
+//title: 16px
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -60,14 +66,4 @@ a {
 
 fadeIn {
   background: black;
-}
-
-
-// MIXINS
-
-@mixin centerer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
