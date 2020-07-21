@@ -11,10 +11,11 @@ import { InterceptorService } from '../interceptor.service';
 export class ChangeCityComponent implements OnInit {
 
   results: any[] = [];
+  query: string;
   result;
   queryField: FormControl = new FormControl();
   fadeIn: any;
-  baseUrl: string = 'https://api.github.com/users/aakashsr';
+  baseUrl: string = 'https://api.github.com/users/';
 
   constructor(private _changeCity: InterceptorService) { }
 
@@ -23,7 +24,7 @@ export class ChangeCityComponent implements OnInit {
   }
 
   handleChange() {
-    this._changeCity.get_api(this.baseUrl)
+    this._changeCity.get_api(this.baseUrl + this.query)
       .then((result) => this.results.push(result)
       )
   }

@@ -1,1 +1,29 @@
-<p>map-view works!</p>
+<div
+  id="map"
+  leaflet
+  [leafletOptions]="options"
+  (leafletDrawStart)="onDrawStart($event)"
+>
+  <div>
+    <button
+      style="z-index: 9999999;"
+      class="md-btn md-btn-raised"
+      (click)="showContainer = !showContainer"
+    >
+      Select Region
+    </button>
+  </div>
+  <div
+    class="leaflet-left leaflet-top"
+    *ngIf="showContainer"
+    leafletDraw
+    [leafletDrawOptions]="drawOptions"
+    [leafletDrawLocal]="drawLocal"
+    (leafletDrawCreated)="onDrawCreated($event)"
+  ></div>
+  >
+  <!-- Add the drawnItems featureGroup to the map -->
+  <div [leafletLayer]="drawnItems"></div>
+</div>
+
+<app-footer></app-footer>
