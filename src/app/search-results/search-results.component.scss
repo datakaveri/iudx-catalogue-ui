@@ -1,5 +1,6 @@
 .main-content {
   margin: 30px;
+  min-height: 75vh;
   //   max-width: 1600px;
 }
 
@@ -38,6 +39,7 @@
   width: 20px;
   // text-align: center;
 }
+
 .filter-div {
   display: flex;
 }
@@ -69,6 +71,7 @@
   padding-left: 10px;
   border: none;
 }
+
 .box-container {
   display: flex;
   justify-content: space-between;

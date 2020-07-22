@@ -5,10 +5,9 @@ li {
 .footer {
 
   background: #F4F4F4;
-  position: absolute;
-  bottom: 0px;
   width: 100%;
   padding: 10px 0;
+  min-height: 3vh;
 
   &__container {
     box-sizing: border-box;

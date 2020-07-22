@@ -1,35 +1,37 @@
-<div class="landingPage__container">
-    <div class="landingPage__top">
-        <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
-        <div class="searchBox">
-            <span class="searchBox__icon"><img src='../../assets/search.png'></span>
-            <input type="text" class="searchBox__input" placeholder="Search...">
-            <a (click)='goToAdvancedSearch()' class="searchBox__text">Advanced Search</a>
+<div class="landingPage">
+    <div class="landingPage__container">
+        <div class="landingPage__top">
+            <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
+            <div class="searchBox">
+                <span class="searchBox__icon"><img src='../../assets/search.png'></span>
+                <input type="text" class="searchBox__input" placeholder="Search...">
+                <a (click)='goToAdvancedSearch()' class="searchBox__text">Advanced Search</a>
+            </div>
+            <div class="searchButton__container">
+                <a href="#" class="searchButton">Search Dataset</a>
+                <a href="#" class="searchButton">Search Geo-Query</a>
+                <a href="#" class="searchButton">View All Datasets</a>
+            </div>
         </div>
-        <div class="searchButton__container">
-            <a href="#" class="searchButton">Search Dataset</a>
-            <a href="#" class="searchButton">Search Geo-Query</a>
-            <a href="#" class="searchButton">View All Datasets</a>
+        <div class="landingPage__bottom">
+            <ul class="data__list">
+                <li class="data__item">
+                    <div class="data__item--title">Datasets</div>
+                    <div class="data__item--content">{{data.resource_groups}}</div>
+                </li>
+                <li class="data__item">
+                    <div class="data__item--title">Resources</div>
+                    <div class="data__item--content">{{data.resource_items}}</div>
+                </li>
+                <li class="data__item">
+                    <div class="data__item--title">Publishers</div>
+                    <div class="data__item--content">{{data.api_calls}}</div>
+                </li>
+                <li class="data__item">
+                    <div class="data__item--title">API Hits</div>
+                    <div class="data__item--content">{{data.providers}}</div>
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="landingPage__bottom">
-        <ul class="data__list">
-            <li class="data__item">
-                <div class="data__item--title">Datasets</div>
-                <div class="data__item--content">5</div>
-            </li>
-            <li class="data__item">
-                <div class="data__item--title">Resources</div>
-                <div class="data__item--content">274</div>
-            </li>
-            <li class="data__item">
-                <div class="data__item--title">Publishers</div>
-                <div class="data__item--content">1</div>
-            </li>
-            <li class="data__item">
-                <div class="data__item--title">API Hits</div>
-                <div class="data__item--content">471</div>
-            </li>
-        </ul>
     </div>
 </div>

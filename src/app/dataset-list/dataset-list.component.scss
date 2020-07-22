@@ -77,6 +77,7 @@
 .box-container {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .box-left {
@@ -148,10 +149,11 @@
 // }
 
 .pagination-box {
-  position: fixed;
+  // position: fixed;
   //   border: 1px solid red;
   left: 50%;
-  top: 85%;
+  padding: 30px 0;
+  // top: 85%;
 }
 
 .cards-div {

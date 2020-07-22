@@ -3,12 +3,16 @@ a {
 }
 
 .advanceSearch {
-  position: absolute;
-  left: 50%;
-  top: 45%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 57%;
+  min-height: 85vh;
+
+  &__wrapper {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 57%;
+  }
 
   &__container {
     box-sizing: border-box;

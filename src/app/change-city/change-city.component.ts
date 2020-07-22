@@ -10,6 +10,34 @@ import { InterceptorService } from '../interceptor.service';
 })
 export class ChangeCityComponent implements OnInit {
 
+  citiesData = [
+    {
+      "city": "Bengaluru",
+      "key": "bengaluru"
+    },
+    {
+      "city": "Varanasi",
+      "key": "varanasi"
+    },
+    {
+      "city": "Pune",
+      "key": "pune"
+    },
+    {
+      "city": "Chandigarh",
+      "key": "chandigarh"
+    },
+    {
+      "city": "Vadodara",
+      "key": "vadodara"
+    },
+    {
+      "city": "Gaya",
+      "key": "gaya"
+    }
+
+  ]
+
   results: any[] = [];
   query: string;
   result;
