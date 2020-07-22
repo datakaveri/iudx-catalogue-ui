@@ -19,7 +19,7 @@ li {
 
 .navigation {
   display: flex;
-  width: 425px;
+  width: 375px;
   position: relative;
 }
 
@@ -42,17 +42,19 @@ li {
 .documentation {
   top: 160%;
   position: absolute;
-  width: 90%;
+  width: 100%;
+  z-index: 1;
+  background: #fff;
+
 }
 
 .developers {
-  right: 20%;
+  right: 10%;
   height: 20vh;
-  width: 85%;
 }
 
 .documentation {
-  right: 10%;
+  right: 0%;
   height: 12vh;
 }
 

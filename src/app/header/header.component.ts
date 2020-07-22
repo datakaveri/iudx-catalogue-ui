@@ -7,12 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  showDevCard: boolean;
+  showDocCard: boolean;
+
+  constructor() {
+    this.showDevCard = false;
+    this.showDocCard = false;
+
+  }
 
   ngOnInit(): void {
   }
 
-  showDevCard: boolean = false;
-  showDocCard: boolean = false;
 
 }

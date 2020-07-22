@@ -5,42 +5,48 @@
     <nav class='navigation'>
         <ul class="navList">
             <li class="navItem"><a href="#" class="navLink">Blogs</a></li>
-            <li (mouseover)="showDevCard=true" (mouseout)="showDevCard=false" class="navItem"><a href="#"
-                    class="navLink">Developers</a></li>
-            <li (mouseover)="showDocCard=true" (mouseout)="showDocCard=false" class="navItem"><a href="#"
-                    class="navLink">Documentation</a></li>
+            <li (mouseenter)="showDevCard=true" (mouseleave)="showDevCard=false" class="navItem"><a href="#"
+                    class="navLink">Developers</a>
+                <div *ngIf='showDevCard' class="developers">
+                    <span class="arrow arrow__developers">&#9650;</span>
+                    <div class="developers__container">
+                        <ul class="developers__item">
+                            <li class="developers__title"><a href='#'>API Docs</a></li>
+                            <li class="developers__description">Full Endpoint Documentation for all</li>
+                        </ul>
+                        <ul class="developers__item">
+                            <li class="developers__title"><a href='#'>Jupyter Notebook</a></li>
+                            <li class="developers__description">Full Endpoint Documentation for all</li>
+                        </ul>
+                        <ul class="developers__item">
+                            <li class="developers__title"><a href='#'>Python SDK</a></li>
+                            <li class="developers__description">Full Endpoint Documentation for all</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li (mouseenter)="showDocCard=true" (mouseleave)="showDocCard=false" class="navItem"><a href="#"
+                    class="navLink">Documentation</a>
+                <div *ngIf="showDocCard" class="documentation">
+                    <span class="arrow arrow__documentation">&#9650;</span>
+                    <div class="documentation__container">
+                        <ul class="documentation__item">
+                            <li class="documentation__title"><a href='#'>Get Started</a></li>
+                            <li class="documentation__description">Get to "Ahoy, World!" fast in your stack.</li>
+                        </ul>
+                        <ul class="documentation__item">
+                            <li class="documentation__title"><a href='#'>Overview</a></li>
+                            <li class="documentation__description">Get an overview of IUDX</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
         </ul>
-        <div *ngIf="showDevCard" class="developers">
-            <span class="arrow arrow__developers">&#9650;</span>
-            <div class="developers__container">
-                <div class="developers__item">
-                    <div class="developers__title">API Docs</div>
-                    <div class="developers__description">Full Endpoint Documentation for all</div>
-                </div>
-                <div class="developers__item">
-                    <div class="developers__title">Jupyter Notebook</div>
-                    <div class="developers__description">Full Endpoint Documentation for all</div>
-                </div>
-                <div class="developers__item">
-                    <div class="developers__title">Python SDK</div>
-                    <div class="developers__description">Full Endpoint Documentation for all</div>
-                </div>
-            </div>
-        </div>
 
-        <div *ngIf="showDocCard" class="documentation">
-            <span class="arrow arrow__documentation">&#9650;</span>
-            <div class="documentation__container">
-                <div class="documentation__item">
-                    <div class="documentation__title">Get Started</div>
-                    <div class="documentation__description">Get to "Ahoy, World!" fast in your stack.</div>
-                </div>
-                <div class="documentation__item">
-                    <div class="documentation__title">Overview</div>
-                    <div class="documentation__description">Get an overview of IUDX</div>
-                </div>
-            </div>
-        </div>
+
+
+
+
     </nav>
 
 </header>
