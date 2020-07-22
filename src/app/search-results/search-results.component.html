@@ -1,1 +1,53 @@
-<router-outlet></router-outlet>
+<div class="main-content">
+  <div class="search-div">
+    <input type="text" class="form-control" placeholder="" #search />
+    <button type="submit" (click)="getResourceGroups(search.value)">
+      <img src="../../assets/search.png" /><span>Search</span>
+    </button>
+  </div>
+  <div *ngIf="listMapBtm" class="anchor-group">
+    <a
+      routerLink="/search/items"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >List</a
+    >
+    <a routerLink="/search/map">Map</a>
+  </div>
+  <br />
+  <div class="para-style">
+    <span class="bold-color">200</span> datasets for
+    <span class="bold-color">Pollution</span> matching search criteria
+  </div>
+  <br />
+  <div class="box-container">
+    <div class="box-left">
+      <div class="box-left-container">
+        <div class="filter-div">
+          <h2>Provider</h2>
+          <img src="../../assets/filter.png" />
+        </div>
+        <div class="search-style">
+          <img src="../../assets/search.png" />
+          <input type="text" placeholder="Search..." />
+        </div>
+        <br />
+        <div class="checkbox" *ngFor="let option of providers">
+          <label class="checkbox-container">
+            <input
+              class="checkbox-round"
+              type="checkbox"
+              value="{{ option }}"
+              (change)="getDataForProviders($event, option)"
+            />
+            <span class="checkmark"></span>
+            {{ option }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="box-right">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -19,7 +19,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { NotifierComponent } from './notifier/notifier.component';
 import { AlertComponent } from './alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 @NgModule({
   declarations: [
@@ -37,16 +38,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoaderComponent,
     NotifierComponent,
-    AlertComponent
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LeafletModule,
+    LeafletDrawModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

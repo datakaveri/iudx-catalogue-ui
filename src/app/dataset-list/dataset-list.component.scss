@@ -1,7 +1,7 @@
-.main-content {
-  margin-left: 30px;
-  max-width: 1600px;
-}
+// .main-content {
+//   margin: 30px;
+//   max-width: 1600px;
+// }
 
 .search-div,
 .search-div button {
@@ -99,10 +99,10 @@
 }
 
 .box-style {
-  box-shadow: 1px 1px 10px 0px #f3ecec;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   width: 100%;
   align-items: center;
-  width: 98%;
+  width: calc(100%-65px);
   transition: background-color 0.2s;
   margin-bottom: 10px;
   padding: 15px 25px;
@@ -142,10 +142,10 @@
   align-items: center;
 }
 
-.bold-color {
-  color: var(--primary);
-  font-weight: 500;
-}
+// .bold-color {
+//   color: var(--primary);
+//   font-weight: 500;
+// }
 
 .pagination-box {
   position: fixed;
@@ -160,4 +160,8 @@
 
 .para-style p {
   color: rgb(148, 145, 145);
+}
+
+.box-style h3 {
+  font-weight: 500;
 }
