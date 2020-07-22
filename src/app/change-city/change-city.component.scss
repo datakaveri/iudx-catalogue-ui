@@ -7,7 +7,7 @@
   top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 15px 20px;
+  padding: 15px 25px;
   border-radius: 10px;
   -webkit-box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
@@ -27,7 +27,7 @@
   }
 
   &__title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
 
     color: #444444;
@@ -38,7 +38,7 @@
   }
 
   &__description {
-    font-size: 18px;
+    font-size: 16px;
     color: #a0a0a0;
   }
 
@@ -80,7 +80,7 @@
   &__input {
     border: none;
     flex-basis: 80%;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   &__text {
@@ -102,4 +102,8 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
+}
+
+::placeholder {
+  color: var(--tertiary);
 }
