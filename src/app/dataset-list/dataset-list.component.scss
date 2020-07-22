@@ -100,7 +100,6 @@
 
 .box-style {
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  width: 100%;
   align-items: center;
   width: calc(100%-65px);
   transition: background-color 0.2s;
@@ -151,7 +150,7 @@
   position: fixed;
   //   border: 1px solid red;
   left: 50%;
-  top: 85%;
+  top: 90%;
 }
 
 .cards-div {
