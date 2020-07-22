@@ -43,25 +43,22 @@ li {
   top: 160%;
   position: absolute;
   width: 100%;
-  z-index: 1;
+  z-index: 99999999;
   background: #fff;
 
 }
 
 .developers {
   right: 10%;
-  height: 20vh;
 }
 
 .documentation {
   right: 0%;
-  height: 12vh;
 }
 
 
 .developers__container,
 .documentation__container {
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -75,6 +72,7 @@ li {
 .documentation__item {
   color: var(--primary);
   font-size: 18px;
+  padding: 15px 0;
 }
 
 .developers__description,
