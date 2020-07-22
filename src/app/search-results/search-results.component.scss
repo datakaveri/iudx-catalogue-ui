@@ -1,5 +1,5 @@
 .main-content {
-  margin: 30px;
+  margin: 0px 25px;
   //   max-width: 1600px;
 }
 
@@ -10,11 +10,11 @@
 }
 
 .search-div {
-  margin-top: 50px;
-  width: 65%;
+  // margin-top: 50px;
+  width: 52%;
   height: 40px;
   // margin: 0 auto;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
 }
 
 .search-div input,
@@ -28,23 +28,33 @@
 }
 
 .search-div button {
-  width: 15%;
+  width: 18%;
   justify-content: space-evenly;
   padding: 5px;
+  background-color: var(--border);
 }
 
 .search-div img {
-  padding-left: 3px;
+  // padding-left: 3px;
   width: 20px;
   // text-align: center;
 }
+.search-div-btn {
+  color: var(--secondary);
+  font-weight: 500;
+  font-size: 15px;
+}
+.para-style > p > span {
+  font-size: 18px;
+}
 
 .highlight-color {
-  color: var(--secondary);
-  // font-weight: 600px !important;
+  color: var(--tertiary);
+  font-weight: 500 !important;
 }
 .filter-div {
   display: flex;
+  margin: 10px 0px;
 }
 
 // .filter-div hr {
@@ -55,13 +65,18 @@
   padding-left: 15px;
 }
 
+.filter-div h2 > span {
+  font-size: 15px;
+  color: var(--tertiary);
+}
+
 .search-style {
-  border-bottom: 1px solid rgb(209, 200, 200);
+  border-bottom: 1px solid var(--border);
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  padding-bottom: 7px;
+  margin: 20px 25px 0px 0px;
+  padding: 7px 0px;
 }
 
 .search-style img {
@@ -89,8 +104,8 @@
 
 .box-right {
   width: 80%;
-  border-left: 1px solid #ccc;
-  padding-left: 15px;
+  border-left: 1px solid var(--border);
+  padding-left: 25px;
 }
 
 .checkbox-container {
@@ -115,5 +130,5 @@
 
 .bold-color {
   color: var(--primary);
-  font-weight: 600;
+  font-weight: 500;
 }
