@@ -23,6 +23,32 @@ export class DatasetListComponent implements OnInit {
         address: 'Bangalore',
       },
     },
+    {
+      description:
+        'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',
+      tags: 'sensor, sensing, resource, battery operated',
+      status: 'active',
+      provider: 'Provider 1',
+      control_level: 'level_1',
+      created_at: '2019-02-20T10:30:06.093121',
+      location: {
+        type: 'Place',
+        address: 'Bangalore',
+      },
+    },
+    {
+      description:
+        'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',
+      tags: 'sensor, sensing, resource, battery operated',
+      status: 'active',
+      provider: 'Provider 1',
+      control_level: 'level_1',
+      created_at: '2019-02-20T10:30:06.093121',
+      location: {
+        type: 'Place',
+        address: 'Bangalore',
+      },
+    },
   ];
   providers = ['Provider 1', 'Provider 2', 'Provider 3', 'Provider 4'];
   ngOnInit(): void {}

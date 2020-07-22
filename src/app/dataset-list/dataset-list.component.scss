@@ -1,7 +1,6 @@
-// .main-content {
-//   margin: 30px;
-//   max-width: 1600px;
-// }
+.main-content {
+  position: relative;
+}
 
 .search-div,
 .search-div button {
@@ -150,10 +149,10 @@
 // }
 
 .pagination-box {
-  position: fixed;
+  position: absolute;
   //   border: 1px solid red;
-  left: 50%;
-  top: 90%;
+  left: 40%;
+  bottom: -10%;
 }
 
 .cards-div {
