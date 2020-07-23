@@ -46,17 +46,30 @@
     </div> -->
     <!-- <div class="box-right"> -->
     <div class="cards-div">
-      <div class="box-style" *ngFor="let resource of resources">
+      <div class="box-style" *ngFor="let resource of resource_grps">
         <p>
-          <span class="bold-color"> Resource Group 1</span> &nbsp;<span
+          <span class="bold-color">{{ resource.description }}</span>
+          <!-- &nbsp;<span
             class="highlight-style"
             >&nbsp;&#40; 144 resource items &#41;</span
-          >
+          > -->
         </p>
 
-        <p>{{ resource.description }}</p>
+        <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
+        <p>
+          <span class="highlight-style">Status: </span>{{ resource.status }}
+        </p>
+        <p>
+          <span class="highlight-style">Created At: </span
+          >{{ resource.created_at | date: "medium" }}
+        </p>
+
         <p>
           <span class="highlight-style">Provider: </span>{{ resource.provider }}
+        </p>
+        <p>
+          <span class="highlight-style">Location: </span
+          >{{ resource.location.address }}
         </p>
 
         <a (click)="getResourceItems('Resource Group 1')"
