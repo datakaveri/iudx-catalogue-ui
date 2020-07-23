@@ -98,15 +98,34 @@
     <!-- </div> -->
     <!-- <div class="box-right"> -->
     <div class="cards-div">
-      <div class="box-style">
+      <div class="box-style" *ngFor="let item of resource_items">
         <p>
-          <span class="bold-color"> Resource Item 1</span> &nbsp;<span style="color: darkgray;">&nbsp;&#40; 144 resource
-            items &#41;</span>
+          <span class="bold-color">{{ item.name }}</span>
         </p>
 
-        <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
-        <p>Provider: Provider 1</p>
-        <p><span>Resource group:</span> Resource Group 1</p>
+        <p>{{ item.description }}</p>
+        <p><span class="highlight-style">Tags: </span>{{ item.tags }}</p>
+
+        <p><span class="highlight-style">Status: </span>{{ item.status }}</p>
+        <p>
+          <span class="highlight-style">Created At: </span
+          >{{ item.created_at | date: "medium" }}
+        </p>
+        <p>
+          <span class="highlight-style">Modified At: </span
+          >{{ item.modified_at | date: "medium" }}
+        </p>
+        <p>
+          <span class="highlight-style">Provider: </span>{{ item.provider }}
+        </p>
+        <p>
+          <span class="highlight-style">Resource group:</span>
+          {{ item.resource_group }}
+        </p>
+        <p>
+          <span class="highlight-style">Location: </span
+          >{{ item.location.address }}
+        </p>
 
         <div class="link-container">
           <a style="padding-right: 15px;">
@@ -118,68 +137,14 @@
           </a>
         </div>
       </div>
-      <div class="box-style">
-        <h3>
-          Resource Item 1 &nbsp;
-        </h3>
-
-        <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
-        <p>Provider: Provider 1</p>
-        <p><span>Resource group:</span> Resource Group 1</p>
-
-        <div class="link-container">
-          <a style="padding-right: 15px;">
-            <h2>View Details</h2>
-          </a>
-
-          <a>
-            <h2>Get Latest Data</h2>
-          </a>
-        </div>
-      </div>
-      <div class="box-style">
-        <h3>
-          Resource Item 1 &nbsp;<span style="color: darkgray;">&nbsp;&#40; 144 resource items &#41;</span>
-        </h3>
-
-        <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
-        <p>Provider: Provider 1</p>
-        <p><span>Resource group:</span> Resource Group 1</p>
-
-        <div class="link-container">
-          <a style="padding-right: 15px;">
-            <h2>View Details</h2>
-          </a>
-
-          <a>
-            <h2>Get Latest Data</h2>
-          </a>
-        </div>
-      </div>
-      <div class="box-style">
-        <h3>
-          Resource Item 1 &nbsp;<span style="color: darkgray;">&nbsp;&#40; 144 resource items &#41;</span>
-        </h3>
-
-        <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
-        <p>Provider: Provider 1</p>
-        <p><span>Resource group:</span> Resource Group 1</p>
-
-        <div class="link-container">
-          <a style="padding-right: 15px;">
-            <h2>View Details</h2>
-          </a>
-
-          <a>
-            <h2>Get Latest Data</h2>
-          </a>
-        </div>
-      </div>
-
     </div>
     <div class="pagination-box">
-      <app-pagination [maxPages]="maxPages" [current]="currentPage" [itemsPerPage]="itemsPerPage"
-        (changePage)="pageChanged($event)"></app-pagination>
+      <app-pagination
+        [maxPages]="maxPages"
+        [current]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (changePage)="pageChanged($event)"
+      ></app-pagination>
     </div>
     <!-- </div> -->
   </div>

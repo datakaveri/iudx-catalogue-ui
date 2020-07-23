@@ -9,7 +9,7 @@ export class DatasetListComponent implements OnInit {
   @Input() listMapBtn: boolean = false;
   constructor(private router: Router) {}
 
-  resources = [
+  resource_grps = [
     {
       description:
         'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',

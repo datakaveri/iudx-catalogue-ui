@@ -55,7 +55,7 @@
   width: calc(100%-65px);
   transition: background-color 0.2s;
   margin-bottom: 10px;
-  padding: 15px 15px;
+  padding: 0px 15px 15px;
 }
 
 .box-style p,
@@ -79,6 +79,9 @@
   font-weight: 500;
 }
 
+.highlight-style {
+  color: var(--tertiary);
+}
 .checkbox-round {
   width: 15px;
   height: 15px;
