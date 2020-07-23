@@ -2,7 +2,9 @@
   <div class="search-div">
     <input type="text" class="form-control" placeholder="" #search />
     <button type="submit" (click)="getResourceGroups(search.value)">
-      <img src="../../assets/search.png" /><span>Search</span>
+      <img src="../../assets/search.png" /><span class="search-div-btn"
+        >Search</span
+      >
     </button>
   </div>
   <div *ngIf="listMapBtn" class="anchor-group">
@@ -28,7 +30,7 @@
     <div class="box-left">
       <div class="box-left-container">
         <div class="filter-div">
-          <h2>Provider</h2>
+          <h2><span class="highlight-color">Provider</span></h2>
           <img src="../../assets/filter.png" />
         </div>
         <div class="search-style">
