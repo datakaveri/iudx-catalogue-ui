@@ -46,13 +46,15 @@
     </div> -->
     <!-- <div class="box-right"> -->
     <div class="cards-div">
-      <div class="box-style">
+      <div class="box-style" *ngFor="let resource of resources">
         <h3>
-          Resource Group 1 &nbsp;<span style="color: darkgray;">&nbsp;&#40; 144 resource items &#41;</span>
+          Resource Group 1 &nbsp;<span class="highlight-style">&nbsp;&#40; 144 resource items &#41;</span>
         </h3>
 
-        <p>Describes Air Qwality Monitoring (AQM) Resource in Varanasi</p>
-        <p>Provider: Provider 1</p>
+        <p>{{ resource.description }}</p>
+        <p>
+          <span class="highlight-style">Provider: </span>{{ resource.provider }}
+        </p>
 
         <a>
           <h2>View All Resource Items</h2>
@@ -79,6 +81,9 @@
         <p>Provider: Provider 1</p>
 
         <a>
+          <h2>View All Resource Items</h2>
+        </a>
+        <a (click)="getResourceItems('Resource Group 1')">
           <h2>View All Resource Items</h2>
         </a>
       </div>

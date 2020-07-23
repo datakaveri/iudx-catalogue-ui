@@ -40,6 +40,11 @@
   // text-align: center;
 }
 
+.highlight-color {
+  color: var(--secondary);
+  // font-weight: 600px !important;
+}
+
 .filter-div {
   display: flex;
 }

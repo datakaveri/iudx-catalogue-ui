@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class SearchResultsComponent implements OnInit {
   providers = ['Provider 1', 'Provider 2', 'Provider 3', 'Provider 4'];
-  listMapBtm = false;
+  listMapBtn = false;
   constructor(private router: Router) {}
   ngOnInit(): void {
     this.getRouter();
@@ -20,7 +20,7 @@ export class SearchResultsComponent implements OnInit {
   getRouter() {
     console.log(this.router.url);
     if (this.router.url == '/saerch/items') {
-      this.listMapBtm = true;
+      this.listMapBtn = true;
     }
   }
 }

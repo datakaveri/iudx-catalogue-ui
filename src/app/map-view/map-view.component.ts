@@ -13,6 +13,7 @@ import {
   polygon,
   layerGroup,
   featureGroup,
+  Marker,
 } from 'leaflet';
 @Component({
   selector: 'app-map-view',
@@ -24,9 +25,14 @@ export class MapViewComponent {
   drawnItems: FeatureGroup = featureGroup();
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Open Street Map',
-      }),
+      tileLayer(
+        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        {
+          attribution:
+            '<span id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
+            '</span>',
+        }
+      ),
     ],
     zoom: 13,
     center: latLng({ lat: 12.9716, lng: 77.5946 }),
@@ -39,11 +45,12 @@ export class MapViewComponent {
         icon: icon({
           iconSize: [25, 41],
           iconAnchor: [13, 41],
-          iconUrl: './assets/marker.png',
+          iconUrl: 'assets/marker-icon.png',
           iconRetinaUrl: '680f69f3c2e6b90c1812a813edf67fd7.png',
           shadowUrl: 'a0c6cc1401c107b501efee6477816891.png',
         }),
       },
+      circle: false,
     },
     edit: {
       featureGroup: this.drawnItems,
@@ -55,6 +62,8 @@ export class MapViewComponent {
       toolbar: {
         buttons: {
           polygon: 'Draw an awesome polygon!',
+          circle: false,
+          marker: false,
         },
       },
     },

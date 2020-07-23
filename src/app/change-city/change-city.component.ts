@@ -12,28 +12,34 @@ export class ChangeCityComponent implements OnInit {
 
   citiesData = [
     {
-      "city": "Bengaluru",
-      "key": "bengaluru"
+      city: "Bengaluru",
+      key: "bengaluru",
+      resource_count: 122
     },
     {
-      "city": "Varanasi",
-      "key": "varanasi"
+      city: "Varanasi",
+      key: "varanasi",
+      resource_count: 544
     },
     {
-      "city": "Pune",
-      "key": "pune"
+      city: "Pune",
+      key: "pune",
+      resource_count: 123
     },
     {
-      "city": "Chandigarh",
-      "key": "chandigarh"
+      city: "Chandigarh",
+      key: "chandigarh",
+      resource_count: 12
     },
     {
-      "city": "Vadodara",
-      "key": "vadodara"
+      city: "Vadodara",
+      key: "vadodara",
+      resource_count: 233
     },
     {
-      "city": "Gaya",
-      "key": "gaya"
+      city: "Gaya",
+      key: "gaya",
+      resource_count: 46
     }
 
   ]

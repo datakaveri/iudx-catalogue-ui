@@ -1,7 +1,6 @@
-// .main-content {
-//   margin: 30px;
-//   max-width: 1600px;
-// }
+.main-content {
+  position: relative;
+}
 
 .search-div,
 .search-div button {
@@ -101,7 +100,6 @@
 
 .box-style {
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  width: 100%;
   align-items: center;
   width: calc(100%-65px);
   transition: background-color 0.2s;
@@ -121,6 +119,10 @@
 .box-style a:hover {
   text-decoration: underline;
   color: #03a89e;
+}
+
+.highlight-style {
+  color: var(--tertiary);
 }
 
 .checkbox-round {
