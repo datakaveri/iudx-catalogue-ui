@@ -1,11 +1,12 @@
 <div class="landingPage">
+    <div class="fadeIn"></div>
     <div class="landingPage__container">
         <div class="landingPage__top">
             <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
             <div class="searchBox">
                 <span class="searchBox__icon"><img src='../../assets/search.png'></span>
                 <input type="text" class="searchBox__input" placeholder="Search...">
-                <a (click)='goToAdvancedSearch()' class="searchBox__text">Advanced Search</a>
+                <a (click)='goToAdvanceSearch()' class="searchBox__text">Advanced Search</a>
             </div>
             <div class="searchButton__container">
                 <a href="#" class="searchButton">Search Dataset</a>
@@ -35,3 +36,4 @@
         </div>
     </div>
 </div>
+<app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"></app-advanced-search>

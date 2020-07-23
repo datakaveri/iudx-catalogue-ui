@@ -57,11 +57,11 @@ export class ChangeCityComponent implements OnInit {
 
   }
 
-  handleChange() {
-    this._changeCity.get_api(this.baseUrl + this.query)
-      .then((result) => this.results.push(result)
-      )
-  }
+  // handleChange() {
+  //   this._changeCity.get_api(this.baseUrl + this.query)
+  //     .then((result) => this.results.push(result)
+  //     )
+  // }
 
 
   @Output() showChangeCity = new EventEmitter();

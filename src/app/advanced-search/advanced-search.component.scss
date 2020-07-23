@@ -3,7 +3,7 @@ a {
 }
 
 .advanceSearch {
-  min-height: 85vh;
+  // min-height: 85vh;
 
   &__header {
     display: flex;
@@ -15,11 +15,14 @@ a {
   &__wrapper {
     position: absolute;
     left: 50%;
-    top: 45%;
+    top: 48%;
     transform: translate(-50%, -50%);
     width: 800px;
     border-radius: 10px;
     border: 1px solid var(--border);
+    background-color: #fff;
+    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
+    z-index: 2;
   }
 
   &__container {
@@ -108,6 +111,10 @@ a {
   display: flex;
   align-items: center;
   flex-basis: 2%;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   img {
     width: 20px;

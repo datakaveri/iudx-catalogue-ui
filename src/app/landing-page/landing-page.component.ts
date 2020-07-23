@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 })
 export class LandingPageComponent implements OnInit {
 
+  showAdvanceSearch: boolean = false;
+  fadeIn: any;
+
   data = {
     resource_groups: 274,
     resource_items: 783,
@@ -20,7 +23,18 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToAdvancedSearch() {
-    this.router.navigate(['advanced-search']);
+  goToAdvanceSearch() {
+    // this.router.navigate(['advanced-search']);
+
+    this.fadeIn = document.querySelector('.fadeIn')
+    this.fadeIn.style.opacity = 1;
+    this.fadeIn.style.visibility = 'visible';
+
+    // showing the advanceSearch popup
+    this.showAdvanceSearch = true;
+  }
+
+  getAdvanceSearch(value) {
+    this.showAdvanceSearch = value;
   }
 }
