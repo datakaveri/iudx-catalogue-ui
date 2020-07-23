@@ -5,19 +5,26 @@ a {
 .advanceSearch {
   min-height: 85vh;
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+  }
+
   &__wrapper {
     position: absolute;
     left: 50%;
     top: 45%;
     transform: translate(-50%, -50%);
     width: 800px;
-    height: 57%;
+    border-radius: 10px;
+    border: 1px solid var(--border);
   }
 
   &__container {
     box-sizing: border-box;
-    border: 1px solid var(--border);
-    padding: 30px;
+    padding: 10px 30px 30px 30px;
     width: 100%;
     border-radius: 10px;
     height: 95%;
@@ -35,25 +42,24 @@ a {
   }
 
   &__item:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
   &__item:last-child {
     margin: 10px 0;
   }
 
-  &__title {
-    text-align: center;
-    height: 5%;
-    margin-bottom: 20px;
-    font-size: 18px;
-
-  }
-
   &__title,
   &__type {
     color: var(--primary);
     font-weight: 500;
+  }
+
+  &__title {
+    text-align: center;
+    height: 5%;
+    font-size: 18px;
+    flex-basis: 98%;
 
   }
 
@@ -96,4 +102,14 @@ a {
 
 ::placeholder {
   color: var(--tertiary);
+}
+
+.searchBox__icon {
+  display: flex;
+  align-items: center;
+  flex-basis: 2%;
+
+  img {
+    width: 20px;
+  }
 }
