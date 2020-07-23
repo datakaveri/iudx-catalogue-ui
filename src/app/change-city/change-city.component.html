@@ -9,11 +9,11 @@
         </div>
         <div class="searchCity__contentBox">
             <!-- <div *ngFor='let result of results' class="searchCity__item"> -->
-            <div class="searchCity__item">
-                <div class="searchCity__title">Bengaluru</div>
-                <div class="searchCity__description">122 Resource Items</div>
+            <div *ngFor="let data of citiesData" class="searchCity__item">
+                <div class="searchCity__title">{{data.city}}</div>
+                <div class="searchCity__description">{{data.resource_count}} Resource Items</div>
             </div>
-            <div class="searchCity__item">
+            <!-- <div class="searchCity__item">
                 <div class="searchCity__title">Varanasi</div>
                 <div class="searchCity__description">544 Resource Items</div>
             </div>
@@ -32,7 +32,7 @@
             <div class="searchCity__item">
                 <div class="searchCity__title">Gaya</div>
                 <div class="searchCity__description">46 Resource Items</div>
-            </div>
+            </div> -->
             <!-- </div> -->
         </div>
 

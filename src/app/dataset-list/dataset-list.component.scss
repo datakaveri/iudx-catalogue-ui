@@ -37,6 +37,7 @@
 .box-container {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .box-left {
@@ -78,6 +79,7 @@
 .highlight-style {
   color: var(--tertiary);
 }
+
 .checkbox-round {
   width: 15px;
   height: 15px;
@@ -105,10 +107,11 @@
 }
 
 .pagination-box {
-  position: absolute;
+  // position: fixed;
   //   border: 1px solid red;
-  left: 40%;
-  bottom: -10%;
+  left: 50%;
+  padding: 30px 0;
+  // top: 85%;
 }
 
 .cards-div {

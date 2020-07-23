@@ -33,6 +33,7 @@
 .box-container {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .box-left {
@@ -69,6 +70,7 @@
 .box-style h3 {
   font-weight: 500;
 }
+
 .box-style a:hover {
   text-decoration: underline;
   color: #34925e;
@@ -121,9 +123,8 @@
 }
 
 .pagination-box {
-  position: absolute;
   left: 50%;
-  top: 100%;
+  padding: 30px 0;
 }
 
 .cards-div {

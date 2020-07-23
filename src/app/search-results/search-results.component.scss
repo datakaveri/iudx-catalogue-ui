@@ -1,6 +1,6 @@
 .main-content {
+  min-height: 75vh;
   margin: 0px 25px;
-  //   max-width: 1600px;
 }
 
 .search-div,
@@ -39,12 +39,14 @@
   width: 20px;
   // text-align: center;
 }
+
 .search-div-btn {
   color: var(--secondary);
   font-weight: 500;
   font-size: 15px;
 }
-.para-style > p > span {
+
+.para-style>p>span {
   font-size: 18px;
 }
 
@@ -52,6 +54,7 @@
   color: var(--tertiary);
   font-weight: 500 !important;
 }
+
 .filter-div {
   display: flex;
   margin: 10px 0px;
@@ -65,7 +68,7 @@
   padding-left: 15px;
 }
 
-.filter-div h2 > span {
+.filter-div h2>span {
   font-size: 15px;
   color: var(--tertiary);
 }
@@ -89,6 +92,7 @@
   padding-left: 10px;
   border: none;
 }
+
 .box-container {
   display: flex;
   justify-content: space-between;

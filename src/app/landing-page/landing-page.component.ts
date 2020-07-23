@@ -8,6 +8,13 @@ import { Router } from '@angular/router';
 })
 export class LandingPageComponent implements OnInit {
 
+  data = {
+    resource_groups: 274,
+    resource_items: 783,
+    api_calls: 2412,
+    providers: 17
+  }
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
