@@ -1,7 +1,11 @@
+/*----Main-Container-----*/
+
 .main-content {
-  min-height: 75vh;
+  // min-height: 75vh;
   margin: 0px 25px;
 }
+
+/*----Input box Search Style------*/
 
 .search-div,
 .search-div button {
@@ -45,16 +49,33 @@
   font-weight: 500;
   font-size: 15px;
 }
+/*--Paragraph Style------*/
 
-.para-style>p>span {
+.para-style > p > span {
   font-size: 18px;
 }
-
 .highlight-color {
   color: var(--tertiary);
   font-weight: 500 !important;
 }
+.bold {
+  color: var(--primary);
+  font-weight: 500;
+}
 
+.anchor-group {
+  display: flex;
+  align-items: center;
+  float: right;
+  margin-top: -45px;
+}
+
+.anchor-group a {
+  border: 1px solid #ccc;
+  padding: 6px 24px;
+  text-decoration: none;
+}
+/*----Filter Style------*/
 .filter-div {
   display: flex;
   margin: 10px 0px;
@@ -68,7 +89,7 @@
   padding-left: 15px;
 }
 
-.filter-div h2>span {
+.filter-div h2 > span {
   font-size: 15px;
   color: var(--tertiary);
 }
@@ -111,7 +132,13 @@
   border-left: 1px solid var(--border);
   padding-left: 25px;
 }
+/*----Checkboxes------*/
 
+.checkbox {
+  // border: 1px solid #ccc;
+  height: 200px;
+  overflow-y: scroll;
+}
 .checkbox-container {
   display: block;
   padding-bottom: 15px;
@@ -130,9 +157,4 @@
 
 .checkbox-round:checked {
   background-color: gray;
-}
-
-.bold-color {
-  color: var(--primary);
-  font-weight: 500;
 }
