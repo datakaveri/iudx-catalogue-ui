@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   showAdvanceSearch: boolean = false;
-  fadeIn: any;
+  overlay: boolean = false;
 
   data = {
     resource_groups: 274,
@@ -18,23 +18,26 @@ export class LandingPageComponent implements OnInit {
     providers: 17
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.showAdvanceSearch = false;
+    this.overlay = false;
+  }
 
   ngOnInit(): void {
   }
 
   goToAdvanceSearch() {
-    // this.router.navigate(['advanced-search']);
-
-    this.fadeIn = document.querySelector('.fadeIn')
-    this.fadeIn.style.opacity = 1;
-    this.fadeIn.style.visibility = 'visible';
-
+    // showing the overlay
+    this.overlay = true;
     // showing the advanceSearch popup
     this.showAdvanceSearch = true;
   }
 
   getAdvanceSearch(value) {
     this.showAdvanceSearch = value;
+  }
+
+  getOverlay(value) {
+    this.overlay = value;
   }
 }

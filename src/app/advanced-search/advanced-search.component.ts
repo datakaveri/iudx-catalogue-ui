@@ -7,8 +7,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AdvancedSearchComponent implements OnInit {
 
-  fadeIn: any;
+  // fadeIn: any;
   advanceSearchValue: boolean = true;
+  overlayValue: boolean;
 
   constructor() { }
 
@@ -16,15 +17,15 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   @Output() showAdvanceSearch = new EventEmitter();
+  @Output() showOverlay = new EventEmitter();
 
   changeValue() {
+    // hide advance search popup
     this.advanceSearchValue = false;
-
-    this.fadeIn = document.querySelector('.fadeIn')
-    // hiding the fadein bg
-    this.fadeIn.style.opacity = 0;
-    this.fadeIn.style.visibility = 'hidden';
+    // hide overlay
+    this.overlayValue = false;
 
     this.showAdvanceSearch.emit(this.advanceSearchValue);
+    this.showOverlay.emit(this.overlayValue);
   }
 }

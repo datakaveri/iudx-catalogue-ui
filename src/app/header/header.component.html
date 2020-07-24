@@ -2,7 +2,7 @@
     <div class="logo__container">
         <a href="/"><img src="../../assets/logo.png" alt="" class="logo"></a>
     </div>
-    <nav class='navigation'>
+    <nav>
         <ul class="navList">
             <li class="navItem pencil"><a href="#" class="navLink">Blogs</a></li>
             <li (mouseenter)="showDevCard=true" (mouseleave)="showDevCard=false" class="navItem"><a href="#"
@@ -10,15 +10,15 @@
                 <div *ngIf='showDevCard' class="developers">
                     <span class="arrow arrow__developers">&#9650;</span>
                     <div class="developers__container">
-                        <ul class="developers__item">
+                        <ul>
                             <li class="developers__title"><a href='#'>API Docs</a></li>
                             <li class="developers__description">Full Endpoint Documentation for all</li>
                         </ul>
-                        <ul class="developers__item">
+                        <ul>
                             <li class="developers__title"><a href='#'>Jupyter Notebook</a></li>
                             <li class="developers__description">Full Endpoint Documentation for all</li>
                         </ul>
-                        <ul class="developers__item">
+                        <ul>
                             <li class="developers__title"><a href='#'>Python SDK</a></li>
                             <li class="developers__description">Full Endpoint Documentation for all</li>
                         </ul>
@@ -42,11 +42,6 @@
                 </div>
             </li>
         </ul>
-
-
-
-
-
     </nav>
 
 </header>

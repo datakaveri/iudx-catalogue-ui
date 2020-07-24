@@ -9,30 +9,32 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
 
-  fadeIn: any;
+  showChangeCity: boolean;
+  overlay: boolean;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.showChangeCity = false;
+    this.overlay = false;
+  }
 
   ngOnInit(): void {
   }
 
-  showChangeCity: boolean = false;
-
   toggleChangeCity() {
-    // fading in the background
-    this.fadeIn = document.querySelector('.fadeIn')
-    this.fadeIn.style.opacity = 1;
-    this.fadeIn.style.visibility = 'visible';
-
+    // showing the overlay
+    this.overlay = true;
     // showing the changecity popup
-    this.showChangeCity = !this.showChangeCity;
+    this.showChangeCity = true;
 
   }
 
   getChangeCity(value) {
     this.showChangeCity = value;
-    console.log(value);
+  }
+
+  getOverlayValue(value) {
+    this.overlay = value;
   }
 }
 

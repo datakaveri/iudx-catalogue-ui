@@ -1,51 +1,60 @@
-// ---------------- Landing Page ----------- //
-
-a {
-  text-decoration: none;
-}
-
-li {
-  list-style-type: none;
-}
+@import "../../styles";
 
 .landingPage {
-  min-height: 85vh;
 
   &__container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include centerer;
     width: 1000px;
     height: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    @include space-between;
+  }
+
+  &__tagline {
+    font-size: 18px;
+    font-weight: 500;
+    opacity: .8;
+    color: var(--tertiary);
   }
 
   &__top {
     flex-basis: 45%;
     width: 85%;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     text-align: center;
+    @include space-around;
   }
 
   &__bottom {
     flex-basis: 25%;
-  }
 
-  &__tagline,
-  &__buttons {
-    font-weight: 500;
-    opacity: .8;
-  }
+    ul {
+      display: flex;
+      justify-content: center;
+      height: 100%;
 
-  &__tagline {
-    color: #a0a0a0;
-    font-size: 18px;
+      li {
+        flex-basis: 25%;
+        text-align: center;
+        @include space-around;
+
+        &:nth-child(n+1) {
+          border-right: 1px solid var(--border);
+        }
+
+        &:last-child {
+          border-right: 0;
+        }
+
+        h5 {
+          color: var(--tertiary);
+        }
+
+        p {
+          color: --var(--primary);
+          font-size: 50px;
+        }
+      }
+    }
   }
 }
 
@@ -56,22 +65,19 @@ li {
   border-radius: 10px;
   padding: 12px;
 
-  &__icon {
-    display: flex;
-    justify-content: center;
+  span {
+    @include flex-center;
     padding-right: 8px;
-    align-items: center;
-    flex-basis: 5%
+    width: 5%
   }
 
-  &__input {
+  input {
     border: none;
-    flex-basis: 77%
+    width: 77%
   }
 
-  &__text {
-    flex-basis: 18%;
-    text-align: center;
+  a {
+    width: 18%;
     font-weight: 600;
     opacity: .8;
   }
@@ -81,69 +87,15 @@ li {
   }
 }
 
-.searchButton {
-  padding: 12px 16px;
-  flex-basis: 23%;
-  background: #F4F4F4;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  font-weight: 600;
-  text-align: center;
-  color: #676767;
-}
-
 .searchButton__container {
-  width: 80%;
-  margin: 15px;
+  width: 75%;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-}
 
-
-.data__list {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-}
-
-.data__item {
-  flex-basis: 25%;
-  text-align: center;
-  flex-direction: column;
-  display: flex;
-  justify-content: space-around;
-
-
-  &:nth-child(n+1) {
-    border-right: 1px solid var(--border);
+  a {
+    @include searchButton;
   }
-
-
-  &:last-child {
-    border-right: 0;
-  }
-
-  &--title {
-    color: #a0a0a0;
-  }
-
-  &--content {
-    color: #676767;
-    font-size: 50px;
-  }
-}
-
-.fadeIn {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  background: rgba(0, 0, 0, .2);
-  opacity: 0;
-  visibility: hidden;
 }
 
 ::placeholder {
