@@ -25,11 +25,6 @@ export class LandingPageComponent implements OnInit {
 
   goToAdvanceSearch() {
     // this.router.navigate(['advanced-search']);
-
-    this.fadeIn = document.querySelector('.fadeIn')
-    this.fadeIn.style.opacity = 1;
-    this.fadeIn.style.visibility = 'visible';
-
     // showing the advanceSearch popup
     this.showAdvanceSearch = true;
   }

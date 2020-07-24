@@ -1,3 +1,11 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 50px);
+  z-index: 99999999;
+}
+
 a {
   text-decoration: none;
 }
@@ -8,7 +16,6 @@ li {
 
 .header {
   padding: 20px 25px;
-  min-height: 4vh;
 }
 
 .header,
