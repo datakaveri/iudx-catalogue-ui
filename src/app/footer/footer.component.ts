@@ -25,7 +25,7 @@ export class FooterComponent implements OnInit {
     // showing the overlay
     this.overlay = true;
     // showing the changecity popup
-    this.showChangeCity = !this.showChangeCity;
+    this.showChangeCity = true;
 
   }
 

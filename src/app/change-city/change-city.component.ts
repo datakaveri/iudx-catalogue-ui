@@ -9,7 +9,6 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./change-city.component.scss']
 })
 export class ChangeCityComponent implements OnInit {
-
   citiesData = [
     {
       city: "Bengaluru",
@@ -45,6 +44,7 @@ export class ChangeCityComponent implements OnInit {
 
   overlayValue: boolean;
   results: any[] = [];
+  query: string;
   // baseUrl: string = 'https://api.github.com/users/';
 
   constructor(private _changeCity: InterceptorService) { }
