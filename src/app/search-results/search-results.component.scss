@@ -75,6 +75,10 @@
   padding: 6px 24px;
   text-decoration: none;
 }
+
+.active {
+  background-color: var(--border);
+}
 /*----Filter Style------*/
 .filter-div {
   display: flex;

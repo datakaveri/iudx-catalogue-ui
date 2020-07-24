@@ -12,11 +12,26 @@ export class SearchResultsComponent implements OnInit {
     'Provider 2',
     'Provider 3',
     'Provider 4',
-    'Provider 1',
-    'Provider 2',
+    'Provider 5',
+    'Provider 6',
   ];
-  listMapBtn = false;
-  constructor(private router: Router) {}
+  resource_groups = [
+    'Resource Group 1',
+    'Resource Group 2',
+    'Resource Group 3',
+    'Resource Group 4',
+    'Resource Group 5',
+    'Resource Group 6',
+  ];
+  listMapBtn: boolean;
+  resourceGroupList: boolean;
+  isList: any;
+
+  constructor(private router: Router) {
+    this.listMapBtn = false;
+    this.resourceGroupList = false;
+    this.isList = true;
+  }
   ngOnInit(): void {
     this.getRouter();
   }
@@ -24,10 +39,28 @@ export class SearchResultsComponent implements OnInit {
     console.log(value);
     // Api call here to search and get the results.
   }
+  getDataForProviders(event, value) {
+    // ToDo
+  }
+  getDataForResourceGroups(event, value) {
+    // ToDo
+  }
   getRouter() {
     console.log(this.router.url);
-    if (this.router.url == '/saerch/items') {
+    if (this.router.url == '/search/items') {
       this.listMapBtn = true;
+      this.resourceGroupList = true;
+    }
+    if (this.router.url == '/search/map') this.listMapBtn = true;
+  }
+  toggle() {
+    this.isList = !this.isList;
+    if (this.isList) {
+      this.router.navigate(['/search/items']);
+      this.resourceGroupList = true;
+    } else {
+      this.router.navigate(['/search/map']);
+      this.resourceGroupList = false;
     }
   }
 }

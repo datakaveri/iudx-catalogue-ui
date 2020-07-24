@@ -7,14 +7,21 @@
       >
     </button>
   </div>
-  <div class="anchor-group">
+  <div *ngIf="listMapBtn" class="anchor-group">
     <a
+      (click)="toggle()"
       routerLink="/search/items"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       >List</a
     >
-    <a routerLink="/search/map">Map</a>
+    <a
+      (click)="toggle()"
+      routerLink="/search/map"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Map</a
+    >
   </div>
   <br />
   <div class="para-style">
@@ -49,6 +56,33 @@
             <span class="checkmark"></span>
             {{ option }}
           </label>
+        </div>
+        <br />
+        <div *ngIf="resourceGroupList">
+          <div class="filter-div">
+            <h2><span class="highlight-color">Resource Group</span></h2>
+            <img src="../../assets/filter.png" />
+          </div>
+          <div class="search-style">
+            <img src="../../assets/search.png" />
+            <input type="text" placeholder="Search..." />
+          </div>
+          <br />
+          <div class="checkbox">
+            <label
+              class="checkbox-container"
+              *ngFor="let option of resource_groups"
+            >
+              <input
+                class="checkbox-round"
+                type="checkbox"
+                value="{{ option }}"
+                (change)="getDataForResourceGroups($event, option)"
+              />
+              <span class="checkmark"></span>
+              {{ option }}
+            </label>
+          </div>
         </div>
       </div>
     </div>

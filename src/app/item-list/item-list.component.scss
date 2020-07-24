@@ -30,12 +30,6 @@
   border: none;
 }
 
-.box-container {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
 .box-left {
   flex-basis: 17%;
 }
@@ -102,20 +96,6 @@
   align-items: center;
 }
 
-.anchor-group {
-  display: flex;
-  align-items: center;
-  float: right;
-  margin-top: -45px;
-}
-
-.anchor-group a {
-  border: 1px solid #ccc;
-  padding: 6px 24px;
-  /* Some padding */
-  text-decoration: none;
-}
-
 .bold-color {
   color: var(--primary);
   font-weight: 500;
@@ -133,8 +113,4 @@
 
 .para-style p {
   color: rgb(148, 145, 145);
-}
-
-.active {
-  background-color: #dddddd;
 }

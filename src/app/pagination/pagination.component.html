@@ -1,5 +1,5 @@
 <div class="pagination-container">
-  <div class="pagination" aria-label="Pagination" *ngIf="maxPages > 1">
+  <div class="pagination" aria-label="Pagination" *ngIf="totalPages > 1">
     <ul class="pagination-list">
       <li class="pagination-item" [class.disabled]="current == 1">
         <a
@@ -11,6 +11,16 @@
           <span aria-hidden="true">&lt;</span>
         </a>
       </li>
+      <!-- <li class="pagination-item" [ngClass]="{current > 4}">
+        <a
+          href="javascript:;"
+          class="pagination-link"
+          (click)="setPage(current - 1, itemsPerPage)"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&lt;</span>
+        </a>
+      </li>  -->
       <li
         class="pagination-item-value"
         *ngFor="let page of pages"
@@ -20,7 +30,7 @@
           page
         }}</a>
       </li>
-      <li [class.disabled]="current == maxPages">
+      <li [class.disabled]="current == totalPages">
         <a
           href="javascript:;"
           (click)="setPage(current + 1, itemsPerPage)"

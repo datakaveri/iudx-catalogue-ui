@@ -1,89 +1,43 @@
 <div class="main-content">
-  <!-- <div class="search-div">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Enter search string"
-      #search
-    />
-    <button type="submit" (click)="getResourceGroups(search.value)">
-      <img src="../../assets/search.png" /><span>Search</span>
-    </button>
-  </div>
-  <br />
-  <div class="para-style">
-    <p>
-      <span>200</span> datasets for <span>Pollution</span> matching search
-      criteria
-    </p>
-  </div> -->
-  <!-- <br /> -->
-  <div class="box-container">
-    <!-- <div class="box-left">
-      <div class="box-left-container">
-        <div class="filter-div">
-          <h2>Provider</h2>
-          <img src="../../assets/filter.png" />
-        </div>
-        <div class="search-style">
-          <img src="../../assets/search.png" />
-          <input type="text" placeholder="Search..." />
-        </div>
-        <br />
-        <div class="checkbox" *ngFor="let option of providers">
-          <label class="checkbox-container">
-            <input
-              class="checkbox-round"
-              type="checkbox"
-              value="{{ option }}"
-              (change)="getDataForProviders($event, option)"
-            />
-            <span class="checkmark"></span>
-            {{ option }}
-          </label>
-        </div>
-      </div>
-    </div> -->
-    <!-- <div class="box-right"> -->
-    <div class="cards-div">
-      <div class="box-style" *ngFor="let resource of resource_grps">
-        <p>
-          <span class="bold-color">{{ resource.description }}</span>
-          <!-- &nbsp;<span
+  <!-- <div class="box-container"> -->
+  <div class="cards-div">
+    <div class="box-style" *ngFor="let resource of resource_grps">
+      <p>
+        <span class="bold-color">{{ resource.description }}</span>
+        <!-- &nbsp;<span
             class="highlight-style"
             >&nbsp;&#40; 144 resource items &#41;</span
           > -->
-        </p>
+      </p>
 
-        <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
-        <p>
-          <span class="highlight-style">Status: </span>{{ resource.status }}
-        </p>
-        <p>
-          <span class="highlight-style">Created At: </span
-          >{{ resource.created_at | date: "medium" }}
-        </p>
+      <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
+      <p><span class="highlight-style">Status: </span>{{ resource.status }}</p>
+      <p>
+        <span class="highlight-style">Created At: </span
+        >{{ resource.created_at | date: "medium" }}
+      </p>
 
-        <p>
-          <span class="highlight-style">Provider: </span>{{ resource.provider }}
-        </p>
-        <p>
-          <span class="highlight-style">Location: </span
-          >{{ resource.location.address }}
-        </p>
+      <p>
+        <span class="highlight-style">Provider: </span>{{ resource.provider }}
+      </p>
+      <p>
+        <span class="highlight-style">Location: </span
+        >{{ resource.location.address }}
+      </p>
 
-        <a>
-          <h2>View All Resource Items</h2>
-        </a>
-      </div>
+      <a>
+        <h2>View All Resource Items</h2>
+      </a>
     </div>
-    <div class="pagination-box">
-      <app-pagination
+  </div>
+  <div class="pagination-box">
+    <!-- <app-pagination
         [maxPages]="6"
         [current]="1"
         [itemsPerPage]="10"
-      ></app-pagination>
-    </div>
-    <!-- </div> -->
+      ></app-pagination> -->
+    <app-pagination></app-pagination>
   </div>
+  <!-- </div> -->
+  <!-- </div> -->
 </div>
