@@ -47,11 +47,13 @@ export class SearchResultsComponent implements OnInit {
   }
   getRouter() {
     console.log(this.router.url);
-    if (this.router.url == '/search/items') {
+    if (
+      this.router.url == '/search/items' ||
+      this.router.url == '/search/map'
+    ) {
       this.listMapBtn = true;
       this.resourceGroupList = true;
     }
-    if (this.router.url == '/search/map') this.listMapBtn = true;
   }
   toggle() {
     this.isList = !this.isList;
@@ -60,7 +62,7 @@ export class SearchResultsComponent implements OnInit {
       this.resourceGroupList = true;
     } else {
       this.router.navigate(['/search/map']);
-      this.resourceGroupList = false;
+      this.resourceGroupList = true;
     }
   }
 }

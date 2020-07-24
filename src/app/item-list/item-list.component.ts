@@ -6,9 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-list.component.scss'],
 })
 export class ItemListComponent implements OnInit {
-  itemsPerPage: number = 10;
-  maxPages: number = 6;
-  currentPage: any;
   resource_items = [
     {
       name: 'sensorA',
@@ -52,9 +49,4 @@ export class ItemListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-  pageChanged(event) {
-    console.log(event);
-    this.currentPage = event.page;
-    this.itemsPerPage = event.itemsPerPage;
-  }
 }

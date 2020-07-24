@@ -6,31 +6,25 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  // @Input() maxPages: number;
-
-  // @Input() current: number;
-  // @Input() itemsPerPage: number;
-
-  // @Output() changePage = new EventEmitter();
-
-  // pages: any[] = [];
-  // pageModel: Page = {
-  //   page: this.current,
-  //   itemsPerPage: this.itemsPerPage,
-  // };
-
-  totalItems: number = 45;
+  totalItems: number = 125;
   itemsPerPage: number = 10;
   totalPages: number;
   pages = [];
-  current: number = 1;
+  current: number;
+  start: number;
+  stepSize: number;
+  nextBtn: boolean;
+  prevBtn: boolean;
 
-  constructor() {}
+  constructor() {
+    this.current = 1;
+    this.stepSize = 4;
+    this.start = 1;
+    this.nextBtn = false;
+    this.prevBtn = false;
+  }
 
   ngOnInit(): void {
-    // if (this.maxPages) {
-    //   this.createPages();
-    // }
     this.getMaxPages();
   }
   setPage(page: number, perPage: number) {
@@ -38,18 +32,46 @@ export class PaginationComponent implements OnInit {
     console.log(this.current);
     // conditions
   }
-
-  createPages() {
-    for (let i = 1; i <= this.totalPages; i++) {
+  createPages(start, end) {
+    this.pages = [];
+    for (let i = start; i <= end; i++) {
       this.pages.push(i);
     }
   }
   getMaxPages() {
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     console.log(this.totalPages);
-    if (this.current)
-      if (this.pages) {
-        this.createPages();
-      }
+    if (this.totalPages > this.stepSize) {
+      this.nextBtn = true;
+      this.createPages(this.start, this.stepSize);
+    } else {
+      this.nextBtn = false;
+      this.createPages(this.start, this.totalPages);
+    }
+  }
+  getNextPages() {
+    this.prevBtn = true;
+    this.start += this.stepSize;
+    let startIndex = this.start;
+    let endIndex = this.start + (this.stepSize - 1);
+    if (endIndex < this.totalPages) {
+      this.nextBtn = true;
+      this.createPages(startIndex, endIndex);
+    } else {
+      this.nextBtn = false;
+      this.createPages(startIndex, this.totalPages);
+    }
+  }
+  getPreviousPage() {
+    this.nextBtn = true;
+    this.start -= this.stepSize;
+    let startIndex = this.start;
+    let endIndex = this.start + (this.stepSize - 1);
+    this.createPages(startIndex, endIndex);
+    if (startIndex != 1) {
+      this.prevBtn = true;
+    } else {
+      this.prevBtn = false;
+    }
   }
 }
