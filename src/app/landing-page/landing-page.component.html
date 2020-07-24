@@ -1,39 +1,37 @@
-<div class="landingPage">
-    <div [ngClass]="{fadeIn:overlay}"></div>
-    <div class="landingPage__container">
-        <div class="landingPage__top">
-            <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
-            <div class="searchBox">
-                <span><img src='../../assets/search.png'></span>
-                <input type="text" placeholder="Search...">
-                <a (click)='goToAdvanceSearch()'>Advanced Search</a>
-            </div>
-            <div class="searchButton__container">
-                <a href="#">Search Dataset</a>
-                <a href="#">Search Geo-Query</a>
-                <a href="#">View All Datasets</a>
-            </div>
+<div [ngClass]="{fadeIn:overlay}"></div>
+<div class="landingPage__container">
+    <div class="landingPage__top">
+        <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
+        <div class="searchBox">
+            <span><img src='../../assets/search.png'></span>
+            <input type="text" placeholder="Search...">
+            <a (click)='goToAdvanceSearch()'>Advanced Search</a>
         </div>
-        <div class="landingPage__bottom">
-            <ul>
-                <li>
-                    <h5>Datasets</h5>
-                    <p>{{data.resource_groups}}</p>
-                </li>
-                <li>
-                    <h5>Resources</h5>
-                    <p>{{data.resource_items}}</p>
-                </li>
-                <li>
-                    <h5>Publishers</h5>
-                    <p>{{data.api_calls}}</p>
-                </li>
-                <li>
-                    <h5>API Hits</h5>
-                    <p>{{data.providers}}</p>
-                </li>
-            </ul>
+        <div class="searchButton__container">
+            <a href="#">Search Dataset</a>
+            <a href="#">Search Geo-Query</a>
+            <a href="#">View All Datasets</a>
         </div>
+    </div>
+    <div class="landingPage__bottom">
+        <ul>
+            <li>
+                <h5>{{names.resource_groups+'s'}}</h5>
+                <p>{{data.resource_groups}}</p>
+            </li>
+            <li>
+                <h5>{{names.resource_items+'s'}}</h5>
+                <p>{{data.resource_items}}</p>
+            </li>
+            <li>
+                <h5>{{names.providers+'s'}}</h5>
+                <p>{{data.api_calls}}</p>
+            </li>
+            <li>
+                <h5>API Hits</h5>
+                <p>{{data.providers}}</p>
+            </li>
+        </ul>
     </div>
 </div>
 <app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConstantsService } from '../constants.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,6 +11,7 @@ export class LandingPageComponent implements OnInit {
 
   showAdvanceSearch: boolean = false;
   overlay: boolean = false;
+  names: any = {};
 
   data = {
     resource_groups: 274,
@@ -21,10 +23,13 @@ export class LandingPageComponent implements OnInit {
   constructor(private router: Router) {
     this.showAdvanceSearch = false;
     this.overlay = false;
+    this.names = new ConstantsService();
   }
 
   ngOnInit(): void {
   }
+
+
 
   goToAdvanceSearch() {
     // showing the overlay
