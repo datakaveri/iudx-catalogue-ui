@@ -59,6 +59,14 @@ body {
   background: var(--background);
 }
 
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
 button,
 a {
   cursor: pointer;
