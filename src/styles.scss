@@ -59,13 +59,70 @@ body {
   background: var(--background);
 }
 
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
 button,
 a {
   cursor: pointer;
 }
 
-fadeIn {
-  background: black;
+.fadeIn {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, .2);
+  opacity: 0;
+  visibility: hidden;
+}
+
+// fadeIn {
+//   background: black;
+// }
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin space-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@mixin space-around {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin searchButton {
+  box-sizing: border-box;
+  padding: 12px 16px;
+  width: 175px;
+  background: #F4F4F4;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
 }
 
 @import "~leaflet/dist/leaflet.css";

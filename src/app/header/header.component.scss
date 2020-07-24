@@ -25,14 +25,14 @@ li {
   align-items: center;
 }
 
-.navigation {
+nav {
   display: flex;
   width: 375px;
   position: relative;
 }
 
 .navList {
-  flex-basis: 100%;
+  width: 100%;
 }
 
 .navLink {
@@ -43,6 +43,9 @@ li {
   width: 130px;
 }
 
+.logo__container a {
+  display: inline-block;
+}
 
 // HOVER FUNCTIONALITY
 
@@ -50,10 +53,9 @@ li {
 .documentation {
   top: 160%;
   position: absolute;
-  width: 100%;
+  width: 95%;
   z-index: 99999999;
   background: #fff;
-
 }
 
 .developers {
@@ -64,35 +66,28 @@ li {
   right: 0%;
 }
 
-
 .developers__container,
 .documentation__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   border: 1px solid var(--border);
-  height: 100%;
-  padding: 20px;
+  padding: 5px 15px;
   border-radius: 8px;
 }
 
-.developers__item,
-.documentation__item {
-  color: var(--primary);
+.developers__container ul,
+.documentation__container ul {
   font-size: 18px;
   padding: 15px 0;
 }
 
 .developers__description,
-.documentation__description {
-  color: #ccc;
-  font-size: 16px;
+.documentation__description,
+.arrow {
+  color: var(--tertiary);
 }
 
 .arrow {
   position: absolute;
   top: -15px;
-  color: #ccc;
 
   &__developers {
     left: 50%;

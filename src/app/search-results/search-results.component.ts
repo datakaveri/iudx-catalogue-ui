@@ -7,7 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent implements OnInit {
-  providers = ['Provider 1', 'Provider 2', 'Provider 3', 'Provider 4'];
+  providers = [
+    'Provider 1',
+    'Provider 2',
+    'Provider 3',
+    'Provider 4',
+    'Provider 1',
+    'Provider 2',
+  ];
   listMapBtn = false;
   constructor(private router: Router) {}
   ngOnInit(): void {

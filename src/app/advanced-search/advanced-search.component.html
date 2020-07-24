@@ -6,45 +6,33 @@
             <span (click)="changeValue()" class="searchBox__icon searchBox__icon--close"><img
                     src='../../assets/cross.png'></span>
         </div>
-        <div class="advanceSearch__container">
-
-            <div class="advanceSearch__item">
-                <div class="advanceSearch__type">Description:</div>
-                <div class="advanceSearch__input">
-                    <input type="text" class="advanceSearch__inputBox" placeholder="Search by description...">
+        <ul>
+            <li>
+                <h3>Description:</h3>
+                <p><input type="text" placeholder="Search by description..."></p>
+            </li>
+            <li>
+                <h3>Tag:</h3>
+                <p><input type="text" placeholder="Search by tag..."></p>
+            </li>
+            <li>
+                <h3>Publisher:</h3>
+                <p><input type="text" placeholder="Search by publisher..."></p>
+            </li>
+            <li>
+                <h3>Type:</h3>
+                <p><input type="text" placeholder="Search by type..."></p>
+            </li>
+            <li>
+                <h3>Datasets:</h3>
+                <p><input type="text" placeholder="Search by datasets..."></p>
+            </li>
+            <li>
+                <div class="searchButton__container">
+                    <a href="" class="searchButton">Search Dataset</a>
+                    <a href="" class="searchButton">Search Geo-Query</a>
                 </div>
-            </div>
-            <div class="advanceSearch__item">
-                <div class="advanceSearch__type">Tag:</div>
-                <div class="advanceSearch__input">
-                    <input type="text" class="advanceSearch__inputBox" placeholder="Search by tag...">
-                </div>
-            </div>
-            <div class="advanceSearch__item">
-                <div class="advanceSearch__type">Publisher:</div>
-                <div class="advanceSearch__input">
-                    <input type="text" class="advanceSearch__inputBox" placeholder="Search by publisher...">
-                </div>
-            </div>
-            <div class="advanceSearch__item">
-                <div class="advanceSearch__type">Type:</div>
-                <div class="advanceSearch__input">
-                    <input type="text" class="advanceSearch__inputBox" placeholder="Search by type...">
-                </div>
-            </div>
-            <div class="advanceSearch__item">
-                <div class="advanceSearch__type">Datasets:</div>
-                <div class="advanceSearch__input">
-                    <input type="text" class="advanceSearch__inputBox" placeholder="Search by datasets...">
-                </div>
-            </div>
-            <div class="advanceSearch__item">
-                <div class="advanceSearch__type"></div>
-                <div class="advanceSearch__input">
-                    <a href="" class="searchButton btn__dataset">Search Dataset</a>
-                    <a href="" class="searchButton btn__geoQuery">Search Geo-Query</a>
-                </div>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>
 </div>
