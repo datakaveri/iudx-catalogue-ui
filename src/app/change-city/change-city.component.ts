@@ -41,15 +41,11 @@ export class ChangeCityComponent implements OnInit {
       key: "gaya",
       resource_count: 46
     }
-
   ]
 
+  overlayValue: boolean;
   results: any[] = [];
-  query: string;
-  result;
-  queryField: FormControl = new FormControl();
-  fadeIn: any;
-  baseUrl: string = 'https://api.github.com/users/';
+  // baseUrl: string = 'https://api.github.com/users/';
 
   constructor(private _changeCity: InterceptorService) { }
 
@@ -63,22 +59,17 @@ export class ChangeCityComponent implements OnInit {
   //     )
   // }
 
-
   @Output() showChangeCity = new EventEmitter();
+  @Output() showOverlay = new EventEmitter();
   changeCityValue: boolean = true;
 
   changeValue() {
-
     // hiding the popup
     this.changeCityValue = false;
+    // hiding overlay
+    this.overlayValue = false;
 
-
-    this.fadeIn = document.querySelector('.fadeIn')
-    // hiding the fadein bg
-    this.fadeIn.style.opacity = 0;
-    this.fadeIn.style.visibility = 'hidden';
-
-    // passing the changeCityValue back to footer
     this.showChangeCity.emit(this.changeCityValue);
+    this.showOverlay.emit(this.overlayValue);
   }
 }

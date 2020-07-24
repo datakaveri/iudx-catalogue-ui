@@ -1,5 +1,5 @@
 <div class="landingPage">
-    <div class="fadeIn"></div>
+    <div [ngClass]="{fadeIn:overlay}"></div>
     <div class="landingPage__container">
         <div class="landingPage__top">
             <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
@@ -36,4 +36,5 @@
         </div>
     </div>
 </div>
-<app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"></app-advanced-search>
+<app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"
+    (showOverlay)="getOverlay($event)"></app-advanced-search>
