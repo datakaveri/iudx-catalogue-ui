@@ -3,7 +3,7 @@
   bottom: 0;
   left: 0;
   width: 100vw;
-  z-index: 99999999;
+  z-index: 0;
   background: #F4F4F4;
   padding: 10px 0;
 
@@ -11,7 +11,6 @@
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    width: 100%;
     padding: 5px 25px;
   }
 
@@ -20,39 +19,38 @@
 
     &--content {
       color: #8c8c8c;
+
+      span {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      a {
+        color: #1f9787;
+        border-bottom: 1px solid #1f9787;
+        margin-left: 8px;
+        font-weight: 600;
+      }
     }
   }
 
   &__right {
     flex-basis: 50%;
-    display: flex;
-    justify-content: flex-end;
   }
 
-  &__list {
+  ul {
     width: 70%;
     display: flex;
     justify-content: space-between;
     min-width: 500px;
+    float: right;
   }
 
-  &__item {
+  li {
     color: #8c8c8c;
   }
 }
 
 .changeCity {
   font-weight: 500;
-}
-
-.city {
-  color: var(--primary);
-  font-weight: 600;
-
-  &__change {
-    color: green;
-    border-bottom: 1px solid #1f9787;
-    font-weight: 600;
-    margin-left: 8px;
-  }
 }
