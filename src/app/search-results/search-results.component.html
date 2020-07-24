@@ -7,7 +7,7 @@
       >
     </button>
   </div>
-  <div *ngIf="listMapBtn" class="anchor-group">
+  <div class="anchor-group">
     <a
       routerLink="/search/items"
       routerLinkActive="active"
@@ -19,9 +19,9 @@
   <br />
   <div class="para-style">
     <p>
-      <span class="bold-color">200 </span>
+      <span class="bold">200 </span>
       <span class="highlight-color">datasets for </span>
-      <span class="bold-color">Pollution </span>
+      <span class="bold">Pollution </span>
       <span class="highlight-color">matching search criteria</span>
     </p>
   </div>
@@ -38,8 +38,8 @@
           <input type="text" placeholder="Search..." />
         </div>
         <br />
-        <div class="checkbox" *ngFor="let option of providers">
-          <label class="checkbox-container">
+        <div class="checkbox">
+          <label class="checkbox-container" *ngFor="let option of providers">
             <input
               class="checkbox-round"
               type="checkbox"
