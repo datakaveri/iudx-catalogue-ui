@@ -4,40 +4,40 @@
     </div>
     <nav>
         <ul class="navList">
-            <li class="navItem pencil"><a href="#" class="navLink">Blogs</a></li>
-            <li (mouseenter)="showDevCard=true" (mouseleave)="showDevCard=false" class="navItem"><a href="#"
+            <li><a href="#" class="navLink">Blogs</a></li>
+            <li (mouseenter)="showDevCard=true" (mouseleave)="showDevCard=false"><a href="#"
                     class="navLink">Developers</a>
                 <div *ngIf='showDevCard' class="developers">
-                    <span class="arrow arrow__developers">&#9650;</span>
+                    <span>&#9650;</span>
                     <div class="developers__container">
-                        <ul>
-                            <li class="developers__title"><a href='#'>API Docs</a></li>
-                            <li class="developers__description">Full Endpoint Documentation for all</li>
-                        </ul>
-                        <ul>
-                            <li class="developers__title"><a href='#'>Jupyter Notebook</a></li>
-                            <li class="developers__description">Full Endpoint Documentation for all</li>
-                        </ul>
-                        <ul>
-                            <li class="developers__title"><a href='#'>Python SDK</a></li>
-                            <li class="developers__description">Full Endpoint Documentation for all</li>
-                        </ul>
+                        <div>
+                            <h3><a href='#'>API Docs</a></h3>
+                            <p>Full Endpoint Documentation for all</p>
+                        </div>
+                        <div>
+                            <h3><a href='#'>Jupyter Notebook</a></h3>
+                            <p>Full Endpoint Documentation for all</p>
+                        </div>
+                        <div>
+                            <h3><a href='#'>Python SDK</a></h3>
+                            <p>Full Endpoint Documentation for all</p>
+                        </div>
                     </div>
                 </div>
             </li>
-            <li (mouseenter)="showDocCard=true" (mouseleave)="showDocCard=false" class="navItem"><a href="#"
+            <li (mouseenter)="showDocCard=true" (mouseleave)="showDocCard=false"><a href="#"
                     class="navLink">Documentation</a>
                 <div *ngIf="showDocCard" class="documentation">
-                    <span class="arrow arrow__documentation">&#9650;</span>
+                    <span>&#9650;</span>
                     <div class="documentation__container">
-                        <ul class="documentation__item">
-                            <li class="documentation__title"><a href='#'>Get Started</a></li>
-                            <li class="documentation__description">Get to "Ahoy, World!" fast in your stack.</li>
-                        </ul>
-                        <ul class="documentation__item">
-                            <li class="documentation__title"><a href='#'>Overview</a></li>
-                            <li class="documentation__description">Get an overview of IUDX</li>
-                        </ul>
+                        <div>
+                            <h3><a href='#'>Get Started</a></h3>
+                            <p>Get to "Ahoy, World!" fast in your stack.</p>
+                        </div>
+                        <div>
+                            <h3><a href='#'>Overview</a></h3>
+                            <p>Get an overview of IUDX</p>
+                        </div>
                     </div>
                 </div>
             </li>
