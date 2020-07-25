@@ -5,7 +5,7 @@
   &__container {
     @include centerer;
     width: 1000px;
-    height: 70%;
+    height: 65%;
     @include space-between;
   }
 
@@ -17,7 +17,7 @@
   }
 
   &__top {
-    flex-basis: 55%;
+    flex-basis: 45%;
     width: 85%;
     margin: 0 auto;
     text-align: center;
