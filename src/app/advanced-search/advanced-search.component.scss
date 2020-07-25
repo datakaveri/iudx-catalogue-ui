@@ -13,7 +13,7 @@
 
   &__wrapper {
     @include centerer;
-    width: 800px;
+    width: 720px;
     border-radius: 10px;
     border: 1px solid var(--border);
     background-color: #fff;
@@ -51,7 +51,7 @@
         }
 
         &:not(:last-child) {
-          margin-bottom: 40px;
+          margin-bottom: 30px;
         }
       }
     }

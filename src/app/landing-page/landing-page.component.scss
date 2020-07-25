@@ -5,19 +5,19 @@
   &__container {
     @include centerer;
     width: 1000px;
-    height: 60%;
+    height: 70%;
     @include space-between;
   }
 
   &__tagline {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     opacity: .8;
     color: var(--tertiary);
   }
 
   &__top {
-    flex-basis: 45%;
+    flex-basis: 55%;
     width: 85%;
     margin: 0 auto;
     text-align: center;
@@ -45,6 +45,7 @@
         }
 
         h5 {
+          font-weight: 500;
           color: var(--tertiary);
           margin-bottom: 15px;
         }
