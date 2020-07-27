@@ -1,13 +1,7 @@
-<!-- <div class="main-content"> -->
-<!-- <div class="box-container"> -->
 <div class="cards-div">
   <div class="box-style" *ngFor="let resource of resource_grps">
     <p>
       <span class="bold-color">{{ resource.description }}</span>
-      <!-- &nbsp;<span
-            class="highlight-style"
-            >&nbsp;&#40; 144 resource items &#41;</span
-          > -->
     </p>
 
     <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
@@ -30,7 +24,6 @@
     </a>
   </div>
 </div>
-<!-- </div> -->
 <div class="pagination-box">
   <app-pagination></app-pagination>
 </div>
