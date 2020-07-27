@@ -15,6 +15,14 @@
     h2 {
       color: #34925e;
     }
+    p:first-child {
+      color: var(--primary);
+      font-weight: 500;
+      font-size: 15px;
+    }
+    p > span {
+      color: var(--tertiary);
+    }
     a > h2 {
       font-weight: 500;
     }
@@ -23,16 +31,6 @@
       color: #34925e;
     }
   }
-}
-
-.highlight-style {
-  color: var(--tertiary);
-}
-
-.bold-color {
-  color: var(--primary);
-  font-weight: 500;
-  font-size: 15px;
 }
 
 .pagination-box {
