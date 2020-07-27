@@ -1,36 +1,36 @@
-<div class="main-content">
-  <!-- <div class="box-container"> -->
-  <div class="cards-div">
-    <div class="box-style" *ngFor="let resource of resource_grps">
-      <p>
-        <span class="bold-color">{{ resource.description }}</span>
-        <!-- &nbsp;<span
+<!-- <div class="main-content"> -->
+<!-- <div class="box-container"> -->
+<div class="cards-div">
+  <div class="box-style" *ngFor="let resource of resource_grps">
+    <p>
+      <span class="bold-color">{{ resource.description }}</span>
+      <!-- &nbsp;<span
             class="highlight-style"
             >&nbsp;&#40; 144 resource items &#41;</span
           > -->
-      </p>
+    </p>
 
-      <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
-      <p><span class="highlight-style">Status: </span>{{ resource.status }}</p>
-      <p>
-        <span class="highlight-style">Created At: </span
-        >{{ resource.created_at | date: "medium" }}
-      </p>
+    <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
+    <p><span class="highlight-style">Status: </span>{{ resource.status }}</p>
+    <p>
+      <span class="highlight-style">Created At: </span
+      >{{ resource.created_at | date: "medium" }}
+    </p>
 
-      <p>
-        <span class="highlight-style">Provider: </span>{{ resource.provider }}
-      </p>
-      <p>
-        <span class="highlight-style">Location: </span
-        >{{ resource.location.address }}
-      </p>
+    <p>
+      <span class="highlight-style">Provider: </span>{{ resource.provider }}
+    </p>
+    <p>
+      <span class="highlight-style">Location: </span
+      >{{ resource.location.address }}
+    </p>
 
-      <a>
-        <h2>View All Resource Items</h2>
-      </a>
-    </div>
+    <a>
+      <h2>View All Resource Items</h2>
+    </a>
   </div>
-  <div class="pagination-box">
-    <app-pagination></app-pagination>
-  </div>
+</div>
+<!-- </div> -->
+<div class="pagination-box">
+  <app-pagination></app-pagination>
 </div>
