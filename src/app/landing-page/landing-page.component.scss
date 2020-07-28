@@ -1,12 +1,11 @@
 @import "../../styles";
 
 .landingPage {
-
   &__container {
-    @include centerer;
     width: 1000px;
-    height: 65%;
-    @include space-between;
+    margin: 0 auto;
+    margin-top: 90px;
+    margin-bottom: calc(695px - 385px - 50.8px - 90px - 35px);
   }
 
   &__tagline {
@@ -17,15 +16,13 @@
   }
 
   &__top {
-    flex-basis: 45%;
     width: 85%;
     margin: 0 auto;
     text-align: center;
-    @include space-around;
+    margin-bottom:90px;
   }
 
   &__bottom {
-    flex-basis: 25%;
 
     ul {
       display: flex;
@@ -65,6 +62,8 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px;
+
+  margin:30px 0;
 
   span {
     @include flex-center;
