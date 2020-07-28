@@ -43,11 +43,14 @@
   }
 }
 /*----Body Content Style------*/
-.content-div {
-  display: flex;
-  padding: 15px, 25px;
-  height: 65vh;
+
+.content-container {
+  height: calc(100% - 171.49px);
   overflow-y: scroll;
+  .content-div {
+    display: flex;
+    padding: 15px, 25px;
+  }
   .para-div {
     padding: 0px 25px;
     p {

@@ -27,7 +27,7 @@ export class PaginationComponent implements OnInit {
   ngOnInit(): void {
     this.getMaxPages();
   }
-  setPage(page: number, perPage: number) {
+  setPage(page: number) {
     this.current = page;
     console.log(this.current);
     // conditions
@@ -37,6 +37,7 @@ export class PaginationComponent implements OnInit {
     for (let i = start; i <= end; i++) {
       this.pages.push(i);
     }
+    this.setPage(this.pages[0]);
   }
   getMaxPages() {
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
@@ -63,15 +64,18 @@ export class PaginationComponent implements OnInit {
     }
   }
   getPreviousPage() {
-    this.nextBtn = true;
-    this.start -= this.stepSize;
-    let startIndex = this.start;
-    let endIndex = startIndex + (this.stepSize - 1);
-    this.createPages(startIndex, endIndex);
-    if (startIndex != 1) {
-      this.prevBtn = true;
-    } else {
-      this.prevBtn = false;
+    if (this.prevBtn == true) {
+      this.nextBtn = true;
+      this.start -= this.stepSize;
+      let startIndex = this.start;
+      let endIndex = startIndex + (this.stepSize - 1);
+      this.createPages(startIndex, endIndex);
+
+      if (startIndex != 1) {
+        this.prevBtn = true;
+      } else {
+        this.prevBtn = false;
+      }
     }
   }
 }
