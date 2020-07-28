@@ -66,6 +66,8 @@
 .content-div {
   display: flex;
   padding: 15px, 25px;
+  height: 60vh;
+  overflow-y: scroll;
   .filter-div {
     width: 300px;
     padding: 25px;
