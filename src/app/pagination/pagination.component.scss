@@ -2,34 +2,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
+  ul li {
+    display: inline-block;
+  }
 
-.pagination-list li {
-  display: inline-block;
-}
-.pagination-padding {
-  padding: 10px;
-}
-.pagination-list li > a {
-  font-size: 18px;
-}
-.pagination-list li > a > span {
-  font-size: 20px;
-  font-family: "wide font";
-}
-
-a {
-  text-decoration: none;
+  ul li a {
+    font-size: 18px;
+    text-decoration: none;
+  }
+  ul li .active {
+    color: var(--primary);
+  }
+  ul li a span {
+    font-size: 20px;
+    font-family: "wide font";
+  }
+  ul li:first-child a,
+  ul li:last-child a {
+    padding: 10px;
+  }
 }
 
 .pagination-item-value a {
   padding: 0 6px;
-  // opacity: 0.3;
   color: var(--tertiary);
   // font-weight: 600;
-}
-
-.active {
-  background-color: lightgray;
-  color: var(--primary);
 }

@@ -1,23 +1,15 @@
 <div class="cards-div">
   <div class="box-style" *ngFor="let resource of resource_grps">
     <p>
-      <span class="bold-color">{{ resource.description }}</span>
+      {{ resource.description }}
     </p>
 
-    <p><span class="highlight-style">Tags: </span>{{ resource.tags }}</p>
-    <p><span class="highlight-style">Status: </span>{{ resource.status }}</p>
-    <p>
-      <span class="highlight-style">Created At: </span
-      >{{ resource.created_at | date: "medium" }}
-    </p>
+    <p><span>Tags: </span>{{ resource.tags }}</p>
+    <p><span>Status: </span>{{ resource.status }}</p>
+    <p><span>Created At: </span>{{ resource.created_at | date: "medium" }}</p>
 
-    <p>
-      <span class="highlight-style">Provider: </span>{{ resource.provider }}
-    </p>
-    <p>
-      <span class="highlight-style">Location: </span
-      >{{ resource.location.address }}
-    </p>
+    <p><span>Provider: </span>{{ resource.provider }}</p>
+    <p><span>Location: </span>{{ resource.location.address }}</p>
 
     <a>
       <h2>View All Resource Items</h2>

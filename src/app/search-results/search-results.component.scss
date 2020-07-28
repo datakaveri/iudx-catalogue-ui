@@ -66,6 +66,8 @@
 .content-div {
   display: flex;
   padding: 15px, 25px;
+  height: 65vh;
+  overflow-y: scroll;
   .filter-div {
     width: 300px;
     padding: 25px;
@@ -107,13 +109,15 @@
           width: 15px;
           height: 15px;
           vertical-align: middle;
-          border: 1px solid rgb(119, 117, 117);
+          // border: 1px solid rgb(119, 117, 117);
           outline: none;
           cursor: pointer;
+          // background-color: #34925e;
         }
       }
       a {
         color: #34925e;
+        font-weight: 500;
       }
     }
   }
