@@ -1,7 +1,12 @@
 /*----Input box Search Style------*/
 .search_div {
+  position: fixed;
+  left: 0;
+  top: 95.05px;
+  width: calc(100% - 50px);
   padding: 15px 25px;
   display: flex;
+  background: white;
   .search_bar {
     width: 70%;
     display: flex;
@@ -45,8 +50,7 @@
 /*----Body Content Style------*/
 
 .content-container {
-  height: calc(100% - 171.49px);
-  overflow-y: scroll;
+  margin-top: 95.05px;
   .content-div {
     display: flex;
     padding: 15px, 25px;
@@ -70,7 +74,6 @@
   .content-div {
     display: flex;
     padding: 15px, 25px;
-
     .filter-div {
       width: 300px;
       padding: 25px;
