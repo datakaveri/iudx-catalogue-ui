@@ -1,16 +1,16 @@
-// .main_container {
-//     height: calc(100vh - 146.05px);
-//     width: 100vw;
-//     padding-top: 100px;
-//     overflow-y: scroll;
-//     z-index: 1;
-// }
-
-.main_container{
-  height: calc(100vh - 146.05px);
-  position: fixed;
-  top: 95.05px;
-  left: 0;
-  width: 100vw;
+.main_container {
+    height: calc(100vh - 146.05px);
+    width: 100vw;
+    padding-top: 100px;
+    overflow-y: scroll;
+    z-index: 1;
 }
+
+// .main_container{
+//   height: calc(100vh - 146.05px);
+//   position: fixed;
+//   top: 95.05px;
+//   left: 0;
+//   width: 100vw;
+// }
 
