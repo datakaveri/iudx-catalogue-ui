@@ -1,26 +1,32 @@
 <div class="pagination-container" aria-label="Pagination">
   <ul>
-    <li *ngIf="prevBtn">
+    <li>
       <a
         href="javascript:;"
+        [ngClass]="{ enable: prevBtn == false }"
         class="pagination-link"
         (click)="getPreviousPage()"
         aria-label="Previous"
       >
-        <span aria-hidden="true">&lt;</span>
+        &lt;
       </a>
     </li>
     <li class="pagination-item-value" *ngFor="let page of pages">
       <a
         href="javascript:;"
-        (click)="setPage(page, itemsPerPage)"
+        (click)="setPage(page)"
         [ngClass]="{ active: page == current }"
         >{{ page }}</a
       >
     </li>
-    <li *ngIf="nextBtn == true">
-      <a href="javascript:;" (click)="getNextPages()" aria-label="Next">
-        <span aria-hidden="true">&gt;</span>
+    <li>
+      <a
+        href="javascript:;"
+        [ngClass]="{ enable: nextBtn == false }"
+        (click)="getNextPages()"
+        aria-label="Next"
+      >
+        &gt;
       </a>
     </li>
   </ul>

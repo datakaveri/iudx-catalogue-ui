@@ -45,7 +45,7 @@
 /*----Body Content Style------*/
 
 .content-container {
-  height: 60vh;
+  height: calc(100% - 171.49px);
   overflow-y: scroll;
   .para-div {
     padding: 0px 25px;
