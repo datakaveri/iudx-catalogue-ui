@@ -10,6 +10,13 @@
 .pagination-padding {
   padding: 10px;
 }
+.pagination-list li > a {
+  font-size: 18px;
+}
+.pagination-list li > a > span {
+  font-size: 20px;
+  font-family: "wide font";
+}
 
 a {
   text-decoration: none;
@@ -17,10 +24,12 @@ a {
 
 .pagination-item-value a {
   padding: 0 6px;
-  opacity: 0.3;
-  font-weight: 600;
+  // opacity: 0.3;
+  color: var(--tertiary);
+  // font-weight: 600;
 }
 
 .active {
   background-color: lightgray;
+  color: var(--primary);
 }

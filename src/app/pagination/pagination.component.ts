@@ -53,7 +53,7 @@ export class PaginationComponent implements OnInit {
     this.prevBtn = true;
     this.start += this.stepSize;
     let startIndex = this.start;
-    let endIndex = this.start + (this.stepSize - 1);
+    let endIndex = startIndex + (this.stepSize - 1);
     if (endIndex < this.totalPages) {
       this.nextBtn = true;
       this.createPages(startIndex, endIndex);
@@ -66,7 +66,7 @@ export class PaginationComponent implements OnInit {
     this.nextBtn = true;
     this.start -= this.stepSize;
     let startIndex = this.start;
-    let endIndex = this.start + (this.stepSize - 1);
+    let endIndex = startIndex + (this.stepSize - 1);
     this.createPages(startIndex, endIndex);
     if (startIndex != 1) {
       this.prevBtn = true;
