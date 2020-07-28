@@ -5,17 +5,24 @@
   (leafletDrawStart)="onDrawStart($event)"
 >
   <div>
-    <button
+    <!-- <button
       style="z-index: 9999999;"
       class="md-btn md-btn-raised"
       (click)="showContainer = !showContainer"
     >
       Select Region
-    </button>
+    </button> -->
   </div>
-  <div
+  <!-- <div
     class="leaflet-left leaflet-top"
     *ngIf="showContainer"
+    leafletDraw
+    [leafletDrawOptions]="drawOptions"
+    [leafletDrawLocal]="drawLocal"
+    (leafletDrawCreated)="onDrawCreated($event)"
+  ></div> -->
+  <div
+    class="leaflet-left leaflet-top"
     leafletDraw
     [leafletDrawOptions]="drawOptions"
     [leafletDrawLocal]="drawLocal"
