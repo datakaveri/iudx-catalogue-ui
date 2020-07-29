@@ -1,21 +1,65 @@
-<div class="cards-div">
-  <div class="box-style" *ngFor="let resource of resource_grps">
+<div class="content-container">
+  <div class="para-div">
     <p>
-      {{ resource.description }}
+      <span>200 </span>
+      <span>datasets for </span>
+      <span>Pollution </span>
+      <span>matching search criteria</span>
     </p>
+  </div>
+  <br />
+  <div class="content-div">
+    <div class="filter-div">
+      <p>Filter by: Publishers</p>
 
-    <p><span>Tags: </span>{{ resource.tags }}</p>
-    <p><span>Status: </span>{{ resource.status }}</p>
-    <p><span>Created At: </span>{{ resource.created_at | date: "medium" }}</p>
+      <div class="search-filter">
+        <img src="../../assets/search.png" />
+        <input type="text" placeholder="Search..." />
+      </div>
+      <div class="checkbox-div">
+        <label *ngFor="let option of providers">
+          <input
+            class="checkbox-style"
+            type="checkbox"
+            value="{{ option }}"
+            (change)="getDataForProviders($event, option)"
+          />
+          &nbsp;&nbsp;
+          {{ option }}
+        </label>
+        <!-- <a *ngIf="step_pr_size < providers.length" (click)="showMoreProviders()"
+          >{{ providers.length - step_pr_size }} More</a
+        > -->
+      </div>
+    </div>
 
-    <p><span>Provider: </span>{{ resource.provider }}</p>
-    <p><span>Location: </span>{{ resource.location.address }}</p>
+    <div class="results-div">
+      <div class="box-style" *ngFor="let resource of resource_grps">
+        <p>
+          {{ resource.description }}
+        </p>
 
-    <a>
-      <h2>View All Resource Items</h2>
-    </a>
+        <p><span>Tags: </span> &nbsp; &nbsp;{{ resource.tags }}</p>
+        <p><span>Status: </span>&nbsp; &nbsp;{{ resource.status }}</p>
+        <p>
+          <span>Created At: </span>&nbsp; &nbsp;{{
+            resource.created_at | date: "medium"
+          }}
+        </p>
+
+        <p><span>Provider: </span>&nbsp; &nbsp;{{ resource.provider }}</p>
+        <p>
+          <span>Location: </span>&nbsp; &nbsp;{{ resource.location.address }}
+        </p>
+
+        <a>
+          <p>View All Items</p>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
+
 <div class="pagination-box">
   <app-pagination></app-pagination>
 </div>

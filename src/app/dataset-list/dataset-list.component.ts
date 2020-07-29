@@ -6,21 +6,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./dataset-list.component.scss'],
 })
 export class DatasetListComponent implements OnInit {
-  @Input() listMapBtn: boolean = false;
   constructor(private router: Router) {}
-
+  providers = [
+    'Provider 1',
+    'Provider 2',
+    'Provider 3',
+    'Provider 4',
+    'Provider 5',
+    'Provider 6',
+  ];
   resource_grps = [
     {
       description:
         'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',
       tags: 'sensor, sensing, resource, battery operated',
-      status: 'active',
+      status: 'Active',
       provider: 'Provider 1',
       control_level: 'level_1',
       created_at: '2019-02-20T10:30:06.093121',
       location: {
         type: 'Place',
-        address: 'Bangalore',
+        address: 'Bangalore, India',
       },
     },
     {
@@ -50,13 +56,11 @@ export class DatasetListComponent implements OnInit {
       },
     },
   ];
-  providers = ['Provider 1', 'Provider 2', 'Provider 3', 'Provider 4'];
   ngOnInit(): void {}
   getResourceItems(value) {
     console.log(value);
     this.router.navigate(['/search/items']);
     // Api call here to search and get the results.
-    this.listMapBtn = true;
   }
   getDataForProviders(event, option) {
     // console.log(event.target.value, option);
