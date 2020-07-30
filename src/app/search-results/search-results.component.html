@@ -2,8 +2,7 @@
   <div class="search_bar">
     <input type="text" placeholder="Search . . ." [(ngModel)]="search_text" />
     <button>
-      <img src="assets/search.png" />
-      Search
+      Search Dataset
     </button>
   </div>
   <div *ngIf="listMapBtn" class="list_map_view">
@@ -95,3 +94,11 @@
     </div>
   </div>
 </div> -->
+  <div class="map_view">
+    <button>
+      Geo Information
+    </button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
