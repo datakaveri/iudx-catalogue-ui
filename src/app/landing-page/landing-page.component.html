@@ -1,17 +1,31 @@
 <div class="landingPage__container">
-    <div class="landingPage__top">
-        <p class="landingPage__tagline">Welcome to the IUDX compliant Catalogue of VSCL</p>
+    <div class="hero__container"> 
+        <img src="../../assets/banner.png" alt="hero image" class="hero__image">
+     </div>
+     <div class="landingPage__top">
+        <p class="landingPage__tagline">Welcome to the <span>Smart City</span> of <span>Pune</span></p>
         <div class="searchBox">
-            <span><img src='../../assets/search.png'></span>
-            <input type="text" placeholder="Search...">
-            <a (click)='goToAdvanceSearch()'>Advanced Search</a>
+            <input type="text" placeholder="Search public data...">
+            <img src='../../assets/search.png'>
         </div>
         <div class="searchButton__container">
-            <a href="#">Search Dataset</a>
-            <a href="#">Search Geo-Query</a>
-            <a href="#">View All Datasets</a>
+            <a class='active' href="#">View All Dataset</a>
+            <a href="#">Geo Information</a>
         </div>
-    </div>
+     </div>
+
+     <div class="categories__container">
+        <ul class="categories__list">
+            <li class="categories__item"><a href='#'><img class='icon' src='../../assets/environment.png'> Environment</a></li>
+            <li class="categories__item"><a href='#'><img class='icon' src='../../assets/education.png'>Education</a></li>
+            <li class="categories__item"><a href='#'><img class='icon' src='../../assets/finance.png'>Finance</a></li>
+            <li class="categories__item"><a href='#'><img class='icon' src='../../assets/health.png'>Health</a></li>
+            <li class="categories__item"><a href='#'><img class='icon' src='../../assets/transport.png'>Transport</a></li>
+        </ul>
+     </div>
+    
+     
+
     <div class="landingPage__bottom">
         <ul>
             <li>
@@ -31,9 +45,11 @@
                 <p>{{data.providers}}</p>
             </li>
         </ul>
-    </div>
+    </div> 
 </div>
-<div [ngClass]="{fadeIn:overlay}"></div>
+
+
+<!-- <div [ngClass]="{fadeIn:overlay}"></div>
 <app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"
     (showOverlay)="getOverlay($event)">
-</app-advanced-search>
+</app-advanced-search> -->
