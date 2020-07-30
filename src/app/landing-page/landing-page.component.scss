@@ -1,9 +1,6 @@
 @import "../../styles";
 
 .landingPage {
-  // &__container {
-  //   // margin: 0 auto;
-  // }
 
   &__tagline {
     font-size: 16px;
@@ -13,12 +10,12 @@
 
     span{
       color: var(--primary);
-      font-weight: inherit;
+      font-weight: 600;
     }
   }
 
   &__top {
-    margin: 50px auto;
+    margin: 45px auto;
     text-align: center;
     width: 50%;
 
@@ -68,7 +65,8 @@
   align-items: center;
   border: 1px solid var(--border);
   padding: 10px 14px;
-  margin:30px 0;
+  margin:25px 0;
+  border-radius: 10px;
 
   input {
     border: none;
@@ -96,6 +94,7 @@
     padding: 8px 16px;
     border: 1px solid var(--border);
     color: var(--primary);
+    font-weight: 500;
   }
 
   .active{
@@ -133,10 +132,14 @@
     width: 50%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+
+    li{
+      width: 200px;
+    }
 
     .icon{
-      width: 45px;
+      width: 40px;
       margin-bottom: 5px;
     }
 
@@ -148,44 +151,22 @@
   }
 }
 
-@media only screen and (max-width: 1024px) {
-  .header{
-    padding: 15px 25px;
+@media only screen and (max-width: 1200px) {
+  .searchButton__container{
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .landingPage__top,.landingPage__bottom,.categories__list{
+    width: 65%;
   }
 
   .hero__container{
-    width: 70%;
+    width: 85%;
   }
 
-  .landingPage__top{
-    margin: 25px auto;
-    width: 60%;
+  .categories__list .icon{
+    width: 30px;
   }
-
-  .searchBox{
-    padding: 6px 12px;
-    margin: 20px 0;
-  }
-
-  .searchButton__container{
-    width: 70%;
-  }
-
-  .categories__list{
-    width: 65%;
-
-    .icon{
-      width: 20px;
-    }
-  }
-
-  .landingPage__bottom {
-    margin: 45px auto;
-    width: 70%;
-  }
-
-  .categories__item a{
-    font-size: 12px;
-  }
-
 }
