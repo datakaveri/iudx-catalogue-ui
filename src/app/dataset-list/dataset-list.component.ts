@@ -1,4 +1,3 @@
-import { openFilter } from './../search-results/search-results.component';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
@@ -75,12 +74,15 @@ export class DatasetListComponent implements OnInit {
   @Output() showOverlay = new EventEmitter();
 
   //set true to show side bar
-  public showFilter: boolean = true;
+  public showFilter: boolean;
 
   public closeFilter() {
     this.overlayValue = false;
     this.showFilter = false;
     this.showOverlay.emit(this.overlayValue);
   }
-  public openFilter() {}
+  @Input('openFilter')
+  set setData(value: boolean) {
+    this.showFilter = value;
+  }
 }

@@ -5,7 +5,7 @@
   width: calc(100vw - 50px);
   z-index: 1;
   padding: 15px 25px;
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 
@@ -18,7 +18,7 @@
 
 nav {
   display: flex;
-  width: 375px;
+  width: 265px;
   position: relative;
 }
 
@@ -45,9 +45,10 @@ nav {
 .documentation {
   top: 160%;
   position: absolute;
-  width: 95%;
+  width: 115%;
   z-index: 99999999;
-  background: #fff;
+  background: var(--white);
+
 
   span {
     position: absolute;
@@ -57,14 +58,14 @@ nav {
 }
 
 .developers {
-  right: 10%;
+  right: 26%;
 
   &__title {
     font-size: 16px;
   }
 
   span {
-    left: 50%;
+    left: 49%;
     transform: translateX(-50%);
   }
 }
@@ -73,7 +74,7 @@ nav {
   right: 0%;
 
   span {
-    right: 15%;
+    right: 19%;
   }
 }
 

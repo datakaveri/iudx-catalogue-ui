@@ -16,96 +16,17 @@
   <!-- </div> -->
 
   <div class="map_view">
-    <button (click)="openFilter()">
+    <button (click)="openFilter(showFilter)">
       <img src=".\assets\filter.png" />
       Filters
     </button>
-    <button (click)="showMap()">
+    <button *ngIf="router.url != '/search/map'" (click)="showMap()">
       Geo Information
+    </button>
+    <button *ngIf="router.url === '/search/map'" (click)="listView()">
+      List View
     </button>
   </div>
 </div>
-<br />
-<!-- <div class="content-container">
-  <div class="para-div">
-    <p>
-      <span>200 </span>
-      <span>datasets for </span>
-      <span>Pollution </span>
-      <span>matching search criteria</span>
-    </p>
-  </div>
-  <br />
-  <div class="content-div">
-    <div class="filter-div">
-      <div class="filter-name">
-        <h2>Provider</h2>
-        <img src="../../assets/filter.png" />
-      </div>
-      <div class="search-filter">
-        <img src="../../assets/search.png" />
-        <input type="text" placeholder="Search..." />
-      </div>
-      <div class="checkbox-div">
-        <label
-          class="checkbox-container"
-          *ngFor="
-            let option of providers | slice: 0:step_pr_size;
-            let i = index
-          "
-        >
-          <input
-            type="checkbox"
-            value="{{ option }}"
-            (change)="getDataForProviders($event, option)"
-          />
-          {{ option }}
-        </label>
-        <a *ngIf="step_pr_size < providers.length" (click)="showMoreProviders()"
-          >{{ providers.length - step_pr_size }} More</a
-        >
-      </div>
-      <div *ngIf="resourceGroupList">
-        <div class="filter-name">
-          <h2>Resource Group</h2>
-          <img src="../../assets/filter.png" />
-        </div>
-        <div class="search-filter">
-          <img src="../../assets/search.png" />
-          <input type="text" placeholder="Search..." />
-        </div>
-        <div class="checkbox-div">
-          <label
-            class="checkbox-container"
-            *ngFor="
-              let list of resource_groups | slice: 0:step_res_size;
-              let i = index
-            "
-          >
-            <input
-              type="checkbox"
-              value="{{ list }}"
-              (change)="getDataForResourceGroups($event, list)"
-            />
-            <span class="checkmark"></span>
-            {{ list }}
-          </label>
-
-          <a
-            *ngIf="step_res_size < resource_groups.length"
-            (click)="showMoreResourceGrps()"
-            >{{ resource_groups.length - step_res_size }} More
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="results-div">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div> -->
-
-<!-- </div> -->
 
 <router-outlet></router-outlet>

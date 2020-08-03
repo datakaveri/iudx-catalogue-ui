@@ -12,7 +12,7 @@ export class SearchResultsComponent implements OnInit {
   // resourceGroupList: boolean;
   // listMapBtn: boolean;
 
-  constructor(private router: Router) {
+  constructor(public router: Router) {
     // this.listMapBtn = false;
     this.search_text = '';
     // this.list_view = true;
@@ -34,10 +34,16 @@ export class SearchResultsComponent implements OnInit {
     this.router.navigate(['/search/map']);
   }
 
-  // openFilter() {
-  //   var showFilter: boolean;
-  //   showFilter = true;
-  // }
+  showFilter: boolean;
+
+  openFilter(showFilter) {
+    console.log('filter open');
+
+    this.showFilter = true;
+  }
+  listView() {
+    this.router.navigate(['/search/datasets']);
+  }
 }
 
 // export function openFilter() {}

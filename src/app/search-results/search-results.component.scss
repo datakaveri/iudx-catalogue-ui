@@ -2,7 +2,7 @@
 .search_div {
   position: fixed;
   left: 0;
-  top: 95.05px;
+  top: 84.65px;
   width: calc(100% - 50px);
   padding: 15px 25px;
   display: flex;
@@ -37,6 +37,7 @@
     width: 30%;
     text-align: right;
     button {
+      width: 40%;
       padding: 12px 15px;
       border: 1px solid var(--border);
       background: var(--white);
