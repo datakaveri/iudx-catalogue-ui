@@ -1,11 +1,12 @@
 <div class="map__container">
-<div
-  id="map"
-  leaflet
-  [leafletOptions]="options"
-  (leafletDrawStart)="onDrawStart($event)"
->
-  <!-- <div> -->
+  <br /><br /><br />
+  <div
+    id="map"
+    leaflet
+    [leafletOptions]="options"
+    (leafletDrawStart)="onDrawStart($event)"
+  >
+    <!-- <div> -->
     <!-- <button
       style="z-index: 9999999;"
       class="md-btn md-btn-raised"
@@ -13,8 +14,8 @@
     >
       Select Region
     </button> -->
-  <!-- </div> -->
-  <!-- <div
+    <!-- </div> -->
+    <!-- <div
     class="leaflet-left leaflet-top"
     *ngIf="showContainer"
     leafletDraw
@@ -22,15 +23,15 @@
     [leafletDrawLocal]="drawLocal"
     (leafletDrawCreated)="onDrawCreated($event)"
   ></div> -->
-  <div
-    class="leaflet-left leaflet-top"
-    leafletDraw
-    [leafletDrawOptions]="drawOptions"
-    [leafletDrawLocal]="drawLocal"
-    (leafletDrawCreated)="onDrawCreated($event)"
-  ></div>
-  >
-  <!-- Add the drawnItems featureGroup to the map -->
-  <div [leafletLayer]="drawnItems"></div>
-</div>
+    <div
+      class="leaflet-left leaflet-top"
+      leafletDraw
+      [leafletDrawOptions]="drawOptions"
+      [leafletDrawLocal]="drawLocal"
+      (leafletDrawCreated)="onDrawCreated($event)"
+    ></div>
+    >
+    <!-- Add the drawnItems featureGroup to the map -->
+    <div [leafletLayer]="drawnItems"></div>
+  </div>
 </div>
