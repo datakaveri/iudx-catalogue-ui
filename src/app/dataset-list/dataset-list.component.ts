@@ -70,4 +70,8 @@ export class DatasetListComponent implements OnInit {
       console.log(event.target.value, option);
     }
   }
+  public showFilter: boolean = true;
+  public closeFilter() {
+    this.showFilter = false;
+  }
 }
