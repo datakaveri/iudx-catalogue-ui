@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-dataset-list',
@@ -70,8 +70,15 @@ export class DatasetListComponent implements OnInit {
       console.log(event.target.value, option);
     }
   }
-  public showFilter: boolean = true;
+  overlayValue: boolean;
+  @Output() showOverlay = new EventEmitter();
+
+  //set true to show side bar
+  public showFilter: boolean;
+
   public closeFilter() {
+    this.overlayValue = false;
     this.showFilter = false;
+    this.showOverlay.emit(this.overlayValue);
   }
 }
