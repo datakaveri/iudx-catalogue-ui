@@ -33,4 +33,11 @@ export class SearchResultsComponent implements OnInit {
   showMap() {
     this.router.navigate(['/search/map']);
   }
+
+  // openFilter() {
+  //   var showFilter: boolean;
+  //   showFilter = true;
+  // }
 }
+
+// export function openFilter() {}
