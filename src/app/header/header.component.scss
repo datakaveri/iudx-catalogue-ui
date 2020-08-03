@@ -24,10 +24,11 @@ nav {
 
 .navList {
   width: 100%;
-}
 
-.navLink {
-  font-weight: 600;
+  li a{
+    font-weight: 600;
+    color: var(--primary);
+  }
 }
 
 .logo {

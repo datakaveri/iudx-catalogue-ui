@@ -7,13 +7,18 @@
     <img src="../../assets/search.png" />
   </div>
   <!-- <div *ngIf="listMapBtn" class="list_map_view"> -->
-    <!-- <button [ngClass]="{ active: list_view == true }" (click)="toggle()">
+  <!-- <button [ngClass]="{ active: list_view == true }" (click)="toggle()">
       List
     </button> -->
-    <!-- <button [ngClass]="{ active: list_view == false }" (click)="toggle()">
+  <!-- <button [ngClass]="{ active: list_view == false }" (click)="toggle()">
       Map
     </button> -->
   <!-- </div> -->
+  <div class="map_view">
+    <button (click)="showMap()">
+      Geo Information
+    </button>
+  </div>
 </div>
 <br />
 <!-- <div class="content-container">
@@ -95,11 +100,7 @@
     </div>
   </div>
 </div> -->
-  <div class="map_view">
-    <button>
-      Geo Information
-    </button>
-  </div>
+
 <!-- </div> -->
 
 <router-outlet></router-outlet>

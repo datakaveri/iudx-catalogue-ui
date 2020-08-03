@@ -1,7 +1,6 @@
 @import "../../styles";
 
 .landingPage {
-
   &__tagline {
     font-size: 16px;
     font-weight: 500;
@@ -18,7 +17,6 @@
     margin: 50px auto;
     text-align: center;
     width: 50%;
-
   }
 
   &__bottom {
@@ -27,12 +25,10 @@
     ul {
       display: flex;
       justify-content: center;
-      height: 100%;
 
       li {
         width: 25%;
         text-align: center;
-
         &:nth-child(n+1) {
           border-right: 1px solid var(--border);
         }
@@ -95,6 +91,7 @@
     border: 1px solid var(--border);
     color: var(--primary);
     font-weight: 500;
+    border-radius: 10px;
   }
 
   .active{
@@ -120,32 +117,25 @@
   }
 }
 
-.categories{
-
-  &__container{
-    background-color: #F4F4F4;
-    padding: 30px 0;
-  }
-
-  &__list{
+.categories__container{
+  background-color: #F4F4F4;
+  padding: 30px 0;
+  ul{
     width: 50%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
-
     li{
       width: 200px;
-    }
-
-    .icon{
-      width: 40px;
-      margin-bottom: 5px;
-    }
-
-    a{
-      display: flex; 
-     align-items: center; 
-     flex-direction: column;
+      a{
+        display: flex; 
+        align-items: center; 
+        flex-direction: column;
+        img{
+          width: 40px;
+          margin-bottom: 5px;
+        }
+      }
     }
   }
 }
