@@ -48,10 +48,10 @@
       .checkbox-div {
         // height: 200px;
         // overflow-y: scroll;
-        label {
-          padding: 10px 0px;
+        .checkbox {
           display: block;
-          .checkbox-style {
+          padding: 10px 0px;
+          input {
             -webkit-appearance: none;
             width: 20px;
             height: 20px;
@@ -59,8 +59,10 @@
             border: 2px solid rgb(119, 117, 117);
             // outline: none;
             cursor: pointer;
-
             // background-color: #34925e;
+          }
+          label span {
+            padding: 0px 15px;
           }
         }
       }
