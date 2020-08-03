@@ -1,29 +1,29 @@
 @import "../../styles";
 
 .landingPage {
-  &__container {
-    width: 1000px;
-    margin: 0 auto;
-    margin-top: 90px;
-    margin-bottom: calc(100vh - 94.65px - 472px - 50.8px);
-  }
 
   &__tagline {
     font-size: 16px;
     font-weight: 500;
     opacity: .8;
     color: var(--tertiary);
+
+    span{
+      color: var(--primary);
+      font-weight: 600;
+    }
   }
 
   &__top {
-    width: 85%;
-    margin: 0 auto;
+    margin: 50px auto;
     text-align: center;
-    margin-bottom:90px;
+    width: 50%;
+
   }
 
   &__bottom {
-
+    margin: 65px auto;
+    width:55%;
     ul {
       display: flex;
       justify-content: center;
@@ -49,31 +49,28 @@
 
         p {
           color: --var(--primary);
-          font-size: 50px;
+          font-size: 40px;
         }
       }
     }
   }
 }
 
+.landingPage__top,.landingPage__bottom,.categories__list{
+  max-width: 1200px;
+}
+
 .searchBox {
   display: flex;
   align-items: center;
   border: 1px solid var(--border);
+  padding: 10px 14px;
+  margin:25px 0;
   border-radius: 10px;
-  padding: 12px;
-
-  margin:30px 0;
-
-  span {
-    @include flex-center;
-    padding-right: 8px;
-    width: 5%
-  }
 
   input {
     border: none;
-    width: 77%
+    width: 97%
   }
 
   a {
@@ -83,21 +80,92 @@
   }
 
   img {
-    width: 25px;
+    width: 3%;
   }
 }
 
 .searchButton__container {
-  width: 75%;
-  display: flex;
-  justify-content: space-between;
+  width: 55%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
 
   a {
-    @include searchButton;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    font-weight: 500;
+  }
+
+  .active{
+    background: #1f9787;
+    border: none;
+    color: #fff;
   }
 }
 
 ::placeholder {
   color: var(--tertiary);
+}
+
+.hero{
+  &__container{
+    width: 75%;
+    margin: 0 auto;
+    max-width: 1500px;
+  }
+
+  &__image{
+    width: 100%;
+  }
+}
+
+.categories{
+
+  &__container{
+    background-color: #F4F4F4;
+    padding: 30px 0;
+  }
+
+  &__list{
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+
+    li{
+      width: 200px;
+    }
+
+    .icon{
+      width: 40px;
+      margin-bottom: 5px;
+    }
+
+    a{
+      display: flex; 
+     align-items: center; 
+     flex-direction: column;
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .searchButton__container{
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .landingPage__top,.landingPage__bottom,.categories__list{
+    width: 65%;
+  }
+
+  .hero__container{
+    width: 85%;
+  }
+
+  .categories__list .icon{
+    width: 30px;
+  }
 }
