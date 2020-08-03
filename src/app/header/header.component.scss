@@ -5,7 +5,7 @@
   width: calc(100vw - 50px);
   z-index: 1;
   padding: 15px 25px;
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 
@@ -47,7 +47,8 @@ nav {
   position: absolute;
   width: 115%;
   z-index: 99999999;
-  background: #fff;
+  background: var(--white);
+
 
   span {
     position: absolute;
