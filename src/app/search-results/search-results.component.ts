@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class SearchResultsComponent implements OnInit {
   search_text: string;
+  showFilterBtn: boolean;
   // list_view: boolean;
   // resourceGroupList: boolean;
   // listMapBtn: boolean;
@@ -15,6 +16,7 @@ export class SearchResultsComponent implements OnInit {
   constructor(public router: Router) {
     // this.listMapBtn = false;
     this.search_text = '';
+    this.showFilterBtn = false;
     // this.list_view = true;
     // this.resourceGroupList = false;
   }
