@@ -74,15 +74,15 @@ export class DatasetListComponent implements OnInit {
   @Output() showOverlay = new EventEmitter();
 
   //set true to show side bar
-  public showFilter: boolean;
+  public showFilter: boolean = true;
 
   public closeFilter() {
     this.overlayValue = false;
     this.showFilter = false;
     this.showOverlay.emit(this.overlayValue);
   }
-  @Input('openFilter')
-  set setData(value: boolean) {
-    this.showFilter = value;
-  }
+  // @Input('openFilter')
+  // set setData(value: boolean) {
+  //   this.showFilter = value;
+  // }
 }
