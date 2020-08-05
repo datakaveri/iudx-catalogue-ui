@@ -74,8 +74,15 @@
     opacity: .8;
   }
 
-  img {
+  button{
     width: 3%;
+    display: flex;
+    background:none;
+    border: none;
+  }
+
+  img {
+    width: 100%;
   }
 }
 

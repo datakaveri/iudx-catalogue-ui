@@ -7,8 +7,10 @@
   padding: 15px 25px;
   display: flex;
   background: white;
+
   .search_bar {
     width: 70%;
+
     // display: flex;
     input {
       width: calc(100% - 125px - 3px);
@@ -17,6 +19,7 @@
       // border-top-left-radius: 5px;
       // border-bottom-left-radius: 5px;
     }
+
     // button {
     //   width: 180px;
     //   padding: 10px 15px;
@@ -33,22 +36,33 @@
       margin-left: -40px;
     }
   }
+
   .map_view {
     width: 30%;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+
     button {
-      width: 40%;
-      padding: 12px 15px;
+      width: 160px;
+      padding: 8px 12px;
       border: 1px solid var(--border);
       background: var(--white);
+    }
+
+    button:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-right: 30px;
     }
+
     img {
       height: 15px;
       width: 15px;
+      margin: 0 8px;
     }
   }
 
-  .filterbtn {
-  }
+  .filterbtn {}
 }
