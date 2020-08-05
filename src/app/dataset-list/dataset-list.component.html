@@ -12,46 +12,52 @@
   <div class="content-div">
     <div class="sidebar" *ngIf="showFilter">
       <div class="filter-div">
-        <a class="cross" (click)="closeFilter()">
-          <img src="../../assets/cross.png" />
-        </a>
-        <!-- <br />
-        <br /> -->
-        <h1>Filters</h1>
-
-        <br />
-        <p>Filter by: Publishers</p>
-
-        <div class="search-filter">
-          <img src="../../assets/search.png" />
-          <input type="text" placeholder="Search..." />
-        </div>
-        <!-- <div class="checkbox-div">
-          <label *ngFor="let option of providers">
-            <input
-              class="checkbox-style"
-              type="checkbox"
-              value="{{ option }}"
-              (change)="getDataForProviders($event, option)"
-            />
-            &nbsp;&nbsp;
-            {{ option }}
-          </label>
-          <!-- <a *ngIf="step_pr_size < providers.length" (click)="showMoreProviders()"
-            >{{ providers.length - step_pr_size }} More</a
-          > -->
-        <!-- </div> -->
-        <div class="checkbox-div">
-          <div *ngFor="let option of providers">
-            <label class="container"
-              >{{ option }}
-              <input type="checkbox" name="" value="" />
-              <span class="checkmark"></span
-            ></label>
+        <div class="filter-div-top">
+          <a class="cross" (click)="closeFilter()">
+            <img src="../../assets/cross.png" />
+          </a>
+          <!-- <br />
+          <br /> -->
+          <h1>Filters</h1>
+  
+          <br />
+          <p>Filter by: Publishers</p>
+  
+          <div class="search-filter">
+            <img src="../../assets/search.png" />
+            <input type="text" placeholder="Search..." />
+          </div>
+          <!-- <div class="checkbox-div">
+            <label *ngFor="let option of providers">
+              <input
+                class="checkbox-style"
+                type="checkbox"
+                value="{{ option }}"
+                (change)="getDataForProviders($event, option)"
+              />
+              &nbsp;&nbsp;
+              {{ option }}
+            </label>
+            <!-- <a *ngIf="step_pr_size < providers.length" (click)="showMoreProviders()"
+              >{{ providers.length - step_pr_size }} More</a
+            > -->
+          <!-- </div> -->
+          <div class="checkbox-div">
+            <div *ngFor="let option of providers">
+              <label class="container"
+                >{{ option }}
+                <input type="checkbox" name="" value="" />
+                <span class="checkmark"></span
+              ></label>
+            </div>
           </div>
         </div>
-        <button class="applybtn">Apply Filters</button>
-        <button class="clrbtn">Clear Filters</button>
+        <div class="filter-div-bottom">
+          <button class="applybtn">Apply Filters</button>
+          <button class="clrbtn">Clear Filters</button>
+        </div>
+        
+       
       </div>
     </div>
     <div class="results-div">
