@@ -1,12 +1,21 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConstantsService } from '../constants.service';
 @Component({
   selector: 'app-dataset-list',
   templateUrl: './dataset-list.component.html',
   styleUrls: ['./dataset-list.component.scss'],
 })
 export class DatasetListComponent implements OnInit {
-  constructor(private router: Router) {}
+  show_filter: boolean;
+  constructor(
+    private router: Router,
+    private constantService: ConstantsService
+  ) {
+    this.constantService.get_filter().subscribe((val) => {
+      this.show_filter = val;
+    });
+  }
   providers = [
     'Provider 1',
     'Provider 2',
@@ -70,19 +79,8 @@ export class DatasetListComponent implements OnInit {
       console.log(event.target.value, option);
     }
   }
-  overlayValue: boolean;
-  @Output() showOverlay = new EventEmitter();
 
-  //set true to show side bar
-  public showFilter: boolean = true;
-
-  public closeFilter() {
-    this.overlayValue = false;
-    this.showFilter = false;
-    this.showOverlay.emit(this.overlayValue);
+  closeFilter() {
+    this.show_filter = false;
   }
-  // @Input('openFilter')
-  // set setData(value: boolean) {
-  //   this.showFilter = value;
-  // }
 }
