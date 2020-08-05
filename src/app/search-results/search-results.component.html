@@ -16,14 +16,7 @@
   <!-- </div> -->
 
   <div class="map_view">
-    <button
-      (click)="openFilter(showFilter)"
-      *ngIf="
-        showFilterBtn ||
-        router.url == '/search/map' ||
-        router.url == '/search/datasets'
-      "
-    >
+    <button (click)="showFilter(true)" *ngIf="showBtnFilter()">
       <img src=".\assets\filter.png" />
       Filters
     </button>

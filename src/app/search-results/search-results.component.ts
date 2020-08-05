@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConstantsService } from '../constants.service';
 
 @Component({
   selector: 'app-search-results',
@@ -8,15 +9,18 @@ import { Router } from '@angular/router';
 })
 export class SearchResultsComponent implements OnInit {
   search_text: string;
-  showFilterBtn: boolean;
+  // showFilterBtn: boolean;
   // list_view: boolean;
   // resourceGroupList: boolean;
   // listMapBtn: boolean;
 
-  constructor(public router: Router) {
+  constructor(
+    public router: Router,
+    private constantService: ConstantsService
+  ) {
     // this.listMapBtn = false;
     this.search_text = '';
-    this.showFilterBtn = false;
+    // this.showFilterBtn = false;
     // this.list_view = true;
     // this.resourceGroupList = false;
   }
@@ -31,21 +35,22 @@ export class SearchResultsComponent implements OnInit {
   getDataForResourceGroups(event, value) {
     // ToDo
   }
-
+  showBtnFilter() {
+    if (
+      this.router.url == '/search/map' ||
+      this.router.url == '/search/datasets'
+    )
+      return true;
+  }
   showMap() {
     this.router.navigate(['/search/map']);
   }
 
-  showFilter: boolean;
-
-  openFilter(showFilter) {
+  showFilter(flag) {
     console.log('filter open');
-
-    this.showFilter = true;
+    this.constantService.set_filter(flag);
   }
   listView() {
     this.router.navigate(['/search/datasets']);
   }
 }
-
-// export function openFilter() {}

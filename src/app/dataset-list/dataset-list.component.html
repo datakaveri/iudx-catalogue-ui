@@ -10,7 +10,7 @@
   <br />
 
   <div class="content-div">
-    <div class="sidebar" *ngIf="showFilter">
+    <div class="sidebar" *ngIf="show_filter">
       <div class="filter-div">
         <div class="filter-div-top">
           <a class="cross" (click)="closeFilter()">
@@ -19,10 +19,10 @@
           <!-- <br />
           <br /> -->
           <h1>Filters</h1>
-  
+
           <br />
           <p>Filter by: Publishers</p>
-  
+
           <div class="search-filter">
             <img src="../../assets/search.png" />
             <input type="text" placeholder="Search..." />
@@ -56,8 +56,6 @@
           <button class="applybtn">Apply Filters</button>
           <button class="clrbtn">Clear Filters</button>
         </div>
-        
-       
       </div>
     </div>
     <div class="results-div">
