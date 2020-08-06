@@ -29,7 +29,7 @@ export class PaginationComponent implements OnInit {
   }
   setPage(page: number) {
     this.current = page;
-    console.log(this.current);
+    // console.log(this.current);
     // conditions
   }
   createPages(start, end) {
@@ -41,7 +41,7 @@ export class PaginationComponent implements OnInit {
   }
   getMaxPages() {
     this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    console.log(this.totalPages);
+    // console.log(this.totalPages);
     if (this.totalPages > this.stepSize) {
       this.nextBtn = true;
       this.createPages(this.start, this.stepSize);
