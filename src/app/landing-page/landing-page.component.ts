@@ -10,20 +10,13 @@ import { InterceptorService } from '../interceptor.service';
 })
 export class LandingPageComponent implements OnInit {
 
+
   showAdvanceSearch: boolean = false;
   overlay: boolean = false;
   names: any = {};
   query: string;
-  results: any[] = [];
-  baseUrl: string = "http://3.7.179.184:3000/v1/customer/cities?city=pune";
-
-
-  data = {
-    resource_groups: 274,
-    resource_items: 783,
-    api_calls: 2412,
-    providers: 17
-  }
+  resultData: any;
+  categoriesData: any[] = [];
 
   constructor(private _search: InterceptorService) {
     this.showAdvanceSearch = false;
@@ -32,17 +25,25 @@ export class LandingPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._search.get_api('customer/summary?city=pune')
+      .then((data) => {
+        this.resultData = data;
+        this.categoriesData = this.resultData.categories;
+        console.log(this.resultData);
+      }
+      ).catch(e => {
+        console.log(e);
+      });
   }
 
   handleChange() {
-    this._search.get_api(this.baseUrl)
-      .then((result) => console.log(result)
-      
+    this._search.get_api('customer/summary?city=pune')
+      .then((result) => console.log(this.categoriesData)
+
       ).catch(e => {
         console.log(e);
-    });
+      });
   }
-
 
 
   goToAdvanceSearch() {
