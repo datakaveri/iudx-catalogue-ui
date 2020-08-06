@@ -43,9 +43,9 @@
             > -->
           <!-- </div> -->
           <div class="checkbox-div">
-            <div *ngFor="let option of providers">
+            <div *ngFor="let option of results?.providers">
               <label class="container"
-                >{{ option }}
+                >{{ option.name }}
                 <input type="checkbox" name="" value="" />
                 <span class="checkmark"></span
               ></label>
@@ -59,13 +59,13 @@
       </div>
     </div>
     <div class="results-div">
-      <div class="box-style" *ngFor="let resource of resource_grps">
+      <div class="box-style" *ngFor="let resource of results?.resource_groups">
         <p>
           {{ resource.description }}
         </p>
 
-        <p><span>Tags: </span> &nbsp; &nbsp;{{ resource.tags }}</p>
-        <p><span>Status: </span>&nbsp; &nbsp;{{ resource.status }}</p>
+        <!-- <p><span>Tags: </span> &nbsp; &nbsp;{{ resource.tags }}</p>
+        <p><span>Status: </span>&nbsp; &nbsp;{{ resource.status }}</p> -->
         <p>
           <span>Created At: </span>&nbsp; &nbsp;{{
             resource.created_at | date: "medium"

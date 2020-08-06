@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsService } from '../constants.service';
+import { InterceptorService } from '../interceptor.service';
 
 @Component({
   selector: 'app-search-results',
@@ -12,7 +13,8 @@ export class SearchResultsComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private constantService: ConstantsService
+    private constantService: ConstantsService,
+    private httpInterceptor: InterceptorService
   ) {
     this.search_text = '';
   }
