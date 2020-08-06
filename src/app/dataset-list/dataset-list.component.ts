@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsService } from '../constants.service';
+import { InterceptorService } from '../interceptor.service';
 @Component({
   selector: 'app-dataset-list',
   templateUrl: './dataset-list.component.html',
@@ -8,64 +9,24 @@ import { ConstantsService } from '../constants.service';
 })
 export class DatasetListComponent implements OnInit {
   show_filter: boolean;
+  body: {
+    providers: [];
+  };
+  resource_groups = {};
+  results: any;
   constructor(
     private router: Router,
-    private constantService: ConstantsService
+    private constantService: ConstantsService,
+    private httpInterceptor: InterceptorService
   ) {
     this.constantService.get_filter().subscribe((val) => {
       this.show_filter = val;
     });
   }
-  providers = [
-    'Provider 1',
-    'Provider 2',
-    'Provider 3',
-    'Provider 4',
-    'Provider 5',
-    'Provider 6',
-  ];
-  resource_grps = [
-    {
-      description:
-        'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',
-      tags: 'sensor, sensing, resource, battery operated',
-      status: 'Active',
-      provider: 'Provider 1',
-      control_level: 'level_1',
-      created_at: '2019-02-20T10:30:06.093121',
-      location: {
-        type: 'Place',
-        address: 'Bangalore, India',
-      },
-    },
-    {
-      description:
-        'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',
-      tags: 'sensor, sensing, resource, battery operated',
-      status: 'active',
-      provider: 'Provider 1',
-      control_level: 'level_1',
-      created_at: '2019-02-20T10:30:06.093121',
-      location: {
-        type: 'Place',
-        address: 'Bangalore',
-      },
-    },
-    {
-      description:
-        'Describes Air Qwality Monitoring (AQM) Resource in Varanasi',
-      tags: 'sensor, sensing, resource, battery operated',
-      status: 'active',
-      provider: 'Provider 1',
-      control_level: 'level_1',
-      created_at: '2019-02-20T10:30:06.093121',
-      location: {
-        type: 'Place',
-        address: 'Bangalore',
-      },
-    },
-  ];
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.searchDatasets();
+  }
   getResourceItems(value) {
     console.log(value);
     this.router.navigate(['/search/items']);
@@ -82,5 +43,13 @@ export class DatasetListComponent implements OnInit {
 
   closeFilter() {
     this.show_filter = false;
+  }
+  searchDatasets() {
+    this.httpInterceptor
+      .post_api('customer/datasets', this.body)
+      .then((response) => {
+        this.results = response;
+        console.log(this.results);
+      });
   }
 }

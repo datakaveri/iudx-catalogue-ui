@@ -13,6 +13,7 @@
 
     // display: flex;
     input {
+      border: none;
       width: calc(100% - 125px - 3px);
       padding: 12px;
       border: 1px solid var(--border);
@@ -20,20 +21,14 @@
       // border-bottom-left-radius: 5px;
     }
 
-    // button {
-    //   width: 180px;
-    //   padding: 10px 15px;
-    //   border: 1px solid var(--border);
-    //   border-left: 0;
-    //   // border-top-right-radius: 5px;
-    //   // border-bottom-right-radius: 5px;
-    //   background: var(--highlight);
-    //   color: var(--white);
-    //   font-weight: 500;
-    img {
-      width: 25px;
-      vertical-align: middle;
-      margin-left: -40px;
+    button {
+      background: none;
+      border: none;
+      img {
+        width: 25px;
+        vertical-align: middle;
+        margin-left: -40px;
+      }
     }
   }
 
@@ -64,5 +59,6 @@
     }
   }
 
-  .filterbtn {}
+  .filterbtn {
+  }
 }
