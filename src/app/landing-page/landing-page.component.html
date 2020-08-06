@@ -20,11 +20,9 @@
 
      <div class="categories__container">
         <ul>
-            <li><a href='#'><img src='../../assets/environment.png'> Environment</a></li>
-            <li><a href='#'><img src='../../assets/education.png'>Education</a></li>
-            <li><a href='#'><img src='../../assets/finance.png'>Finance</a></li>
-            <li><a href='#'><img src='../../assets/health.png'>Health</a></li>
-            <li><a href='#'><img src='../../assets/transport.png'>Transport</a></li>
+            <li *ngFor='let item of categoriesData'>
+                <a href='#'><img src='{{item.image}}'>{{item.name}}</a>
+            </li>
         </ul>
      </div>
     
@@ -32,19 +30,19 @@
         <ul>
             <li>
                 <h5>{{names.resource_groups+'s'}}</h5>
-                <p>{{data.resource_groups}}</p>
+                <p>{{resultData.resource_groups}}</p>
             </li>
             <li>
                 <h5>{{names.resource_items+'s'}}</h5>
-                <p>{{data.resource_items}}</p>
+                <p>{{resultData.resource_items}}</p>
             </li>
             <li>
                 <h5>{{names.providers+'s'}}</h5>
-                <p>{{data.api_calls}}</p>
+                <p>{{resultData.providers}}</p>
             </li>
             <li>
                 <h5>API Hits</h5>
-                <p>{{data.providers}}</p>
+                <p>{{resultData.api_calls}}</p>
             </li>
         </ul>
     </div> 
