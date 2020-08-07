@@ -1,53 +1,58 @@
 <div class="landingPage__container">
-    <div class="hero__container"> 
-        <img src="../../assets/banner.png" alt="hero image" class="hero__image">
-     </div>
-     <div class="landingPage__top">
-        <p class="landingPage__tagline">Welcome to the <span>Smart City</span> of <span>Pune</span></p>
-        <div class="searchBox">
-            <input (input)="handleChange()" [(ngModel)]="query" type="text" placeholder="Search public data...">
-            <button>
-                <img src='../../assets/search.png'>
-            </button>
-           
-        </div>
-        
-        <div class="searchButton__container">
-            <a class='active' href="#">View All Dataset</a>
-            <a href="#">Geo Information</a>
-        </div>
-     </div>
+  <div class="hero__container">
+    <img src="../../assets/banner.png" alt="hero image" class="hero__image" />
+  </div>
+  <div class="landingPage__top">
+    <p class="landingPage__tagline">
+      Welcome to the <span>Smart City</span> of <span>Pune</span>
+    </p>
+    <div class="searchBox">
+      <input
+        (input)="handleChange()"
+        [(ngModel)]="query"
+        type="text"
+        placeholder="Search public data..."
+      />
+      <button (click)="getSearchResults(query)">
+        <img src="../../assets/search.png" />
+      </button>
+    </div>
 
-     <div class="categories__container">
-        <ul>
-            <li *ngFor='let item of categoriesData'>
-                <a href='#'><img src='{{item.image}}'>{{item.name}}</a>
-            </li>
-        </ul>
-     </div>
-    
-    <div class="landingPage__bottom">
-        <ul>
-            <li>
-                <h5>{{names.resource_groups+'s'}}</h5>
-                <p>{{resultData.resource_groups}}</p>
-            </li>
-            <li>
-                <h5>{{names.resource_items+'s'}}</h5>
-                <p>{{resultData.resource_items}}</p>
-            </li>
-            <li>
-                <h5>{{names.providers+'s'}}</h5>
-                <p>{{resultData.providers}}</p>
-            </li>
-            <li>
-                <h5>API Hits</h5>
-                <p>{{resultData.api_calls}}</p>
-            </li>
-        </ul>
-    </div> 
+    <div class="searchButton__container">
+      <a class="active" href="#">View All Dataset</a>
+      <a href="#">Geo Information</a>
+    </div>
+  </div>
+
+  <div class="categories__container">
+    <ul>
+      <li *ngFor="let item of categoriesData">
+        <a href="#"><img src="{{ item.image }}" />{{ item.name }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="landingPage__bottom">
+    <ul>
+      <li>
+        <h5>{{ names.resource_groups + "s" }}</h5>
+        <p>{{ resultData.resource_groups }}</p>
+      </li>
+      <li>
+        <h5>{{ names.resource_items + "s" }}</h5>
+        <p>{{ resultData.resource_items }}</p>
+      </li>
+      <li>
+        <h5>{{ names.providers + "s" }}</h5>
+        <p>{{ resultData.providers }}</p>
+      </li>
+      <li>
+        <h5>API Hits</h5>
+        <p>{{ resultData.api_calls }}</p>
+      </li>
+    </ul>
+  </div>
 </div>
-
 
 <!-- <div [ngClass]="{fadeIn:overlay}"></div>
 <app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"
