@@ -6,14 +6,18 @@
     <p class="landingPage__tagline">Welcome to the <span>Smart City</span> of <span>Pune</span></p>
     <div class="searchBox-container">
       <div class="searchBox">
-        <input (click)='toggleDropdown()' (input)="handleChange()" [(ngModel)]="query" type="text"
+        <input (click)='toggleDropdown()' (input)="handleChange(query)" [(ngModel)]="query" type="text"
           placeholder="Search public data...">
         <button>
           <img src='../../assets/search.png'>
         </button>
       </div>
       <div *ngIf='showDropdown' class="searchBox-dropdown">
-        <div *ngFor='let result of results'>{{result.tag}}</div>
+        <div *ngFor='let item of filteredTags'>
+          <h3>{{item.tag}}</h3>
+          <p>{{item.count}}</p>
+        </div>
+      
       </div>
     </div>
 
@@ -32,7 +36,7 @@
     </ul>
   </div>
 
-  <div class="landingPage__bottom">
+  <div class="landingPage__bottom" *ngIf="resultData">
     <ul>
       <li>
         <h5>{{ names.resource_groups + "s" }}</h5>
