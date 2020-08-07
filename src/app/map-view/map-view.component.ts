@@ -60,40 +60,34 @@ export class MapViewComponent {
       //     shadowUrl: 'a0c6cc1401c107b501efee6477816891.png',
       //   }),
       // },
-      circle: false,
+      // circle: true,
     },
     edit: {
       featureGroup: this.drawnItems,
     },
   };
 
-  drawLocal: any = {
-    draw: {
-      toolbar: {
-        buttons: {
-          polygon: 'Draw an awesome polygon!',
-          circle: false,
-          marker: false,
-        },
-      },
-    },
-  };
+  // drawLocal: any = {
+  //   draw: {
+  //     toolbar: {
+  //       buttons: {
+  //         polygon: 'Draw an awesome polygon!',
+  //         circle: false,
+  //         marker: false,
+  //       },
+  //     },
+  //   },
+  // };
 
-  public onDrawCreated(e: any) {
-    // tslint:disable-next-line:no-console
+  onDrawCreated(e: any) {
     console.log('Draw Created Event!');
 
     const layer = (e as DrawEvents.Created).layer;
     this.drawnItems.addLayer(layer);
   }
 
-  public onDrawStart(e: any) {
-    // tslint:disable-next-line:no-console
+  onDrawStart(e: any) {
     console.log('Draw Started Event!');
-  }
-
-  ngOnInit(): void {
-    this.getMapData();
   }
 
   getMapData() {
