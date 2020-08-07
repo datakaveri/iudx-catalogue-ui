@@ -29,7 +29,7 @@ export class DatasetListComponent implements OnInit {
   }
   getResourceItems(value) {
     console.log(value);
-    this.router.navigate(['/search/items']);
+    this.router.navigate(['/search/items'], { queryParams: { id: value } });
     // Api call here to search and get the results.
   }
   getDataForProviders(event, option) {

@@ -10,6 +10,7 @@ import { InterceptorService } from '../interceptor.service';
 })
 export class SearchResultsComponent implements OnInit {
   search_text: string;
+  body: {};
 
   constructor(
     public router: Router,
@@ -17,6 +18,12 @@ export class SearchResultsComponent implements OnInit {
     private httpInterceptor: InterceptorService
   ) {
     this.search_text = '';
+    this.body = {
+      text: '',
+      tags: [],
+      providers: [],
+      page: 0,
+    };
   }
   ngOnInit(): void {}
   getResourceGroups(value) {
@@ -46,5 +53,14 @@ export class SearchResultsComponent implements OnInit {
   }
   listView() {
     this.router.navigate(['/search/datasets']);
+  }
+  getSearchData(text: string) {
+    console.log(text);
+    this.router.navigate(['/search/datasets'], { queryParams: { term: text } });
+    this.httpInterceptor
+      .post_api('customer/search', this.body)
+      .then((response) => {
+        console.log(response);
+      });
   }
 }

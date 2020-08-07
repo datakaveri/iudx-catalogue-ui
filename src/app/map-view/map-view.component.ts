@@ -15,12 +15,21 @@ import {
   featureGroup,
   Marker,
 } from 'leaflet';
+import { InterceptorService } from '../interceptor.service';
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
 })
 export class MapViewComponent {
+  constructor(private httpInterceptor: InterceptorService) {}
+
+  body: {
+    tags: [];
+    resource_groups: [];
+    providers: [];
+  };
+  results: any;
   showContainer: boolean = false;
   drawnItems: FeatureGroup = featureGroup();
   options = {
@@ -81,5 +90,18 @@ export class MapViewComponent {
   public onDrawStart(e: any) {
     // tslint:disable-next-line:no-console
     console.log('Draw Started Event!');
+  }
+
+  ngOnInit(): void {
+    this.getMapData();
+  }
+
+  getMapData() {
+    this.httpInterceptor
+      .post_api('customer/map', this.body)
+      .then((response) => {
+        this.results = response;
+        console.log(this.results);
+      });
   }
 }

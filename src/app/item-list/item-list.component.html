@@ -5,7 +5,7 @@
       <span>datasets for </span>
       <span>Pollution </span>
       <span>in</span>
-      <span> "{{ resource_items[0].description }}" </span>
+      <span> "{{ resource_items[0]?.description }}" </span>
       <span>matching search criteria</span>
     </p>
   </div>
@@ -17,24 +17,24 @@
       </p>
 
       <p>{{ item.description }}</p>
-      <p><span>Tags: </span>&nbsp; &nbsp;{{ item.tags }}</p>
+      <!-- <p><span>Tags: </span>&nbsp; &nbsp;{{ item.tags }}</p>
 
-      <p><span>Status: </span>&nbsp; &nbsp;{{ item.status }}</p>
+      <p><span>Status: </span>&nbsp; &nbsp;{{ item.status }}</p> -->
       <p>
         <span>Created At: </span>&nbsp; &nbsp;{{
           item.created_at | date: "medium"
         }}
       </p>
-      <p>
+      <!-- <p>
         <span>Modified At: </span>&nbsp; &nbsp;{{
           item.modified_at | date: "medium"
         }}
-      </p>
+      </p> -->
       <p><span>Provider: </span>&nbsp; &nbsp;{{ item.provider }}</p>
-      <p>
+      <!-- <p>
         <span>Resource group:&nbsp; &nbsp;</span>
         {{ item.resource_group }}
-      </p>
+      </p> -->
       <p><span>Location: </span>&nbsp; &nbsp;{{ item.location.address }}</p>
 
       <div class="link-container">
