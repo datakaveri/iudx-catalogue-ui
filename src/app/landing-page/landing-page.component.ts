@@ -17,6 +17,12 @@ export class LandingPageComponent implements OnInit {
   query: string;
   resultData: any;
   categoriesData: any[] = [];
+  showDropdown:boolean = false;
+  results:any;
+
+  tags = ["Dead animal", "Debris Removal", "Garbage dump", "Open Manholes Or Drains", "Sewerage or Storm Water Overflow", "Sweeping not done", "absent", "air", "air quality", "amenities", "amrut", "aqi", "aqm", "area", "asphalt", "attendance", "boundary", "bridges", "census", "civic", "clear water", "climate", "climo", "co", "co2", "collection", "colony", "complaints", "concrete", "deity", "discharge", "dump", "dustbin", "dustbins", "employee", "environment", "fleet", "flyover", "garbage", "gardens", "gcp", "ghar", "gis", "grievances", "ground control point", "humidity", "inventory", "kooda", "kunds", "land", "landmarks", "landuse", "light", "list", "lux", "management", "manhole", "mohallah", "municipal", "no", "no2", "noise", "o3", "oht", "overhead", "ozone", "parks", "pipe line", "pm10", "pm2.5", "pm25", "pollution", "polygon", "ponds", "population", "present", "property", "railline", "railwayline", "railways", "raw water", "religious", "rivers", "road", "sewer", "sewer treatment plant", "sewerline", "signal post", "single", "so2", "solid", "streetlight", "structure", "swachhata", "swm", "tanks", "tax", "tax zone", "temperature", "tiles", "total", "traffic signal", "treatment", "truck", "trucks", "tubewells", "uv", "valve", "vehicle", "vehicles", "ward", "waste", "wastebin", "water", "water atm", "water pump station", "water reservoir", "water station", "water supply", "water treatment plant", "wells", "wise", "workers", "zone"]
+
+
 
   constructor(private _search: InterceptorService) {
     this.showAdvanceSearch = false;
@@ -29,7 +35,7 @@ export class LandingPageComponent implements OnInit {
       .then((data) => {
         this.resultData = data;
         this.categoriesData = this.resultData.categories;
-        console.log(this.resultData);
+        // console.log(this.resultData);
       }
       ).catch(e => {
         console.log(e);
@@ -37,12 +43,19 @@ export class LandingPageComponent implements OnInit {
   }
 
   handleChange() {
-    this._search.get_api('customer/summary?city=pune')
-      .then((result) => console.log(this.categoriesData)
-
+    this._search.get_api('customer/tags?tag=Dead animal')
+      .then((result) => {
+        this.results = result;
+        console.log(result);
+        
+      }
       ).catch(e => {
         console.log(e);
       });
+  }
+
+  toggleDropdown(){
+    this.showDropdown = !this.showDropdown;
   }
 
 

@@ -4,13 +4,18 @@
      </div>
      <div class="landingPage__top">
         <p class="landingPage__tagline">Welcome to the <span>Smart City</span> of <span>Pune</span></p>
-        <div class="searchBox">
-            <input (input)="handleChange()" [(ngModel)]="query" type="text" placeholder="Search public data...">
-            <button>
-                <img src='../../assets/search.png'>
-            </button>
-           
+        <div class="searchBox-container">
+            <div class="searchBox">
+                <input (click)='toggleDropdown()' (input)="handleChange()" [(ngModel)]="query" type="text" placeholder="Search public data...">
+                <button>
+                    <img src='../../assets/search.png'>
+                </button>
+            </div>
+            <div *ngIf='showDropdown' class="searchBox-dropdown">
+                <div *ngFor='let result of results'>{{result.tag}}</div>
+            </div>
         </div>
+       
         
         <div class="searchButton__container">
             <a class='active' href="#">View All Dataset</a>
