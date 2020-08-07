@@ -46,7 +46,11 @@
             <div *ngFor="let option of results?.providers">
               <label class="container"
                 >{{ option.name }}
-                <input type="checkbox" name="" value="" />
+                <input
+                  (change)="getDataForProviders($event, option.name)"
+                  type="checkbox"
+                  name=""
+                  value="{{ option.name }}" />
                 <span class="checkmark"></span
               ></label>
             </div>

@@ -27,7 +27,7 @@ export class ConstantsService {
       : this.search_params;
   }
 
-  set_city(value:  string) {
+  set_city(value: string) {
     this.city = value;
   }
 
@@ -44,6 +44,7 @@ export class ConstantsService {
   }
 
   set_search_query(query) {
+    console.log(query);
     this.search_text = query.search_text;
     this.search_params = query.search_params;
     window.sessionStorage.search_text = query.search_text;

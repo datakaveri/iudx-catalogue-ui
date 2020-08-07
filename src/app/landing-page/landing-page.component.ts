@@ -15,70 +15,78 @@ export class LandingPageComponent implements OnInit {
   query: string;
   resultData: any;
   categoriesData: any[] = [];
-  showDropdown:boolean = false;
-  results:any;
-  body:any;
+  showDropdown: boolean = false;
+  results: any;
+  body: any;
+  searchQuery: {};
+  tags: any;
+  filteredTags: any = [];
 
-  tags:any;
-  filteredTags:any = [];
-
-
-
-  constructor(public router: Router, private _search: InterceptorService, private constant: ConstantsService) {
+  constructor(
+    public router: Router,
+    private _search: InterceptorService,
+    private constantService: ConstantsService
+  ) {
     this.showAdvanceSearch = false;
     this.overlay = false;
-    this.names = this.constant.get_nomenclatures();
+    this.names = this.constantService.get_nomenclatures();
     this.body = {
       text: '',
       tags: [],
       providers: [],
       page: 0,
     };
+    this.searchQuery = {
+      search_text: '',
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    };
     this.get_data();
     this.get_tags();
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   get_data() {
     this._search
-    .get_api('customer/summary?city=pune')
-    .then((data) => {
-      this.resultData = data;
-      this.categoriesData = this.resultData.categories;
-      // console.log(this.resultData);
-      // console.log(this.categoriesData);
-    })
-    .catch((e) => {
-      console.log(e);
+      .get_api('customer/summary?city=pune')
+      .then((data) => {
+        this.resultData = data;
+        this.categoriesData = this.resultData.categories;
+        // console.log(this.resultData);
+        // console.log(this.categoriesData);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  get_tags() {
+    this._search
+      .get_api('customer/tags?city=pune')
+      .then((data) => {
+        this.tags = data;
+        console.log(this.tags);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  handleChange(word = this.query) {
+    this.filteredTags = this.tags.filter((e) => {
+      return e.tag.includes(word);
     });
+    console.log(this.filteredTags);
   }
 
-  get_tags(){
-    this._search.get_api('customer/tags?city=pune')
-    .then((data) => {
-      this.tags = data;
-      console.log(this.tags);
-      
-    }).catch(e => {
-      console.log(e);
-    });
-  }
-
-  handleChange(word=this.query) {
-    
-   this.filteredTags = this.tags.filter((e)=> {
-     return e.tag.includes(word);
-   })
-   console.log(this.filteredTags);
-  }
-
-  toggleDropdown(){
+  toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
-
 
   goToAdvanceSearch() {
     // showing the overlay
@@ -96,9 +104,16 @@ export class LandingPageComponent implements OnInit {
   }
   getSearchResults(text: string) {
     console.log(text);
-    this.router.navigate(['/search/datasets'], { queryParams: { term: text } });
-    this._search.post_api('customer/search', this.body).then((response) => {
-      console.log(response);
-    });
+    this.searchQuery = {
+      search_text: text,
+      search_params: {
+        tags: ['debris'],
+        providers: ['providers'],
+        page: 2,
+        resource_groups: [],
+      },
+    };
+    this.constantService.set_search_query(this.searchQuery);
+    this.router.navigate(['/search/datasets']);
   }
 }

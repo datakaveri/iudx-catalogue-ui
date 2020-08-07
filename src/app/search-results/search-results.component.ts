@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsService } from '../constants.service';
-import { InterceptorService } from '../interceptor.service';
 
 @Component({
   selector: 'app-search-results',
@@ -10,19 +9,21 @@ import { InterceptorService } from '../interceptor.service';
 })
 export class SearchResultsComponent implements OnInit {
   search_text: string;
-  body: {};
+  searchQuery: {};
 
   constructor(
     public router: Router,
-    private constantService: ConstantsService,
-    private httpInterceptor: InterceptorService
+    private constantService: ConstantsService
   ) {
     this.search_text = '';
-    this.body = {
-      text: '',
-      tags: [],
-      providers: [],
-      page: 0,
+    this.searchQuery = {
+      search_text: '',
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
     };
   }
   ngOnInit(): void {}
@@ -54,13 +55,18 @@ export class SearchResultsComponent implements OnInit {
   listView() {
     this.router.navigate(['/search/datasets']);
   }
-  getSearchData(text: string) {
+  getSearchDatasets(text: string) {
     console.log(text);
-    this.router.navigate(['/search/datasets'], { queryParams: { term: text } });
-    this.httpInterceptor
-      .post_api('customer/search', this.body)
-      .then((response) => {
-        console.log(response);
-      });
+    this.searchQuery = {
+      search_text: text,
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    };
+    this.constantService.set_search_query(this.searchQuery);
+    this.router.navigate(['search/datasets']);
   }
 }

@@ -1,29 +1,34 @@
 <div class="landingPage__container">
   <div class="hero__container">
-    <img src="../../assets/banner.png" alt="hero image" class="hero__image">
+    <img src="../../assets/banner.png" alt="hero image" class="hero__image" />
   </div>
   <div class="landingPage__top">
-    <p class="landingPage__tagline">Welcome to the <span>Smart City</span> of <span>Pune</span></p>
+    <p class="landingPage__tagline">
+      Welcome to the <span>Smart City</span> of <span>Pune</span>
+    </p>
     <div class="searchBox-container">
       <div class="searchBox">
-        <input (click)='toggleDropdown()' (input)="handleChange(query)" [(ngModel)]="query" type="text"
-          placeholder="Search public data...">
-        <button>
-          <img src='../../assets/search.png'>
+        <input
+          (click)="toggleDropdown()"
+          (input)="handleChange(query)"
+          [(ngModel)]="query"
+          type="text"
+          placeholder="Search public data..."
+        />
+        <button (click)="getSearchResults(query)">
+          <img src="../../assets/search.png" />
         </button>
       </div>
-      <div *ngIf='showDropdown' class="searchBox-dropdown">
-        <div *ngFor='let item of filteredTags'>
-          <h3>{{item.tag}}</h3>
-          <p>{{item.count}}</p>
+      <div *ngIf="showDropdown" class="searchBox-dropdown">
+        <div *ngFor="let item of filteredTags">
+          <h3>{{ item.tag }}</h3>
+          <p>{{ item.count }}</p>
         </div>
-      
       </div>
     </div>
 
-
     <div class="searchButton__container">
-      <a class='active' href="#">View All Dataset</a>
+      <a class="active" href="#">View All Dataset</a>
       <a href="#">Geo Information</a>
     </div>
   </div>
