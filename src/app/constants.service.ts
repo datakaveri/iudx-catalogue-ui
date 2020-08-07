@@ -11,10 +11,12 @@ export class ConstantsService {
   search_text: string;
   search_params: any;
   filter_subject = new Subject<any>();
+  city: string;
   constructor() {
     this.resource_groups = 'Dataset';
     this.resource_items = 'Resource';
     this.providers = 'Publisher';
+    this.city = '';
     this.search_params = {};
     this.search_text = '';
     this.search_params = window.sessionStorage.search_params
@@ -23,6 +25,14 @@ export class ConstantsService {
     this.search_text = window.sessionStorage.search_text
       ? window.sessionStorage.search_text
       : this.search_params;
+  }
+
+  set_city(value:  string) {
+    this.city = value;
+  }
+
+  get_city() {
+    return this.city;
   }
 
   get_nomenclatures() {

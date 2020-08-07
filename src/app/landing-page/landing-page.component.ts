@@ -15,41 +15,70 @@ export class LandingPageComponent implements OnInit {
   query: string;
   resultData: any;
   categoriesData: any[] = [];
-  body: {};
+  showDropdown:boolean = false;
+  results:any;
+  body:any;
 
-  constructor(public router: Router, private _search: InterceptorService) {
+  tags:any;
+  filteredTags:any = [];
+
+
+
+  constructor(public router: Router, private _search: InterceptorService, private constant: ConstantsService) {
     this.showAdvanceSearch = false;
     this.overlay = false;
-    this.names = new ConstantsService();
+    this.names = this.constant.get_nomenclatures();
     this.body = {
       text: '',
       tags: [],
       providers: [],
       page: 0,
     };
+    this.get_data();
+    this.get_tags();
   }
 
   ngOnInit(): void {
-    this._search
-      .get_api('customer/summary?city=pune')
-      .then((data) => {
-        this.resultData = data;
-        this.categoriesData = this.resultData.categories;
-        console.log(this.resultData);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    
   }
 
-  handleChange() {
+  get_data() {
     this._search
-      .get_api('customer/summary?city=pune')
-      .then((result) => console.log(this.categoriesData))
-      .catch((e) => {
-        console.log(e);
-      });
+    .get_api('customer/summary?city=pune')
+    .then((data) => {
+      this.resultData = data;
+      this.categoriesData = this.resultData.categories;
+      // console.log(this.resultData);
+      // console.log(this.categoriesData);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   }
+
+  get_tags(){
+    this._search.get_api('customer/tags?city=pune')
+    .then((data) => {
+      this.tags = data;
+      console.log(this.tags);
+      
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
+  handleChange(word=this.query) {
+    
+   this.filteredTags = this.tags.filter((e)=> {
+     return e.tag.includes(word);
+   })
+   console.log(this.filteredTags);
+  }
+
+  toggleDropdown(){
+    this.showDropdown = !this.showDropdown;
+  }
+
 
   goToAdvanceSearch() {
     // showing the overlay
