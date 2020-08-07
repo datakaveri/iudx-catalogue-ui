@@ -28,7 +28,6 @@ export class SearchResultsComponent implements OnInit {
   }
   ngOnInit(): void {}
   getResourceGroups(value) {
-    console.log(value);
     // Api call here to search and get the results.
   }
   getDataForProviders(event, value) {
@@ -49,14 +48,13 @@ export class SearchResultsComponent implements OnInit {
   }
 
   showFilter(flag) {
-    console.log('filter open');
     this.constantService.set_filter(flag);
   }
   listView() {
     this.router.navigate(['/search/datasets']);
   }
   getSearchDatasets(text: string) {
-    console.log(text);
+    // console.log(text);
     this.searchQuery = {
       search_text: text,
       search_params: {

@@ -103,7 +103,7 @@ export class LandingPageComponent implements OnInit {
     this.overlay = value;
   }
   getSearchResults(text: string) {
-    console.log(text);
+    // console.log(text);
     this.searchQuery = {
       search_text: text,
       search_params: {

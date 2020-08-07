@@ -44,7 +44,6 @@ export class ConstantsService {
   }
 
   set_search_query(query) {
-    console.log(query);
     this.search_text = query.search_text;
     this.search_params = query.search_params;
     window.sessionStorage.search_text = query.search_text;

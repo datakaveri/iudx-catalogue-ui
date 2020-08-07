@@ -75,12 +75,12 @@ export class DatasetListComponent implements OnInit {
       };
       this.constantService.set_search_query(this.searchQuery);
       this.body = this.constantService.get_search_query();
-      console.log(this.body);
+      // console.log(this.body);
       this.httpInterceptor
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-          console.log(this.results);
+          // console.log(this.results);
         });
     }
   }
@@ -127,7 +127,7 @@ export class DatasetListComponent implements OnInit {
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-          console.log(this.results);
+          // console.log(this.results);
         });
     }
   }
