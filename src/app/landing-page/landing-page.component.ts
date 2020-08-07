@@ -17,29 +17,33 @@ export class LandingPageComponent implements OnInit {
   categoriesData: any[] = [];
   body: {};
 
-  constructor(public router: Router, private _search: InterceptorService) {
+  constructor(public router: Router, private _search: InterceptorService, private constant: ConstantsService) {
     this.showAdvanceSearch = false;
     this.overlay = false;
-    this.names = new ConstantsService();
+    this.names = this.constant.get_nomenclatures();
     this.body = {
       text: '',
       tags: [],
       providers: [],
       page: 0,
     };
+    this.get_data();
   }
 
   ngOnInit(): void {
+    
+  }
+
+  get_data() {
     this._search
-      .get_api('customer/summary?city=pune')
-      .then((data) => {
-        this.resultData = data;
-        this.categoriesData = this.resultData.categories;
-        console.log(this.resultData);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    .get_api('customer/summary?city=pune')
+    .then((data) => {
+      this.resultData = data;
+      this.categoriesData = this.resultData.categories;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   }
 
   handleChange() {
