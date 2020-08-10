@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from "@angular/platform-browser";
+import { ConstantsService } from './constants.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import { Title } from "@angular/platform-browser";
 })
 export class AppComponent {
   constructor(
-    private title: Title
+    private title: Title,
+    private constant: ConstantsService
   ) {
-    let host = location.host == 'localhost:4000' ? 'Local' : location.host.split('.')[0];
+    let host = location.host == 'localhost:4000' ? 'ui-test' : location.host.split('.')[0];
     this.title.setTitle(host + " Data Kaveri | Indian Urban Data Exchang");
+    this.constant.set_city(host);
   }
 }

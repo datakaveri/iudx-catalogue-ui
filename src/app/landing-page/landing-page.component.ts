@@ -15,18 +15,17 @@ export class LandingPageComponent implements OnInit {
   query: string;
   resultData: any;
   categoriesData: any[] = [];
-  showDropdown: boolean = false;
   results: any;
   body: any;
   searchQuery: {};
   tags: any;
   filteredTags: any = [];
-
   constructor(
     public router: Router,
     private _search: InterceptorService,
     private constantService: ConstantsService
   ) {
+    this.query = '';
     this.showAdvanceSearch = false;
     this.overlay = false;
     this.names = this.constantService.get_nomenclatures();
@@ -70,8 +69,6 @@ export class LandingPageComponent implements OnInit {
     this._search.get_api('customer/tags')
     .then((data) => { 
       this.tags = data;
-      console.log(this.tags);
-      
     }).catch(e => {
       console.log(e);
     });
@@ -79,15 +76,9 @@ export class LandingPageComponent implements OnInit {
 
 
   handleChange(word=this.query) {
-    
-   this.filteredTags = this.tags.filter((e)=> {
-     return e.tag.toLowerCase().includes(word);
-   })
-   console.log(this.filteredTags);
-  }
-
-  toggleDropdown() {
-    this.showDropdown = !this.showDropdown;
+    this.filteredTags = this.tags.filter((e)=> {
+      return e.tag.toLowerCase().includes(word);
+    });
   }
 
   goToAdvanceSearch() {
