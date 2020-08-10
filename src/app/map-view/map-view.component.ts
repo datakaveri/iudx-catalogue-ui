@@ -16,13 +16,22 @@ import {
   Marker,
 } from 'leaflet';
 import { InterceptorService } from '../interceptor.service';
+import { ConstantsService } from '../constants.service';
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
 })
 export class MapViewComponent {
-  constructor(private httpInterceptor: InterceptorService) {}
+  show_filter: boolean;
+  constructor(
+    private constantService: ConstantsService,
+    private httpInterceptor: InterceptorService
+  ) {
+    this.constantService.get_filter().subscribe((val) => {
+      this.show_filter = val;
+    });
+  }
 
   body: {
     tags: [];
@@ -48,7 +57,7 @@ export class MapViewComponent {
   };
 
   drawOptions = {
-    position: 'topright',
+    position: 'topleft',
     draw: {
       marker: false,
       // marker: {
@@ -97,5 +106,8 @@ export class MapViewComponent {
         this.results = response;
         console.log(this.results);
       });
+  }
+  closeFilter() {
+    this.show_filter = false;
   }
 }
