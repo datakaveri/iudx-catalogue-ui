@@ -57,7 +57,7 @@ export class MapViewComponent {
   };
 
   drawOptions = {
-    position: 'topright',
+    position: 'topleft',
     draw: {
       marker: false,
       // marker: {
