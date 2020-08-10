@@ -32,18 +32,18 @@
     </div>
 
     <div class="searchButton__container">
-      <a (click)="getDatasets()" class="active">View All Dataset</a>
+      <a (click)="getAllDatasets()" class="active">View All Dataset</a>
       <a (click)="getGeoInfo()">Geo Information</a>
     </div>
   </div>
 
-  <div class="categories__container" *ngIf="categoriesData">
+  <!-- <div class="categories__container" *ngIf="categoriesData">
     <ul>
       <li *ngFor="let item of categoriesData">
         <a href="#"><img src="{{ item.image }}" />aakash</a>
       </li>
     </ul>
-  </div>
+  </div> -->
 
 
   <div class="landingPage__bottom" *ngIf="resultData">

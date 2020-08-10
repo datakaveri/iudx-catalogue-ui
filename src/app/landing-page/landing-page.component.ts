@@ -105,12 +105,22 @@ export class LandingPageComponent implements OnInit {
     this.overlay = value;
   }
 
-  getDatasets() {
-    this.router.navigate(['/search/datasets']);
-  }
-
   getGeoInfo() {
     this.router.navigate(['/search/map']);
+  }
+
+  getAllDatasets() {
+    this.searchQuery = {
+      search_text:'',
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    };
+    this.constantService.set_search_query(this.searchQuery);
+    this.router.navigate(['/search/datasets']);
   }
 
   getSearchResultsByText(text: string) {
@@ -128,11 +138,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   getSearchResultsByTag(event) {
-    // console.log(event);
-
-    this.tagSelected = event.currentTarget.firstChild.innerText;
-    // console.log(this.tagSelected);
-
+    this.tagSelected = event.currentTarget.firstChild.innerText
     this.searchQuery = {
       search_text:'',
       search_params: {
