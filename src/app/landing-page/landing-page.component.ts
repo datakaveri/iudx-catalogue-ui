@@ -18,7 +18,9 @@ export class LandingPageComponent implements OnInit {
   results: any;
   body: any;
   searchQuery: {};
+  searchTag: {};
   tags: any;
+  tagSelected: any;
   filteredTags: any = [];
   constructor(
     public router: Router,
@@ -44,39 +46,46 @@ export class LandingPageComponent implements OnInit {
         resource_groups: [],
       },
     };
+
+    this.searchTag = {
+      search_tag: '',
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    }
+
     this.get_data();
     this.get_tags();
-   
   }
 
   ngOnInit(): void {
-    // this.get_data();
-    // this.get_tags();
   }
 
   get_data() {
     this._search.get_api('customer/summary')
-    .then((data) => {
-      this.resultData = data;
-      console.log(this.resultData);
-    }
-    ).catch(e => {
-      console.log(e);
-    });
+      .then((data) => {
+        this.resultData = data;
+      }
+      ).catch(e => {
+        console.log(e);
+      });
   }
 
-  get_tags(){
+  get_tags() {
     this._search.get_api('customer/tags')
-    .then((data) => { 
-      this.tags = data;
-    }).catch(e => {
-      console.log(e);
-    });
+      .then((data) => {
+        this.tags = data;
+      }).catch(e => {
+        console.log(e);
+      });
   }
 
 
-  handleChange(word=this.query) {
-    this.filteredTags = this.tags.filter((e)=> {
+  handleChange(word = this.query) {
+    this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(word);
     });
   }
@@ -95,14 +104,41 @@ export class LandingPageComponent implements OnInit {
   getOverlay(value) {
     this.overlay = value;
   }
-  getSearchResults(text: string) {
-    // console.log(text);
+
+  getDatasets() {
+    this.router.navigate(['/search/datasets']);
+  }
+
+  getGeoInfo() {
+    this.router.navigate(['/search/map']);
+  }
+
+  getSearchResultsByText(text: string) {
     this.searchQuery = {
       search_text: text,
       search_params: {
-        tags: ['debris'],
-        providers: ['providers'],
-        page: 2,
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    };
+    this.constantService.set_search_query(this.searchQuery);
+    this.router.navigate(['/search/datasets']);
+  }
+
+  getSearchResultsByTag(event) {
+    // console.log(event);
+
+    this.tagSelected = event.currentTarget.firstChild.innerText;
+    // console.log(this.tagSelected);
+
+    this.searchQuery = {
+      search_text:'',
+      search_params: {
+        tags: [this.tagSelected],
+        providers: [],
+        page: 0,
         resource_groups: [],
       },
     };
