@@ -34,31 +34,31 @@ export class LandingPageComponent implements OnInit {
       providers: [],
       page: 0,
     };
+
     this.get_data();
     this.get_tags();
+   
   }
 
   ngOnInit(): void {
-    
+    // this.get_data();
+    // this.get_tags();
   }
 
   get_data() {
-    this._search
-    .get_api('customer/summary?city=pune')
+    this._search.get_api('customer/summary')
     .then((data) => {
       this.resultData = data;
-      this.categoriesData = this.resultData.categories;
-      // console.log(this.resultData);
-      // console.log(this.categoriesData);
-    })
-    .catch((e) => {
+      console.log(this.resultData);
+    }
+    ).catch(e => {
       console.log(e);
     });
   }
 
   get_tags(){
-    this._search.get_api('customer/tags?city=pune')
-    .then((data) => {
+    this._search.get_api('customer/tags')
+    .then((data) => { 
       this.tags = data;
       console.log(this.tags);
       
@@ -67,10 +67,11 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
+
   handleChange(word=this.query) {
     
    this.filteredTags = this.tags.filter((e)=> {
-     return e.tag.includes(word);
+     return e.tag.toLowerCase().includes(word);
    })
    console.log(this.filteredTags);
   }

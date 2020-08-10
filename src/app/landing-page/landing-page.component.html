@@ -13,11 +13,26 @@
         </button>
       </div>
       <div *ngIf='showDropdown' class="searchBox-dropdown">
-        <div *ngFor='let item of filteredTags'>
-          <h3>{{item.tag}}</h3>
-          <p>{{item.count}}</p>
+        <div>
+          <h3>Resource Groups</h3>
+          <p> datasets</p>
         </div>
-      
+        <div>
+          <h3>Resource Groups</h3>
+          <p> datasets</p>
+        </div>
+        <div>
+          <h3>Resource Groups</h3>
+          <p> datasets</p>
+        </div>
+        <div>
+          <h3>Resource Groups</h3>
+          <p> datasets</p>
+        </div>
+        <div>
+          <h3>Resource Groups</h3>
+          <p> datasets</p>
+        </div>
       </div>
     </div>
 
@@ -28,13 +43,14 @@
     </div>
   </div>
 
-  <div class="categories__container">
+  <div class="categories__container" *ngIf="categoriesData">
     <ul>
       <li *ngFor="let item of categoriesData">
-        <a href="#"><img src="{{ item.image }}" />{{ item.name }}</a>
+        <a href="#"><img src="{{ item.image }}" />aakash</a>
       </li>
     </ul>
   </div>
+
 
   <div class="landingPage__bottom" *ngIf="resultData">
     <ul>
