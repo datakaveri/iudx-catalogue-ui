@@ -1,17 +1,17 @@
 <div class="content-container">
   <div class="para-div">
     <p>
-      <span>200 </span>
+      <span>{{ items?.total_items }} </span>
       <span>datasets for </span>
       <span>Pollution </span>
       <span>in</span>
-      <span> "{{ resource_items[0]?.description }}" </span>
+      <span> "{{ (items?.resource_items)[0].description }}" </span>
       <span>matching search criteria</span>
     </p>
   </div>
   <br />
   <div class="results-div">
-    <div class="box-style" *ngFor="let item of resource_items">
+    <div class="box-style" *ngFor="let item of items?.resource_items">
       <p>
         {{ item.name }}
       </p>
