@@ -100,20 +100,10 @@
     border: 1px solid var(--border);
     border-top: 0;
     background-color: #fff;
-    // padding: 15px 0;
     position: absolute;
     top: 100%;
     overflow-y: auto;
     text-align: left;
-
-    // h3 {
-    //   font-weight: 600;
-    //   color: var(--primary);
-    // }
-
-    // p {
-    //   color: var(--tertiary);
-    // }
 
     .no_data {
       padding: 0 15px;
@@ -125,27 +115,23 @@
         padding: 15px;
         cursor: pointer;
         p {
-          font-weight: 600;
+         
           color: var(--primary);
-          span {
+          .tagSelected{
+            font-weight: 600;
+          }
+          .count {
             float: right;
             color: var(--tertiary);
+            font-weight: 400;
           }
+        }
+
+        &:hover{
+          background-color: #F4F4F4;
         }
       }
     }
-
-    // div {
-    //   // padding: 10px;
-    //   display: flex;
-    //   justify-content: space-between;
-    //   align-items: center;
-    //   padding: 15px;
-
-    //   &:hover {
-    //     background: #EAEFEF;
-    //   }
-    // }
   }
 }
 

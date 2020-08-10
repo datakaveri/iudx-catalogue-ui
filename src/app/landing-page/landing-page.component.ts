@@ -18,7 +18,9 @@ export class LandingPageComponent implements OnInit {
   results: any;
   body: any;
   searchQuery: {};
+  searchTag: {};
   tags: any;
+  tagSelected : any;
   filteredTags: any = [];
   constructor(
     public router: Router,
@@ -44,21 +46,28 @@ export class LandingPageComponent implements OnInit {
         resource_groups: [],
       },
     };
+
+    this.searchTag = {
+      search_tag: '',
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    }
+
     this.get_data();
     this.get_tags();
-   
   }
 
   ngOnInit(): void {
-    // this.get_data();
-    // this.get_tags();
   }
 
   get_data() {
     this._search.get_api('customer/summary')
     .then((data) => {
       this.resultData = data;
-      console.log(this.resultData);
     }
     ).catch(e => {
       console.log(e);
@@ -95,8 +104,16 @@ export class LandingPageComponent implements OnInit {
   getOverlay(value) {
     this.overlay = value;
   }
-  getSearchResults(text: string) {
-    // console.log(text);
+
+  getDatasets(){
+    this.router.navigate(['/search/datasets']);
+  }
+
+  getGeoInfo(){
+    this.router.navigate(['/search/map']);
+  }
+
+  getSearchResultsByText(text: string) {
     this.searchQuery = {
       search_text: text,
       search_params: {
@@ -107,6 +124,22 @@ export class LandingPageComponent implements OnInit {
       },
     };
     this.constantService.set_search_query(this.searchQuery);
+    this.router.navigate(['/search/datasets']);
+  }
+
+  getSearchResultsByTag(event) {
+    this.tagSelected  = event.currentTarget.firstChild.innerText;
+    
+    this.searchTag = {
+      search_tag: this.tagSelected,
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    };
+    this.constantService.set_search_query(this.searchTag);
     this.router.navigate(['/search/datasets']);
   }
 }
