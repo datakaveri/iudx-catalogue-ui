@@ -24,6 +24,7 @@ import { ConstantsService } from '../constants.service';
 })
 export class MapViewComponent {
   show_filter: boolean;
+  options: any;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
@@ -32,7 +33,9 @@ export class MapViewComponent {
       this.show_filter = val;
     });
   }
-
+  ngOnInit(): void {
+    this.options = this.initMap();
+  }
   body: {
     tags: [];
     resource_groups: [];
@@ -41,52 +44,16 @@ export class MapViewComponent {
   results: any;
   showContainer: boolean = false;
   drawnItems: FeatureGroup = featureGroup();
-  options = {
-    layers: [
-      tileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        {
-          attribution:
-            '<span id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
-            '</span>',
-        }
-      ),
-    ],
-    zoom: 13,
-    center: latLng({ lat: 12.9716, lng: 77.5946 }),
-  };
 
   drawOptions = {
     position: 'topleft',
     draw: {
       marker: false,
-      // marker: {
-      //   icon: icon({
-      //     iconSize: [25, 41],
-      //     iconAnchor: [13, 41],
-      //     iconUrl: 'assets/marker-icon.png',
-      //     iconRetinaUrl: '680f69f3c2e6b90c1812a813edf67fd7.png',
-      //     shadowUrl: 'a0c6cc1401c107b501efee6477816891.png',
-      //   }),
-      // },
-      // circle: true,
     },
     edit: {
       featureGroup: this.drawnItems,
     },
   };
-
-  // drawLocal: any = {
-  //   draw: {
-  //     toolbar: {
-  //       buttons: {
-  //         polygon: 'Draw an awesome polygon!',
-  //         circle: false,
-  //         marker: false,
-  //       },
-  //     },
-  //   },
-  // };
 
   onDrawCreated(e: any) {
     console.log('Draw Created Event!');
@@ -109,5 +76,24 @@ export class MapViewComponent {
   }
   closeFilter() {
     this.show_filter = false;
+  }
+  initMap() {
+    var map_options = {
+      layers: [
+        tileLayer(
+          'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+          {
+            maxZoom: 19,
+            attribution:
+              '<span id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
+              '</span>',
+          }
+        ),
+      ],
+      zoom: 13,
+      center: latLng({ lat: 12.9716, lng: 77.5946 }),
+    };
+
+    return map_options;
   }
 }

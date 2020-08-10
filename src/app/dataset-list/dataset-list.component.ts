@@ -43,6 +43,15 @@ export class DatasetListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.search_text = sessionStorage.getItem('search_params');
+    this.search_params = sessionStorage.getItem('search_text');
+
+    // this.search_text = '';
+    this.pages = 0;
+    this.searchQuery = {
+      search_text: this.search_text,
+      search_params: this.search_params,
+    };
     this.searchDatasets();
   }
   getResourceItems(_id) {
@@ -74,6 +83,7 @@ export class DatasetListComponent implements OnInit {
         },
       };
       this.constantService.set_search_query(this.searchQuery);
+      console.log(sessionStorage.getItem('search_params'));
       this.body = this.constantService.get_search_query();
       // console.log(this.body);
       this.httpInterceptor
@@ -102,7 +112,8 @@ export class DatasetListComponent implements OnInit {
         .post_api('customer/search', this.body)
         .then((response) => {
           this.results = response;
-          // console.log(response);
+
+          console.log(response);
         });
     } else if (this.tags) {
       // console.log('searchTags Called');

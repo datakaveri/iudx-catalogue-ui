@@ -1,9 +1,10 @@
 <div class="content-container">
   <div class="para-div">
     <p>
-      <span>200 </span>
-      <span>datasets for </span>
-      <span>Pollution </span>
+      <span>{{ (results?.resource_groups).length }} </span>
+      <span *ngIf="(results?.resource_groups).length == 1">dataset for </span>
+      <span *ngIf="(results?.resource_groups).length > 1">datasets for </span>
+      <span>{{ search_text }} </span>
       <span>matching search criteria</span>
     </p>
   </div>
