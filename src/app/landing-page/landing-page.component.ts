@@ -20,7 +20,7 @@ export class LandingPageComponent implements OnInit {
   searchQuery: {};
   searchTag: {};
   tags: any;
-  tagSelected : any;
+  tagSelected: any;
   filteredTags: any = [];
   constructor(
     public router: Router,
@@ -66,26 +66,26 @@ export class LandingPageComponent implements OnInit {
 
   get_data() {
     this._search.get_api('customer/summary')
-    .then((data) => {
-      this.resultData = data;
-    }
-    ).catch(e => {
-      console.log(e);
-    });
+      .then((data) => {
+        this.resultData = data;
+      }
+      ).catch(e => {
+        console.log(e);
+      });
   }
 
-  get_tags(){
+  get_tags() {
     this._search.get_api('customer/tags')
-    .then((data) => { 
-      this.tags = data;
-    }).catch(e => {
-      console.log(e);
-    });
+      .then((data) => {
+        this.tags = data;
+      }).catch(e => {
+        console.log(e);
+      });
   }
 
 
-  handleChange(word=this.query) {
-    this.filteredTags = this.tags.filter((e)=> {
+  handleChange(word = this.query) {
+    this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(word);
     });
   }
@@ -105,11 +105,11 @@ export class LandingPageComponent implements OnInit {
     this.overlay = value;
   }
 
-  getDatasets(){
+  getDatasets() {
     this.router.navigate(['/search/datasets']);
   }
 
-  getGeoInfo(){
+  getGeoInfo() {
     this.router.navigate(['/search/map']);
   }
 
@@ -117,9 +117,9 @@ export class LandingPageComponent implements OnInit {
     this.searchQuery = {
       search_text: text,
       search_params: {
-        tags: ['debris'],
-        providers: ['providers'],
-        page: 2,
+        tags: [],
+        providers: [],
+        page: 0,
         resource_groups: [],
       },
     };
@@ -128,18 +128,21 @@ export class LandingPageComponent implements OnInit {
   }
 
   getSearchResultsByTag(event) {
-    this.tagSelected  = event.currentTarget.firstChild.innerText;
-    
-    this.searchTag = {
-      search_tag: this.tagSelected,
+    // console.log(event);
+
+    this.tagSelected = event.currentTarget.firstChild.innerText;
+    // console.log(this.tagSelected);
+
+    this.searchQuery = {
+      search_text:'',
       search_params: {
-        tags: [],
+        tags: [this.tagSelected],
         providers: [],
         page: 0,
         resource_groups: [],
       },
     };
-    this.constantService.set_search_query(this.searchTag);
+    this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
   }
 }
