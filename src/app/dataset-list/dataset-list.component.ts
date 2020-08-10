@@ -46,7 +46,7 @@ export class DatasetListComponent implements OnInit {
     this.searchDatasets();
   }
   getResourceItems(_id) {
-    console.log(_id);
+    // console.log(_id);
     this.searchQuery = {
       search_text: '',
       search_params: {
@@ -62,8 +62,8 @@ export class DatasetListComponent implements OnInit {
   getDataForProviders(event, option) {
     console.log(event);
     if (event.target.checked == true) {
-      console.log('Api will be called');
-      console.log(event.target.value, option);
+      // console.log('Api will be called');
+      // console.log(event.target.value, option);
       this.searchQuery = {
         search_text: '',
         search_params: {
@@ -90,7 +90,6 @@ export class DatasetListComponent implements OnInit {
   }
   searchDatasets() {
     this.body = this.constantService.get_search_query();
-    console.log(typeof this.body);
     this.search_text = this.body.search_text;
     this.search_params = this.body.search_params;
     this.tags = this.body.search_params.tags[0];
@@ -98,31 +97,31 @@ export class DatasetListComponent implements OnInit {
     this.resource_groups_filters = this.body.search_params.resource_groups;
     this.pages = this.body.search_params.page;
     if (this.search_text) {
-      console.log('searchText Called');
+      // console.log('searchText Called');
       this.httpInterceptor
         .post_api('customer/search', this.body)
         .then((response) => {
           this.results = response;
-          console.log(response);
+          // console.log(response);
         });
     } else if (this.tags) {
-      console.log('searchTags Called');
+      // console.log('searchTags Called');
       this.httpInterceptor
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-          console.log(this.results);
+          // console.log(this.results);
         });
     } else if (this.provider_filters.length !== 0 && this.tags) {
-      console.log('ProviderFilters Called');
+      // console.log('ProviderFilters Called');
       this.httpInterceptor
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-          console.log(this.results);
+          // console.log(this.results);
         });
     } else if (this.provider_filters && this.tags && this.pages) {
-      console.log('Pages Called');
+      // console.log('Pages Called');
       this.httpInterceptor
         .post_api('customer/datasets', this.body)
         .then((response) => {
