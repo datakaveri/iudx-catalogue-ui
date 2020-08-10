@@ -27,7 +27,7 @@ export class ConstantsService {
       : this.search_params;
   }
 
-  set_city(value:  string) {
+  set_city(value: string) {
     this.city = value;
   }
 
