@@ -1,9 +1,11 @@
 <div class="content-container">
   <div class="para-div">
     <p>
-      <span>{{ (results?.resource_groups).length }} </span>
-      <span *ngIf="(results?.resource_groups).length == 1">dataset for </span>
-      <span *ngIf="(results?.resource_groups).length > 1">datasets for </span>
+      <span>{{ results.items.length }}</span>
+      <span *ngIf="results.items.length == 1 || results.items.length == 0">
+        dataset for
+      </span>
+      <span *ngIf="results.items.length > 1"> datasets for </span>
       <span>{{ search_text }} </span>
       <span>matching search criteria</span>
     </p>
@@ -64,16 +66,17 @@
       </div>
     </div>
     <div class="results-div">
-      <div class="box-style" *ngFor="let resource of results?.resource_groups">
+      <div class="box-style" *ngFor="let resource of results?.items">
         <p>
           {{ resource.description }}
         </p>
+        <p><span>Name: </span>&nbsp; &nbsp;{{ resource.name }}</p>
 
         <!-- <p><span>Tags: </span> &nbsp; &nbsp;{{ resource.tags }}</p>
         <p><span>Status: </span>&nbsp; &nbsp;{{ resource.status }}</p> -->
         <p>
           <span>Created At: </span>&nbsp; &nbsp;{{
-            resource.created_at | date: "medium"
+            resource.itemCreatedAt | date: "medium"
           }}
         </p>
 
@@ -82,7 +85,7 @@
           <span>Location: </span>&nbsp; &nbsp;{{ resource.location.address }}
         </p>
 
-        <a (click)="getResourceItems('id')">
+        <a (click)="getResourceItems(items.id)">
           <p>View All Items</p>
         </a>
       </div>

@@ -69,7 +69,7 @@ export class DatasetListComponent implements OnInit {
     this.router.navigate(['/search/items']);
   }
   getDataForProviders(event, option) {
-    console.log(event);
+    // console.log(event);
     if (event.target.checked == true) {
       // console.log('Api will be called');
       // console.log(event.target.value, option);
@@ -83,9 +83,20 @@ export class DatasetListComponent implements OnInit {
         },
       };
       this.constantService.set_search_query(this.searchQuery);
-      console.log(sessionStorage.getItem('search_params'));
+      // console.log(sessionStorage.getItem('search_params'));
       this.body = this.constantService.get_search_query();
-      // console.log(this.body);
+      this.search_text = this.body.search_text;
+      this.search_params = this.body.search_params;
+      this.tags = this.body.search_params.tags;
+      this.provider_filters = this.body.search_params.providers;
+      this.resource_groups_filters = this.body.search_params.resource_groups;
+      this.pages = this.body.search_params.page;
+      this.body = this.getBody(
+        this.search_text,
+        this.tags,
+        this.provider_filters,
+        this.pages
+      );
       this.httpInterceptor
         .post_api('customer/datasets', this.body)
         .then((response) => {
@@ -102,12 +113,17 @@ export class DatasetListComponent implements OnInit {
     this.body = this.constantService.get_search_query();
     this.search_text = this.body.search_text;
     this.search_params = this.body.search_params;
-    this.tags = this.body.search_params.tags[0];
+    this.tags = this.body.search_params.tags;
     this.provider_filters = this.body.search_params.providers;
     this.resource_groups_filters = this.body.search_params.resource_groups;
     this.pages = this.body.search_params.page;
     if (this.search_text) {
-      // console.log('searchText Called');
+      this.body = this.getBody(
+        this.search_text,
+        this.tags,
+        this.provider_filters,
+        this.pages
+      );
       this.httpInterceptor
         .post_api('customer/search', this.body)
         .then((response) => {
@@ -115,30 +131,30 @@ export class DatasetListComponent implements OnInit {
 
           console.log(response);
         });
-    } else if (this.tags) {
-      // console.log('searchTags Called');
+    } else {
+      this.body = this.getBody(
+        this.search_text,
+        this.tags,
+        this.provider_filters,
+        this.pages
+      );
       this.httpInterceptor
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-          // console.log(this.results);
-        });
-    } else if (this.provider_filters.length !== 0 && this.tags) {
-      // console.log('ProviderFilters Called');
-      this.httpInterceptor
-        .post_api('customer/datasets', this.body)
-        .then((response) => {
-          this.results = response;
-          // console.log(this.results);
-        });
-    } else if (this.provider_filters && this.tags && this.pages) {
-      // console.log('Pages Called');
-      this.httpInterceptor
-        .post_api('customer/datasets', this.body)
-        .then((response) => {
-          this.results = response;
-          // console.log(this.results);
+
+          console.log(response);
         });
     }
+  }
+
+  getBody(_text, _tags, _providers, _page) {
+    this.body = {
+      text: _text,
+      tags: _tags,
+      providers: _providers,
+      page: _page,
+    };
+    return this.body;
   }
 }
