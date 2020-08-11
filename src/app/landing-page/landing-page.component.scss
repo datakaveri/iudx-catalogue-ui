@@ -112,10 +112,9 @@
     ul {
       list-style: none;
       li {
-        padding: 15px;
         cursor: pointer;
         p {
-         
+          padding: 15px;
           color: var(--primary);
           .tagSelected{
             font-weight: 600;

@@ -28,7 +28,7 @@ export class LandingPageComponent implements OnInit {
     private constantService: ConstantsService
   ) {
     this.query = '';
-    this.showAdvanceSearch = false;
+    // this.showAdvanceSearch = false;
     this.overlay = false;
     this.names = this.constantService.get_nomenclatures();
     this.body = {
@@ -73,7 +73,7 @@ export class LandingPageComponent implements OnInit {
       });
   }
 
-  filterItems(word) {
+  filterItems(word = this.query) {
     this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(word);
     });
@@ -85,12 +85,11 @@ export class LandingPageComponent implements OnInit {
 
   getAllDatasets() {
     this.searchQuery = {
-      search_text: '',
       search_params: {
+        text:'',
         tags: [],
         providers: [],
         page: 0,
-        resource_groups: [],
       },
     };
     this.constantService.set_search_query(this.searchQuery);
@@ -99,12 +98,11 @@ export class LandingPageComponent implements OnInit {
 
   getSearchResultsByText(text: string) {
     this.searchQuery = {
-      search_text: text,
       search_params: {
+        text:text,
         tags: [],
         providers: [],
         page: 0,
-        resource_groups: [],
       },
     };
     this.constantService.set_search_query(this.searchQuery);
@@ -115,12 +113,11 @@ export class LandingPageComponent implements OnInit {
     this.tagSelected = value;
 
     this.searchQuery = {
-      search_text: '',
       search_params: {
+        text:'',
         tags: [this.tagSelected],
         providers: [],
         page: 0,
-        resource_groups: [],
       },
     };
     this.constantService.set_search_query(this.searchQuery);
