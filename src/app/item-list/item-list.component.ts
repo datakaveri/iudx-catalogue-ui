@@ -27,18 +27,24 @@ export class ItemListComponent implements OnInit {
     this.resource_items = {};
     this.search_text = '';
     this.pages = 0;
-    // this.searchQuery = {
-    //   search_text: '',
-    //   search_params: {
-    //     tags: [],
-    //     providers: [],
-    //     page: 0,
-    //     resource_groups: [],
-    //   },
-    // };
+    this.searchQuery = {
+      search_text: '',
+      search_params: {
+        tags: [],
+        providers: [],
+        page: 0,
+        resource_groups: [],
+      },
+    };
   }
 
   ngOnInit(): void {
+    this.search_text = sessionStorage.getItem('search_text');
+    this.search_params = sessionStorage.getItem('search_params');
+    this.searchQuery = {
+      search_text: this.search_text,
+      search_params: this.search_params,
+    };
     this.getItems();
   }
   getItems() {

@@ -2,11 +2,12 @@
   <div class="para-div">
     <p>
       <span>{{ results.count }}</span>
-      <span *ngIf="results.count == 1 || results.count == 0">
+      <!-- <span *ngIf="results.count == 1 || results.count == 0">
         dataset for
-      </span>
-      <span *ngIf="results.count > 1"> datasets for </span>
-      <span>{{ search_text }} </span>
+      </span> -->
+      <span> dataset(s) for </span>
+      <span *ngIf="search_text">{{ search_text }} </span>
+      <span *ngIf="!search_text">{{ tags }} </span>
       <span>matching search criteria</span>
     </p>
   </div>
