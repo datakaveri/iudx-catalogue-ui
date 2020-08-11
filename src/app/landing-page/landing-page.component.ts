@@ -47,16 +47,6 @@ export class LandingPageComponent implements OnInit {
       },
     };
 
-    this.searchTag = {
-      search_tag: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
-    }
-
     this.get_data();
     this.get_tags();
   }
@@ -83,26 +73,10 @@ export class LandingPageComponent implements OnInit {
       });
   }
 
-
-  handleChange(word = this.query) {
+  filterItems(word) {
     this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(word);
     });
-  }
-
-  goToAdvanceSearch() {
-    // showing the overlay
-    this.overlay = true;
-    // showing the advanceSearch popup
-    this.showAdvanceSearch = true;
-  }
-
-  // getAdvanceSearch(value) {
-  //   this.showAdvanceSearch = value;
-  // }
-
-  getOverlay(value) {
-    this.overlay = value;
   }
 
   getGeoInfo() {
@@ -111,7 +85,7 @@ export class LandingPageComponent implements OnInit {
 
   getAllDatasets() {
     this.searchQuery = {
-      search_text:'',
+      search_text: '',
       search_params: {
         tags: [],
         providers: [],
@@ -137,10 +111,11 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/search/datasets']);
   }
 
-  getSearchResultsByTag(event) {
-    this.tagSelected = event.currentTarget.firstChild.innerText
+  getSearchResultsByTag(value) {
+    this.tagSelected = value;
+
     this.searchQuery = {
-      search_text:'',
+      search_text: '',
       search_params: {
         tags: [this.tagSelected],
         providers: [],
@@ -150,5 +125,9 @@ export class LandingPageComponent implements OnInit {
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
+  }
+
+  getOverlay(value) {
+    this.overlay = value;
   }
 }
