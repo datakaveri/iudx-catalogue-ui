@@ -73,7 +73,7 @@ export class LandingPageComponent implements OnInit {
       });
   }
 
-  filterItems(word) {
+  filterItems(word = this.query) {
     this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(word);
     });
@@ -113,14 +113,16 @@ export class LandingPageComponent implements OnInit {
 
   getSearchResultsByTag(value) {
     this.tagSelected = value;
+    // console.log(this.tag);
+    
 
     this.searchQuery = {
-      search_text: '',
+      // search_text: '',
       search_params: {
+        text:'',
         tags: [this.tagSelected],
         providers: [],
         page: 0,
-        resource_groups: [],
       },
     };
     this.constantService.set_search_query(this.searchQuery);
