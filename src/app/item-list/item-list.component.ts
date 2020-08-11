@@ -11,42 +11,45 @@ import { ConstantsService } from '../constants.service';
 export class ItemListComponent implements OnInit {
   val: any;
   body: {};
-  items: any;
+  resource_items: any;
   search_text: string;
+  search_params: any;
   pages: number;
   searchQuery: {};
+  resource_grps: any;
+  totalPages: number;
 
   constructor(
     private httpInterceptor: InterceptorService,
     private route: ActivatedRoute,
     private constantService: ConstantsService
   ) {
-    this.body = {
-      resource_groups: [],
-      page: 0,
-    };
+    this.resource_items = {};
     this.search_text = '';
     this.pages = 0;
-    this.searchQuery = {
-      search_text: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
-    };
+    // this.searchQuery = {
+    //   search_text: '',
+    //   search_params: {
+    //     tags: [],
+    //     providers: [],
+    //     page: 0,
+    //     resource_groups: [],
+    //   },
+    // };
   }
 
   ngOnInit(): void {
     this.getItems();
   }
   getItems() {
-    this.body = this.constantService.get_search_query();
-    console.log(this.body);
+    this.resource_grps = this.constantService.get_search_query().search_params.resource_groups[0];
+    this.pages = this.constantService.get_search_query().search_params.page;
+    this.body = {
+      resource_groups: [this.resource_grps],
+      page: this.pages,
+    };
     this.httpInterceptor.post_api('customer/items', this.body).then((res) => {
-      console.log(res);
-      this.items = res;
+      this.resource_items = res;
     });
   }
 }

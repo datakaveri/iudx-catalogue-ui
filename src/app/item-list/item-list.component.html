@@ -1,30 +1,28 @@
 <div class="content-container">
   <div class="para-div">
     <p>
-      <span>{{ items?.total_items }} </span>
+      <span>{{ resource_items?.count }} </span>
       <span>datasets for </span>
       <span>Pollution </span>
       <span>in</span>
-      <span> "{{ (items?.resource_items)[0].description }}" </span>
-      <span>matching search criteria</span>
+      <span *ngIf="resource_items.items">
+        "{{ resource_items.items[0].description.split("Description for")[1] }}"
+      </span>
+      <span> matching search criteria</span>
     </p>
   </div>
   <br />
   <div class="results-div">
-    <div class="box-style" *ngFor="let item of items?.resource_items">
+    <div class="box-style" *ngFor="let item of resource_items.items">
       <p>
         {{ item.name }}
       </p>
 
-      <p>{{ item.description }}</p>
+      <!-- <p>{{ item.description }}</p> -->
       <!-- <p><span>Tags: </span>&nbsp; &nbsp;{{ item.tags }}</p>
 
       <p><span>Status: </span>&nbsp; &nbsp;{{ item.status }}</p> -->
-      <p>
-        <span>Created At: </span>&nbsp; &nbsp;{{
-          item.created_at | date: "medium"
-        }}
-      </p>
+
       <!-- <p>
         <span>Modified At: </span>&nbsp; &nbsp;{{
           item.modified_at | date: "medium"
@@ -36,6 +34,11 @@
         {{ item.resource_group }}
       </p> -->
       <p><span>Location: </span>&nbsp; &nbsp;{{ item.location.address }}</p>
+      <p>
+        <span>Created At: </span>&nbsp; &nbsp;{{
+          item.itemCreatedAt | date: "medium"
+        }}
+      </p>
 
       <div class="link-container">
         <a>
@@ -51,5 +54,5 @@
 </div>
 
 <!-- <div class="pagination-box">
-  <app-pagination></app-pagination>
+  <app-pagination [totalPages]=""></app-pagination>
 </div> -->
