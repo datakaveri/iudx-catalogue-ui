@@ -1,14 +1,13 @@
 <div class="searchCity">
     <div class="searchBox">
-        <span class="searchBox__icon searchBox__icon--search"><img src='../../assets/search.png'></span>
+        <span class="searchBox__icon searchBox__icon--search"><img src='assets/search.png'></span>
         <input [(ngModel)]="query" type="text" placeholder="Search City...">
-        <span (click)='changeValue()' class="searchBox__icon searchBox__icon--close"><img
-                src='../../assets/cross.png'></span>
+        <span (click)='close()' class="searchBox__icon searchBox__icon--close"><img src='assets/cross.png'></span>
     </div>
     <div class="searchCity__contentBox">
-        <div *ngFor="let data of citiesData" class="searchCity__item">
-            <h3>{{data.city}}</h3>
-            <p>{{data.resource_count}} Resource Items</p>
+        <div *ngFor="let data of citiesData" class="searchCity__item" (click)="change_city(data)">
+            <h3>{{data.configurations.smart_city_name}}</h3>
+            <p>1 {{text.resource_groups}}s</p>
         </div>
     </div>
 </div>

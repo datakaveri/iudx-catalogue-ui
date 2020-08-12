@@ -1,16 +1,16 @@
 <div class="landingPage__container">
   <div class="hero__container">
-    <img src="../../assets/banner.png" alt="hero image" class="hero__image" />
+    <img src="assets/banner.png" alt="hero image" class="hero__image" />
   </div>
   <div class="landingPage__top">
     <p class="landingPage__tagline">
-      Welcome to the <span>Smart City</span> of <span>Pune</span>
+      Welcome to the <span>Smart City</span> of <span>{{city.configurations.smart_city_name}}</span>
     </p>
     <div class="searchBox-container">
       <div class="searchBox">
         <input list='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text" placeholder="Search public data..." />
         <button (click)="getSearchResultsByText(query)">
-          <img src="../../assets/search.png" />
+          <img src="assets/search.png" />
         </button>
       </div>
       <div *ngIf="query != ''" class="searchBox-dropdown">
@@ -32,27 +32,27 @@
     </div>
   </div>
 
-  <!-- <div class="categories__container" *ngIf="categoriesData">
+  <div class="categories__container" *ngIf="categoriesData">
     <ul>
       <li *ngFor="let item of categoriesData">
-        <a href="#"><img src="{{ item.image }}" />aakash</a>
+        <a href="#"><img src="{{ item.image }}" />{{item.name}}</a>
       </li>
     </ul>
-  </div> -->
+  </div>
 
 
   <div class="landingPage__bottom" *ngIf="resultData">
     <ul>
       <li>
-        <h5>{{ names.resource_groups + "s" }}</h5>
+        <h5>{{ names.resource_groups }}s</h5>
         <p>{{ resultData.resource_groups }}</p>
       </li>
       <li>
-        <h5>{{ names.resource_items + "s" }}</h5>
+        <h5>{{ names.resource_items }}s</h5>
         <p>{{ resultData.resource_items }}</p>
       </li>
       <li>
-        <h5>{{ names.providers + "s" }}</h5>
+        <h5>{{ names.providers }}s</h5>
         <p>{{ resultData.providers }}</p>
       </li>
       <li>

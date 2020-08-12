@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConstantsService } from '../constants.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,23 +9,23 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class FooterComponent implements OnInit {
-
+  city: any;
   showChangeCity: boolean;
   overlay: boolean;
-
-
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private global: ConstantsService
+    ) {
     this.showChangeCity = false;
     this.overlay = false;
+    this.city = this.global.get_city();
   }
 
   ngOnInit(): void {
   }
 
   toggleChangeCity() {
-    // showing the overlay
     this.overlay = true;
-    // showing the changecity popup
     this.showChangeCity = true;
 
   }

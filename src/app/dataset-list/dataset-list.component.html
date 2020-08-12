@@ -18,7 +18,7 @@
       <div class="filter-div">
         <div class="filter-div-top">
           <a class="cross" (click)="closeFilter()">
-            <img src="../../assets/cross.png" />
+            <img src="assets/cross.png" />
           </a>
           <!-- <br />
           <br /> -->
@@ -28,7 +28,7 @@
           <p>Filter by: Publishers</p>
 
           <div class="search-filter">
-            <img src="../../assets/search.png" />
+            <img src="assets/search.png" />
             <input type="text" placeholder="Search..." />
           </div>
           <!-- <div class="checkbox-div">
@@ -68,7 +68,7 @@
     </div>
     <div class="results-div">
       <div class="box-style" *ngFor="let resource of results?.items">
-        <p>{{ resource.name }}</p>
+        <!-- <p>{{ resource.name }}</p> -->
         <p>
           {{ resource.description }}
         </p>
@@ -81,7 +81,7 @@
           }}
         </p>
 
-        <p><span>Provider: </span>&nbsp; &nbsp;{{ resource.provider }}</p>
+        <!-- <p><span>Provider: </span>&nbsp; &nbsp;{{ resource.provider }}</p> -->
         <p>
           <span>Location: </span>&nbsp; &nbsp;{{ resource.location.address }}
         </p>

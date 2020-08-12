@@ -22,13 +22,15 @@ export class LandingPageComponent implements OnInit {
   tags: any;
   tagSelected: any;
   filteredTags: any = [];
+  city: any;
   constructor(
     public router: Router,
-    private _search: InterceptorService,
+    private network: InterceptorService,
     private constantService: ConstantsService
   ) {
     this.query = '';
     // this.showAdvanceSearch = false;
+    this.categoriesData = [{"name":"Transport","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/transport.png"},{"name":"Education","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/education.png"},{"name":"Finance","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/finance.png"},{"name":"Environment","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/environment.png"}];
     this.overlay = false;
     this.names = this.constantService.get_nomenclatures();
     this.body = {
@@ -46,7 +48,7 @@ export class LandingPageComponent implements OnInit {
         resource_groups: [],
       },
     };
-
+    this.city = this.constantService.get_city();
     this.get_data();
     this.get_tags();
   }
@@ -55,22 +57,17 @@ export class LandingPageComponent implements OnInit {
   }
 
   get_data() {
-    this._search.get_api('customer/summary')
-      .then((data) => {
-        this.resultData = data;
-      }
-      ).catch(e => {
-        console.log(e);
-      });
+    this.network.get_api('customer/summary')
+    .then((data) => {
+      this.resultData = data;
+    });
   }
 
   get_tags() {
-    this._search.get_api('customer/tags')
-      .then((data) => {
-        this.tags = data;
-      }).catch(e => {
-        console.log(e);
-      });
+    this.network.get_api('customer/tags')
+    .then((data) => {
+      this.tags = data;
+    });
   }
 
   filterItems(word = this.query) {
@@ -99,7 +96,7 @@ export class LandingPageComponent implements OnInit {
   getSearchResultsByText(text: string) {
     this.searchQuery = {
       search_params: {
-        text:text,
+        text: text,
         tags: [],
         providers: [],
         page: 0,
