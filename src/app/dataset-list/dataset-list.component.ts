@@ -102,7 +102,40 @@ export class DatasetListComponent implements OnInit {
         });
     }
   }
-
+  getDataForTags(event, option) {
+    if (event.target.checked == true) {
+      console.log(event.target.value, option);
+      this.searchQuery = {
+        search_text: '',
+        search_params: {
+          tags: [option],
+          providers: [],
+          page: 0,
+          resource_groups: [],
+        },
+      };
+      this.constantService.set_search_query(this.searchQuery);
+      // console.log(sessionStorage.getItem('search_params'));
+      this.body = this.constantService.get_search_query();
+      this.search_text = this.body.search_text;
+      this.search_params = this.body.search_params;
+      this.tags = this.body.search_params.tags;
+      this.provider_filters = this.body.search_params.providers;
+      this.resource_groups_filters = this.body.search_params.resource_groups;
+      this.pages = this.body.search_params.page;
+      this.body = this.getBody(
+        this.search_text,
+        this.tags,
+        this.provider_filters,
+        this.pages
+      );
+      this.httpInterceptor
+        .post_api('customer/datasets', this.body)
+        .then((response) => {
+          this.results = response;
+        });
+    }
+  }
   closeFilter() {
     this.show_filter = false;
   }

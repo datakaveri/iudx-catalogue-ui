@@ -105,6 +105,8 @@
         }
         .checkbox-div {
           position: relative;
+          height: 200px;
+          overflow-y: scroll;
           .container {
             display: block;
             position: relative;

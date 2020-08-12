@@ -59,6 +59,25 @@
               ></label>
             </div>
           </div>
+          <p>Filter by: Tags</p>
+
+          <div class="search-filter">
+            <img src="../../assets/search.png" />
+            <input type="text" placeholder="Search..." />
+          </div>
+          <div class="checkbox-div">
+            <div *ngFor="let option of results?.tags">
+              <label class="container"
+                >{{ option.tag }}
+                <input
+                  (click)="getDataForTags($event, option.tag)"
+                  type="checkbox"
+                  name=""
+                  value="{{ option.tag }}" />
+                <span class="checkmark"></span
+              ></label>
+            </div>
+          </div>
         </div>
         <div class="filter-div-bottom">
           <button class="applybtn">Apply Filters</button>
