@@ -19,13 +19,27 @@ import {
 import * as L from 'leaflet';
 import { InterceptorService } from '../interceptor.service';
 import { ConstantsService } from '../constants.service';
+const iconRetinaUrl = 'assets/marker-icon-2x.png';
+const iconUrl = 'assets/marker-icon.png';
+const shadowUrl = 'assets/marker-shadow.png';
+const iconDefault = L.icon({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+});
+L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
 })
 export class MapViewComponent {
-  private map;
+  map: Map;
   show_filter: boolean;
   options: any;
   drawOptions: any;
@@ -33,13 +47,11 @@ export class MapViewComponent {
   body: any;
   resource_groups: any;
   results: any;
+  markerResults: any;
   tags: any;
   providers: [];
   pages: number;
   searchQuery: {};
-  // text: string;
-  // tags: string;
-  // searchQuery: {};
 
   constructor(
     private constantService: ConstantsService,
@@ -61,37 +73,28 @@ export class MapViewComponent {
     this.getMapData();
     this.drawOptions = this.drawOptionsInit();
   }
-  // body: {
-  //   text: '';
-  //   tags: ['air'];
-  //   resource_groups: [];
-  //   providers: [];
-  // };
-  // results: any;
+
+  onMapReady(map: Map) {
+    this.map = map;
+    this.getMapData;
+  }
+
   showContainer: boolean = false;
   drawnItems: FeatureGroup = featureGroup();
-
-  // drawOptions = {
-  //   position: 'topleft',
-  //   draw: {
-  //     marker: false,
-  //   },
-  //   edit: {
-  //     featureGroup: this.drawnItems,
-  //   },
-  // };
+  markersLayer = new L.FeatureGroup(null);
 
   onDrawCreated(e: any) {
     console.log('Draw Created Event!');
 
     const layer = (e as DrawEvents.Created).layer;
     this.drawnItems.addLayer(layer);
+    this.markersLayer.addLayer(layer);
   }
 
   onDrawStart(e: any) {
     console.log('Draw Started Event!');
   }
-
+  describe: string;
   getMapData() {
     this.tags = this.body.tags;
     this.providers = this.body.providers;
@@ -108,18 +111,23 @@ export class MapViewComponent {
       .post_api('customer/map', this.body)
       .then((response: any) => {
         this.results = response;
-        // console.log(this.results);
+        console.log(this.results);
         for (const c of response.items) {
-          const lng = c.location.geometry.coordinates[0];
-          const lat = c.location.geometry.coordinates[1];
-          console.log('lat:' + lat, 'long:' + lng);
-          const marker = L.marker([lat, lng]).addTo(this.map);
+          this.describe = c.description;
+          var lng = c.location.geometry.coordinates[0];
+          var lat = c.location.geometry.coordinates[1];
+          const markers = L.marker([lat, lng]).bindPopup(this.describe);
+          this.markersLayer.addLayer(markers);
+          this.markersLayer.addTo(this.map);
+          // return this.markersLayer;
+          // console.log(markers);
         }
       })
       .catch((e) => {
         console.log(e);
       });
   }
+
   closeFilter() {
     this.show_filter = false;
   }
@@ -134,7 +142,6 @@ export class MapViewComponent {
     };
     return this.body;
   }
-
   initMap() {
     var map_options = {
       layers: [
@@ -151,6 +158,7 @@ export class MapViewComponent {
       zoom: 13,
       center: latLng({ lng: 73.836808, lat: 18.5727 }),
     };
+    // L.marker([this.lat, this.lng]);
 
     return map_options;
   }

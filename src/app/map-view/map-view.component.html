@@ -3,6 +3,7 @@
   <div
     id="map"
     leaflet
+    (leafletMapReady)="onMapReady($event)"
     [leafletOptions]="options"
     (leafletDrawStart)="onDrawStart($event)"
   >
