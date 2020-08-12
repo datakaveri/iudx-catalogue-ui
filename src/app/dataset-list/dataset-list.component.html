@@ -1,12 +1,13 @@
 <div class="content-container">
   <div class="para-div">
     <p>
-      <span>{{ results.items.length }}</span>
-      <span *ngIf="results.items.length == 1 || results.items.length == 0">
+      <span>{{ results.count }}</span>
+      <!-- <span *ngIf="results.count == 1 || results.count == 0">
         dataset for
-      </span>
-      <span *ngIf="results.items.length > 1"> datasets for </span>
-      <span>{{ search_text }} </span>
+      </span> -->
+      <span> dataset(s) for </span>
+      <span *ngIf="search_text">{{ search_text }} </span>
+      <span *ngIf="!search_text">{{ tags }} </span>
       <span>matching search criteria</span>
     </p>
   </div>
@@ -67,10 +68,10 @@
     </div>
     <div class="results-div">
       <div class="box-style" *ngFor="let resource of results?.items">
+        <p>{{ resource.name }}</p>
         <p>
           {{ resource.description }}
         </p>
-        <p><span>Name: </span>&nbsp; &nbsp;{{ resource.name }}</p>
 
         <!-- <p><span>Tags: </span> &nbsp; &nbsp;{{ resource.tags }}</p>
         <p><span>Status: </span>&nbsp; &nbsp;{{ resource.status }}</p> -->
@@ -85,7 +86,7 @@
           <span>Location: </span>&nbsp; &nbsp;{{ resource.location.address }}
         </p>
 
-        <a (click)="getResourceItems(items.id)">
+        <a (click)="getResourceItems(resource.id)">
           <p>View All Items</p>
         </a>
       </div>

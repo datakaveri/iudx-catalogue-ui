@@ -8,14 +8,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class PaginationComponent implements OnInit {
   totalItems: number = 125;
   itemsPerPage: number = 10;
-  totalPages: number;
+
   pages = [];
   current: number;
   start: number;
   stepSize: number;
   nextBtn: boolean;
   prevBtn: boolean;
-
+  @Input() totalPages: number;
   constructor() {
     this.current = 1;
     this.stepSize = 4;

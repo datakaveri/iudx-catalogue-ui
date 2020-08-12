@@ -29,6 +29,7 @@ export class DatasetListComponent implements OnInit {
     this.constantService.get_filter().subscribe((val) => {
       this.show_filter = val;
     });
+    this.results = {};
     this.search_text = '';
     this.pages = 0;
     this.searchQuery = {
@@ -43,11 +44,10 @@ export class DatasetListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.search_text = sessionStorage.getItem('search_params');
-    this.search_params = sessionStorage.getItem('search_text');
+    this.search_text = sessionStorage.getItem('search_text');
+    this.search_params = sessionStorage.getItem('search_params');
+    // console.log(this.search_text, this.search_params);
 
-    // this.search_text = '';
-    this.pages = 0;
     this.searchQuery = {
       search_text: this.search_text,
       search_params: this.search_params,
@@ -69,9 +69,7 @@ export class DatasetListComponent implements OnInit {
     this.router.navigate(['/search/items']);
   }
   getDataForProviders(event, option) {
-    // console.log(event);
     if (event.target.checked == true) {
-      // console.log('Api will be called');
       // console.log(event.target.value, option);
       this.searchQuery = {
         search_text: '',
@@ -101,7 +99,6 @@ export class DatasetListComponent implements OnInit {
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-          // console.log(this.results);
         });
     }
   }
@@ -128,8 +125,7 @@ export class DatasetListComponent implements OnInit {
         .post_api('customer/search', this.body)
         .then((response) => {
           this.results = response;
-
-          console.log(response);
+          console.log(this.results);
         });
     } else {
       this.body = this.getBody(
@@ -142,8 +138,7 @@ export class DatasetListComponent implements OnInit {
         .post_api('customer/datasets', this.body)
         .then((response) => {
           this.results = response;
-
-          console.log(response);
+          console.log(this.results);
         });
     }
   }
