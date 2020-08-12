@@ -94,7 +94,7 @@ export class MapViewComponent {
   onDrawStart(e: any) {
     console.log('Draw Started Event!');
   }
-
+  describe: string;
   getMapData() {
     this.tags = this.body.tags;
     this.providers = this.body.providers;
@@ -113,9 +113,10 @@ export class MapViewComponent {
         this.results = response;
         console.log(this.results);
         for (const c of response.items) {
+          this.describe = c.description;
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
-          const markers = L.marker([lat, lng]);
+          const markers = L.marker([lat, lng]).bindPopup(this.describe);
           this.markersLayer.addLayer(markers);
           this.markersLayer.addTo(this.map);
           // return this.markersLayer;
