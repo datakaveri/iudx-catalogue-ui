@@ -12,6 +12,7 @@
       leafletDraw
       [leafletDrawOptions]="drawOptions"
       (leafletDrawCreated)="onDrawCreated($event)"
+      (leafletDrawDeleted)="onDrawDeleted($event)"
     ></div>
     >
     <!-- Add the drawnItems featureGroup to the map -->

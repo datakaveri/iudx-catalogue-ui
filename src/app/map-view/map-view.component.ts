@@ -85,10 +85,25 @@ export class MapViewComponent {
 
   onDrawCreated(e: any) {
     console.log('Draw Created Event!');
-
+    console.log(e);
+    this.markersLayer.clearLayers();
+    var type = e.layerType;
+    console.log(type);
     const layer = (e as DrawEvents.Created).layer;
+    if (type === 'circle') {
+      var center_point = e.layer._latlng;
+      var radius = e.layer._mRadius;
+      console.log(center_point);
+      console.log(radius);
+      //Api call for getting items for that area
+    }
+
     this.drawnItems.addLayer(layer);
     this.markersLayer.addLayer(layer);
+  }
+  onDrawDeleted(e: any) {
+    console.log('deleted');
+    this.markersLayer.clearLayers();
   }
 
   onDrawStart(e: any) {
@@ -116,9 +131,27 @@ export class MapViewComponent {
           this.describe = c.description;
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
-          const markers = L.marker([lat, lng]).bindPopup(this.describe);
+          // const markers = L.marker([lat, lng]).bindPopup(this.describe);
+          const markers = L.marker([lat, lng]).bindPopup(
+            `<div id="desc">` +
+              this.describe.split('Description for')[1] +
+              `</div>
+              <div id="pop_up_` +
+              c.id +
+              `"><p class="text-center" style="padding-right:7.5px;">
+          </p>` +
+              this.get_bullets() +
+              ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
+              response.items +
+              `, ` +
+              c.id +
+              `)"> Get latest-data</a><br>` +
+              `</div>`
+          );
+
           this.markersLayer.addLayer(markers);
           this.markersLayer.addTo(this.map);
+          this.markersLayer.on('click', this.onClick);
           // return this.markersLayer;
           // console.log(markers);
         }
@@ -126,6 +159,12 @@ export class MapViewComponent {
       .catch((e) => {
         console.log(e);
       });
+  }
+  onClick(event) {
+    console.log(event.latlng);
+  }
+  get_bullets() {
+    return `&#9679;`;
   }
 
   closeFilter() {
@@ -163,32 +202,12 @@ export class MapViewComponent {
     return map_options;
   }
 
-  // drawOptions = {
-  //   position: 'topleft',
-  //   draw: {
-  //     marker: false,
-  //     // marker: {
-  //     //   icon: icon({
-  //     //     iconSize: [25, 41],
-  //     //     iconAnchor: [13, 41],
-  //     //     iconUrl: 'assets/marker-icon.png',
-  //     //     iconRetinaUrl: '680f69f3c2e6b90c1812a813edf67fd7.png',
-  //     //     shadowUrl: 'a0c6cc1401c107b501efee6477816891.png',
-  //     //   }),
-  //     // },
-  //     // circle: true,
-  //   },
-  //   edit: {
-  //     featureGroup: this.drawnItems,
-  //   },
-  // };
-
   drawOptionsInit() {
     var draw_options = {
       position: 'topleft',
       draw: {
         marker: false,
-        circle: false,
+        circlemarker: false,
       },
       edit: {
         featureGroup: this.drawnItems,
