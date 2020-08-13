@@ -1,3 +1,4 @@
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { ActivatedRoute } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +18,9 @@ import {
   Marker,
 } from 'leaflet';
 import * as L from 'leaflet';
+import 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/images/marker-icon.png';
+import 'leaflet.markercluster';
 import { InterceptorService } from '../interceptor.service';
 import { ConstantsService } from '../constants.service';
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -52,6 +56,8 @@ export class MapViewComponent {
   providers: [];
   pages: number;
   searchQuery: {};
+  layers;
+  coord: any = [];
 
   constructor(
     private constantService: ConstantsService,
@@ -82,6 +88,12 @@ export class MapViewComponent {
   showContainer: boolean = false;
   drawnItems: FeatureGroup = featureGroup();
   markersLayer = new L.FeatureGroup(null);
+  markerClusterGroup: L.MarkerClusterGroup;
+  markerClusterData: L.Marker[] = [];
+  markerClusterOptions: L.MarkerClusterGroupOptions;
+  markerClusterReady(group: L.MarkerClusterGroup) {
+    this.markerClusterGroup = group;
+  }
 
   onDrawCreated(e: any) {
     console.log('Draw Created Event!');
@@ -96,10 +108,22 @@ export class MapViewComponent {
       console.log(center_point);
       console.log(radius);
       //Api call for getting items for that area
+    } else if (type === 'polygon') {
+      var points = e.layer._latlng;
+      var polypoints = [];
+      console.log(points);
+
+      for (var i = 0; i < points[0].length - 1; i += 2) {
+        var coordinates = +points[0][i]['lat'] + ',' + points[0][i]['lng'];
+        polypoints.push(coordinates);
+        polypoints.join(',');
+      }
+      console.log(polypoints);
     }
 
     this.drawnItems.addLayer(layer);
     this.markersLayer.addLayer(layer);
+    // this.markerClusterData.addLayer(layer);
   }
   onDrawDeleted(e: any) {
     console.log('deleted');
@@ -125,8 +149,11 @@ export class MapViewComponent {
     this.httpInterceptor
       .post_api('customer/map', this.body)
       .then((response: any) => {
+        const data: L.Marker[] = [];
+
         this.results = response;
         console.log(this.results);
+
         for (const c of response.items) {
           this.describe = c.description;
           var lng = c.location.geometry.coordinates[0];
@@ -148,12 +175,11 @@ export class MapViewComponent {
               `)"> Get latest-data</a><br>` +
               `</div>`
           );
+          for (let i = 0; i < response.items.length; i++) {
+            data.push(markers);
+          }
 
-          this.markersLayer.addLayer(markers);
-          this.markersLayer.addTo(this.map);
-          this.markersLayer.on('click', this.onClick);
-          // return this.markersLayer;
-          // console.log(markers);
+          this.markerClusterData = data;
         }
       })
       .catch((e) => {
@@ -181,6 +207,7 @@ export class MapViewComponent {
     };
     return this.body;
   }
+
   initMap() {
     var map_options = {
       layers: [
