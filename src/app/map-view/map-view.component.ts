@@ -215,4 +215,10 @@ export class MapViewComponent {
     };
     return draw_options;
   }
+
+  display_latest_data(event, data, id) {
+    console.log(event);
+    console.log(data);
+    console.log(id);
+  }
 }
