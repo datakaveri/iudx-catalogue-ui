@@ -6,6 +6,9 @@
     (leafletMapReady)="onMapReady($event)"
     [leafletOptions]="options"
     (leafletDrawStart)="onDrawStart($event)"
+    [leafletMarkerCluster]="markerClusterData"
+    [leafletMarkerClusterOptions]="markerClusterOptions"
+    (leafletMarkerClusterReady)="markerClusterReady($event)"
   >
     <div
       class="leaflet-left leaflet-top"
