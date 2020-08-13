@@ -1,7 +1,21 @@
-.main_container {
-    height: calc(100vh - 94.65px);
-    width: 100vw;
-    padding-top: 94.65px;
-    overflow-y: scroll;
-    z-index: 1;
+#header{
+    height: 85.05px;
+    width: 100%;
+}
+
+#holder {
+    min-height: 100%;
+    position:relative;
+}
+
+#body {
+    padding-bottom: 51px;
+}
+
+#footer{
+    bottom: 0;
+    height: 51px;
+    left: 0;
+    position: absolute;
+    right: 0;
 }

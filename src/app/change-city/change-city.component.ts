@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs/internal/operators';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { InterceptorService } from '../interceptor.service';
+import { ConstantsService } from '../constants.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-change-city',
@@ -9,67 +9,44 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./change-city.component.scss']
 })
 export class ChangeCityComponent implements OnInit {
-  citiesData = [
-    {
-      city: "Bengaluru",
-      key: "bengaluru",
-      resource_count: 122
-    },
-    {
-      city: "Varanasi",
-      key: "varanasi",
-      resource_count: 544
-    },
-    {
-      city: "Pune",
-      key: "pune",
-      resource_count: 123
-    },
-    {
-      city: "Chandigarh",
-      key: "chandigarh",
-      resource_count: 12
-    },
-    {
-      city: "Vadodara",
-      key: "vadodara",
-      resource_count: 233
-    },
-    {
-      city: "Gaya",
-      key: "gaya",
-      resource_count: 46
-    }
-  ]
-
+  citiesData: any;
   overlayValue: boolean;
   results: any[] = [];
   query: string;
-  // baseUrl: string = 'https://api.github.com/users/';
-
-  constructor(private _changeCity: InterceptorService) { }
+  text: any;
+  constructor(
+    private global: ConstantsService,
+    private network: InterceptorService,
+    private location: Location
+  ) {
+    this.get_cities();
+    this.text = this.global.get_nomenclatures();
+  }
 
   ngOnInit(): void {
 
   }
 
-  // handleChange() {
-  //   this._changeCity.get_api(this.baseUrl + this.query)
-  //     .then((result) => this.results.push(result)
-  //     )
-  // }
+  get_cities() {
+    this.network.get_api('customer/cities')
+    .then((response)=>{
+      this.citiesData = response;
+    });
+  }
+  
+  change_city(data) {
+    window.open('https://' + data.instanceID);
+  }
 
   @Output() showChangeCity = new EventEmitter();
   @Output() showOverlay = new EventEmitter();
   changeCityValue: boolean = true;
 
-  changeValue() {
-    // hiding the popup
+  close() {
     this.changeCityValue = false;
-    // hiding overlay
     this.overlayValue = false;
-
     this.showChangeCity.emit(this.changeCityValue);
     this.showOverlay.emit(this.overlayValue);
   }
+
 }

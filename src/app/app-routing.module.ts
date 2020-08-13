@@ -17,12 +17,7 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPageComponent,
-      },
-      // {
-      //   path: 'advanced-search',
-      //   component: AdvancedSearchComponent
-      // },
-
+      }
     ]
   },
   {

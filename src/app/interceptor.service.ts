@@ -19,6 +19,7 @@ export class InterceptorService {
     private constant: ConstantsService
   ) {
     this.api_url = environment.api_url;
+    this.city = this.constant.get_city().instanceID.split('.iudx.org.in')[0];
   }
 
   set_loader(flag: Boolean) {
@@ -32,7 +33,7 @@ export class InterceptorService {
   get_api(route) {
     this.set_loader(true);
     return new Promise((resolve, reject) => {
-      this.http.get(this.api_url + route + '?city=' + this.constant.get_city()).subscribe((data: any) => {
+      this.http.get(this.api_url + route + '?city=' + this.city).subscribe((data: any) => {
         this.set_loader(false);
         resolve(data);
       }, (err) => {
@@ -48,7 +49,7 @@ export class InterceptorService {
   post_api(route, body) {
     this.set_loader(true);
     return new Promise((resolve, reject) => {
-      this.http.post(this.api_url + route + '?city=' + this.constant.get_city(), body).subscribe((data: any) => {
+      this.http.post(this.api_url + route + '?city=' + this.city, body).subscribe((data: any) => {
         this.set_loader(false);
         resolve(data);
       }, (err) => {
@@ -63,7 +64,7 @@ export class InterceptorService {
 
   get_api_wl(route) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.api_url + route + '?city=' + this.constant.get_city()).subscribe((data: any) => {
+      this.http.get(this.api_url + route + '?city=' + this.city).subscribe((data: any) => {
         resolve(data);
       }, (err) => {
         if (err.status == 401) this.authorization_error_alert();

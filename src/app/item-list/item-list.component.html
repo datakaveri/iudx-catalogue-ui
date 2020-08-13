@@ -15,7 +15,7 @@
   <div class="results-div">
     <div class="box-style" *ngFor="let item of resource_items.items">
       <p>
-        {{ item.name }}
+        {{ item.description }}
       </p>
 
       <!-- <p>{{ item.description }}</p> -->
@@ -28,7 +28,7 @@
           item.modified_at | date: "medium"
         }}
       </p> -->
-      <p><span>Provider: </span>&nbsp; &nbsp;{{ item.provider }}</p>
+      <!-- <p><span>Provider: </span>&nbsp; &nbsp;{{ item.provider }}</p> -->
       <!-- <p>
         <span>Resource group:&nbsp; &nbsp;</span>
         {{ item.resource_group }}
