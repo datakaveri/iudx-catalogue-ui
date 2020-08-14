@@ -58,6 +58,16 @@ export class MapViewComponent {
   searchQuery: {};
   layers;
   coord: any = [];
+  showContainer: boolean = false;
+  drawnItems: FeatureGroup = featureGroup();
+  markersLayer = new L.FeatureGroup(null);
+  markerClusterGroup: L.MarkerClusterGroup;
+  markerClusterData: L.Marker[] = [];
+  markerClusterOptions: L.MarkerClusterGroupOptions;
+  data: any;
+  name: string;
+  describe: string;
+  legends: {};
 
   constructor(
     private constantService: ConstantsService,
@@ -73,6 +83,10 @@ export class MapViewComponent {
       page: 0,
       resource_groups: [],
     };
+    this.legends = {
+      'aqm-bosch-climo':
+        ' https://image.flaticon.com/icons/svg/1808/1808701.svg',
+    };
   }
   ngOnInit(): void {
     this.options = this.initMap();
@@ -85,55 +99,11 @@ export class MapViewComponent {
     this.getMapData;
   }
 
-  showContainer: boolean = false;
-  drawnItems: FeatureGroup = featureGroup();
-  markersLayer = new L.FeatureGroup(null);
-  markerClusterGroup: L.MarkerClusterGroup;
-  markerClusterData: L.Marker[] = [];
-  markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterReady(group: L.MarkerClusterGroup) {
+    // console.log(group);
     this.markerClusterGroup = group;
   }
 
-  onDrawCreated(e: any) {
-    console.log('Draw Created Event!');
-    console.log(e);
-    this.markersLayer.clearLayers();
-    var type = e.layerType;
-    console.log(type);
-    const layer = (e as DrawEvents.Created).layer;
-    if (type === 'circle') {
-      var center_point = e.layer._latlng;
-      var radius = e.layer._mRadius;
-      console.log(center_point);
-      console.log(radius);
-      //Api call for getting items for that area
-    } else if (type === 'polygon') {
-      var points = e.layer._latlng;
-      var polypoints = [];
-      console.log(points);
-
-      for (var i = 0; i < points[0].length - 1; i += 2) {
-        var coordinates = +points[0][i]['lat'] + ',' + points[0][i]['lng'];
-        polypoints.push(coordinates);
-        polypoints.join(',');
-      }
-      console.log(polypoints);
-    }
-
-    this.drawnItems.addLayer(layer);
-    this.markersLayer.addLayer(layer);
-    // this.markerClusterData.addLayer(layer);
-  }
-  onDrawDeleted(e: any) {
-    console.log('deleted');
-    this.markersLayer.clearLayers();
-  }
-
-  onDrawStart(e: any) {
-    console.log('Draw Started Event!');
-  }
-  describe: string;
   getMapData() {
     this.tags = this.body.tags;
     this.providers = this.body.providers;
@@ -154,33 +124,38 @@ export class MapViewComponent {
         this.results = response;
         console.log(this.results);
 
-        for (const c of response.items) {
-          this.describe = c.description;
-          var lng = c.location.geometry.coordinates[0];
-          var lat = c.location.geometry.coordinates[1];
-          // const markers = L.marker([lat, lng]).bindPopup(this.describe);
-          const markers = L.marker([lat, lng]).bindPopup(
-            `<div id="desc">` +
-              this.describe.split('Description for')[1] +
-              `</div>
-              <div id="pop_up_` +
-              c.id +
-              `"><p class="text-center" style="padding-right:7.5px;">
-          </p>` +
-              this.get_bullets() +
-              ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
-              response.items +
-              `, ` +
-              c.id +
-              `)"> Get latest-data</a><br>` +
-              `</div>`
-          );
-          for (let i = 0; i < response.items.length; i++) {
-            data.push(markers);
-          }
+        /** Added this to get all items on opening GeoInformation**/
 
-          this.markerClusterData = data;
-        }
+        // for (const c of response.items) {
+        //   this.describe = c.description;
+        //   this.name = c.name;
+        //   var lng = c.location.geometry.coordinates[0];
+        //   var lat = c.location.geometry.coordinates[1];
+        //   // const markers = L.marker([lat, lng]).bindPopup(this.describe);
+        //   const markers = L.marker([lat, lng]).bindPopup(
+        //     `<div id="name">` +
+        //       // this.describe.split('Description for')[1] +
+        //       this.name +
+        //       `</div>
+        //       <div id="pop_up_` +
+        //       c.id +
+        //       `"><p class="text-center" style="padding-right:7.5px;">
+        //   </p>` +
+        //       this.get_bullets() +
+        //       ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
+        //       response.items +
+        //       `, ` +
+        //       c.id +
+        //       `)"> Get latest-data</a><br>` +
+        //       `</div>`
+        //   );
+        //   //     .addTo(this.map);
+        //   data.push(markers);
+
+        //   this.markerClusterData = data;
+        // }
+
+        // -----------------------------End of For----------------------//
       })
       .catch((e) => {
         console.log(e);
@@ -247,5 +222,123 @@ export class MapViewComponent {
     console.log(event);
     console.log(data);
     console.log(id);
+  }
+
+  //Events created for Drawing, Editing & deleted
+
+  onDrawCreated(e: any) {
+    console.log('Draw Created Event!');
+    const layer = (e as DrawEvents.Created).layer;
+    console.log(e);
+    // this.markerClusterGroup.removeLayer;
+    this.markersLayer.clearLayers();
+    var type = e.layerType;
+    console.log(type);
+    // const layer = (e as DrawEvents.Created).layer;
+    if (type === 'circle') {
+      var center_point = e.layer._latlng;
+      var radius = Math.ceil(e.layer._mRadius);
+      console.log(center_point);
+      console.log(radius);
+      //Api call for getting items for that area
+      this.httpInterceptor
+        .get_api_test_map(
+          `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[ ${center_point['lng']},${center_point['lat']}]`
+        )
+        .then((res) => {
+          console.log(res);
+          this.data = res;
+          for (var i = this.data.results.length - 1; i >= 0; i--) {
+            if (this.data.results[i].hasOwnProperty('location')) {
+              // myLayer.addData(data[i]['geoJsonLocation']);
+              this.plotGeoJSONs(
+                this.data.results[i]['location']['geometry']['type'],
+                this.data.results[i]['id'],
+                this.data.results[i],
+                this.data.results[i]['resourceGroup'],
+                this.data.results[i]['provider']
+              );
+            } else if (this.data.results[i].hasOwnProperty('coverageRegion')) {
+              // myLayer.addData(data[i]['geoJsonLocation']);
+              ////console.log("1")
+              this.plotGeoJSONs(
+                res[i]['coverageRegion']['geometry'],
+                this.data.results[i]['id'],
+                this.data.results[i],
+                this.data.results[i]['resourceGroup'],
+                this.data.results[i]['provider']
+              );
+              ////console.log("2")
+            }
+          }
+        });
+    } else if (type === 'polygon') {
+      var points = e.layer._latlng;
+      var polypoints = [];
+      console.log(points);
+
+      for (var i = 0; i < points[0].length - 1; i += 2) {
+        var coordinates = +points[0][i]['lat'] + ',' + points[0][i]['lng'];
+        polypoints.push(coordinates);
+        polypoints.join(',');
+      }
+      console.log(polypoints);
+    }
+
+    this.drawnItems.addLayer(layer);
+    this.markersLayer.addLayer(layer);
+    // this.markerClusterData.addLayer(layer);
+  }
+  onDrawDeleted(e: any) {
+    console.log('deleted');
+    this.markersLayer.clearLayers();
+  }
+
+  onDrawStart(e: any) {
+    console.log('Draw Started Event!');
+  }
+  plotGeoJSONs(geoJsonObject, id, data, rsg, provider) {
+    console.log(geoJsonObject);
+    console.log(id);
+    console.log(data);
+    if (geoJsonObject == 'Point') {
+      console.log('Printing Point....');
+      this.name = data.name;
+      var lng = data.location.geometry.coordinates[0];
+      var lat = data.location.geometry.coordinates[1];
+      console.log(lng, lat);
+      // const markers = L.marker([lat, lng]).bindPopup(this.describe);
+      var customPopup =
+        `<div id="name">` +
+        // this.describe.split('Description for')[1] +
+        data.name +
+        `</div>
+                <div id="pop_up_` +
+        data.id +
+        `"><p class="text-center" style="padding-right:7.5px;">
+            </p>` +
+        this.get_bullets() +
+        ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
+        data +
+        `, ` +
+        data.id +
+        `)"> Get latest-data</a><br>` +
+        `</div>`;
+      const markers = L.marker([lat, lng], {
+        icon: this.getMarkerIcon(rsg),
+        riseOnHover: true,
+      }).bindPopup(customPopup);
+      this.markersLayer.addLayer(markers);
+      this.markersLayer.addTo(this.map);
+    }
+  }
+  getMarkerIcon(_rsg) {
+    return L.icon({
+      iconUrl: this.legends[_rsg.split('/')[3]],
+      iconSize: [38, 95], // size of the icon
+      iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
+      popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
+      shadowSize: [41, 41], // size of the shadow
+    });
   }
 }
