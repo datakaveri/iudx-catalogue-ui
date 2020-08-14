@@ -318,7 +318,7 @@ export class MapViewComponent {
         `"><p class="text-center" style="padding-right:7.5px;">
             </p>` +
         this.get_bullets() +
-        ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
+        ` <a class='data-modal' (click)="display_latest_data($event, ` +
         data +
         `, ` +
         data.id +
@@ -340,5 +340,104 @@ export class MapViewComponent {
       popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
       shadowSize: [41, 41], // size of the shadow
     });
+  }
+
+  get_selected_values() {
+    //Call for filters
+    var value = this.get_selected_values_checkbox();
+    var tags = value.tags;
+    var rsg = value.rsg;
+    var provider = value.provider;
+    //console.log(tags, rsg , provider)
+
+    var __filter_url = '';
+
+    if (tags.length == 0 && rsg.length == 0 && provider.length == 0) {
+      __filter_url = `property=[]&value=[[]]`;
+    } else {
+      // //console.log("else...")
+      var property = this.get_api_encoded_attribute_names(tags, rsg, provider);
+      // //console.log(_attr_names)
+      var values = this.get_api_encoded_attribute_values(tags, rsg, provider);
+      // //console.log(_attr_values)
+      __filter_url = `property=` + property + `&value=` + values;
+    }
+    return __filter_url;
+  }
+  get_api_encoded_attribute_names(__tags, __rsg, __pvdr) {
+    var str = [];
+    if (__tags.length != 0) {
+      str.push('tags,type');
+    }
+    if (__rsg.length != 0) {
+      str.push('resourceGroup,type');
+    }
+    if (__pvdr.length != 0) {
+      str.push('provider,type');
+    }
+    //console.log(str.join(","))
+    return '(' + str.join(',') + ')';
+  }
+  get_api_encoded_attribute_values(_tags, _rsg, _pr) {
+    var str = [];
+
+    if (_tags.length != 0) {
+      str.push('[' + _tags.join(',') + ']');
+    }
+    if (_rsg.length != 0) {
+      str.push('[' + _rsg.join(',') + ']');
+    }
+    if (_pr.length != 0) {
+      str.push('[' + _pr.join(',') + ']');
+    }
+    return '[' + str.join(',') + ',[iudx:Resource]';
+  }
+
+  get_selected_values_checkbox() {
+    //call when checkbox is clicked
+    var _tags = [];
+    var _rsg = [];
+    var _pr = [];
+    var tag_elements = <HTMLInputElement[]>(
+      (<any>document.getElementsByName('taglist'))
+    );
+    var rsg_elements = <HTMLInputElement[]>(
+      (<any>document.getElementsByName('rsglist'))
+    );
+    var pr_elements = <HTMLInputElement[]>(
+      (<any>document.getElementsByName('prlist'))
+    );
+
+    for (let i of tag_elements) {
+      if (i.type == 'checkbox') {
+        if (i.checked == true) {
+          _tags.push(i.value);
+        }
+      }
+    }
+
+    for (let i of pr_elements) {
+      if (i.type == 'checkbox') {
+        if (i.checked) {
+          _pr.push(i.value);
+        }
+      }
+    }
+
+    for (let i of rsg_elements) {
+      if (i.type == 'checkbox') {
+        if (i.checked) {
+          _rsg.push(i.value);
+        }
+      }
+    }
+
+    //alert("My taglists are: " + _tags.join(", ")+"and My resource group are:" +_rsg.join(", "));
+
+    return {
+      tags: _tags,
+      rsg: _rsg,
+      provider: _pr,
+    };
   }
 }

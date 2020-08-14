@@ -51,9 +51,9 @@
               <label class="container"
                 >{{ option.name }}
                 <input
-                  (click)="getDataForProviders($event, option.name)"
+                  #prcheckbox
                   type="checkbox"
-                  name=""
+                  name="prlist"
                   value="{{ option.name }}" />
                 <span class="checkmark"></span
               ></label>
@@ -70,9 +70,9 @@
               <label class="container"
                 >{{ option.tag }}
                 <input
-                  (click)="getDataForTags($event, option.tag)"
+                  #tagcheckbox
                   type="checkbox"
-                  name=""
+                  name="taglist"
                   value="{{ option.tag }}" />
                 <span class="checkmark"></span
               ></label>
@@ -80,8 +80,10 @@
           </div>
         </div>
         <div class="filter-div-bottom">
-          <button class="applybtn">Apply Filters</button>
-          <button class="clrbtn">Clear Filters</button>
+          <button class="applybtn" (click)="applyFilters()">
+            Apply Filters
+          </button>
+          <button class="clrbtn" (click)="clearFilters()">Clear Filters</button>
         </div>
       </div>
     </div>

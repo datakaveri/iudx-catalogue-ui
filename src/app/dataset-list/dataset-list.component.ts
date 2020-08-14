@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsService } from '../constants.service';
 import { InterceptorService } from '../interceptor.service';
@@ -20,6 +29,9 @@ export class DatasetListComponent implements OnInit {
   resource_groups_filters: any;
   pages: number;
   searchQuery: {};
+
+  @ViewChildren('prcheckbox') prcheckbox: QueryList<ElementRef>;
+  @ViewChildren('tagcheckbox') tagcheckbox: QueryList<ElementRef>;
 
   constructor(
     private router: Router,
@@ -67,74 +79,6 @@ export class DatasetListComponent implements OnInit {
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/items']);
-  }
-  getDataForProviders(event, option) {
-    if (event.target.checked == true) {
-      // console.log(event.target.value, option);
-      this.searchQuery = {
-        search_text: '',
-        search_params: {
-          tags: [],
-          providers: [option],
-          page: 0,
-          resource_groups: [],
-        },
-      };
-      this.constantService.set_search_query(this.searchQuery);
-      // console.log(sessionStorage.getItem('search_params'));
-      this.body = this.constantService.get_search_query();
-      this.search_text = this.body.search_text;
-      this.search_params = this.body.search_params;
-      this.tags = this.body.search_params.tags;
-      this.provider_filters = this.body.search_params.providers;
-      this.resource_groups_filters = this.body.search_params.resource_groups;
-      this.pages = this.body.search_params.page;
-      this.body = this.getBody(
-        this.search_text,
-        this.tags,
-        this.provider_filters,
-        this.pages
-      );
-      this.httpInterceptor
-        .post_api('customer/datasets', this.body)
-        .then((response) => {
-          this.results = response;
-        });
-    }
-  }
-  getDataForTags(event, option) {
-    if (event.target.checked == true) {
-      console.log(event.target.value, option);
-      this.searchQuery = {
-        search_text: '',
-        search_params: {
-          tags: [option],
-          providers: [],
-          page: 0,
-          resource_groups: [],
-        },
-      };
-      this.constantService.set_search_query(this.searchQuery);
-      // console.log(sessionStorage.getItem('search_params'));
-      this.body = this.constantService.get_search_query();
-      this.search_text = this.body.search_text;
-      this.search_params = this.body.search_params;
-      this.tags = this.body.search_params.tags;
-      this.provider_filters = this.body.search_params.providers;
-      this.resource_groups_filters = this.body.search_params.resource_groups;
-      this.pages = this.body.search_params.page;
-      this.body = this.getBody(
-        this.search_text,
-        this.tags,
-        this.provider_filters,
-        this.pages
-      );
-      this.httpInterceptor
-        .post_api('customer/datasets', this.body)
-        .then((response) => {
-          this.results = response;
-        });
-    }
   }
   closeFilter() {
     this.show_filter = false;
@@ -184,5 +128,94 @@ export class DatasetListComponent implements OnInit {
       page: _page,
     };
     return this.body;
+  }
+  applyFilters() {
+    var _tags = [];
+    var _provider = [];
+    var tag_elements = <HTMLInputElement[]>(
+      (<any>document.getElementsByName('taglist'))
+    );
+    var pr_elements = <HTMLInputElement[]>(
+      (<any>document.getElementsByName('prlist'))
+    );
+
+    for (let i = 0; i < tag_elements.length; i++) {
+      if (tag_elements[i].type == 'checkbox') {
+        if (tag_elements[i].checked) {
+          _tags.push(tag_elements[i].value);
+        }
+      }
+    }
+
+    for (let i = 0; i < pr_elements.length; i++) {
+      if (pr_elements[i].type == 'checkbox') {
+        if (pr_elements[i].checked) {
+          _provider.push(pr_elements[i].value);
+        }
+      }
+    }
+    // console.log(_tags);
+    // console.log(_provider);
+
+    if (_tags.length != 0 && _provider.length == 0) {
+      this.searchQuery = {
+        search_text: '',
+        search_params: {
+          tags: _tags,
+          providers: [],
+          page: 0,
+          resource_groups: [],
+        },
+      };
+    } else if (_provider.length != 0 && _tags.length == 0) {
+      this.searchQuery = {
+        search_text: '',
+        search_params: {
+          tags: [],
+          providers: _provider,
+          page: 0,
+          resource_groups: [],
+        },
+      };
+    } else if (_tags.length != 0 && _provider.length != 0) {
+      this.searchQuery = {
+        search_text: '',
+        search_params: {
+          tags: _tags,
+          providers: _provider,
+          page: 0,
+          resource_groups: [],
+        },
+      };
+    }
+
+    this.constantService.set_search_query(this.searchQuery);
+    // console.log(sessionStorage.getItem('search_params'));
+    this.body = this.constantService.get_search_query();
+    this.search_text = this.body.search_text;
+    this.search_params = this.body.search_params;
+    this.tags = this.body.search_params.tags;
+    this.provider_filters = this.body.search_params.providers;
+    this.resource_groups_filters = this.body.search_params.resource_groups;
+    this.pages = this.body.search_params.page;
+    this.body = this.getBody(
+      this.search_text,
+      this.tags,
+      this.provider_filters,
+      this.pages
+    );
+    this.httpInterceptor
+      .post_api('customer/datasets', this.body)
+      .then((response) => {
+        this.results = response;
+      });
+  }
+  clearFilters() {
+    this.prcheckbox.forEach((element) => {
+      element.nativeElement.checked = false;
+    });
+    this.tagcheckbox.forEach((element) => {
+      element.nativeElement.checked = false;
+    });
   }
 }
