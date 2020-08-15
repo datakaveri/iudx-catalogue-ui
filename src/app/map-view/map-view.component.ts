@@ -231,7 +231,7 @@ export class MapViewComponent {
     const layer = (e as DrawEvents.Created).layer;
     console.log(e);
     this.markerClusterGroup.clearLayers();
-    // this.markersLayer.clearLayers();
+    this.markersLayer.clearLayers();
     var type = e.layerType;
     console.log(type);
     // const layer = (e as DrawEvents.Created).layer;
