@@ -126,34 +126,34 @@ export class MapViewComponent {
 
         /** Added this to get all items on opening GeoInformation**/
 
-        // for (const c of response.items) {
-        //   this.describe = c.description;
-        //   this.name = c.name;
-        //   var lng = c.location.geometry.coordinates[0];
-        //   var lat = c.location.geometry.coordinates[1];
-        //   // const markers = L.marker([lat, lng]).bindPopup(this.describe);
-        //   const markers = L.marker([lat, lng]).bindPopup(
-        //     `<div id="name">` +
-        //       // this.describe.split('Description for')[1] +
-        //       this.name +
-        //       `</div>
-        //       <div id="pop_up_` +
-        //       c.id +
-        //       `"><p class="text-center" style="padding-right:7.5px;">
-        //   </p>` +
-        //       this.get_bullets() +
-        //       ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
-        //       response.items +
-        //       `, ` +
-        //       c.id +
-        //       `)"> Get latest-data</a><br>` +
-        //       `</div>`
-        //   );
-        //   //     .addTo(this.map);
-        //   data.push(markers);
+        for (const c of response.items) {
+          this.describe = c.description;
+          this.name = c.name;
+          var lng = c.location.geometry.coordinates[0];
+          var lat = c.location.geometry.coordinates[1];
+          // const markers = L.marker([lat, lng]).bindPopup(this.describe);
+          const markers = L.marker([lat, lng]).bindPopup(
+            `<div id="name">` +
+              // this.describe.split('Description for')[1] +
+              this.name +
+              `</div>
+              <div id="pop_up_` +
+              c.id +
+              `"><p class="text-center" style="padding-right:7.5px;">
+          </p>` +
+              this.get_bullets() +
+              ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
+              response.items +
+              `, ` +
+              c.id +
+              `)"> Get latest-data</a><br>` +
+              `</div>`
+          );
+          //     .addTo(this.map);
+          data.push(markers);
 
-        //   this.markerClusterData = data;
-        // }
+          this.markerClusterData = data;
+        }
 
         // -----------------------------End of For----------------------//
       })
@@ -230,8 +230,8 @@ export class MapViewComponent {
     console.log('Draw Created Event!');
     const layer = (e as DrawEvents.Created).layer;
     console.log(e);
-    // this.markerClusterGroup.removeLayer;
-    this.markersLayer.clearLayers();
+    this.markerClusterGroup.clearLayers();
+    // this.markersLayer.clearLayers();
     var type = e.layerType;
     console.log(type);
     // const layer = (e as DrawEvents.Created).layer;
@@ -273,17 +273,73 @@ export class MapViewComponent {
           }
         });
     } else if (type === 'polygon') {
-      var points = e.layer._latlng;
-      var polypoints = [];
-      console.log(points);
+      console.log(layer);
 
-      for (var i = 0; i < points[0].length - 1; i += 2) {
-        var coordinates = +points[0][i]['lat'] + ',' + points[0][i]['lng'];
-        polypoints.push(coordinates);
-        polypoints.join(',');
-      }
-      console.log(polypoints);
+      var points = [e.layer._latlngs];
+      var polypoints = [];
+      var coordinates;
+      points[0].forEach((n) => {
+        console.log(n);
+
+        for (let i = 0; i < n.length; i += 1) {
+          coordinates = '[' + n[i]['lng'] + ',' + n[i]['lat'] + ']';
+          polypoints.push(coordinates);
+          polypoints.join(',');
+        }
+        console.log(coordinates);
+
+        console.log(polypoints);
+      });
+
+      this.httpInterceptor
+        .get_api_test_map(
+          `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polypoints}]]`
+        )
+        .then((res) => {
+          console.log(res);
+        });
+
+      //     this.data = res;
+      // for (var i = this.data.results.length - 1; i >= 0; i--) {
+      //   if (this.data.results[i].hasOwnProperty('location')) {
+      //     // myLayer.addData(data[i]['geoJsonLocation']);
+      //     this.plotGeoJSONs(
+      //       this.data.results[i]['location']['geometry']['type'],
+      //       this.data.results[i]['id'],
+      //       this.data.results[i],
+      //       this.data.results[i]['resourceGroup'],
+      //       this.data.results[i]['provider']
+      //     );
+      //   } else if (this.data.results[i].hasOwnProperty('coverageRegion')) {
+      //     // myLayer.addData(data[i]['geoJsonLocation']);
+      //     ////console.log("1")
+      //     this.plotGeoJSONs(
+      //       res[i]['coverageRegion']['geometry'],
+      //       this.data.results[i]['id'],
+      //       this.data.results[i],
+      //       this.data.results[i]['resourceGroup'],
+      //       this.data.results[i]['provider']
+      //     );
+      //     ////console.log("2")
+      //   }
+      // }
+      // });
     }
+    //else if (type === 'rectangle') {
+    //   console.log(layer);
+    //   var bound_points = e.layer._bounds;
+    //   var boundingPoints = [];
+
+    //   var b1 =
+    //     bound_points._northEast['lat'] + ',' + bound_points._northEast['lng'];
+    //   var b2 =
+    //     bound_points._southWest['lat'] + ',' + bound_points._southWest['lng'];
+    //   boundingPoints.push(b1);
+    //   boundingPoints.push(b2);
+    //   boundingPoints.join(',');
+    //   console.log(boundingPoints);
+    //   //Api call for getting items for that area
+    // }
 
     this.drawnItems.addLayer(layer);
     this.markersLayer.addLayer(layer);
@@ -296,6 +352,8 @@ export class MapViewComponent {
 
   onDrawStart(e: any) {
     console.log('Draw Started Event!');
+    // this.markerClusterGroup.clearLayers();
+    // this.map.removeLayer(this.markerClusterGroup);
   }
   plotGeoJSONs(geoJsonObject, id, data, rsg, provider) {
     console.log(geoJsonObject);
