@@ -1,64 +1,46 @@
-/*----Input box Search Style------*/
 .search_div {
-  position: fixed;
-  left: 0;
-  top: 84.65px;
-  width: calc(100% - 50px);
-  padding: 15px 25px;
-  display: flex;
-  background: white;
-
-  .search_bar {
-    width: 70%;
-
-    // display: flex;
-    input {
-      border: none;
-      width: calc(100% - 125px - 3px);
-      padding: 12px;
-      border: 1px solid var(--border);
-      // border-top-left-radius: 5px;
-      // border-bottom-left-radius: 5px;
-    }
-
-    button {
-      background: none;
-      border: none;
-      img {
-        width: 25px;
-        vertical-align: middle;
-        margin-left: -40px;
-      }
-    }
-  }
-
-  .map_view {
-    width: 30%;
-    text-align: right;
+    position: fixed;
+    left: 0;
+    top: 84.65px;
+    width: calc(100% - 50px);
+    padding: 15px 25px;
     display: flex;
-    justify-content: flex-end;
-
-    button {
-      width: 160px;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      background: var(--white);
+    background: white;
+    .search_bar {
+        width: 70%;
+        input {
+            border: none;
+            width: calc(100% - 125px - 3px);
+            padding: 12px;
+            border: 1px solid var(--border);
+        }
+        button {
+            background: none;
+            border: none;
+            img {
+            width: 25px;
+            vertical-align: middle;
+            margin-left: -40px;
+            }
+        }
     }
-
-    button:first-child {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 30px;
+    .map_view {
+        width: 30%;
+        text-align: right;
+        button {
+            float: right;
+            width: 160px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            background: var(--white);
+        }
+        button:last-child {
+            margin-right: 15px;
+        }
+        img {
+            height: 15px;
+            width: 15px;
+            margin: 0 8px;
+        }
     }
-
-    img {
-      height: 15px;
-      width: 15px;
-      margin: 0 8px;
-    }
-  }
-
-  .filterbtn {
-  }
 }

@@ -1,58 +1,28 @@
 <div class="content-container">
-  <div class="para-div">
-    <p>
-      <span>{{ resource_items?.count }} </span>
-      <span>datasets for </span>
-      <span>Pollution </span>
-      <span>in</span>
-      <span *ngIf="resource_items.items">
-        "{{ resource_items.items[0].description.split("Description for")[1] }}"
-      </span>
-      <span> matching search criteria</span>
-    </p>
-  </div>
-  <br />
-  <div class="results-div">
-    <div class="box-style" *ngFor="let item of resource_items.items">
-      <p>
-        {{ item.description }}
-      </p>
-
-      <!-- <p>{{ item.description }}</p> -->
-      <!-- <p><span>Tags: </span>&nbsp; &nbsp;{{ item.tags }}</p>
-
-      <p><span>Status: </span>&nbsp; &nbsp;{{ item.status }}</p> -->
-
-      <!-- <p>
-        <span>Modified At: </span>&nbsp; &nbsp;{{
-          item.modified_at | date: "medium"
-        }}
-      </p> -->
-      <!-- <p><span>Provider: </span>&nbsp; &nbsp;{{ item.provider }}</p> -->
-      <!-- <p>
-        <span>Resource group:&nbsp; &nbsp;</span>
-        {{ item.resource_group }}
-      </p> -->
-      <p><span>Location: </span>&nbsp; &nbsp;{{ item.location.address }}</p>
-      <p>
-        <span>Created At: </span>&nbsp; &nbsp;{{
-          item.itemCreatedAt | date: "medium"
-        }}
-      </p>
-
-      <div class="link-container">
-        <a>
-          <p>View Details</p>
-        </a>
-
-        <a>
-          <p>Get Latest Data</p>
-        </a>
-      </div>
+    <div class="para-div" *ngIf="show_data">
+        <p>
+            <span>{{ results.count }}</span>
+            <span> {{texts.resource_items}}(s) for </span>
+            <span>{{ search_text }}</span>
+        </p>
     </div>
-  </div>
+    <div class="results-div">
+        <div class="box-style" *ngFor="let resource of results?.items">
+            <h4>
+                {{ resource.name }}
+                <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">
+            </h4>
+            <p>
+                <span>Description: </span>{{ resource.description }}
+            </p>
+            <p>
+                <span>{{texts.providers}}: </span>{{ resource.provider.description }}
+            </p>
+            <p>
+                <span>Location: </span>{{ resource.location.address }}
+            </p>
+            <a>View Details</a>
+            <a>Get Latest Data</a>
+        </div>
+    </div>
 </div>
-
-<!-- <div class="pagination-box">
-  <app-pagination [totalPages]=""></app-pagination>
-</div> -->

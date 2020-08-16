@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { InterceptorService } from '../interceptor.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ConstantsService } from '../constants.service';
+import { InterceptorService } from '../interceptor.service';
 
 @Component({
   selector: 'app-item-list',
@@ -9,53 +9,46 @@ import { ConstantsService } from '../constants.service';
   styleUrls: ['./item-list.component.scss'],
 })
 export class ItemListComponent implements OnInit {
-  val: any;
-  body: {};
-  resource_items: any;
   search_text: string;
-  search_params: any;
+  results: any;
   pages: number;
-  searchQuery: {};
-  resource_grps: any;
-  totalPages: number;
-
+  show_data: Boolean;
+  texts: any;
   constructor(
     private httpInterceptor: InterceptorService,
-    private route: ActivatedRoute,
     private constantService: ConstantsService
   ) {
-    this.resource_items = {};
-    this.search_text = '';
+    this.show_data = false;
+    this.results = {};
     this.pages = 0;
-    this.searchQuery = {
-      search_text: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
-    };
+    this.search_text = window.sessionStorage.resource_group_name;
+    this.texts = this.constantService.get_nomenclatures();
+    this.get_items();
   }
 
   ngOnInit(): void {
-    this.search_text = sessionStorage.getItem('search_text');
-    this.search_params = sessionStorage.getItem('search_params');
-    this.searchQuery = {
-      search_text: this.search_text,
-      search_params: this.search_params,
-    };
-    this.getItems();
   }
-  getItems() {
-    this.resource_grps = this.constantService.get_search_query().search_params.resource_groups[0];
-    this.pages = this.constantService.get_search_query().search_params.page;
-    this.body = {
-      resource_groups: [this.resource_grps],
-      page: this.pages,
-    };
-    this.httpInterceptor.post_api('customer/items', this.body).then((res) => {
-      this.resource_items = res;
+
+  get_items() {
+    this.show_data = false;
+    let post_data = {
+      "resource_groups":[window.sessionStorage.resource_group_id],
+      "page": 0
+    }
+    this.httpInterceptor.post_api('customer/items', post_data).then((res) => {
+      this.results = res;
+      this.show_data = true;
     });
   }
+
+  copy(id) {
+    const el = document.createElement('textarea');
+    el.value = id;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert(this.texts.resource_items + ' ID copied to Clipboard.');
+  }
+
 }

@@ -1,120 +1,37 @@
 <div class="content-container">
-  <div class="para-div">
-    <p>
-      <span>{{ results.count }}</span>
-      <!-- <span *ngIf="results.count == 1 || results.count == 0">
-        dataset for
-      </span> -->
-      <span> dataset(s) for </span>
-      <span *ngIf="search_text">{{ search_text }} </span>
-      <span *ngIf="!search_text">{{ tags }} </span>
-      <span>matching search criteria</span>
-    </p>
-  </div>
-  <br />
-
-  <div class="content-div">
-    <div class="sidebar" *ngIf="show_filter">
-      <div class="filter-div">
-        <div class="filter-div-top">
-          <a class="cross" (click)="closeFilter()">
-            <img src="assets/cross.png" />
-          </a>
-          <!-- <br />
-          <br /> -->
-          <h1>Filters</h1>
-
-          <br />
-          <p>Filter by: Publishers</p>
-
-          <div class="search-filter">
-            <img src="assets/search.png" />
-            <input type="text" placeholder="Search..." />
-          </div>
-          <!-- <div class="checkbox-div">
-            <label *ngFor="let option of providers">
-              <input
-                class="checkbox-style"
-                type="checkbox"
-                value="{{ option }}"
-                (change)="getDataForProviders($event, option)"
-              />
-              &nbsp;&nbsp;
-              {{ option }}
-            </label>
-            <!-- <a *ngIf="step_pr_size < providers.length" (click)="showMoreProviders()"
-              >{{ providers.length - step_pr_size }} More</a
-            > -->
-          <!-- </div> -->
-          <div class="checkbox-div">
-            <div *ngFor="let option of results?.providers">
-              <label class="container"
-                >{{ option.name }}
-                <input
-                  #prcheckbox
-                  type="checkbox"
-                  name="prlist"
-                  value="{{ option.name }}" />
-                <span class="checkmark"></span
-              ></label>
-            </div>
-          </div>
-          <p>Filter by: Tags</p>
-
-          <div class="search-filter">
-            <img src="../../assets/search.png" />
-            <input type="text" placeholder="Search..." />
-          </div>
-          <div class="checkbox-div">
-            <div *ngFor="let option of results?.tags">
-              <label class="container"
-                >{{ option.tag }}
-                <input
-                  #tagcheckbox
-                  type="checkbox"
-                  name="taglist"
-                  value="{{ option.tag }}" />
-                <span class="checkmark"></span
-              ></label>
-            </div>
-          </div>
-        </div>
-        <div class="filter-div-bottom">
-          <button class="applybtn" (click)="applyFilters()">
-            Apply Filters
-          </button>
-          <button class="clrbtn" (click)="clearFilters()">Clear Filters</button>
-        </div>
-      </div>
+    <div class="para-div" *ngIf="show_data">
+        <p *ngIf="!(searchQuery.tags.length == 0 && searchQuery.text == '')">
+            <span>{{ results.count }}</span>
+            <span> Dataset(s) for </span>
+            <span>{{ search_text }}</span>
+            <span> matching search criteria</span>
+        </p>
+        <p *ngIf="searchQuery.tags.length == 0 && searchQuery.text == ''">
+            <span>{{ results.count }}</span>
+            <span> Dataset(s) Available </span>
+        </p>
     </div>
     <div class="results-div">
-      <div class="box-style" *ngFor="let resource of results?.items">
-        <!-- <p>{{ resource.name }}</p> -->
-        <p>
-          {{ resource.description }}
-        </p>
-
-        <!-- <p><span>Tags: </span> &nbsp; &nbsp;{{ resource.tags }}</p>
-        <p><span>Status: </span>&nbsp; &nbsp;{{ resource.status }}</p> -->
-        <p>
-          <span>Created At: </span>&nbsp; &nbsp;{{
-            resource.itemCreatedAt | date: "medium"
-          }}
-        </p>
-
-        <!-- <p><span>Provider: </span>&nbsp; &nbsp;{{ resource.provider }}</p> -->
-        <p>
-          <span>Location: </span>&nbsp; &nbsp;{{ resource.location.address }}
-        </p>
-
-        <a (click)="getResourceItems(resource.id)">
-          <p>View All Items</p>
-        </a>
-      </div>
+        <div class="box-style" *ngFor="let resource of results?.items">
+            <h4>
+                {{ resource.name }}
+                <img src="assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)">
+            </h4>
+            <p>
+                <span>Description: </span>{{ resource.description }}
+            </p>
+            <p>
+                <span>{{texts.providers}}: </span>{{ resource.provider.description }}
+            </p>
+            <p>
+                <span>Location: </span>{{ resource.location.address }}
+            </p>
+            <p>
+                <span>{{texts.resource_items}}s Count: </span>{{ resource.resource_items }}
+            </p>
+            <a (click)="getResourceItems(resource)">View All {{texts.resource_items}}s</a>
+            <a>View Details</a>
+            <a>Get Latest Data</a>
+        </div>
     </div>
-  </div>
 </div>
-
-<!-- <div class="pagination-box">
-  <app-pagination></app-pagination>
-</div> -->

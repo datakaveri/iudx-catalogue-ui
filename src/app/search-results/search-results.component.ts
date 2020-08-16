@@ -48,7 +48,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   showFilter(flag) {
-    this.constantService.set_filter(flag);
+    // this.constantService.set_filter(flag);
   }
   listView() {
     this.router.navigate(['/search/datasets']);

@@ -1,16 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChildren,
-  QueryList,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConstantsService } from '../constants.service';
 import { InterceptorService } from '../interceptor.service';
+
 @Component({
   selector: 'app-dataset-list',
   templateUrl: './dataset-list.component.html',
@@ -19,203 +11,71 @@ import { InterceptorService } from '../interceptor.service';
 export class DatasetListComponent implements OnInit {
   search_text: string;
   show_filter: boolean;
-  body: any;
-  resource_groups = {};
   results: any;
-  resquery: any;
-  search_params: any;
-  tags: any;
-  provider_filters: [];
-  resource_groups_filters: any;
   pages: number;
-  searchQuery: {};
-
-  @ViewChildren('prcheckbox') prcheckbox: QueryList<ElementRef>;
-  @ViewChildren('tagcheckbox') tagcheckbox: QueryList<ElementRef>;
-
+  searchQuery: any;
+  show_data: Boolean;
+  texts: any;
   constructor(
     private router: Router,
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
-    this.constantService.get_filter().subscribe((val) => {
-      this.show_filter = val;
-    });
+    this.show_filter = false;
+    this.show_data = false;
     this.results = {};
-    this.search_text = '';
     this.pages = 0;
-    this.searchQuery = {
-      search_text: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
-    };
+    this.search_text = '';
+    this.searchQuery = this.constantService.get_search_query();
+    this.texts = this.constantService.get_nomenclatures();
+    this.constantService.get_filter().subscribe((query: any)=>{
+      this.searchQuery = query;
+      this.searchDatasets();
+    });
+    this.searchDatasets();
   }
 
   ngOnInit(): void {
-    this.search_text = sessionStorage.getItem('search_text');
-    this.search_params = sessionStorage.getItem('search_params');
-    // console.log(this.search_text, this.search_params);
-
-    this.searchQuery = {
-      search_text: this.search_text,
-      search_params: this.search_params,
-    };
-    this.searchDatasets();
   }
-  getResourceItems(_id) {
-    // console.log(_id);
-    this.searchQuery = {
-      search_text: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [_id],
-      },
-    };
-    this.constantService.set_search_query(this.searchQuery);
+
+  getResourceItems(resource) {
+    window.sessionStorage.resource_group_id = resource.id;
+    window.sessionStorage.resource_group_name = resource.name;
     this.router.navigate(['/search/items']);
   }
-  closeFilter() {
-    this.show_filter = false;
-  }
+
   searchDatasets() {
-    this.body = this.constantService.get_search_query();
-    this.search_text = this.body.search_text;
-    this.search_params = this.body.search_params;
-    this.tags = this.body.search_params.tags;
-    this.provider_filters = this.body.search_params.providers;
-    this.resource_groups_filters = this.body.search_params.resource_groups;
-    this.pages = this.body.search_params.page;
-    if (this.search_text) {
-      this.body = this.getBody(
-        this.search_text,
-        this.tags,
-        this.provider_filters,
-        this.pages
-      );
+    this.show_data = false;
+    if (this.searchQuery.text != '') {
+      this.search_text = this.searchQuery.text;
       this.httpInterceptor
-        .post_api('customer/search', this.body)
-        .then((response) => {
-          this.results = response;
-          console.log(this.results);
-        });
-    } else {
-      this.body = this.getBody(
-        this.search_text,
-        this.tags,
-        this.provider_filters,
-        this.pages
-      );
-      this.httpInterceptor
-        .post_api('customer/datasets', this.body)
-        .then((response) => {
-          this.results = response;
-          console.log(this.results);
-        });
-    }
-  }
-
-  getBody(_text, _tags, _providers, _page) {
-    this.body = {
-      text: _text,
-      tags: _tags,
-      providers: _providers,
-      page: _page,
-    };
-    return this.body;
-  }
-  applyFilters() {
-    var _tags = [];
-    var _provider = [];
-    var tag_elements = <HTMLInputElement[]>(
-      (<any>document.getElementsByName('taglist'))
-    );
-    var pr_elements = <HTMLInputElement[]>(
-      (<any>document.getElementsByName('prlist'))
-    );
-
-    for (let i = 0; i < tag_elements.length; i++) {
-      if (tag_elements[i].type == 'checkbox') {
-        if (tag_elements[i].checked) {
-          _tags.push(tag_elements[i].value);
-        }
-      }
-    }
-
-    for (let i = 0; i < pr_elements.length; i++) {
-      if (pr_elements[i].type == 'checkbox') {
-        if (pr_elements[i].checked) {
-          _provider.push(pr_elements[i].value);
-        }
-      }
-    }
-    // console.log(_tags);
-    // console.log(_provider);
-
-    if (_tags.length != 0 && _provider.length == 0) {
-      this.searchQuery = {
-        search_text: '',
-        search_params: {
-          tags: _tags,
-          providers: [],
-          page: 0,
-          resource_groups: [],
-        },
-      };
-    } else if (_provider.length != 0 && _tags.length == 0) {
-      this.searchQuery = {
-        search_text: '',
-        search_params: {
-          tags: [],
-          providers: _provider,
-          page: 0,
-          resource_groups: [],
-        },
-      };
-    } else if (_tags.length != 0 && _provider.length != 0) {
-      this.searchQuery = {
-        search_text: '',
-        search_params: {
-          tags: _tags,
-          providers: _provider,
-          page: 0,
-          resource_groups: [],
-        },
-      };
-    }
-
-    this.constantService.set_search_query(this.searchQuery);
-    // console.log(sessionStorage.getItem('search_params'));
-    this.body = this.constantService.get_search_query();
-    this.search_text = this.body.search_text;
-    this.search_params = this.body.search_params;
-    this.tags = this.body.search_params.tags;
-    this.provider_filters = this.body.search_params.providers;
-    this.resource_groups_filters = this.body.search_params.resource_groups;
-    this.pages = this.body.search_params.page;
-    this.body = this.getBody(
-      this.search_text,
-      this.tags,
-      this.provider_filters,
-      this.pages
-    );
-    this.httpInterceptor
-      .post_api('customer/datasets', this.body)
+      .post_api('customer/search', this.searchQuery)
       .then((response) => {
+        this.show_data = true;
         this.results = response;
       });
+    } else {
+      this.search_text = '';
+      this.searchQuery.tags.forEach((a,i)=>{
+        this.search_text += a + (i < (this.searchQuery.tags.length - 1) ? ', ' : '');
+      });
+      this.httpInterceptor
+        .post_api('customer/datasets', this.searchQuery)
+        .then((response) => {
+          this.show_data = true;
+          this.results = response;
+        });
+    }
   }
-  clearFilters() {
-    this.prcheckbox.forEach((element) => {
-      element.nativeElement.checked = false;
-    });
-    this.tagcheckbox.forEach((element) => {
-      element.nativeElement.checked = false;
-    });
+
+  copy(id) {
+    const el = document.createElement('textarea');
+    el.value = id;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert(this.texts.resource_groups + ' ID copied to Clipboard.');
   }
+
 }
