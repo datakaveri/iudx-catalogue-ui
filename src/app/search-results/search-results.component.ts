@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ConstantsService } from '../constants.service';
 import { InterceptorService } from '../interceptor.service';
 
@@ -9,102 +9,67 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent implements OnInit {
-  search_text: string;
   names: any = {};
   tags: any;
   tagSelected: any;
   filteredTags: any = [];
-  resultData: any;
   searchQuery: {};
   query: string;
-  showDropDown: any;
-
+  show_filter: Boolean;
+  show_filter_button: Boolean;
   constructor(
     public router: Router,
     private network: InterceptorService,
     private constantService: ConstantsService
   ) {
-    this.showDropDown = false;
+    this.show_filter_button = false;
+    this.show_filter = false;
     this.query = '';
-    this.search_text = '';
     this.searchQuery = {
-      search_text: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
+      text: '',
+      tags: [],
+      providers: [],
+      page: 0,
     };
-
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if(this.router.url == '/search/datasets' || this.router.url == '/search/map') this.show_filter_button = true;
+        else this.show_filter_button = false;
+      }
+    });
+    this.network.get_filter().subscribe((flag: any)=>{
+      this.show_filter = flag;
+    });
     this.names = this.constantService.get_nomenclatures();
-
-    this.get_data();
     this.get_tags();
   }
+
   ngOnInit(): void { }
-  getResourceGroups(value) {
-    // Api call here to search and get the results.
-  }
-  getDataForProviders(event, value) {
-    // ToDo
-  }
-  getDataForResourceGroups(event, value) {
-    // ToDo
-  }
-  showBtnFilter() {
-    if (
-      this.router.url == '/search/map' ||
-      this.router.url == '/search/datasets'
-    )
-      return true;
-  }
+
   showMap() {
     this.router.navigate(['/search/map']);
   }
 
-  showFilter(flag) {
-    // this.constantService.set_filter(flag);
+  toggle() {
+    this.show_filter = !this.show_filter;
+    this.network.set_filter(this.show_filter);
   }
+
   listView() {
     this.router.navigate(['/search/datasets']);
   }
-  getSearchDatasets(text: string) {
-    this.searchQuery = {
-      search_text: text,
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
-    };
-    this.constantService.set_search_query(this.searchQuery);
-    this.router.navigate(['search/datasets']);
-  }
-
-  get_data() {
-    this.network.get_api('customer/summary').then((data) => {
-      this.resultData = data;
-    });
-  }
-
 
   get_tags() {
-    this.network.get_api('customer/tags').then((data) => {
+    this.network.get_api_wl('customer/tags').then((data) => {
       this.tags = data;
     });
   }
 
   filterItems(word) {
+    let str = word.toLowerCase();
     this.filteredTags = this.tags.filter((e) => {
-      return e.tag.toLowerCase().includes(word);
+      return e.tag.toLowerCase().includes(str);
     });
-    if (this.query != '') {
-      this.showDropDown = true;
-    } else {
-      this.showDropDown = false;
-    }
   }
 
   getSearchResultsByText(text: string) {
@@ -117,8 +82,8 @@ export class SearchResultsComponent implements OnInit {
       };
       this.constantService.set_filter(this.searchQuery);
       this.router.navigate(['/search/datasets']);
+      this.query = '';
     }
-    this.showDropDown = false;
   }
 
   getSearchResultsByTag(value) {
@@ -131,6 +96,6 @@ export class SearchResultsComponent implements OnInit {
     };
     this.constantService.set_filter(this.searchQuery);
     this.router.navigate(['/search/datasets']);
-    this.showDropDown = false;
+    this.query = '';
   }
 }

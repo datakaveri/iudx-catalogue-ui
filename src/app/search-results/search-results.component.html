@@ -1,33 +1,32 @@
 <div class="search_div">
-  <div class="search_bar">
-    <input type="text" (input)="filterItems(query)" placeholder="Search . . ." [(ngModel)]="query" />
-    <button (click)="getSearchResultsByText(query)">
-      <img src="assets/search.png" />
-    </button>
-    <div *ngIf="showDropDown" class="searchBox-dropdown">
-        <ul *ngIf="filteredTags.length != 0">
-          <li (click)='closeDropDown()' *ngFor="let item of filteredTags">
-            <p (click)='getSearchResultsByTag(item.tag)'>
-              <span class='tagSelected'>{{item.tag}}</span>
-              <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
-            </p>
-          </li>
-        </ul>
-        <p class="no_data" *ngIf="filteredTags.length == 0">No tags available for this search criterea.</p>
-      </div>
-  </div>
- 
-  <div class="map_view">
-    <button *ngIf="router.url != '/search/map'" (click)="showMap()">
-      Geo Information
-    </button>
-    <button *ngIf="router.url === '/search/map'" (click)="listView()">
-      List View
-    </button>
-    <button (click)="showFilter(true)" *ngIf="showBtnFilter()">
-      <img src=".\assets\filter.png" />
-      Filters
-    </button>
-  </div>
+    <div class="search_bar">
+        <input type="text" (input)="filterItems(query)" placeholder="Search . . ." [(ngModel)]="query" />
+        <button (click)="getSearchResultsByText(query)">
+            <img src="assets/search.png" />
+        </button>
+        <div *ngIf="query != ''" class="searchBox-dropdown">
+            <ul *ngIf="filteredTags.length != 0">
+                <li (click)='closeDropDown()' *ngFor="let item of filteredTags">
+                <p (click)='getSearchResultsByTag(item.tag)'>
+                    <span class='tagSelected'>{{item.tag}}</span>
+                    <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
+                </p>
+                </li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="map_view">
+        <button *ngIf="router.url != '/search/map'" (click)="showMap()">
+            Geo Information
+        </button>
+        <button *ngIf="router.url === '/search/map'" (click)="listView()">
+            List View
+        </button>
+        <button (click)="toggle()" *ngIf="show_filter_button">
+            <img src=".\assets\filter.png" />
+            Filters
+        </button>
+    </div>
 </div>
 <router-outlet></router-outlet>

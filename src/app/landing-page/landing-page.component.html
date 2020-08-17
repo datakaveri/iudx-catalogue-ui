@@ -1,72 +1,68 @@
 <div class="landingPage__container">
-  <div class="hero__container">
-    <img src="assets/banner.png" alt="hero image" class="hero__image" />
-  </div>
-  <div class="landingPage__top">
-    <p class="landingPage__tagline">
-      Welcome to the <span>Smart City</span> of <span>{{city.configurations.smart_city_name}}</span>
-    </p>
-    <div class="searchBox-container">
-      <form name='form' ng-submit="getSearchResultsByText(query)" action='#' autocomplete="off">
-        <div class="searchBox">
-          <input list='dropdown' name='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text"
-            placeholder="Search public data..." />
-          <button (click)="getSearchResultsByText(query)">
-            <img src="assets/search.png" />
-          </button>
+    <div class="hero__container">
+        <img src="assets/banner.png" alt="hero image" class="hero__image" />
+    </div>
+    <div class="landingPage__top">
+        <p class="landingPage__tagline">
+            Welcome to the <span>Smart City</span> of <span>{{city.configurations.smart_city_name}}</span>
+        </p>
+        <div class="searchBox-container">
+            <form name='form' ng-submit="getSearchResultsByText(query)" action='#' autocomplete="off">
+                <div class="searchBox">
+                    <input list='dropdown' name='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text"
+                    placeholder="Search public data..." />
+                    <button (click)="getSearchResultsByText(query)">
+                        <img src="assets/search.png" />
+                    </button>
+                </div>
+            </form>
+
+            <div *ngIf="query != ''" class="searchBox-dropdown">
+                <ul *ngIf="filteredTags.length != 0">
+                    <li *ngFor="let item of filteredTags">
+                        <p (click)='getSearchResultsByTag(item.tag)'>
+                            <span class='tagSelected'>{{item.tag}}</span>
+                            <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
+                        </p>
+                    </li>
+                </ul>
+                <!-- <p class="no_data" *ngIf="filteredTags.length == 0">No tags available for this search criterea.</p> -->
+            </div>
         </div>
-      </form>
 
-      <div *ngIf="query != ''" class="searchBox-dropdown">
-        <ul *ngIf="filteredTags.length != 0">
-          <li *ngFor="let item of filteredTags">
-            <p (click)='getSearchResultsByTag(item.tag)'>
-              <span class='tagSelected'>{{item.tag}}</span>
-              <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
-            </p>
-          </li>
-        </ul>
-        <p class="no_data" *ngIf="filteredTags.length == 0">No tags available for this search criterea.</p>
-      </div>
+        <div class="searchButton__container">
+            <a (click)="getAllDatasets()" class="active">View All {{names.resource_groups}}s</a>
+            <a (click)="getGeoInfo()">Geo Information</a>
+        </div>
     </div>
 
-    <div class="searchButton__container">
-      <a (click)="getAllDatasets()" class="active">View All {{names.resource_groups}}</a>
-      <a (click)="getGeoInfo()">Geo Information</a>
-    </div>
-  </div>
-
-  <!-- <div class="categories__container" *ngIf="categoriesData.length > 0">
+    <!-- <div class="categories__container" *ngIf="categoriesData.length > 0">
     <ul>
-      <li *ngFor="let item of categoriesData">
+        <li *ngFor="let item of categoriesData">
         <a href="#"><img src="{{ item.image }}" />{{item.name}}</a>
-      </li>
+        </li>
     </ul>
-  </div> -->
+    </div> -->
 
 
-  <div class="landingPage__bottom" *ngIf="resultData">
-    <ul>
-      <li>
-        <h5>{{ names.resource_groups }}s</h5>
-        <p>{{ resultData.resource_groups }}</p>
-      </li>
-      <li>
-        <h5>{{ names.resource_items }}s</h5>
-        <p>{{ resultData.resource_items }}</p>
-      </li>
-      <li>
-        <h5>{{ names.providers }}s</h5>
-        <p>{{ resultData.providers }}</p>
-      </li>
-      <li>
-        <h5>API Hits</h5>
-        <p>{{ resultData.api_calls }}</p>
-      </li>
-    </ul>
-  </div>
+    <div class="landingPage__bottom" *ngIf="resultData">
+        <ul>
+            <li>
+                <h5>{{ names.resource_groups }}s</h5>
+                <p>{{ resultData.resource_groups }}</p>
+            </li>
+            <li>
+                <h5>{{ names.resource_items }}s</h5>
+                <p>{{ resultData.resource_items }}</p>
+            </li>
+            <li>
+                <h5>{{ names.providers }}s</h5>
+                <p>{{ resultData.providers }}</p>
+            </li>
+            <li>
+                <h5>API Hits</h5>
+                <p>{{ resultData.api_calls }}</p>
+            </li>
+        </ul>
+    </div>
 </div>
-<!-- <div [ngClass]="{fadeIn:overlay}"></div>
-<app-advanced-search *ngIf='showAdvanceSearch' (showAdvanceSearch)="getAdvanceSearch($event)"
-    (showOverlay)="getOverlay($event)">
-</app-advanced-search> -->

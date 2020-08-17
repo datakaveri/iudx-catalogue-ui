@@ -35,3 +35,39 @@
         </div>
     </div>
 </div>
+<div class="filder_popup" *ngIf="show_filter">
+    <div class="header">
+        FILTERS
+        <img src="assets/cross.png" (click)="close()">
+    </div>
+    <h4>
+        <img src="assets/filter.png">
+        Filter by Tag(s)
+    </h4>
+    <div class="scroll_div">
+        <ul>
+            <li *ngFor="let tag of tags; let i = index;" (click)="toggle_tag(i)">
+                <img src="assets/unchecked.png" *ngIf="!tag.flag">
+                <img src="assets/checked.png" *ngIf="tag.flag">
+                {{tag.tag}} ({{tag.count}} {{texts.resource_groups}})
+            </li>
+        </ul>
+    </div>
+    <h4>
+        <img src="assets/filter.png">
+        Filter by Provider(s)
+    </h4>
+    <div class="scroll_div">
+        <ul>
+            <li *ngFor="let provider of providers; let i = index;" (click)="toggle_provider(i)">
+                <img src="assets/unchecked.png" *ngIf="!provider.flag">
+                <img src="assets/checked.png" *ngIf="provider.flag">
+                {{provider.name}}
+            </li>
+        </ul>
+    </div>
+    <div class="button_div">
+        <button class="side_button" (click)="clear()">Clear All Filters</button>
+        <button class="main_button" (click)="apply()">Apply Filters</button>
+    </div>
+</div>

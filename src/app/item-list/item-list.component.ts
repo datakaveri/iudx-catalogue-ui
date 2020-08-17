@@ -15,6 +15,7 @@ export class ItemListComponent implements OnInit {
   show_data: Boolean;
   texts: any;
   constructor(
+    private router: Router,
     private httpInterceptor: InterceptorService,
     private constantService: ConstantsService
   ) {
@@ -39,6 +40,10 @@ export class ItemListComponent implements OnInit {
       this.results = res;
       this.show_data = true;
     });
+  }
+
+  back() {
+    this.router.navigate(['/search/datasets']);
   }
 
   copy(id) {

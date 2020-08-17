@@ -27,7 +27,6 @@ export class LandingPageComponent implements OnInit {
     private constantService: ConstantsService
   ) {
     this.query = '';
-    // this.showAdvanceSearch = false;
     this.categoriesData = [
       {
         name: 'Transport',
@@ -74,8 +73,9 @@ export class LandingPageComponent implements OnInit {
   }
 
   filterItems(word) {
+    let str = word.toLowerCase();
     this.filteredTags = this.tags.filter((e) => {
-      return e.tag.toLowerCase().includes(word);
+      return e.tag.toLowerCase().includes(str);
     });
   }
 

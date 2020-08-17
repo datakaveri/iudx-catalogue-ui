@@ -1,5 +1,8 @@
 <div class="content-container">
     <div class="para-div" *ngIf="show_data">
+        <a class="back" (click)="back()">
+            <img src="assets/back.png"> Back
+        </a>
         <p>
             <span>{{ results.count }}</span>
             <span> {{texts.resource_items}}(s) for </span>
@@ -10,7 +13,7 @@
         <div class="box-style" *ngFor="let resource of results?.items">
             <h4>
                 {{ resource.name }}
-                <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">
+                <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)">
             </h4>
             <p>
                 <span>Description: </span>{{ resource.description }}
