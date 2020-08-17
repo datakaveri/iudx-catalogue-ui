@@ -86,6 +86,9 @@ export class MapViewComponent {
     this.legends = {
       'aqm-bosch-climo':
         'https://image.flaticon.com/icons/svg/1808/1808701.svg',
+      'pune-bins': 'https://image.flaticon.com/icons/svg/3299/3299935.svg',
+      'pune-streetlights':
+        'https://image.flaticon.com/icons/svg/1245/1245929.svg',
     };
   }
   ngOnInit(): void {
@@ -239,6 +242,7 @@ export class MapViewComponent {
     var type = e.layerType;
 
     if (type === 'circle') {
+      console.log('circle created');
       var center_point = e.layer._latlng;
       var radius = Math.ceil(e.layer._mRadius);
       this.markersLayer.clearLayers();
@@ -272,6 +276,7 @@ export class MapViewComponent {
           }
         });
     } else if (type === 'polygon') {
+      console.log('polygon created');
       var points = e.layer._latlngs[0];
       var polyPoints = [];
       var coordinates;
@@ -314,6 +319,7 @@ export class MapViewComponent {
           }
         });
     } else if (type === 'rectangle') {
+      console.log('rectangle created');
       console.log(layer);
       var bound_points = e.layer._bounds;
       console.log(bound_points);
@@ -472,6 +478,7 @@ export class MapViewComponent {
     // console.log(id);
     // console.log(data);
     if (geoJsonObject == 'Point') {
+      // this.describe = rsg;
       this.name = data.name;
       var lng = data.location.geometry.coordinates[0];
       var lat = data.location.geometry.coordinates[1];
@@ -479,7 +486,7 @@ export class MapViewComponent {
       var customPopup =
         `<div id="name">
         <p>` +
-        this.describe.split('Description for')[1] +
+        rsg.split('/')[3] +
         `</p>
         <h1>` +
         this.name +
@@ -505,6 +512,7 @@ export class MapViewComponent {
     }
   }
   getMarkerIcon(_rsg) {
+    console.log(_rsg);
     return L.icon({
       iconUrl: this.legends[_rsg.split('/')[3]],
       iconSize: [38, 95], // size of the icon
