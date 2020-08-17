@@ -85,7 +85,7 @@ export class MapViewComponent {
     };
     this.legends = {
       'aqm-bosch-climo':
-        ' https://image.flaticon.com/icons/svg/1808/1808701.svg',
+        'https://image.flaticon.com/icons/svg/1808/1808701.svg',
     };
   }
   ngOnInit(): void {
@@ -100,7 +100,6 @@ export class MapViewComponent {
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
-    // console.log(group);
     this.markerClusterGroup = group;
   }
 
@@ -128,15 +127,20 @@ export class MapViewComponent {
 
         for (const c of response.items) {
           this.describe = c.description;
+          console.log(this.describe);
           this.name = c.name;
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
           // const markers = L.marker([lat, lng]).bindPopup(this.describe);
           const markers = L.marker([lat, lng]).bindPopup(
-            `<div id="name">` +
-              // this.describe.split('Description for')[1] +
+            `<div id="name">
+            <p>` +
+              this.describe.split('Description for')[1] +
+              `</p>
+            <h1>` +
               this.name +
-              `</div>
+              `</h1>
+              </div>
               <div id="pop_up_` +
               c.id +
               `"><p class="text-center" style="padding-right:7.5px;">
@@ -191,12 +195,13 @@ export class MapViewComponent {
           {
             maxZoom: 19,
             attribution:
-              '<span id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
-              '</span>',
+              '<span class="icons-font" id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
+              '</span>' +
+              '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
           }
         ),
       ],
-      zoom: 13,
+      zoom: 11,
       center: latLng({ lng: 73.836808, lat: 18.5727 }),
     };
     // L.marker([this.lat, this.lng]);
@@ -238,9 +243,10 @@ export class MapViewComponent {
     if (type === 'circle') {
       var center_point = e.layer._latlng;
       var radius = Math.ceil(e.layer._mRadius);
-      // console.log(center_point);
-      // console.log(radius);
+      console.log('Center1:' + center_point);
+      console.log('Radius1:' + radius);
       //Api call for getting items for that area
+
       this.httpInterceptor
         .get_api_test_map(
           `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[ ${center_point['lng']},${center_point['lat']}]`
@@ -313,22 +319,51 @@ export class MapViewComponent {
             }
           }
         });
-    }
-    //else if (type === 'rectangle') {
-    //   console.log(layer);
-    //   var bound_points = e.layer._bounds;
-    //   var boundingPoints = [];
+    } else if (type === 'rectangle') {
+      console.log(layer);
+      var bound_points = e.layer._bounds;
+      console.log(bound_points);
+      var boundingPoints = [];
 
-    //   var b1 =
-    //     bound_points._northEast['lat'] + ',' + bound_points._northEast['lng'];
-    //   var b2 =
-    //     bound_points._southWest['lat'] + ',' + bound_points._southWest['lng'];
-    //   boundingPoints.push(b1);
-    //   boundingPoints.push(b2);
-    //   boundingPoints.join(',');
-    //   console.log(boundingPoints);
-    //   //Api call for getting items for that area
-    // }
+      var b1 =
+        bound_points._southWest['lng'] + ',' + bound_points._southWest['lat'];
+
+      var b2 =
+        bound_points._northEast['lng'] + ',' + bound_points._northEast['lat'];
+
+      console.log(b1);
+      boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
+      boundingPoints.join(',');
+      console.log(boundingPoints);
+      //Api call for getting items for that area
+      this.httpInterceptor
+        .get_api_test_map(
+          `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
+        )
+        .then((res) => {
+          // console.log(res);
+          this.data = res;
+          for (var i = this.data.results.length - 1; i >= 0; i--) {
+            if (this.data.results[i].hasOwnProperty('location')) {
+              this.plotGeoJSONs(
+                this.data.results[i]['location']['geometry']['type'],
+                this.data.results[i]['id'],
+                this.data.results[i],
+                this.data.results[i]['resourceGroup'],
+                this.data.results[i]['provider']
+              );
+            } else if (this.data.results[i].hasOwnProperty('coverageRegion')) {
+              this.plotGeoJSONs(
+                res[i]['coverageRegion']['geometry'],
+                this.data.results[i]['id'],
+                this.data.results[i],
+                this.data.results[i]['resourceGroup'],
+                this.data.results[i]['provider']
+              );
+            }
+          }
+        });
+    }
 
     this.drawnItems.addLayer(layer);
     this.markersLayer.addLayer(layer);
@@ -339,8 +374,102 @@ export class MapViewComponent {
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
+    this.markerClusterGroup.clearLayers();
+    // this.markersLayer.clearLayers();
     console.log('Edited');
+    this.drawnItems.eachLayer((layer) => {
+      var layers = e.layers;
+      console.log(layers);
+      if (layer instanceof L.Circle) {
+        var center_point = layer.getLatLng();
+        console.log(center_point['lat']);
+        console.log(center_point['lng']);
+        var radius = Math.ceil(layer.getRadius());
+        console.log('Radius2:' + radius);
+        this.httpInterceptor
+          .get_api_test_map(
+            `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[${center_point['lng']},${center_point['lat']}]`
+          )
+          .then((res) => {
+            // console.log(res);
+            this.data = res;
+            for (var i = this.data.results.length - 1; i >= 0; i--) {
+              if (this.data.results[i].hasOwnProperty('location')) {
+                // myLayer.addData(data[i]['geoJsonLocation']);
+                this.plotGeoJSONs(
+                  this.data.results[i]['location']['geometry']['type'],
+                  this.data.results[i]['id'],
+                  this.data.results[i],
+                  this.data.results[i]['resourceGroup'],
+                  this.data.results[i]['provider']
+                );
+              } else if (
+                this.data.results[i].hasOwnProperty('coverageRegion')
+              ) {
+                // myLayer.addData(data[i]['geoJsonLocation']);
+                ////console.log("1")
+                this.plotGeoJSONs(
+                  res[i]['coverageRegion']['geometry'],
+                  this.data.results[i]['id'],
+                  this.data.results[i],
+                  this.data.results[i]['resourceGroup'],
+                  this.data.results[i]['provider']
+                );
+                ////console.log("2")
+              }
+            }
+          });
+      } else if (
+        layer instanceof L.Polygon &&
+        !(layer instanceof L.Rectangle)
+      ) {
+        // this.markersLayer.clearLayers();
+        console.log('editing poly...');
+
+        var polyPoints = [];
+        var _obj = Object.keys(layers._layers)[0];
+        var points = layers._layers[_obj]['_latlngs'][0];
+        for (var i = 0; i < points.length - 1; i += 1) {
+          var coordinates = [points[i]['lng'] + ',' + points[i]['lat']];
+          // console.log(coordinates);
+          polyPoints.push('[' + coordinates + ']');
+
+          polyPoints.join(',]');
+        }
+        console.log(polyPoints);
+        this.httpInterceptor
+          .get_api_test_map(
+            `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
+          )
+          .then((res) => {
+            // console.log(res);
+            this.data = res;
+            for (var i = this.data.results.length - 1; i >= 0; i--) {
+              if (this.data.results[i].hasOwnProperty('location')) {
+                this.plotGeoJSONs(
+                  this.data.results[i]['location']['geometry']['type'],
+                  this.data.results[i]['id'],
+                  this.data.results[i],
+                  this.data.results[i]['resourceGroup'],
+                  this.data.results[i]['provider']
+                );
+              } else if (
+                this.data.results[i].hasOwnProperty('coverageRegion')
+              ) {
+                this.plotGeoJSONs(
+                  res[i]['coverageRegion']['geometry'],
+                  this.data.results[i]['id'],
+                  this.data.results[i],
+                  this.data.results[i]['resourceGroup'],
+                  this.data.results[i]['provider']
+                );
+              }
+            }
+          });
+      }
+    });
   }
+
   // onDrawStart(e: any) {
   //   console.log('Draw Started Event!');
   //   // this.markerClusterGroup.clearLayers();
@@ -358,10 +487,14 @@ export class MapViewComponent {
       // console.log(lng, lat);
       // const markers = L.marker([lat, lng]).bindPopup(this.describe);
       var customPopup =
-        `<div id="name">` +
-        // this.describe.split('Description for')[1] +
-        data.name +
-        `</div>
+        `<div id="name">
+        <p>` +
+        this.describe.split('Description for')[1] +
+        `</p>
+        <h1>` +
+        this.name +
+        `</h1>
+          </div>
                 <div id="pop_up_` +
         data.id +
         `"><p class="text-center" style="padding-right:7.5px;">
