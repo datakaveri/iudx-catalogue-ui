@@ -7,16 +7,20 @@
       Welcome to the <span>Smart City</span> of <span>{{city.configurations.smart_city_name}}</span>
     </p>
     <div class="searchBox-container">
-      <div class="searchBox">
-        <input list='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text" placeholder="Search public data..." />
-        <button (click)="getSearchResultsByText(query)">
-          <img src="assets/search.png" />
-        </button>
-      </div>
+      <form name='form' ng-submit="getSearchResultsByText(query)" action='#' autocomplete="off">
+        <div class="searchBox">
+          <input list='dropdown' name='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text"
+            placeholder="Search public data..." />
+          <button (click)="getSearchResultsByText(query)">
+            <img src="assets/search.png" />
+          </button>
+        </div>
+      </form>
+
       <div *ngIf="query != ''" class="searchBox-dropdown">
         <ul *ngIf="filteredTags.length != 0">
-          <li  *ngFor="let item of filteredTags">
-            <p  (click)='getSearchResultsByTag(item.tag)'>
+          <li *ngFor="let item of filteredTags">
+            <p (click)='getSearchResultsByTag(item.tag)'>
               <span class='tagSelected'>{{item.tag}}</span>
               <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
             </p>
@@ -27,7 +31,7 @@
     </div>
 
     <div class="searchButton__container">
-      <a (click)="getAllDatasets()" class="active">View All Dataset</a>
+      <a (click)="getAllDatasets()" class="active">View All {{names.resource_groups}}</a>
       <a (click)="getGeoInfo()">Geo Information</a>
     </div>
   </div>

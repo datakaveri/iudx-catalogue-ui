@@ -16,6 +16,7 @@ export class DatasetListComponent implements OnInit {
   searchQuery: any;
   show_data: Boolean;
   texts: any;
+  tagSelected: any;
   constructor(
     private router: Router,
     private constantService: ConstantsService,
@@ -76,6 +77,31 @@ export class DatasetListComponent implements OnInit {
     document.execCommand('copy');
     document.body.removeChild(el);
     alert(this.texts.resource_groups + ' ID copied to Clipboard.');
+  }
+
+  getSearchResultsByText(text: string) {
+    if(text.trim() !== ''){
+      this.searchQuery = {
+        text: text,
+        tags: [],
+        providers: [],
+        page: 0,
+      };
+      this.constantService.set_search_query(this.searchQuery);
+      this.router.navigate(['/search/datasets']);
+    }
+  }
+
+  getSearchResultsByTag(value) {
+    this.tagSelected = value;
+    this.searchQuery = {
+      text: '',
+      tags: [this.tagSelected],
+      providers: [],
+      page: 0,
+    };
+    this.constantService.set_search_query(this.searchQuery);
+    this.router.navigate(['/search/datasets']);
   }
 
 }
