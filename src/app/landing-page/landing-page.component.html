@@ -9,8 +9,7 @@
         <div class="searchBox-container">
             <form name='form' ng-submit="getSearchResultsByText(query)" action='#' autocomplete="off">
                 <div class="searchBox">
-                    <input list='dropdown' name='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text"
-                    placeholder="Search public data..." />
+                    <input list='dropdown' name='dropdown' (input)="filterItems(query)" [(ngModel)]="query" type="text" placeholder="Search public data..." />
                     <button (click)="getSearchResultsByText(query)">
                         <img src="assets/search.png" />
                     </button>

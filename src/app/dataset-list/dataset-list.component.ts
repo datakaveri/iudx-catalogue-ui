@@ -130,12 +130,8 @@ export class DatasetListComponent implements OnInit {
   apply() {
     let tags = this.tags.filter(a=> { return a.flag == true; }).map(a=> { return a = a.tag });
     let providers = this.providers.filter(a=> { return a.flag == true; }).map(a=> { return a = a.id });
-    this.searchQuery = {
-      text: '',
-      tags: tags,
-      providers: providers,
-      page: 0,
-    };
+    this.searchQuery.tags = tags;
+    this.searchQuery.providers = providers;
     this.constantService.set_search_query(this.searchQuery);
     this.close();
     this.searchDatasets();
