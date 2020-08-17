@@ -83,6 +83,7 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/search/map']);
   }
 
+
   getAllDatasets() {
     this.searchQuery = {
       text: '',

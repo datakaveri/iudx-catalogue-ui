@@ -7,10 +7,13 @@
     display: flex;
     background: white;
     .search_bar {
-        width: 70%;
+        width: 60%;
+        position: relative;
         input {
             border: none;
-            width: calc(100% - 125px - 3px);
+            box-sizing: border-box;
+            // width: calc(100% - 125px - 3px);\
+            width: 100%;
             padding: 12px;
             border: 1px solid var(--border);
         }
@@ -25,7 +28,7 @@
         }
     }
     .map_view {
-        width: 30%;
+        width: 40%;
         text-align: right;
         button {
             float: right;
@@ -44,3 +47,78 @@
         }
     }
 }
+
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    margin: 25px 0;
+  
+    &-container {
+      position: relative;
+    }
+  
+    input {
+      border: none;
+      width: 97%
+    }
+  
+    a {
+      width: 18%;
+      font-weight: 600;
+      opacity: .8;
+    }
+  
+    button {
+      width: 3%;
+      display: flex;
+      background: none;
+      border: none;
+    }
+  
+    img {
+      width: 100%;
+    }
+  
+    &-dropdown {
+      box-sizing: border-box;
+      width: 100%;
+      max-height: 200px;
+      border: 1px solid var(--border);
+      border-top: 0;
+      background-color: var(--white);
+      position: absolute;
+      top: 100%;
+      overflow-y: auto;
+      text-align: left;
+  
+      .no_data {
+        padding: 0 15px;
+      }
+  
+      ul {
+        list-style: none;
+        li {
+          cursor: pointer;
+          p {
+            padding: 15px;
+            color: var(--primary);
+            .tagSelected{
+              font-weight: 600;
+            }
+            .count {
+              float: right;
+              color: var(--tertiary);
+              font-weight: 400;
+            }
+          }
+  
+          &:hover{
+            background-color: var(--off-white);
+          }
+        }
+      }
+    }
+  }
