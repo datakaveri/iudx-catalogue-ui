@@ -338,12 +338,14 @@ export class MapViewComponent {
     // console.log('deleted');
     this.markersLayer.clearLayers();
   }
-
-  onDrawStart(e: any) {
-    console.log('Draw Started Event!');
-    // this.markerClusterGroup.clearLayers();
-    // this.map.removeLayer(this.markerClusterGroup);
+  onDrawEdited(e: any) {
+    console.log('Edited');
   }
+  // onDrawStart(e: any) {
+  //   console.log('Draw Started Event!');
+  //   // this.markerClusterGroup.clearLayers();
+  //   // this.map.removeLayer(this.markerClusterGroup);
+  // }
   plotGeoJSONs(geoJsonObject, id, data, rsg, provider) {
     console.log(geoJsonObject);
     console.log(id);
