@@ -85,7 +85,7 @@ export class MapViewComponent {
     };
     this.legends = {
       'aqm-bosch-climo':
-        ' https://image.flaticon.com/icons/svg/1808/1808701.svg',
+        'https://image.flaticon.com/icons/svg/1808/1808701.svg',
     };
   }
   ngOnInit(): void {
