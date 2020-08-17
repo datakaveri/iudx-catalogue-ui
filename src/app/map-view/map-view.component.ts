@@ -127,7 +127,6 @@ export class MapViewComponent {
 
         for (const c of response.items) {
           this.describe = c.description;
-          console.log(this.describe);
           this.name = c.name;
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
@@ -232,21 +231,17 @@ export class MapViewComponent {
   //Events created for Drawing, Editing & deleted
 
   onDrawCreated(e: any) {
-    // console.log('Draw Created Event!');
     const layer = (e as DrawEvents.Created).layer;
-    // console.log(e);
+
     this.markerClusterGroup.clearLayers();
     this.markersLayer.clearLayers();
     var type = e.layerType;
-    // console.log(type);
-    // const layer = (e as DrawEvents.Created).layer;
+
     if (type === 'circle') {
       var center_point = e.layer._latlng;
       var radius = Math.ceil(e.layer._mRadius);
-      console.log('Center1:' + center_point);
-      console.log('Radius1:' + radius);
-      //Api call for getting items for that area
 
+      //Api call for getting items for that area
       this.httpInterceptor
         .get_api_test_map(
           `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[ ${center_point['lng']},${center_point['lat']}]`
@@ -254,9 +249,9 @@ export class MapViewComponent {
         .then((res) => {
           // console.log(res);
           this.data = res;
+          console.log(this.data.results.length);
           for (var i = this.data.results.length - 1; i >= 0; i--) {
             if (this.data.results[i].hasOwnProperty('location')) {
-              // myLayer.addData(data[i]['geoJsonLocation']);
               this.plotGeoJSONs(
                 this.data.results[i]['location']['geometry']['type'],
                 this.data.results[i]['id'],
@@ -265,8 +260,6 @@ export class MapViewComponent {
                 this.data.results[i]['provider']
               );
             } else if (this.data.results[i].hasOwnProperty('coverageRegion')) {
-              // myLayer.addData(data[i]['geoJsonLocation']);
-              ////console.log("1")
               this.plotGeoJSONs(
                 res[i]['coverageRegion']['geometry'],
                 this.data.results[i]['id'],
@@ -274,7 +267,6 @@ export class MapViewComponent {
                 this.data.results[i]['resourceGroup'],
                 this.data.results[i]['provider']
               );
-              ////console.log("2")
             }
           }
         });
@@ -299,6 +291,7 @@ export class MapViewComponent {
         .then((res) => {
           // console.log(res);
           this.data = res;
+          console.log(this.data.results.length);
           for (var i = this.data.results.length - 1; i >= 0; i--) {
             if (this.data.results[i].hasOwnProperty('location')) {
               this.plotGeoJSONs(
@@ -326,13 +319,12 @@ export class MapViewComponent {
       var boundingPoints = [];
 
       var b1 =
-        bound_points._southWest['lng'] + ',' + bound_points._southWest['lat'];
-
-      var b2 =
         bound_points._northEast['lng'] + ',' + bound_points._northEast['lat'];
-
+      var b2 =
+        bound_points._southWest['lng'] + ',' + bound_points._southWest['lat'];
       console.log(b1);
       boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
+      // boundingPoints.push('[' + b2 + ']');
       boundingPoints.join(',');
       console.log(boundingPoints);
       //Api call for getting items for that area
@@ -343,6 +335,7 @@ export class MapViewComponent {
         .then((res) => {
           // console.log(res);
           this.data = res;
+          console.log(this.data.results.length);
           for (var i = this.data.results.length - 1; i >= 0; i--) {
             if (this.data.results[i].hasOwnProperty('location')) {
               this.plotGeoJSONs(
@@ -374,115 +367,17 @@ export class MapViewComponent {
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
-    this.drawnItems.eachLayer((layer) => {
-      var layers = e.layers;
-      console.log(layers);
-      if (layer instanceof L.Circle) {
-        var center_point = layer.getLatLng();
-        console.log(center_point['lat']);
-        console.log(center_point['lng']);
-        var radius = Math.ceil(layer.getRadius());
-        console.log('Radius2:' + radius);
-        this.httpInterceptor
-          .get_api_test_map(
-            `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[${center_point['lng']},${center_point['lat']}]`
-          )
-          .then((res) => {
-            // console.log(res);
-            this.data = res;
-            for (var i = this.data.results.length - 1; i >= 0; i--) {
-              if (this.data.results[i].hasOwnProperty('location')) {
-                // myLayer.addData(data[i]['geoJsonLocation']);
-                this.plotGeoJSONs(
-                  this.data.results[i]['location']['geometry']['type'],
-                  this.data.results[i]['id'],
-                  this.data.results[i],
-                  this.data.results[i]['resourceGroup'],
-                  this.data.results[i]['provider']
-                );
-              } else if (
-                this.data.results[i].hasOwnProperty('coverageRegion')
-              ) {
-                // myLayer.addData(data[i]['geoJsonLocation']);
-                ////console.log("1")
-                this.plotGeoJSONs(
-                  res[i]['coverageRegion']['geometry'],
-                  this.data.results[i]['id'],
-                  this.data.results[i],
-                  this.data.results[i]['resourceGroup'],
-                  this.data.results[i]['provider']
-                );
-                ////console.log("2")
-              }
-            }
-          });
-      } else if (
-        layer instanceof L.Polygon &&
-        !(layer instanceof L.Rectangle)
-      ) {
-        // this.markersLayer.clearLayers();
-        console.log('editing poly...');
-
-        var polyPoints = [];
-        var _obj = Object.keys(layers._layers)[0];
-        var points = layers._layers[_obj]['_latlngs'][0];
-        for (var i = 0; i < points.length - 1; i += 1) {
-          var coordinates = [points[i]['lng'] + ',' + points[i]['lat']];
-          // console.log(coordinates);
-          polyPoints.push('[' + coordinates + ']');
-
-          polyPoints.join(',]');
-        }
-        console.log(polyPoints);
-        this.httpInterceptor
-          .get_api_test_map(
-            `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
-          )
-          .then((res) => {
-            // console.log(res);
-            this.data = res;
-            for (var i = this.data.results.length - 1; i >= 0; i--) {
-              if (this.data.results[i].hasOwnProperty('location')) {
-                this.plotGeoJSONs(
-                  this.data.results[i]['location']['geometry']['type'],
-                  this.data.results[i]['id'],
-                  this.data.results[i],
-                  this.data.results[i]['resourceGroup'],
-                  this.data.results[i]['provider']
-                );
-              } else if (
-                this.data.results[i].hasOwnProperty('coverageRegion')
-              ) {
-                this.plotGeoJSONs(
-                  res[i]['coverageRegion']['geometry'],
-                  this.data.results[i]['id'],
-                  this.data.results[i],
-                  this.data.results[i]['resourceGroup'],
-                  this.data.results[i]['provider']
-                );
-              }
-            }
-          });
-      }
-    });
+    console.log('Edited');
   }
-
-  // onDrawStart(e: any) {
-  //   console.log('Draw Started Event!');
-  //   // this.markerClusterGroup.clearLayers();
-  //   // this.map.removeLayer(this.markerClusterGroup);
-  // }
   plotGeoJSONs(geoJsonObject, id, data, rsg, provider) {
-    console.log(geoJsonObject);
-    console.log(id);
-    console.log(data);
+    // console.log(geoJsonObject);
+    // console.log(id);
+    // console.log(data);
     if (geoJsonObject == 'Point') {
-      // console.log('Printing Point....');
       this.name = data.name;
       var lng = data.location.geometry.coordinates[0];
       var lat = data.location.geometry.coordinates[1];
-      // console.log(lng, lat);
-      // const markers = L.marker([lat, lng]).bindPopup(this.describe);
+
       var customPopup =
         `<div id="name">
         <p>` +
