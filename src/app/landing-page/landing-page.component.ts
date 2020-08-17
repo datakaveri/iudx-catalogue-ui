@@ -95,14 +95,16 @@ export class LandingPageComponent implements OnInit {
   }
 
   getSearchResultsByText(text: string) {
-    this.searchQuery = {
-      text: text,
-      tags: [],
-      providers: [],
-      page: 0,
-    };
-    this.constantService.set_search_query(this.searchQuery);
-    this.router.navigate(['/search/datasets']);
+    if(text.trim() !== ''){
+      this.searchQuery = {
+        text: text,
+        tags: [],
+        providers: [],
+        page: 0,
+      };
+      this.constantService.set_search_query(this.searchQuery);
+      this.router.navigate(['/search/datasets']);
+    }
   }
 
   getSearchResultsByTag(value) {
