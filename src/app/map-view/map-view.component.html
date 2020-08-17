@@ -1,18 +1,9 @@
 <div class="map__container">
   <br /><br /><br />
-  <div
-    id="map"
-    leaflet
-    (leafletMapReady)="onMapReady($event)"
-    [leafletOptions]="options"
-    (leafletDrawStart)="onDrawStart($event)"
-  >
-    <div
-      class="leaflet-left leaflet-top"
-      leafletDraw
-      [leafletDrawOptions]="drawOptions"
-      (leafletDrawCreated)="onDrawCreated($event)"
-    ></div>
+  <div id="map" leaflet (leafletMapReady)="onMapReady($event)" [leafletOptions]="options"
+    (leafletDrawStart)="onDrawStart($event)">
+    <div class="leaflet-left leaflet-top" leafletDraw [leafletDrawOptions]="drawOptions"
+      (leafletDrawCreated)="onDrawCreated($event)"></div>
     >
     <!-- Add the drawnItems featureGroup to the map -->
     <div [leafletLayer]="drawnItems"></div>
@@ -30,21 +21,54 @@
           <h1>Filters</h1>
 
           <br />
-          <p>Filter by: Publishers</p>
 
-          <div class="search-filter">
-            <img src="../../assets/search.png" />
-            <input type="text" placeholder="Search..." />
-          </div>
-
-          <div class="checkbox-div">
-            <div>
-              <label class="container"
-                >Provider 1 <input type="checkbox" name="" value="" />
-                <span class="checkmark"></span
-              ></label>
+          <div class="box-container">
+            <div class="box-1">
+              <p>Filter by: Publishers</p>
+  
+              <div class="search-filter">
+                <img src="../../assets/search.png" />
+                <input type="text" placeholder="Search..." />
+              </div>
+  
+              <div class="checkbox-div-1">
+                <div>
+                  <label class="container">Provider 1 <input type="checkbox" name="" value="" />
+                    <span class="checkmark"></span></label>
+                </div>
+              </div>
+            </div>
+  
+            <div class="box-2">
+              <p>Filter by: Tags</p>
+              <div class="search-filter">
+                <img src="../../assets/search.png" />
+                <input type="text" placeholder="Search..." />
+              </div>
+              <div class="checkbox-div">
+                <div *ngFor="let option of results.tags">
+                  <label class="container">{{ option.tag }}
+                    <input (click)="getDataForTags($event, option.tag)" type="checkbox" name="" value="{{ option.tag }}" />
+                    <span class="checkmark"></span></label>
+                </div>
+              </div>
+            </div>
+  
+  
+           
+            <div class="box-3">
+              <p>Filter by: Dataset</p>
+              <div class="search-filter">
+                <img src="../../assets/search.png" />
+                <input type="text" placeholder="Search..." />
+              </div>
             </div>
           </div>
+
+
+          
+          
+
         </div>
         <div class="filter-div-bottom">
           <button class="applybtn">Apply Filters</button>

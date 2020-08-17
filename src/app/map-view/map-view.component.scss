@@ -29,6 +29,18 @@
       padding: 25px;
       height: 100%;
 
+
+      // /* trying */
+      flex-direction: column;
+      display: flex;
+      justify-content: space-between;
+
+      &-top{
+        flex-basis: 90%;
+      }
+      /* trying */
+
+
       // display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -51,7 +63,7 @@
         bottom: 40px;
       }
       .applybtn {
-        margin-top: 200px;
+        // margin-top: 200px;
         width: 130px;
         padding: 10px 15px;
         border: 1px solid var(--border);
@@ -88,6 +100,8 @@
       }
       .checkbox-div {
         position: relative;
+        height: 200px;
+        overflow-y: scroll;
         .container {
           display: block;
           position: relative;
