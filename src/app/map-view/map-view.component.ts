@@ -374,9 +374,6 @@ export class MapViewComponent {
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
-    this.markerClusterGroup.clearLayers();
-    // this.markersLayer.clearLayers();
-    console.log('Edited');
     this.drawnItems.eachLayer((layer) => {
       var layers = e.layers;
       console.log(layers);
