@@ -10,7 +10,8 @@ import { ConstantsService } from './constants.service';
 })
 export class InterceptorService {
   api_url: string;
-  subject = new Subject<any>();
+  loader_subject = new Subject<any>();
+  filter_subject = new Subject<any>();
   loader: Boolean;
   city: string;
   constructor(
@@ -23,11 +24,19 @@ export class InterceptorService {
   }
 
   set_loader(flag: Boolean) {
-    this.subject.next(flag);
+    this.loader_subject.next(flag);
   }
 
   get_loader(): Observable<any> {
-    return this.subject.asObservable();
+    return this.loader_subject.asObservable();
+  }
+
+  set_filter(flag: Boolean) {
+    this.filter_subject.next(flag);
+  }
+
+  get_filter(): Observable<any> {
+    return this.filter_subject.asObservable();
   }
 
   get_api(route) {
