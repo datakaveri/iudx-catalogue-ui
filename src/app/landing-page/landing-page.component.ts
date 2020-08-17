@@ -16,9 +16,7 @@ export class LandingPageComponent implements OnInit {
   resultData: any;
   categoriesData: any[] = [];
   results: any;
-  body: any;
   searchQuery: {};
-  searchTag: {};
   tags: any;
   tagSelected: any;
   filteredTags: any = [];
@@ -33,20 +31,11 @@ export class LandingPageComponent implements OnInit {
     this.categoriesData = [{"name":"Transport","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/transport.png"},{"name":"Education","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/education.png"},{"name":"Finance","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/finance.png"},{"name":"Environment","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/environment.png"}];
     this.overlay = false;
     this.names = this.constantService.get_nomenclatures();
-    this.body = {
+    this.searchQuery = {
       text: '',
       tags: [],
       providers: [],
-      page: 0,
-    };
-    this.searchQuery = {
-      search_text: '',
-      search_params: {
-        tags: [],
-        providers: [],
-        page: 0,
-        resource_groups: [],
-      },
+      page: 0
     };
     this.city = this.constantService.get_city();
     this.get_data();
@@ -82,12 +71,10 @@ export class LandingPageComponent implements OnInit {
 
   getAllDatasets() {
     this.searchQuery = {
-      search_params: {
-        text:'',
-        tags: [],
-        providers: [],
-        page: 0,
-      },
+      text:'',
+      tags: [],
+      providers: [],
+      page: 0
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
@@ -95,12 +82,10 @@ export class LandingPageComponent implements OnInit {
 
   getSearchResultsByText(text: string) {
     this.searchQuery = {
-      search_params: {
-        text: text,
-        tags: [],
-        providers: [],
-        page: 0,
-      },
+      text: text,
+      tags: [],
+      providers: [],
+      page: 0
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
@@ -108,14 +93,11 @@ export class LandingPageComponent implements OnInit {
 
   getSearchResultsByTag(value) {
     this.tagSelected = value;
-
     this.searchQuery = {
-      search_params: {
-        text:'',
-        tags: [this.tagSelected],
-        providers: [],
-        page: 0,
-      },
+      text:'',
+      tags: [this.tagSelected],
+      providers: [],
+      page: 0
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);

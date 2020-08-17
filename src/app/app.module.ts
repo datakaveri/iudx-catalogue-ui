@@ -21,6 +21,7 @@ import { AlertComponent } from './alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
     ReactiveFormsModule,
     LeafletModule,
     LeafletDrawModule,
+    LeafletMarkerClusterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

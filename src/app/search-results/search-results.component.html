@@ -1,31 +1,22 @@
 <div class="search_div">
-  <div class="search_bar">
-    <input type="text" placeholder="Search . . ." [(ngModel)]="search_text" />
-    <button (click)="getSearchDatasets(search_text)">
-      <img src="assets/search.png" />
-    </button>
-  </div>
-  <!-- <div *ngIf="listMapBtn" class="list_map_view"> -->
-  <!-- <button [ngClass]="{ active: list_view == true }" (click)="toggle()">
-      List
-    </button> -->
-  <!-- <button [ngClass]="{ active: list_view == false }" (click)="toggle()">
-      Map
-    </button> -->
-  <!-- </div> -->
-
-  <div class="map_view">
-    <button (click)="showFilter(true)" *ngIf="showBtnFilter()">
-      <img src=".\assets\filter.png" />
-      Filters
-    </button>
-    <button *ngIf="router.url != '/search/map'" (click)="showMap()">
-      Geo Information
-    </button>
-    <button *ngIf="router.url === '/search/map'" (click)="listView()">
-      List View
-    </button>
-  </div>
+    <div class="search_bar">
+        <input type="text" placeholder="Search . . ." [(ngModel)]="search_text" />
+        <button (click)="getSearchDatasets(search_text)">
+            <img src="assets/search.png" />
+        </button>
+    </div>
+    <div class="map_view">
+        <button *ngIf="router.url != '/search/map'" (click)="showMap()">
+            Geo Information
+        </button>
+        <button *ngIf="router.url === '/search/map'" (click)="listView()">
+            List View
+        </button>
+        <button (click)="showFilter(true)" *ngIf="showBtnFilter()">
+            <img src=".\assets\filter.png" />
+            Filters
+        </button>
+    </div>
 </div>
 
 <router-outlet></router-outlet>

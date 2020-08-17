@@ -1,9 +1,22 @@
 <div class="map__container">
   <br /><br /><br />
-  <div id="map" leaflet (leafletMapReady)="onMapReady($event)" [leafletOptions]="options"
-    (leafletDrawStart)="onDrawStart($event)">
-    <div class="leaflet-left leaflet-top" leafletDraw [leafletDrawOptions]="drawOptions"
-      (leafletDrawCreated)="onDrawCreated($event)"></div>
+  <div
+    id="map"
+    leaflet
+    (leafletMapReady)="onMapReady($event)"
+    [leafletOptions]="options"
+    (leafletDrawStart)="onDrawStart($event)"
+    [leafletMarkerCluster]="markerClusterData"
+    [leafletMarkerClusterOptions]="markerClusterOptions"
+    (leafletMarkerClusterReady)="markerClusterReady($event)"
+  >
+    <div
+      class="leaflet-left leaflet-top"
+      leafletDraw
+      [leafletDrawOptions]="drawOptions"
+      (leafletDrawCreated)="onDrawCreated($event)"
+      (leafletDrawDeleted)="onDrawDeleted($event)"
+    ></div>
     >
     <!-- Add the drawnItems featureGroup to the map -->
     <div [leafletLayer]="drawnItems"></div>
