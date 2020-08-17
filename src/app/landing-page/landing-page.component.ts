@@ -28,38 +28,52 @@ export class LandingPageComponent implements OnInit {
   ) {
     this.query = '';
     // this.showAdvanceSearch = false;
-    this.categoriesData = [{"name":"Transport","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/transport.png"},{"name":"Education","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/education.png"},{"name":"Finance","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/finance.png"},{"name":"Environment","image":"https://dk-ui.s3.ap-south-1.amazonaws.com/environment.png"}];
+    this.categoriesData = [
+      {
+        name: 'Transport',
+        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/transport.png',
+      },
+      {
+        name: 'Education',
+        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/education.png',
+      },
+      {
+        name: 'Finance',
+        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/finance.png',
+      },
+      {
+        name: 'Environment',
+        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/environment.png',
+      },
+    ];
     this.overlay = false;
     this.names = this.constantService.get_nomenclatures();
     this.searchQuery = {
       text: '',
       tags: [],
       providers: [],
-      page: 0
+      page: 0,
     };
     this.city = this.constantService.get_city();
     this.get_data();
     this.get_tags();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get_data() {
-    this.network.get_api('customer/summary')
-    .then((data) => {
+    this.network.get_api('customer/summary').then((data) => {
       this.resultData = data;
     });
   }
 
   get_tags() {
-    this.network.get_api('customer/tags')
-    .then((data) => {
+    this.network.get_api('customer/tags').then((data) => {
       this.tags = data;
     });
   }
 
-  filterItems(word = this.query) {
+  filterItems(word) {
     this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(word);
     });
@@ -71,10 +85,10 @@ export class LandingPageComponent implements OnInit {
 
   getAllDatasets() {
     this.searchQuery = {
-      text:'',
+      text: '',
       tags: [],
       providers: [],
-      page: 0
+      page: 0,
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
@@ -85,7 +99,7 @@ export class LandingPageComponent implements OnInit {
       text: text,
       tags: [],
       providers: [],
-      page: 0
+      page: 0,
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
@@ -94,10 +108,10 @@ export class LandingPageComponent implements OnInit {
   getSearchResultsByTag(value) {
     this.tagSelected = value;
     this.searchQuery = {
-      text:'',
+      text: '',
       tags: [this.tagSelected],
       providers: [],
-      page: 0
+      page: 0,
     };
     this.constantService.set_search_query(this.searchQuery);
     this.router.navigate(['/search/datasets']);
