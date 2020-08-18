@@ -5,173 +5,73 @@
   border: 2px solid var(--warning);
 }
 
-.content-div {
-  display: flex;
-  padding: 15px, 25px;
-
-  .sidebar {
-    // box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.4);
-    // background-color: white;
-    position: fixed;
-    height: 100%;
-    display: flex;
-    box-sizing: border-box;
-    background-color: #fff;
-    margin: 0;
-    top: 0;
-    right: 0;
-    width: 400px;
-    padding: 15px 35px;
-    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
-    z-index: 9999999;
-
-    .filter-div {
-      width: 300px;
-      padding: 25px;
-      height: 100%;
-
-      // /* trying */
-      flex-direction: column;
-      display: flex;
-      justify-content: space-between;
-
-      &-top {
-        flex-basis: 90%;
-      }
-      /* trying */
-
-      // display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-
-      p {
-        // font-size: 15px;
-        font-weight: 500;
-        color: var(--tertiary);
-      }
-
-      .cross {
-        float: right;
+.filder_popup {
+  width: calc(400px - 50px);
+  padding: 25px;
+  height: calc(100vh - 50px);
+  top: 0;
+  right: 0;
+  background: var(--white);
+  position: fixed;
+  z-index: 10000000000;
+  box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  .header {
+    font-size: 16px;
+    font-weight: 600;
+    img {
+      width: 15px;
+      float: right;
+      cursor: pointer;
+    }
+  }
+  h4 {
+    font-weight: 500;
+    margin: 30px 0;
+    color: var(--tertiary);
+    img {
+      width: 15px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+  }
+  .scroll_div {
+    max-height: 275px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    ul {
+      list-style: none;
+      li {
+        color: var(--secondary);
+        padding: 15px;
+        text-transform: capitalize;
+        cursor: pointer;
         img {
           width: 25px;
-          height: 25px;
+          vertical-align: middle;
+          margin-right: 5px;
         }
       }
-      .filter-div-bottom {
-        position: absolute;
-        bottom: 40px;
-      }
-      .applybtn {
-        // margin-top: 200px;
-        width: 130px;
-        padding: 10px 15px;
-        border: 1px solid var(--border);
-        border-left: 0;
-        margin-right: 20px;
-        // border-top-right-radius: 5px;
-        // border-bottom-right-radius: 5px;
-        background: var(--highlight);
-        color: var(--white);
-        font-weight: 500;
-      }
-      .clrbtn {
-        width: 130px;
-        padding: 10px 15px;
-        border: 1px solid var(--border);
-        background: var(--white);
-        color: var(--error);
-      }
-
-      .search-filter {
-        border-bottom: 1px solid var(--border);
-        width: 100%;
-        display: flex;
-        align-items: center;
-        margin: 20px 0 30px 0;
-
-        img {
-          width: 20px;
-        }
-        input {
-          padding: 6px 14px;
-          border: none;
-        }
-      }
-      .checkbox-div {
-        position: relative;
-        height: 200px;
-        overflow-y: scroll;
-        .container {
-          display: block;
-          position: relative;
-          padding-left: 35px;
-          margin-bottom: 20px;
-          cursor: pointer;
-          font-size: 15px;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-
-        /* Hide the browser's default checkbox */
-        .container input {
-          position: absolute;
-          opacity: 0;
-          cursor: pointer;
-          height: 0;
-          width: 0;
-        }
-
-        /* Create a custom checkbox */
-        .checkmark {
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 15px;
-          width: 15px;
-          background-color: #ffffff;
-          border: 2px solid rgb(119, 117, 117);
-          border-radius: 2px;
-        }
-
-        /* On mouse-over, add a grey background color */
-        .container:hover input ~ .checkmark {
-          background-color: #ccc;
-        }
-
-        /* When the checkbox is checked, add background */
-        .container input:checked ~ .checkmark {
-          background-color: #00796b;
-          border: 2px solid #00796b;
-        }
-
-        /* Create the checkmark/indicator (hidden when not checked) */
-        .checkmark:after {
-          content: "";
-          position: absolute;
-          display: none;
-        }
-
-        /* Show the checkmark when checked */
-        .container input:checked ~ .checkmark:after {
-          display: block;
-        }
-
-        /* Style the checkmark/indicator */
-        .container .checkmark:after {
-          bottom: 4px;
-          left: 4px;
-          width: 5px;
-          height: 10px;
-          border: solid white;
-          border-width: 0 1.7px 1.7px 0;
-          -webkit-transform: rotate(45deg);
-          -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
-        }
-      }
+    }
+  }
+  .button_div {
+    margin: 50px 0 0 0;
+    button {
+      padding: 8px 12px;
+      font-weight: 500;
+      width: 47.5%;
+    }
+    .main_button {
+      background-color: var(--highlight);
+      border: 1px solid var(--highlight);
+      color: var(--white);
+    }
+    .side_button {
+      background-color: var(--white);
+      border: 1px solid var(--border);
+      color: var(--error);
+      margin-right: 5%;
     }
   }
 }

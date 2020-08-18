@@ -1,132 +1,131 @@
 .search_div {
-    position: fixed;
-    left: 0;
-    top: 84.65px;
-    width: calc(100% - 50px);
-    padding: 15px 25px;
-    display: flex;
-    background: white;
-    z-index: 1;
-    .search_bar {
-        width: 60%;
-        position: relative;
-        input {
-            border: none;
-            box-sizing: border-box;
-            // width: calc(100% - 125px - 3px);\
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-        }
-        button {
-            background: none;
-            border: none;
-            img {
-            width: 25px;
-            vertical-align: middle;
-            margin-left: -40px;
-            }
-        }
-    }
-    .map_view {
-        width: 40%;
-        text-align: right;
-        button {
-          float: right;
-          width: 160px;
-          padding: 8px 12px;
-          border: 1px solid var(--border);
-          background: var(--white);
-        }
-        button:last-child {
-          margin-right: 15px;
-        }
-        img {
-          height: 20px;
-          width: 20px;
-          margin: 0 8px;
-          vertical-align: middle;
-        }
-    }
-}
-
-
-.searchBox {
-    // display: flex;
-    // align-items: center;
-    // border: 1px solid var(--border);
-    // padding: 10px 14px;
-    // margin: 25px 0;
-    display: flex;
-    align-items: center;
-  
-    &-container {
-      position: relative;
-    }
-  
+  position: fixed;
+  left: 0;
+  top: 84.65px;
+  width: calc(100% - 50px);
+  padding: 15px 25px;
+  display: flex;
+  background: white;
+  z-index: 1;
+  .search_bar {
+    width: 60%;
+    position: relative;
     input {
       border: none;
-      width: 97%
+      box-sizing: border-box;
+      // width: calc(100% - 125px - 3px);\
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
     }
-  
-    a {
-      width: 18%;
-      font-weight: 600;
-      opacity: .8;
-    }
-  
     button {
-      // width: 3%;
-      display: flex;
       background: none;
       border: none;
-    }
-  
-    img {
-      width: 100%;
-    }
-  
-    &-dropdown {
-      box-sizing: border-box;
-      width: 100%;
-      max-height: 200px;
-      border: 1px solid var(--border);
-      border-top: 0;
-      background-color: var(--white);
-      position: absolute;
-      top: 100%;
-      overflow-y: auto;
-      text-align: left;
-  
-      .no_data {
-        padding: 0 15px;
+      img {
+        width: 25px;
+        vertical-align: middle;
+        margin-left: -40px;
       }
-  
-      ul {
-        list-style: none;
-        li {
-          cursor: pointer;
-          p {
-            padding: 15px;
-            color: var(--primary);
-            .tagSelected{
-              font-weight: 600;
-            }
-            .count {
-              float: right;
-              color: var(--tertiary);
-              font-weight: 400;
-            }
+    }
+  }
+  .map_view {
+    width: 40%;
+    text-align: right;
+    button {
+      float: right;
+      width: 160px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: var(--white);
+    }
+    button:last-child {
+      margin-right: 15px;
+    }
+    img {
+      height: 20px;
+      width: 20px;
+      margin: 0 8px;
+      vertical-align: middle;
+    }
+  }
+}
+
+.searchBox {
+  // display: flex;
+  // align-items: center;
+  // border: 1px solid var(--border);
+  // padding: 10px 14px;
+  // margin: 25px 0;
+  display: flex;
+  align-items: center;
+
+  &-container {
+    position: relative;
+  }
+
+  input {
+    border: none;
+    width: 97%;
+  }
+
+  a {
+    width: 18%;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  button {
+    // width: 3%;
+    display: flex;
+    background: none;
+    border: none;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  &-dropdown {
+    box-sizing: border-box;
+    width: 100%;
+    max-height: 200px;
+    border: 1px solid var(--border);
+    border-top: 0;
+    background-color: var(--white);
+    position: absolute;
+    top: 100%;
+    overflow-y: auto;
+    text-align: left;
+
+    .no_data {
+      padding: 0 15px;
+    }
+
+    ul {
+      list-style: none;
+      li {
+        cursor: pointer;
+        p {
+          padding: 15px;
+          color: var(--primary);
+          .tagSelected {
+            font-weight: 600;
           }
-  
-          &:hover{
-            background-color: var(--off-white);
+          .count {
+            float: right;
+            color: var(--tertiary);
+            font-weight: 400;
           }
+        }
+
+        &:hover {
+          background-color: var(--off-white);
         }
       }
     }
   }
+}
 
-  .active{
-    background-color: var(--off-white);
-  }
+.active {
+  background-color: var(--off-white);
+}

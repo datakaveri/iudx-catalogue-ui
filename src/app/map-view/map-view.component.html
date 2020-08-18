@@ -22,72 +22,59 @@
     <div [leafletLayer]="drawnItems"></div>
   </div>
 
-  <div class="content-div">
-    <div class="sidebar" *ngIf="show_filter">
-      <div class="filter-div">
-        <div class="filter-div-top">
-          <a class="cross" (click)="closeFilter()">
-            <img src="../../assets/cross.png" />
-          </a>
-          <!-- <br />
-          <br /> -->
-          <h1>Filters</h1>
-
-          <br />
-
-          <div class="box-container">
-            <div class="box-1">
-              <p>Filter by: Publishers</p>
-  
-              <div class="search-filter">
-                <img src="../../assets/search.png" />
-                <input type="text" placeholder="Search..." />
-              </div>
-  
-              <div class="checkbox-div-1">
-                <div>
-                  <label class="container">Provider 1 <input type="checkbox" name="" value="" />
-                    <span class="checkmark"></span></label>
-                </div>
-              </div>
-            </div>
-  
-            <div class="box-2">
-              <p>Filter by: Tags</p>
-              <div class="search-filter">
-                <img src="../../assets/search.png" />
-                <input type="text" placeholder="Search..." />
-              </div>
-              <div class="checkbox-div">
-                <div *ngFor="let option of results.tags">
-                  <label class="container">{{ option.tag }}
-                    <input (click)="getDataForTags($event, option.tag)" type="checkbox" name="" value="{{ option.tag }}" />
-                    <span class="checkmark"></span></label>
-                </div>
-              </div>
-            </div>
-  
-  
-           
-            <div class="box-3">
-              <p>Filter by: Dataset</p>
-              <div class="search-filter">
-                <img src="../../assets/search.png" />
-                <input type="text" placeholder="Search..." />
-              </div>
-            </div>
-          </div>
-
-
-          
-          
-
-        </div>
-        <div class="filter-div-bottom">
-          <button class="applybtn">Apply Filters</button>
-          <button class="clrbtn">Clear Filters</button>
-        </div>
-      </div>
+  <div class="filder_popup" *ngIf="show_filter">
+    <div class="header">
+      FILTERS
+      <img src="assets/cross.png" (click)="close()" />
+    </div>
+    <h4>
+      <img src="assets/filter.png" />
+      Filter by Tag(s)
+    </h4>
+    <div class="scroll_div">
+      <ul>
+        <li *ngFor="let tag of tags; let i = index" (click)="toggle_tag(i)">
+          <img src="assets/unchecked.png" *ngIf="!tag.flag" />
+          <img src="assets/checked.png" *ngIf="tag.flag" />
+          {{ tag.tag }} ({{ tag.count }} {{ texts.resource_groups }})
+        </li>
+      </ul>
+    </div>
+    <h4>
+      <img src="assets/filter.png" />
+      Filter by Provider(s)
+    </h4>
+    <div class="scroll_div">
+      <ul>
+        <li
+          *ngFor="let provider of providers_filter; let i = index"
+          (click)="toggle_provider(i)"
+        >
+          <img src="assets/unchecked.png" *ngIf="!provider.flag" />
+          <img src="assets/checked.png" *ngIf="provider.flag" />
+          {{ provider.name }}
+        </li>
+      </ul>
+    </div>
+    <h4>
+      <img src="assets/filter.png" />
+      Filter by Dataset(s)
+    </h4>
+    <div class="scroll_div">
+      <ul>
+        <li
+          *ngFor="let provider of providers_filter; let i = index"
+          (click)="toggle_provider(i)"
+        >
+          <img src="assets/unchecked.png" *ngIf="!provider.flag" />
+          <img src="assets/checked.png" *ngIf="provider.flag" />
+          {{ provider.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="button_div">
+      <button class="side_button" (click)="clear()">Clear All Filters</button>
+      <button class="main_button" (click)="apply()">Apply Filters</button>
     </div>
   </div>
 </div>

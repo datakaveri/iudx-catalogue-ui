@@ -53,9 +53,9 @@ export class MapViewComponent {
   results: any;
   markerResults: any;
   tags: any;
+  providers_filter: any;
   providers: [];
   pages: number;
-  searchQuery: {};
   layers;
   coord: any = [];
   showContainer: boolean = false;
@@ -68,13 +68,22 @@ export class MapViewComponent {
   name: string;
   describe: string;
   legends: {};
+  texts: any;
+  search_text: string;
+  searchQuery: any;
+  show_data: Boolean;
 
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
     this.constantService.get_filter().subscribe((val) => {
-      this.show_filter = val;
+      this.searchQuery = val;
+      this.searchDatasets();
+    });
+
+    this.httpInterceptor.get_filter().subscribe((flag: any) => {
+      this.show_filter = flag;
     });
     this.body = {
       text: '',
@@ -90,12 +99,109 @@ export class MapViewComponent {
       'pune-streetlights':
         'https://image.flaticon.com/icons/svg/1245/1245929.svg',
     };
+    this.providers_filter = [];
+    this.tags = [];
+    this.texts = this.constantService.get_nomenclatures();
   }
   ngOnInit(): void {
     this.options = this.initMap();
     this.getMapData();
     this.drawOptions = this.drawOptionsInit();
+    this.clear();
   }
+
+  //----------FILTERS---------------------------------------//
+
+  get_filters(response) {
+    this.tags = response.tags;
+    this.tags.forEach((a) => {
+      if (this.searchQuery.tags.includes(a.tag)) a.flag = true;
+      else a.flag = false;
+    });
+    this.providers_filter = response.providers_filter;
+    this.providers_filter.forEach((a) => {
+      if (this.searchQuery.providers_filter.includes(a.id)) a.flag = true;
+      else a.flag = false;
+    });
+  }
+
+  searchDatasets() {
+    this.show_data = false;
+    if (this.searchQuery.text != '') {
+      this.search_text = this.searchQuery.text;
+      this.httpInterceptor
+        .post_api('customer/search', this.searchQuery)
+        .then((response: any) => {
+          this.show_data = true;
+          this.results = response;
+          this.get_filters(response);
+        });
+    } else {
+      this.search_text = '';
+      this.search_text = this.searchQuery.tags.join(', ');
+      this.httpInterceptor
+        .post_api('customer/datasets', this.searchQuery)
+        .then((response: any) => {
+          this.show_data = true;
+          this.results = response;
+          this.get_filters(response);
+        });
+    }
+  }
+
+  toggle_tag(num) {
+    this.tags[num].flag = !this.tags[num].flag;
+  }
+
+  toggle_provider(num) {
+    this.providers_filter[num].flag = !this.providers_filter[num].flag;
+  }
+
+  clear() {
+    this.tags.forEach((a) => {
+      a.flag = false;
+    });
+    this.providers_filter.forEach((a) => {
+      a.flag = false;
+    });
+    this.searchQuery = {
+      text: '',
+      tags: [],
+      providers: [],
+      page: 0,
+    };
+    this.constantService.set_search_query(this.searchQuery);
+    this.close();
+    this.searchDatasets();
+  }
+
+  close() {
+    this.httpInterceptor.set_filter(false);
+  }
+
+  apply() {
+    let tags = this.tags
+      .filter((a) => {
+        return a.flag == true;
+      })
+      .map((a) => {
+        return (a = a.tag);
+      });
+    let providers_filter = this.providers_filter
+      .filter((a) => {
+        return a.flag == true;
+      })
+      .map((a) => {
+        return (a = a.id);
+      });
+    this.searchQuery.tags = tags;
+    this.searchQuery.providers_filter = providers_filter;
+    this.constantService.set_search_query(this.searchQuery);
+    this.close();
+    this.searchDatasets();
+  }
+
+  //----------------------------------MAP--------------------------------------//
 
   onMapReady(map: Map) {
     this.map = map;
@@ -523,102 +629,102 @@ export class MapViewComponent {
     });
   }
 
-  get_selected_values() {
-    //Call for filters
-    var value = this.get_selected_values_checkbox();
-    var tags = value.tags;
-    var rsg = value.rsg;
-    var provider = value.provider;
-    //console.log(tags, rsg , provider)
+  // get_selected_values() {
+  //   //Call for filters
+  //   var value = this.get_selected_values_checkbox();
+  //   var tags = value.tags;
+  //   var rsg = value.rsg;
+  //   var provider = value.provider;
+  //   //console.log(tags, rsg , provider)
 
-    var __filter_url = '';
+  //   var __filter_url = '';
 
-    if (tags.length == 0 && rsg.length == 0 && provider.length == 0) {
-      __filter_url = `property=[]&value=[[]]`;
-    } else {
-      // //console.log("else...")
-      var property = this.get_api_encoded_attribute_names(tags, rsg, provider);
-      // //console.log(_attr_names)
-      var values = this.get_api_encoded_attribute_values(tags, rsg, provider);
-      // //console.log(_attr_values)
-      __filter_url = `property=` + property + `&value=` + values;
-    }
-    return __filter_url;
-  }
-  get_api_encoded_attribute_names(__tags, __rsg, __pvdr) {
-    var str = [];
-    if (__tags.length != 0) {
-      str.push('tags,type');
-    }
-    if (__rsg.length != 0) {
-      str.push('resourceGroup,type');
-    }
-    if (__pvdr.length != 0) {
-      str.push('provider,type');
-    }
-    //console.log(str.join(","))
-    return '(' + str.join(',') + ')';
-  }
-  get_api_encoded_attribute_values(_tags, _rsg, _pr) {
-    var str = [];
+  //   if (tags.length == 0 && rsg.length == 0 && provider.length == 0) {
+  //     __filter_url = `property=[]&value=[[]]`;
+  //   } else {
+  //     // //console.log("else...")
+  //     var property = this.get_api_encoded_attribute_names(tags, rsg, provider);
+  //     // //console.log(_attr_names)
+  //     var values = this.get_api_encoded_attribute_values(tags, rsg, provider);
+  //     // //console.log(_attr_values)
+  //     __filter_url = `property=` + property + `&value=` + values;
+  //   }
+  //   return __filter_url;
+  // }
+  // get_api_encoded_attribute_names(__tags, __rsg, __pvdr) {
+  //   var str = [];
+  //   if (__tags.length != 0) {
+  //     str.push('tags,type');
+  //   }
+  //   if (__rsg.length != 0) {
+  //     str.push('resourceGroup,type');
+  //   }
+  //   if (__pvdr.length != 0) {
+  //     str.push('provider,type');
+  //   }
+  //   //console.log(str.join(","))
+  //   return '(' + str.join(',') + ')';
+  // }
+  // get_api_encoded_attribute_values(_tags, _rsg, _pr) {
+  //   var str = [];
 
-    if (_tags.length != 0) {
-      str.push('[' + _tags.join(',') + ']');
-    }
-    if (_rsg.length != 0) {
-      str.push('[' + _rsg.join(',') + ']');
-    }
-    if (_pr.length != 0) {
-      str.push('[' + _pr.join(',') + ']');
-    }
-    return '[' + str.join(',') + ',[iudx:Resource]';
-  }
+  //   if (_tags.length != 0) {
+  //     str.push('[' + _tags.join(',') + ']');
+  //   }
+  //   if (_rsg.length != 0) {
+  //     str.push('[' + _rsg.join(',') + ']');
+  //   }
+  //   if (_pr.length != 0) {
+  //     str.push('[' + _pr.join(',') + ']');
+  //   }
+  //   return '[' + str.join(',') + ',[iudx:Resource]';
+  // }
 
-  get_selected_values_checkbox() {
-    //call when checkbox is clicked
-    var _tags = [];
-    var _rsg = [];
-    var _pr = [];
-    var tag_elements = <HTMLInputElement[]>(
-      (<any>document.getElementsByName('taglist'))
-    );
-    var rsg_elements = <HTMLInputElement[]>(
-      (<any>document.getElementsByName('rsglist'))
-    );
-    var pr_elements = <HTMLInputElement[]>(
-      (<any>document.getElementsByName('prlist'))
-    );
+  // get_selected_values_checkbox() {
+  //   //call when checkbox is clicked
+  //   var _tags = [];
+  //   var _rsg = [];
+  //   var _pr = [];
+  //   var tag_elements = <HTMLInputElement[]>(
+  //     (<any>document.getElementsByName('taglist'))
+  //   );
+  //   var rsg_elements = <HTMLInputElement[]>(
+  //     (<any>document.getElementsByName('rsglist'))
+  //   );
+  //   var pr_elements = <HTMLInputElement[]>(
+  //     (<any>document.getElementsByName('prlist'))
+  //   );
 
-    for (let i of tag_elements) {
-      if (i.type == 'checkbox') {
-        if (i.checked == true) {
-          _tags.push(i.value);
-        }
-      }
-    }
+  //   for (let i of tag_elements) {
+  //     if (i.type == 'checkbox') {
+  //       if (i.checked == true) {
+  //         _tags.push(i.value);
+  //       }
+  //     }
+  //   }
 
-    for (let i of pr_elements) {
-      if (i.type == 'checkbox') {
-        if (i.checked) {
-          _pr.push(i.value);
-        }
-      }
-    }
+  //   for (let i of pr_elements) {
+  //     if (i.type == 'checkbox') {
+  //       if (i.checked) {
+  //         _pr.push(i.value);
+  //       }
+  //     }
+  //   }
 
-    for (let i of rsg_elements) {
-      if (i.type == 'checkbox') {
-        if (i.checked) {
-          _rsg.push(i.value);
-        }
-      }
-    }
+  //   for (let i of rsg_elements) {
+  //     if (i.type == 'checkbox') {
+  //       if (i.checked) {
+  //         _rsg.push(i.value);
+  //       }
+  //     }
+  //   }
 
-    //alert("My taglists are: " + _tags.join(", ")+"and My resource group are:" +_rsg.join(", "));
+  //   //alert("My taglists are: " + _tags.join(", ")+"and My resource group are:" +_rsg.join(", "));
 
-    return {
-      tags: _tags,
-      rsg: _rsg,
-      provider: _pr,
-    };
-  }
+  //   return {
+  //     tags: _tags,
+  //     rsg: _rsg,
+  //     provider: _pr,
+  //   };
+  // }
 }
