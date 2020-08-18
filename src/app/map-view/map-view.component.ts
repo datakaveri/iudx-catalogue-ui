@@ -2,27 +2,14 @@ import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluste
 import { ActivatedRoute } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Component, OnInit } from '@angular/core';
-import {
-  latLng,
-  tileLayer,
-  FeatureGroup,
-  DrawEvents,
-  icon,
-  Map,
-  Control,
-  map,
-  circle,
-  polygon,
-  layerGroup,
-  featureGroup,
-  Marker,
-} from 'leaflet';
+import { latLng, tileLayer, FeatureGroup, DrawEvents, Map, featureGroup} from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet.markercluster';
 import { InterceptorService } from '../interceptor.service';
 import { ConstantsService } from '../constants.service';
+
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -36,6 +23,7 @@ const iconDefault = L.icon({
   tooltipAnchor: [16, -28],
   shadowSize: [41, 41],
 });
+
 L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-map-view',
@@ -53,9 +41,9 @@ export class MapViewComponent {
   results: any;
   markerResults: any;
   tags: any;
-  providers_filter: any;
   providers: [];
   pages: number;
+  searchQuery: any;
   layers;
   coord: any = [];
   showContainer: boolean = false;
@@ -68,30 +56,35 @@ export class MapViewComponent {
   name: string;
   describe: string;
   legends: {};
-  texts: any;
+  texts: { resource_groups: string; resource_items: string; providers: string; };
   search_text: string;
-  searchQuery: any;
-  show_data: Boolean;
+  query: { text: string; tags: any[]; providers: any[]; page: number; resource_groups: any[]; };
 
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
-    this.constantService.get_filter().subscribe((val) => {
-      this.searchQuery = val;
-      this.searchDatasets();
-    });
-
-    this.httpInterceptor.get_filter().subscribe((flag: any) => {
-      this.show_filter = flag;
-    });
-    this.body = {
+    this.show_filter = false;
+    this.query = {
       text: '',
       tags: [],
       providers: [],
       page: 0,
-      resource_groups: [],
+      resource_groups:[]
     };
+    this.constantService.set_search_query(this.query)
+    
+    this.getMapData();
+    this.texts = this.constantService.get_nomenclatures();
+    this.constantService.get_filter().subscribe((query) => {
+      this.searchQuery = query;
+      this.getMapData();
+    });
+    this.httpInterceptor.get_filter().subscribe((flag: any)=>{
+      console.log(flag)
+      this.show_filter = flag;
+    });
+    
     this.legends = {
       'aqm-bosch-climo':
         'https://image.flaticon.com/icons/svg/1808/1808701.svg',
@@ -99,109 +92,11 @@ export class MapViewComponent {
       'pune-streetlights':
         'https://image.flaticon.com/icons/svg/1245/1245929.svg',
     };
-    this.providers_filter = [];
-    this.tags = [];
-    this.texts = this.constantService.get_nomenclatures();
   }
   ngOnInit(): void {
     this.options = this.initMap();
-    this.getMapData();
     this.drawOptions = this.drawOptionsInit();
-    this.clear();
   }
-
-  //----------FILTERS---------------------------------------//
-
-  get_filters(response) {
-    this.tags = response.tags;
-    this.tags.forEach((a) => {
-      if (this.searchQuery.tags.includes(a.tag)) a.flag = true;
-      else a.flag = false;
-    });
-    this.providers_filter = response.providers_filter;
-    this.providers_filter.forEach((a) => {
-      if (this.searchQuery.providers_filter.includes(a.id)) a.flag = true;
-      else a.flag = false;
-    });
-  }
-
-  searchDatasets() {
-    this.show_data = false;
-    if (this.searchQuery.text != '') {
-      this.search_text = this.searchQuery.text;
-      this.httpInterceptor
-        .post_api('customer/search', this.searchQuery)
-        .then((response: any) => {
-          this.show_data = true;
-          this.results = response;
-          this.get_filters(response);
-        });
-    } else {
-      this.search_text = '';
-      this.search_text = this.searchQuery.tags.join(', ');
-      this.httpInterceptor
-        .post_api('customer/datasets', this.searchQuery)
-        .then((response: any) => {
-          this.show_data = true;
-          this.results = response;
-          this.get_filters(response);
-        });
-    }
-  }
-
-  toggle_tag(num) {
-    this.tags[num].flag = !this.tags[num].flag;
-  }
-
-  toggle_provider(num) {
-    this.providers_filter[num].flag = !this.providers_filter[num].flag;
-  }
-
-  clear() {
-    this.tags.forEach((a) => {
-      a.flag = false;
-    });
-    this.providers_filter.forEach((a) => {
-      a.flag = false;
-    });
-    this.searchQuery = {
-      text: '',
-      tags: [],
-      providers: [],
-      page: 0,
-    };
-    this.constantService.set_search_query(this.searchQuery);
-    this.close();
-    this.searchDatasets();
-  }
-
-  close() {
-    this.httpInterceptor.set_filter(false);
-  }
-
-  apply() {
-    let tags = this.tags
-      .filter((a) => {
-        return a.flag == true;
-      })
-      .map((a) => {
-        return (a = a.tag);
-      });
-    let providers_filter = this.providers_filter
-      .filter((a) => {
-        return a.flag == true;
-      })
-      .map((a) => {
-        return (a = a.id);
-      });
-    this.searchQuery.tags = tags;
-    this.searchQuery.providers_filter = providers_filter;
-    this.constantService.set_search_query(this.searchQuery);
-    this.close();
-    this.searchDatasets();
-  }
-
-  //----------------------------------MAP--------------------------------------//
 
   onMapReady(map: Map) {
     this.map = map;
@@ -213,24 +108,17 @@ export class MapViewComponent {
   }
 
   getMapData() {
-    this.tags = this.body.tags;
-    this.providers = this.body.providers;
-    this.resource_groups = this.body.resource_groups;
-    this.pages = this.body.page;
-    this.body = this.getBody(
-      this.text,
-      this.tags,
-      this.resource_groups,
-      this.providers,
-      this.pages
-    );
+    
+    this.searchQuery = this.constantService.get_search_query();
+    console.log(this.searchQuery)
     this.httpInterceptor
-      .post_api('customer/map', this.body)
+      .post_api('customer/map', this.searchQuery)
       .then((response: any) => {
         const data: L.Marker[] = [];
-
+        // console.log(response)
         this.results = response;
         console.log(this.results);
+        this.get_filters(response.resource_groups);
 
         /** Added this to get all items on opening GeoInformation**/
 
@@ -239,7 +127,6 @@ export class MapViewComponent {
           this.name = c.name;
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
-          // const markers = L.marker([lat, lng]).bindPopup(this.describe);
           const markers = L.marker([lat, lng]).bindPopup(
             `<div id="name">
             <p>` +
@@ -261,7 +148,7 @@ export class MapViewComponent {
               `)"> View Details </a><br>` +
               `</div>`
           );
-          //     .addTo(this.map);
+         
           data.push(markers);
 
           this.markerClusterData = data;
@@ -279,18 +166,37 @@ export class MapViewComponent {
   get_bullets() {
     return `&#9679;`;
   }
-
+  get_filters(response) {
+   
+    this.resource_groups = response;
+    console.log(this.resource_groups)
+    this.resource_groups.forEach(a=>{
+      console.log(this.searchQuery.resource_groups)
+      if(this.searchQuery.resource_groups.includes(a.name)) a.flag = true;
+      else a.flag = false;
+    });
+  }
   closeFilter() {
-    this.show_filter = false;
+    this.httpInterceptor.set_filter(false);
+    }
+
+  toggle_dataset(num) {
+    this.resource_groups[num].flag = !this.resource_groups[num].flag;
+  }
+  apply() {
+   
+    let resource_groups = this.resource_groups.filter(a=> { return a.flag == true; }).map(a=> { return a = a.name });
+    this.searchQuery.resource_groups = resource_groups;
+    this.constantService.set_search_query(this.searchQuery);
+    this.closeFilter();
+    this.getMapData();
   }
 
-  getBody(_text, _tags, _resource_groups, _providers, _page) {
+  getBody( _tags, _resource_groups, _providers) {
     this.body = {
-      text: _text,
       tags: _tags,
       resource_groups: _resource_groups,
       providers: _providers,
-      page: _page,
     };
     return this.body;
   }
@@ -312,7 +218,6 @@ export class MapViewComponent {
       zoom: 11,
       center: latLng({ lng: 73.836808, lat: 18.5727 }),
     };
-    // L.marker([this.lat, this.lng]);
 
     return map_options;
   }
@@ -425,26 +330,15 @@ export class MapViewComponent {
           }
         });
     } else if (type === 'rectangle') {
-      console.log('rectangle created');
-      console.log(layer);
-      // var bound_points = e.layer._bounds;
-      // console.log(bound_points);
-      var bound_points = e.layer._latlngs[0];
-      console.log(bound_points);
-      var boundingPoints = [];
 
-      // var b1 =
-      //   bound_points._northEast['lng'] + ',' + bound_points._northEast['lat'];
-      // var b2 =
-      //   bound_points._southWest['lng'] + ',' + bound_points._southWest['lat'];
+      var bound_points = e.layer._latlngs[0];
+      var boundingPoints = [];
 
       var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
       var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
-      // console.log(b1);
       boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
-      // boundingPoints.push('[' + b2 + ']');
       boundingPoints.join(',');
-      console.log(boundingPoints);
+
       //Api call for getting items for that area
       this.markersLayer.clearLayers();
       this.httpInterceptor
@@ -487,27 +381,21 @@ export class MapViewComponent {
   }
   onDrawEdited(e: any) {
     var layers = e.layers;
-    console.log(layers);
+    // console.log(layers);
     layers.eachLayer((layer) => {
       if (layer instanceof L.Circle) {
-        console.log('editing circle');
+        // console.log('editing circle');
         var center_point = layer.getLatLng();
-        console.log(center_point['lat']);
-        console.log(center_point['lng']);
         var radius = Math.ceil(layer.getRadius());
-        console.log('Radius2:' + radius);
         this.markersLayer.clearLayers();
         this.httpInterceptor
           .get_api_test_map(
             `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[${center_point['lng']},${center_point['lat']}]`
           )
           .then((res) => {
-            // console.log(res);
             this.data = res;
-            console.log(this.data.results.length);
             for (var i = this.data.results.length - 1; i >= 0; i--) {
               if (this.data.results[i].hasOwnProperty('location')) {
-                // myLayer.addData(data[i]['geoJsonLocation']);
                 this.plotGeoJSONs(
                   this.data.results[i]['location']['geometry']['type'],
                   this.data.results[i]['id'],
@@ -518,8 +406,6 @@ export class MapViewComponent {
               } else if (
                 this.data.results[i].hasOwnProperty('coverageRegion')
               ) {
-                // myLayer.addData(data[i]['geoJsonLocation']);
-                ////console.log("1")
                 this.plotGeoJSONs(
                   res[i]['coverageRegion']['geometry'],
                   this.data.results[i]['id'],
@@ -527,7 +413,6 @@ export class MapViewComponent {
                   this.data.results[i]['resourceGroup'],
                   this.data.results[i]['provider']
                 );
-                ////console.log("2")
               }
             }
           });
@@ -535,15 +420,12 @@ export class MapViewComponent {
         layer instanceof L.Polygon &&
         !(layer instanceof L.Rectangle)
       ) {
-        // this.markersLayer.clearLayers();
-        console.log('editing poly...');
 
         var polyPoints = [];
         var _obj = Object.keys(layers._layers)[0];
         var points = layers._layers[_obj]['_latlngs'][0];
         for (var i = 0; i < points.length - 1; i += 1) {
           var coordinates = [points[i]['lng'] + ',' + points[i]['lat']];
-          // console.log(coordinates);
           polyPoints.push('[' + coordinates + ']');
 
           polyPoints.join(',]');
@@ -634,102 +516,4 @@ export class MapViewComponent {
     });
   }
 
-  // get_selected_values() {
-  //   //Call for filters
-  //   var value = this.get_selected_values_checkbox();
-  //   var tags = value.tags;
-  //   var rsg = value.rsg;
-  //   var provider = value.provider;
-  //   //console.log(tags, rsg , provider)
-
-  //   var __filter_url = '';
-
-  //   if (tags.length == 0 && rsg.length == 0 && provider.length == 0) {
-  //     __filter_url = `property=[]&value=[[]]`;
-  //   } else {
-  //     // //console.log("else...")
-  //     var property = this.get_api_encoded_attribute_names(tags, rsg, provider);
-  //     // //console.log(_attr_names)
-  //     var values = this.get_api_encoded_attribute_values(tags, rsg, provider);
-  //     // //console.log(_attr_values)
-  //     __filter_url = `property=` + property + `&value=` + values;
-  //   }
-  //   return __filter_url;
-  // }
-  // get_api_encoded_attribute_names(__tags, __rsg, __pvdr) {
-  //   var str = [];
-  //   if (__tags.length != 0) {
-  //     str.push('tags,type');
-  //   }
-  //   if (__rsg.length != 0) {
-  //     str.push('resourceGroup,type');
-  //   }
-  //   if (__pvdr.length != 0) {
-  //     str.push('provider,type');
-  //   }
-  //   //console.log(str.join(","))
-  //   return '(' + str.join(',') + ')';
-  // }
-  // get_api_encoded_attribute_values(_tags, _rsg, _pr) {
-  //   var str = [];
-
-  //   if (_tags.length != 0) {
-  //     str.push('[' + _tags.join(',') + ']');
-  //   }
-  //   if (_rsg.length != 0) {
-  //     str.push('[' + _rsg.join(',') + ']');
-  //   }
-  //   if (_pr.length != 0) {
-  //     str.push('[' + _pr.join(',') + ']');
-  //   }
-  //   return '[' + str.join(',') + ',[iudx:Resource]';
-  // }
-
-  // get_selected_values_checkbox() {
-  //   //call when checkbox is clicked
-  //   var _tags = [];
-  //   var _rsg = [];
-  //   var _pr = [];
-  //   var tag_elements = <HTMLInputElement[]>(
-  //     (<any>document.getElementsByName('taglist'))
-  //   );
-  //   var rsg_elements = <HTMLInputElement[]>(
-  //     (<any>document.getElementsByName('rsglist'))
-  //   );
-  //   var pr_elements = <HTMLInputElement[]>(
-  //     (<any>document.getElementsByName('prlist'))
-  //   );
-
-  //   for (let i of tag_elements) {
-  //     if (i.type == 'checkbox') {
-  //       if (i.checked == true) {
-  //         _tags.push(i.value);
-  //       }
-  //     }
-  //   }
-
-  //   for (let i of pr_elements) {
-  //     if (i.type == 'checkbox') {
-  //       if (i.checked) {
-  //         _pr.push(i.value);
-  //       }
-  //     }
-  //   }
-
-  //   for (let i of rsg_elements) {
-  //     if (i.type == 'checkbox') {
-  //       if (i.checked) {
-  //         _rsg.push(i.value);
-  //       }
-  //     }
-  //   }
-
-  //   //alert("My taglists are: " + _tags.join(", ")+"and My resource group are:" +_rsg.join(", "));
-
-  //   return {
-  //     tags: _tags,
-  //     rsg: _rsg,
-  //     provider: _pr,
-  //   };
-  // }
 }
