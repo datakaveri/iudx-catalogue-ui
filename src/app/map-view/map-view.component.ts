@@ -438,6 +438,7 @@ export class MapViewComponent {
           polyPoints.join(',]');
         }
         console.log(polyPoints);
+        this.markersLayer.clearLayers();
         this.httpInterceptor
           .get_api_test_map(
             `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
