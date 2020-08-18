@@ -17,11 +17,13 @@ export class SearchResultsComponent implements OnInit {
   query: string;
   show_filter: Boolean;
   show_filter_button: Boolean;
+  arrowkeyLocation:any;
   constructor(
     public router: Router,
     private network: InterceptorService,
     private constantService: ConstantsService
   ) {
+    this.arrowkeyLocation = -1;
     this.show_filter_button = false;
     this.show_filter = false;
     this.query = '';
@@ -97,5 +99,17 @@ export class SearchResultsComponent implements OnInit {
     this.constantService.set_filter(this.searchQuery);
     this.router.navigate(['/search/datasets']);
     this.query = '';
+  }
+
+  // list items selection with arrow key
+  keyDown(event: KeyboardEvent) {
+    switch (event.keyCode) {
+      case 38: // this is the ascii of arrow up
+        this.arrowkeyLocation--;
+        break;
+      case 40: // this is the ascii of arrow down
+        this.arrowkeyLocation++;
+        break;
+    }
   }
 }

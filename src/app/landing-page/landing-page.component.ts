@@ -21,6 +21,7 @@ export class LandingPageComponent implements OnInit {
   tagSelected: any;
   filteredTags: any = [];
   city: any;
+  arrowkeyLocation: any;
   constructor(
     public router: Router,
     private network: InterceptorService,
@@ -56,9 +57,10 @@ export class LandingPageComponent implements OnInit {
     this.city = this.constantService.get_city();
     this.get_data();
     this.get_tags();
+    this.arrowkeyLocation = -1;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get_data() {
     this.network.get_api('customer/summary').then((data) => {
@@ -96,7 +98,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   getSearchResultsByText(text: string) {
-    if(text.trim() !== ''){
+    if (text.trim() !== '') {
       this.searchQuery = {
         text: text,
         tags: [],
@@ -122,5 +124,18 @@ export class LandingPageComponent implements OnInit {
 
   getOverlay(value) {
     this.overlay = value;
+  }
+
+
+  // list items selection with arrow key
+  keyDown(event: KeyboardEvent) {
+    switch (event.keyCode) {
+      case 38: // this is the ascii of arrow up
+        this.arrowkeyLocation--;
+        break;
+      case 40: // this is the ascii of arrow down
+        this.arrowkeyLocation++;
+        break;
+    }
   }
 }
