@@ -1,6 +1,6 @@
 #map {
   height: calc(100vh - 100px - 100px);
-  z-index: -1;
+  z-index: 0;
   margin: 25px;
   border: 2px solid var(--warning);
 }
