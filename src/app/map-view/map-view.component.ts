@@ -258,7 +258,7 @@ export class MapViewComponent {
               response.items +
               `, ` +
               c.id +
-              `)"> Get latest-data</a><br>` +
+              `)"> View Details </a><br>` +
               `</div>`
           );
           //     .addTo(this.map);
@@ -427,15 +427,20 @@ export class MapViewComponent {
     } else if (type === 'rectangle') {
       console.log('rectangle created');
       console.log(layer);
-      var bound_points = e.layer._bounds;
+      // var bound_points = e.layer._bounds;
+      // console.log(bound_points);
+      var bound_points = e.layer._latlngs[0];
       console.log(bound_points);
       var boundingPoints = [];
 
-      var b1 =
-        bound_points._northEast['lng'] + ',' + bound_points._northEast['lat'];
-      var b2 =
-        bound_points._southWest['lng'] + ',' + bound_points._southWest['lat'];
-      console.log(b1);
+      // var b1 =
+      //   bound_points._northEast['lng'] + ',' + bound_points._northEast['lat'];
+      // var b2 =
+      //   bound_points._southWest['lng'] + ',' + bound_points._southWest['lat'];
+
+      var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
+      var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
+      // console.log(b1);
       boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
       // boundingPoints.push('[' + b2 + ']');
       boundingPoints.join(',');
@@ -608,7 +613,7 @@ export class MapViewComponent {
         data +
         `, ` +
         data.id +
-        `)"> Get latest-data</a><br>` +
+        `)"> View Details</a><br>` +
         `</div>`;
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
