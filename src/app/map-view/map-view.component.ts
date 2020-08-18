@@ -152,7 +152,7 @@ export class MapViewComponent {
               response.items +
               `, ` +
               c.id +
-              `)"> Get latest-data</a><br>` +
+              `)"> View Details </a><br>` +
               `</div>`
           );
           //     .addTo(this.map);
@@ -507,7 +507,7 @@ export class MapViewComponent {
         data +
         `, ` +
         data.id +
-        `)"> Get latest-data</a><br>` +
+        `)"> View Details</a><br>` +
         `</div>`;
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
