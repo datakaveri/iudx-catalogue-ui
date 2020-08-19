@@ -40,9 +40,6 @@ export class MapViewComponent {
   resource_groups: any;
   results: any;
   markerResults: any;
-  tags: any;
-  providers: [];
-  pages: number;
   searchQuery: any;
   layers;
   coord: any = [];
@@ -58,28 +55,24 @@ export class MapViewComponent {
   legends: {};
   texts: { resource_groups: string; resource_items: string; providers: string; };
   search_text: string;
-  query: { text: string; tags: any[]; providers: any[]; page: number; resource_groups: any[]; };
 
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
     this.show_filter = false;
-    this.query = {
-      text: '',
-      tags: [],
-      providers: [],
-      page: 0,
+    this.searchQuery = {
       resource_groups:[]
     };
-    this.constantService.set_search_query(this.query)
+    // this.constantService.set_search_query(this.query)
     
     this.getMapData();
     this.texts = this.constantService.get_nomenclatures();
-    this.constantService.get_filter().subscribe((query) => {
-      this.searchQuery = query;
-      this.getMapData();
-    });
+    // this.constantService.get_filter().subscribe((query) => {
+    //   console.log(query)
+    //   this.searchQuery = query;
+    //   this.getMapData();
+    // });
     this.httpInterceptor.get_filter().subscribe((flag: any)=>{
       console.log(flag)
       this.show_filter = flag;
@@ -109,7 +102,7 @@ export class MapViewComponent {
 
   getMapData() {
     
-    this.searchQuery = this.constantService.get_search_query();
+    // this.searchQuery = this.constantService.get_search_query();
     console.log(this.searchQuery)
     this.httpInterceptor
       .post_api('customer/map', this.searchQuery)
@@ -181,11 +174,25 @@ export class MapViewComponent {
   toggle_dataset(num) {
     this.resource_groups[num].flag = !this.resource_groups[num].flag;
   }
+  clear() {
+    
+    this.resource_groups.forEach(a=>{
+      a.flag = false;
+    });
+    this.searchQuery = {
+      
+      resource_groups: [],
+      
+    };
+    // this.constantService.set_search_query(this.searchQuery);
+    this.closeFilter();
+    this.getMapData();
+  }
   apply() {
    
     let resource_groups = this.resource_groups.filter(a=> { return a.flag == true; }).map(a=> { return a = a.id });
     this.searchQuery.resource_groups = resource_groups;
-    this.constantService.set_search_query(this.searchQuery);
+    // this.constantService.set_search_query(this.searchQuery);
     this.closeFilter();
     this.getMapData();
   }
