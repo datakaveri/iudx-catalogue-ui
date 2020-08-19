@@ -49,7 +49,7 @@ export class DatasetListComponent implements OnInit {
   getResourceItems(resource) {
     window.sessionStorage.resource_group_id = resource.id;
     window.sessionStorage.resource_group_name = resource.name;
-    this.router.navigate(['/search/items']);
+    this.router.navigate(['/search/dataset']);
   }
 
   searchDatasets() {

@@ -11,7 +11,6 @@ import { AdvancedSearchComponent } from './advanced-search/advanced-search.compo
 import { ChangeCityComponent } from './change-city/change-city.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { DatasetListComponent } from './dataset-list/dataset-list.component';
-import { ItemListComponent } from './item-list/item-list.component';
 import { MapViewComponent } from './map-view/map-view.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { HomeComponent } from './home/home.component';
@@ -22,6 +21,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
+import { ItemDetailsComponent } from './item-details/item-details.component';
+import { ItemDataDesComponent } from './item-data-des/item-data-des.component';
+import { ItemResItemsComponent } from './item-res-items/item-res-items.component';
+import { DatasetComponent } from './dataset/dataset.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +36,16 @@ import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluste
     ChangeCityComponent,
     SearchResultsComponent,
     DatasetListComponent,
-    ItemListComponent,
     MapViewComponent,
     PaginationComponent,
     HomeComponent,
     LoaderComponent,
     NotifierComponent,
     AlertComponent,
+    ItemDetailsComponent,
+    ItemDataDesComponent,
+    ItemResItemsComponent,
+    DatasetComponent,
   ],
   imports: [
     BrowserModule,
