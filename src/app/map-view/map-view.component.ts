@@ -2,7 +2,14 @@ import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluste
 import { ActivatedRoute } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Component, OnInit } from '@angular/core';
-import { latLng, tileLayer, FeatureGroup, DrawEvents, Map, featureGroup} from 'leaflet';
+import {
+  latLng,
+  tileLayer,
+  FeatureGroup,
+  DrawEvents,
+  Map,
+  featureGroup,
+} from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
@@ -53,7 +60,7 @@ export class MapViewComponent {
   name: string;
   describe: string;
   legends: {};
-  texts: { resource_groups: string; resource_items: string; providers: string; };
+  texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
 
   constructor(
@@ -77,7 +84,7 @@ export class MapViewComponent {
       console.log(flag)
       this.show_filter = flag;
     });
-    
+
     this.legends = {
       'aqm-bosch-climo':
         'https://image.flaticon.com/icons/svg/1808/1808701.svg',
@@ -141,7 +148,7 @@ export class MapViewComponent {
               `)"> View Details </a><br>` +
               `</div>`
           );
-         
+
           data.push(markers);
 
           this.markerClusterData = data;
@@ -160,11 +167,10 @@ export class MapViewComponent {
     return `&#9679;`;
   }
   get_filters(response) {
-   
     this.resource_groups = response;
-    console.log(this.resource_groups)
-    this.resource_groups.forEach(a=>{
-      if(this.searchQuery.resource_groups.includes(a.name)) a.flag = true;
+    console.log(this.resource_groups);
+    this.resource_groups.forEach((a) => {
+      if (this.searchQuery.resource_groups.includes(a.name)) a.flag = true;
       else a.flag = false;
     });
   }
@@ -189,8 +195,13 @@ export class MapViewComponent {
     this.getMapData();
   }
   apply() {
-   
-    let resource_groups = this.resource_groups.filter(a=> { return a.flag == true; }).map(a=> { return a = a.id });
+    let resource_groups = this.resource_groups
+      .filter((a) => {
+        return a.flag == true;
+      })
+      .map((a) => {
+        return (a = a.id);
+      });
     this.searchQuery.resource_groups = resource_groups;
     // this.constantService.set_search_query(this.searchQuery);
     this.closeFilter();
@@ -252,8 +263,7 @@ export class MapViewComponent {
       console.log(center_point);
       this.markersLayer.clearLayers();
       //Api call for getting items for that area
-      this.api_call_circle(center_point,radius);
-
+      this.api_call_circle(center_point, radius);
     } else if (type === 'polygon') {
       console.log('polygon created');
       var points = e.layer._latlngs[0];
@@ -267,16 +277,19 @@ export class MapViewComponent {
       }
       // console.log(polyPoints);
       this.markersLayer.clearLayers();
-      this.api_call_polygon(polyPoints)
+      this.api_call_polygon(polyPoints);
     } else if (type === 'rectangle') {
-
       var bound_points = e.layer._latlngs[0];
+      console.log(bound_points);
+
       var boundingPoints = [];
 
       var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
       var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
       boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
       boundingPoints.join(',');
+
+      console.log(boundingPoints);
 
       //Api call for getting items for that area
       this.markersLayer.clearLayers();
@@ -300,12 +313,11 @@ export class MapViewComponent {
         var center_point = layer.getLatLng();
         var radius = Math.ceil(layer.getRadius());
         this.markersLayer.clearLayers();
-        this.api_call_circle(center_point,radius);
+        this.api_call_circle(center_point, radius);
       } else if (
         layer instanceof L.Polygon &&
         !(layer instanceof L.Rectangle)
       ) {
-
         var polyPoints = [];
         var _obj = Object.keys(layers._layers)[0];
         var points = layers._layers[_obj]['_latlngs'][0];
@@ -317,68 +329,85 @@ export class MapViewComponent {
         }
         console.log(polyPoints);
         this.markersLayer.clearLayers();
-        this.api_call_polygon(polyPoints)
+        this.api_call_polygon(polyPoints);
       } else if (layer instanceof L.Rectangle) {
-        console.log('rectangle');
+        var _obj1 = Object.keys(layers._layers)[0];
+
+        // var bound_points = layers._layers[_obj1]['_latlngs'];
+        var bound_points = layers._layers[_obj1]['_latlngs'][0];
+        var boundingPoints = [];
+        console.log(layers);
+
+        console.log(bound_points);
+
+        var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
+        var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
+        boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
+        boundingPoints.join(',');
+        console.log(boundingPoints);
+        this.markersLayer.clearLayers();
+        this.api_call_rectangle(boundingPoints);
       }
     });
   }
-  api_call_circle(center_point,radius){
+  api_call_circle(center_point, radius) {
     this.httpInterceptor
-            .get_api_test_map(
-              `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[ ${center_point['lng']},${center_point['lat']}]`
-            )
-            .then((res) => {
-              // console.log(res);
-              this.data = res;
-              console.log(this.data.results.length);
-              this.callGeoJsonPlot(this.data)
-            });
+      .get_api_test_map(
+        `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[ ${center_point['lng']},${center_point['lat']}]`
+      )
+      .then((res) => {
+        // console.log(res);
+        this.data = res;
+        console.log(this.data.results.length);
+        this.callGeoJsonPlot(this.data);
+      });
   }
-  api_call_polygon(polyPoints){
+  api_call_polygon(polyPoints) {
     this.httpInterceptor
-            .get_api_test_map(
-              `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
-            )
-            .then((res) => {
-              // console.log(res);
-              this.data = res;
-              // console.log(this.data.results.length);
-              this.callGeoJsonPlot(this.data)
-            });
+      .get_api_test_map(
+        `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
+      )
+      .then((res) => {
+        // console.log(res);
+        this.data = res;
+        // console.log(this.data.results.length);
+        this.callGeoJsonPlot(this.data);
+      });
   }
-  api_call_rectangle(boundingPoints){
+  api_call_rectangle(boundingPoints) {
+    console.log(
+      `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
+    );
     this.httpInterceptor
-            .get_api_test_map(
-              `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
-            )
-            .then((res) => {
-              // console.log(res);
-              this.data = res;
-              console.log(this.data.results.length);
-              this.callGeoJsonPlot(this.data)
-            });
+      .get_api_test_map(
+        `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
+      )
+      .then((res) => {
+        // console.log(res);
+        this.data = res;
+        console.log(this.data.results.length);
+        this.callGeoJsonPlot(this.data);
+      });
   }
-  callGeoJsonPlot(data){
-      for (const i of data.results) {
-        if (i.hasOwnProperty('location')) {
-          this.plotGeoJSONs(
+  callGeoJsonPlot(data) {
+    for (const i of data.results) {
+      if (i.hasOwnProperty('location')) {
+        this.plotGeoJSONs(
           i['location']['geometry']['type'],
-            i,
-            i['resourceGroup'],
-          );
-        } else if (i.hasOwnProperty('coverageRegion')) {
-          this.plotGeoJSONs(
-            i['coverageRegion']['geometry'],
-            i,
-            i['resourceGroup'],
-          );
-        }
+          i,
+          i['resourceGroup']
+        );
+      } else if (i.hasOwnProperty('coverageRegion')) {
+        this.plotGeoJSONs(
+          i['coverageRegion']['geometry'],
+          i,
+          i['resourceGroup']
+        );
       }
-  }  
-    
+    }
+  }
+
   plotGeoJSONs(geoJsonObject, data, rsg) {
-   
     if (geoJsonObject == 'Point') {
       // this.describe = rsg;
       this.name = data.name;

@@ -17,7 +17,7 @@
       (leafletDrawDeleted)="onDrawDeleted($event)"
       (leafletDrawEdited)="onDrawEdited($event)"
     ></div>
-    
+
     <!-- Add the drawnItems featureGroup to the map -->
     <div [leafletLayer]="drawnItems"></div>
   </div>
@@ -25,16 +25,19 @@
   <div class="filter_popup" *ngIf="show_filter">
     <div class="header">
       FILTERS
-      <img src="assets/cross.png" (click)="close()" />
+      <img src="assets/cross.png" (click)="closeFilter()" />
     </div>
-   
+
     <h4>
       <img src="assets/filter.png" />
       Filter by Dataset(s)
     </h4>
     <div class="scroll_div">
       <ul>
-        <li *ngFor="let dataset of resource_groups; let i = index" (click)="toggle_dataset(i)">
+        <li
+          *ngFor="let dataset of resource_groups; let i = index"
+          (click)="toggle_dataset(i)"
+        >
           <img src="assets/unchecked.png" *ngIf="!dataset.flag" />
           <img src="assets/checked.png" *ngIf="dataset.flag" />
           {{ dataset.name }}
