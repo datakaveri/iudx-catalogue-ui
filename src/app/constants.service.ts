@@ -13,6 +13,7 @@ export class ConstantsService {
   search_params_sub = new Subject<any>();
   city: any;
   cities: Array<any>;
+  resource: any;
   constructor(
     private title: Title
   ) {
@@ -62,4 +63,13 @@ export class ConstantsService {
   get_filter(): Observable<any> {
     return this.search_params_sub.asObservable();
   }
+
+  set_resource_details(value: any) {
+    this.resource = value;
+  }
+
+  get_resource_details() {
+    return this.resource;
+  }
+
 }

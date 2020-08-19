@@ -17,8 +17,11 @@
                 {{ resource.name }}
                 <img src="assets/locked.png" *ngIf="resource.resourceAuthControlLevel != 'OPEN'">
                 <img src="assets/unlocked.png" *ngIf="resource.resourceAuthControlLevel == 'OPEN'">
-                <img src="assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)">
             </h4>
+            <p>
+                <span>{{texts.resource_groups}} ID: </span>{{ resource.id }}
+                <img src="assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)">
+            </p>
             <p>
                 <span>Description: </span>{{ resource.description }}
             </p>
@@ -31,8 +34,7 @@
             <p>
                 <span>{{texts.resource_items}}s Count: </span>{{ resource.resource_items }}
             </p>
-            <a (click)="getResourceItems(resource)">View All {{texts.resource_items}}s</a>
-            <a>View Details</a>
+            <a (click)="getResourceItems(resource)">View Details</a>
             <a>Get Latest Data</a>
         </div>
     </div>
