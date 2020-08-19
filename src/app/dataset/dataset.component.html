@@ -3,13 +3,22 @@
         <a class="back" (click)="back()">
             <img src="assets/back.png"> Back
         </a>
-        <p>
-            <span>{{ results.count }}</span>
-            <span> {{texts.resource_items}}(s) for </span>
-            <span>{{ search_text }}</span>
-        </p>
     </div>
-    <div class="results-div">
+    <div class="tab_div" *ngIf="show_data">
+        <ul>
+            <li [ngClass]="{'active': active_tab == 'Details'}" (click)="change_tab('Details')">
+                Details
+            </li>
+            <li [ngClass]="{'active': active_tab == 'Descriptors'}" (click)="change_tab('Descriptors')">
+                Data Descriptors
+            </li>
+            <li [ngClass]="{'active': active_tab == 'Items'}" (click)="change_tab('Items')">
+                {{ results.count }} {{texts.resource_items}}s
+            </li>
+        </ul>
+        <router-outlet></router-outlet>
+    </div>
+    <!-- <div class="results-div">
         <div class="box-style" *ngFor="let resource of results?.items">
             <h4>
                 {{ resource.name }}
@@ -27,5 +36,5 @@
             <a>View Details</a>
             <a>Get Latest Data</a>
         </div>
-    </div>
+    </div> -->
 </div>
