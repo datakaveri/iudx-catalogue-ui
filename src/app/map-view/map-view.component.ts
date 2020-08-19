@@ -171,7 +171,6 @@ export class MapViewComponent {
     this.resource_groups = response;
     console.log(this.resource_groups)
     this.resource_groups.forEach(a=>{
-      console.log(this.searchQuery.resource_groups)
       if(this.searchQuery.resource_groups.includes(a.name)) a.flag = true;
       else a.flag = false;
     });
@@ -184,7 +183,7 @@ export class MapViewComponent {
   }
   apply() {
    
-    let resource_groups = this.resource_groups.filter(a=> { return a.flag == true; }).map(a=> { return a = a.name });
+    let resource_groups = this.resource_groups.filter(a=> { return a.flag == true; }).map(a=> { return a = a.id });
     this.searchQuery.resource_groups = resource_groups;
     this.constantService.set_search_query(this.searchQuery);
     this.closeFilter();
@@ -243,6 +242,7 @@ export class MapViewComponent {
       console.log('circle created');
       var center_point = e.layer._latlng;
       var radius = Math.ceil(e.layer._mRadius);
+      console.log(center_point);
       this.markersLayer.clearLayers();
       //Api call for getting items for that area
       this.api_call_circle(center_point,radius);
