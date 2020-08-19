@@ -13,9 +13,7 @@ export class ItemDetailsComponent implements OnInit {
     private constant: ConstantsService
   ) {
     this.resource = this.constant.get_resource_details();
-    console.log(this.resource);
     this.texts = this.constant.get_nomenclatures();
-    
   }
 
   ngOnInit(): void {

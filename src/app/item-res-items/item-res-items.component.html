@@ -1,1 +1,18 @@
-<p>item-res-items works!</p>
+<div class="items-container">
+  <div *ngFor='let item of resource.items' class='items'>
+    <h3>{{ item.name }}</h3>
+    <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }}</p>
+    <p>
+      <span>Description:</span>{{ item.description }}
+    </p>
+    <p>
+      <span>{{texts.providers}}: </span>{{ item.provider.name }}
+    </p>
+    <p>
+      <span>Location: </span>{{ item.location.address }}
+    </p>
+    <p>
+      <span>{{texts.resource_items}}s Count: </span>{{ resource.count }}
+    </p>
+  </div>
+</div>
