@@ -2,10 +2,10 @@
   height: calc(100vh - 100px - 100px);
   z-index: 0;
   margin: 25px;
-  border: 2px solid var(--warning);
+  border: 2px solid var(--border);
 }
 
-.filder_popup {
+.filter_popup {
   width: calc(400px - 50px);
   padding: 25px;
   height: calc(100vh - 50px);
@@ -75,3 +75,4 @@
     }
   }
 }
+
