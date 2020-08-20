@@ -1,0 +1,17 @@
+.details-container {
+  padding-top: 15px;
+  h3 {
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  p {
+    padding-top: 10px;
+    color: var(--secondary);
+
+    span{
+        color: var(--tertiary);
+        margin-right: 8px;
+    }
+  }
+}

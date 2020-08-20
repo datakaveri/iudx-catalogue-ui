@@ -8,10 +8,12 @@ import { ConstantsService } from '../constants.service';
 })
 export class ItemDetailsComponent implements OnInit {
   resource: any;
+  texts: any;
   constructor(
     private constant: ConstantsService
   ) {
     this.resource = this.constant.get_resource_details();
+    this.texts = this.constant.get_nomenclatures();
   }
 
   ngOnInit(): void {
