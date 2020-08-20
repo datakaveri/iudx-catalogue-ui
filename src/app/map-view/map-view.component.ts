@@ -109,7 +109,7 @@ export class MapViewComponent {
 
   getMapData() {
     if(window.sessionStorage.resource_groups != undefined){
-      this.searchQuery.resource_groups = window.sessionStorage.resource_groups;
+      this.searchQuery.resource_groups = JSON.parse(window.sessionStorage.resource_groups);
     }
     
     this.httpInterceptor
@@ -192,7 +192,8 @@ export class MapViewComponent {
       resource_groups: [],
       
     };
-    // this.constantService.set_search_query(this.searchQuery);
+    this.searchQuery.resource_groups = [];
+    window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
     this.closeFilter();
     this.getMapData();
   }
@@ -204,9 +205,9 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
+      console.log(resource_groups);
     this.searchQuery.resource_groups = resource_groups;
-   window.sessionStorage.resource_groups = this.searchQuery.resource_groups;
-   console.log(window.sessionStorage.resource_groups)
+    window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
     this.getMapData();
   }
   initMap() {

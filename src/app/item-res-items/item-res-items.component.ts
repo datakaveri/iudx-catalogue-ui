@@ -14,7 +14,6 @@ export class ItemResItemsComponent implements OnInit {
   ) { 
     this.resource = this.constant.get_resource_details();
     this.texts = this.constant.get_nomenclatures();
-    console.log(this.resource.items);
   }
 
   ngOnInit(): void {

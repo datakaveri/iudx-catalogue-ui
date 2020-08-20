@@ -1,18 +1,21 @@
-<div class="items-container">
-  <div *ngFor='let item of resource.items' class='items'>
-    <h3>{{ item.name }}</h3>
-    <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }}</p>
-    <p>
-      <span>Description:</span>{{ item.description }}
+<div class="results-div">
+  <div class="box-style" *ngFor="let resource of resource?.items">
+      <h4>
+        {{ resource.name }}
+      </h4>
+      <p>
+        <span>{{texts.resource_items}} ID: </span>{{ resource.id }}
+        <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)">
     </p>
-    <p>
-      <span>{{texts.providers}}: </span>{{ item.provider.name }}
-    </p>
-    <p>
-      <span>Location: </span>{{ item.location.address }}
-    </p>
-    <p>
-      <span>{{texts.resource_items}}s Count: </span>{{ resource.count }}
-    </p>
+      <p>
+          <span>Description: </span>{{ resource.description }}
+      </p>
+      <p>
+          <span>{{texts.providers}}: </span>{{ resource.provider.description }}
+      </p>
+      <p>
+          <span>Location: </span>{{ resource.location.address }}
+      </p>
+      <a>Get Latest Data</a>
   </div>
 </div>
