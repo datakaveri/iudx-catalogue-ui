@@ -108,7 +108,10 @@ export class MapViewComponent {
   }
 
   getMapData() {
-    this.searchQuery.resource_groups = window.sessionStorage.resource_groups;
+    if(window.sessionStorage.resource_groups != undefined){
+      this.searchQuery.resource_groups = window.sessionStorage.resource_groups;
+    }
+    
     this.httpInterceptor
       .post_api('customer/map', this.searchQuery)
       .then((response: any) => {
