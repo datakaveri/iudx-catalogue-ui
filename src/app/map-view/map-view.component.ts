@@ -206,6 +206,7 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
+      console.log(resource_groups);
     this.searchQuery.resource_groups = resource_groups;
    window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
    if(this.searchQuery.resource_groups.length == 0){
