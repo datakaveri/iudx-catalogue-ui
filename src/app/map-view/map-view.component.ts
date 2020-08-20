@@ -68,6 +68,7 @@ export class MapViewComponent {
     private httpInterceptor: InterceptorService
   ) {
     this.show_filter = false;
+    this.body = {};
     this.searchQuery = {
       resource_groups:[]
     };
@@ -84,7 +85,6 @@ export class MapViewComponent {
       console.log(flag)
       this.show_filter = flag;
     });
-
     this.legends = {
       'aqm-bosch-climo':
         'https://image.flaticon.com/icons/svg/1808/1808701.svg',
@@ -108,9 +108,7 @@ export class MapViewComponent {
   }
 
   getMapData() {
-    
-    // this.searchQuery = this.constantService.get_search_query();
-    console.log(this.searchQuery)
+    this.searchQuery.resource_groups = window.sessionStorage.resource_groups;
     this.httpInterceptor
       .post_api('customer/map', this.searchQuery)
       .then((response: any) => {
@@ -179,6 +177,7 @@ export class MapViewComponent {
   }
   toggle_dataset(num) {
     this.resource_groups[num].flag = !this.resource_groups[num].flag;
+    console.log(this.resource_groups[num].flag)
   }
   clear() {
     
@@ -203,8 +202,8 @@ export class MapViewComponent {
         return (a = a.id);
       });
     this.searchQuery.resource_groups = resource_groups;
-    // this.constantService.set_search_query(this.searchQuery);
-    this.closeFilter();
+   window.sessionStorage.resource_groups = this.searchQuery.resource_groups;
+   console.log(window.sessionStorage.resource_groups)
     this.getMapData();
   }
   initMap() {
@@ -351,14 +350,22 @@ export class MapViewComponent {
     });
   }
   api_call_circle(center_point, radius) {
+    console.log(center_point['lng'])
+    this.body =
+      {
+        'type':'intersects',
+        'geometry':'Point',
+        'radius':radius,
+        "coordinates": [center_point['lng'] ,center_point['lat']],
+       'resource_groups': []
+      };
+    
     this.httpInterceptor
-      .get_api_test_map(
-        `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=intersects&maxDistance=${radius}&geometry=Point&coordinates=[ ${center_point['lng']},${center_point['lat']}]`
-      )
+      .post_api('customer/coordinates?city=ui-test',this.body)
       .then((res) => {
-        // console.log(res);
-        this.data = res;
-        console.log(this.data.results.length);
+         console.log(res);
+         this.data = res;
+        console.log(this.data.items.length);
         this.callGeoJsonPlot(this.data);
       });
   }
@@ -375,9 +382,7 @@ export class MapViewComponent {
       });
   }
   api_call_rectangle(boundingPoints) {
-    console.log(
-      `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
-    );
+    
     this.httpInterceptor
       .get_api_test_map(
         `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
@@ -390,7 +395,7 @@ export class MapViewComponent {
       });
   }
   callGeoJsonPlot(data) {
-    for (const i of data.results) {
+    for (const i of data.items) {
       if (i.hasOwnProperty('location')) {
         this.plotGeoJSONs(
           i['location']['geometry']['type'],
