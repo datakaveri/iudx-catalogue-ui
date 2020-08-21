@@ -220,7 +220,7 @@ export class MapViewComponent {
           this.callGeoJsonPlot(this.data);
         });
     } else if (this.is_edited) {
-      this.markersLayer.clearLayers();
+      // this.markersLayer.clearLayers();
       console.log('edited');
 
       this.body.resource_groups = JSON.parse(
@@ -357,6 +357,7 @@ export class MapViewComponent {
         points.forEach((p) => {
           polyPoints.push([p.lng, p.lat]);
         });
+        polyPoints.push([points[0].lng, points[0].lat]);
 
         this.markersLayer.clearLayers();
         this.api_call(polyPoints, radius, types, geometry);
