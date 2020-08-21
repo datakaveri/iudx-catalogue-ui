@@ -62,14 +62,12 @@ export class MapViewComponent {
   legends: {};
   texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
-  show_data:boolean;
   is_drawn: Boolean;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
     this.is_drawn = false;
-    this.show_data = false;
     this.show_filter = false;
     this.body = {};
     this.searchQuery = {
@@ -79,13 +77,8 @@ export class MapViewComponent {
     
     this.getMapData();
     this.texts = this.constantService.get_nomenclatures();
-    // this.constantService.get_filter().subscribe((query) => {
-    //   console.log(query)
-    //   this.searchQuery = query;
-    //   this.getMapData();
-    // });
     this.httpInterceptor.get_filter().subscribe((flag: any)=>{
-      console.log(flag)
+      //console.log(flag)
       this.show_filter = flag;
     });
     this.legends = {
@@ -118,9 +111,8 @@ export class MapViewComponent {
       .post_api('customer/map', this.searchQuery)
       .then((response: any) => {
         const data: L.Marker[] = [];
-        // console.log(response)
         this.results = response;
-        console.log(this.results);
+        //console.log(this.results);
         this.get_filters(response.resource_groups);
 
         /** Added this to get all items on opening GeoInformation**/
@@ -164,14 +156,14 @@ export class MapViewComponent {
       });
   }
   onClick(event) {
-    console.log(event.latlng);
+    // console.log(event.latlng);
   }
   get_bullets() {
     return `&#9679;`;
   }
   get_filters(response) {
     this.resource_groups = response;
-    console.log(this.resource_groups);
+    //console.log(this.resource_groups);
     this.resource_groups.forEach((a) => {
       if (this.searchQuery.resource_groups.includes(a.name)) a.flag = true;
       else a.flag = false;
@@ -182,7 +174,7 @@ export class MapViewComponent {
   }
   toggle_dataset(num) {
     this.resource_groups[num].flag = !this.resource_groups[num].flag;
-    console.log(this.resource_groups[num].flag)
+    //console.log(this.resource_groups[num].flag)
   }
   clear() {
     
@@ -207,7 +199,7 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
-      console.log(resource_groups);
+      //console.log(resource_groups);
     this.searchQuery.resource_groups = resource_groups;
     window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
     if(this.searchQuery.resource_groups.length == 0){
@@ -253,9 +245,9 @@ export class MapViewComponent {
     return draw_options;
   }
   display_latest_data(event, data, id) {
-    console.log(event);
-    console.log(data);
-    console.log(id);
+    //console.log(event);
+    //console.log(data);
+    //console.log(id);
   }
 
   //Events created for Drawing, Editing & deleted
@@ -268,15 +260,12 @@ export class MapViewComponent {
     this.drawnItems.clearLayers();
     var type = e.layerType;
     if (type === 'circle') {
-      console.log('circle created');
       var center_point = e.layer._latlng;
       var radius = Math.ceil(e.layer._mRadius);
-      console.log(center_point);
       this.markersLayer.clearLayers();
       //Api call for getting items for that area
       this.api_call_circle(center_point, radius);
     } else if (type === 'polygon') {
-      console.log('polygon created');
       var points = e.layer._latlngs[0];
       var polyPoints = [];
       points.forEach(p=>{
@@ -299,16 +288,13 @@ export class MapViewComponent {
     // this.markerClusterData.addLayer(layer);
   }
   onDrawDeleted(e: any) {
-    // console.log('deleted');
     this.is_drawn = false;
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
     var layers = e.layers;
-    // console.log(layers);
     layers.eachLayer((layer) => {
       if (layer instanceof L.Circle) {
-        // console.log('editing circle');
         var center_point = layer.getLatLng();
         var radius = Math.ceil(layer.getRadius());
         this.markersLayer.clearLayers();
@@ -320,36 +306,25 @@ export class MapViewComponent {
         var polyPoints = [];
         var _obj = Object.keys(layers._layers)[0];
         var points = layers._layers[_obj]['_latlngs'][0];
-        for (var i = 0; i < points.length - 1; i += 1) {
-          var coordinates = [points[i]['lng'] + ',' + points[i]['lat']];
-          polyPoints.push('[' + coordinates + ']');
-
-          polyPoints.join(',');
-        }
-        console.log(polyPoints);
+        points.forEach(p => {
+          polyPoints.push([p.lng,p.lat]);
+        });
+        
         this.markersLayer.clearLayers();
         this.api_call_polygon(polyPoints);
       } else if (layer instanceof L.Rectangle) {
         var _obj1 = Object.keys(layers._layers)[0];
-        // var bound_points = layers._layers[_obj1]['_latlngs'];
         var bound_points = layers._layers[_obj1]['_latlngs'][0];
         var boundingPoints = [];
-        console.log(layers);
 
-        console.log(bound_points);
-
-        var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
-        var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
-        boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
-        boundingPoints.join(',');
-        console.log(boundingPoints);
+        boundingPoints.push([bound_points[1]['lng'], bound_points[1]['lat']]);
+        boundingPoints.push([bound_points[3]['lng'], bound_points[3]['lat']])
         this.markersLayer.clearLayers();
         this.api_call_rectangle(boundingPoints);
       }
     });
   }
   api_call_circle(center_point, radius) {
-    console.log(center_point['lng'])
     this.body =
       {
         'type':'intersects',
@@ -362,9 +337,8 @@ export class MapViewComponent {
     this.httpInterceptor
       .post_api('customer/coordinates?city=ui-test',this.body)
       .then((res) => {
-         console.log(res);
+         //console.log(res);
          this.data = res;
-        console.log(this.data.items.length);
         this.callGeoJsonPlot(this.data);
       });
   }
@@ -379,14 +353,10 @@ export class MapViewComponent {
        'resource_groups': []
       };
       this.httpInterceptor
-      // .get_api_test_map(
-      //   `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
-      // )
       .post_api('customer/coordinates',this.body)
       .then((res) => {
         // console.log(res);
         this.data = res;
-        // console.log(this.data.results.length);
         this.callGeoJsonPlot(this.data);
       });
   }
@@ -400,9 +370,6 @@ export class MapViewComponent {
      'resource_groups': []
     };
     this.httpInterceptor
-      // .get_api_test_map(
-      //   `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
-      // )
       .post_api('customer/coordinates',this.body)
       .then((res) => {
         // console.log(res);
@@ -464,7 +431,7 @@ export class MapViewComponent {
     }
   }
   getMarkerIcon(_rsg) {
-    console.log(_rsg);
+    //console.log(_rsg);
     return L.icon({
       iconUrl: this.legends[_rsg.split('/')[3]],
       iconSize: [38, 95], // size of the icon
