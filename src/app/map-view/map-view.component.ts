@@ -62,11 +62,13 @@ export class MapViewComponent {
   legends: {};
   texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
+  show_data:boolean;
 
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
+    this.show_data = false;
     this.show_filter = false;
     this.body = {};
     this.searchQuery = {
@@ -287,20 +289,21 @@ export class MapViewComponent {
       this.api_call_polygon(polyPoints);
     } else if (type === 'rectangle') {
       var bound_points = e.layer._latlngs[0];
-      console.log(bound_points);
+      // console.log(bound_points);
 
       var boundingPoints = [];
 
       var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
       var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
-      boundingPoints.push('[' + b1 + ']', '[' + b2 + ']');
+      boundingPoints.push('[' + b1 + ']');
+      boundingPoints.push('[' + b2 + ']');
       boundingPoints.join(',');
 
-      console.log(boundingPoints);
+      // console.log(boundingPoints);
 
       //Api call for getting items for that area
       this.markersLayer.clearLayers();
-      this.api_call_rectangle(boundingPoints);
+      this.api_call_rectangle(bound_points);
     }
 
     this.drawnItems.addLayer(layer);
@@ -332,7 +335,7 @@ export class MapViewComponent {
           var coordinates = [points[i]['lng'] + ',' + points[i]['lat']];
           polyPoints.push('[' + coordinates + ']');
 
-          polyPoints.join(',]');
+          polyPoints.join(',');
         }
         console.log(polyPoints);
         this.markersLayer.clearLayers();
@@ -378,10 +381,20 @@ export class MapViewComponent {
       });
   }
   api_call_polygon(polyPoints) {
+    console.log(polyPoints);
+    this.body =
+      {
+        'type':'within',
+        'geometry':'Polygon',
+        'radius':0,
+        "coordinates":[polyPoints+","+polyPoints[0]],
+       'resource_groups': []
+      };
     this.httpInterceptor
-      .get_api_test_map(
-        `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
-      )
+      // .get_api_test_map(
+      //   `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
+      // )
+      .post_api('customer/coordinates',this.body)
       .then((res) => {
         // console.log(res);
         this.data = res;
@@ -390,15 +403,25 @@ export class MapViewComponent {
       });
   }
   api_call_rectangle(boundingPoints) {
-    
+    console.log(JSON.stringify(boundingPoints));
+    // var arr = boundingPoints.split('"');
+    // console.log(arr)
+    this.body =
+    {
+      'type':'within',
+      'geometry':'bbox',
+      'radius':0,
+      "coordinates":[[boundingPoints[1]['lng'] ,boundingPoints[1]['lat']],[boundingPoints[3]['lng'] ,boundingPoints[3]['lat']]],
+     'resource_groups': []
+    };
     this.httpInterceptor
-      .get_api_test_map(
-        `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
-      )
+      // .get_api_test_map(
+      //   `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=bbox&coordinates=[${boundingPoints}]`
+      // )
+      .post_api('customer/coordinates',this.body)
       .then((res) => {
         // console.log(res);
         this.data = res;
-        console.log(this.data.results.length);
         this.callGeoJsonPlot(this.data);
       });
   }
