@@ -63,11 +63,12 @@ export class MapViewComponent {
   texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
   show_data:boolean;
-
+  is_drawn: Boolean;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
+    this.is_drawn = false;
     this.show_data = false;
     this.show_filter = false;
     this.body = {};
@@ -208,11 +209,15 @@ export class MapViewComponent {
       });
       console.log(resource_groups);
     this.searchQuery.resource_groups = resource_groups;
-   window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
-   if(this.searchQuery.resource_groups.length == 0){
-     this.markerClusterGroup.clearLayers();
-   }
-    this.getMapData();
+    window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
+    if(this.searchQuery.resource_groups.length == 0){
+      this.markerClusterGroup.clearLayers();
+    }
+    if(this.is_drawn) {
+      // this.common_fn();
+    } else {
+      this.getMapData();
+    }
   }
   initMap() {
     var map_options = {
@@ -256,13 +261,12 @@ export class MapViewComponent {
   //Events created for Drawing, Editing & deleted
 
   onDrawCreated(e: any) {
+    this.is_drawn = true;
     const layer = (e as DrawEvents.Created).layer;
-
     this.markerClusterGroup.clearLayers();
     // this.markersLayer.clearLayers();
     this.drawnItems.clearLayers();
     var type = e.layerType;
-
     if (type === 'circle') {
       console.log('circle created');
       var center_point = e.layer._latlng;
@@ -296,6 +300,7 @@ export class MapViewComponent {
   }
   onDrawDeleted(e: any) {
     // console.log('deleted');
+    this.is_drawn = false;
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
@@ -326,7 +331,6 @@ export class MapViewComponent {
         this.api_call_polygon(polyPoints);
       } else if (layer instanceof L.Rectangle) {
         var _obj1 = Object.keys(layers._layers)[0];
-
         // var bound_points = layers._layers[_obj1]['_latlngs'];
         var bound_points = layers._layers[_obj1]['_latlngs'][0];
         var boundingPoints = [];
