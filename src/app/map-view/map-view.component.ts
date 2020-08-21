@@ -63,28 +63,31 @@ export class MapViewComponent {
   texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
   is_drawn: Boolean;
+  is_edited: Boolean;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
     this.is_drawn = false;
+    this.is_edited = false;
     this.show_filter = false;
     this.body = {};
     this.searchQuery = {
-      resource_groups:[]
+      resource_groups: [],
     };
     // this.constantService.set_search_query(this.query)
-    
+
     this.getMapData();
     this.texts = this.constantService.get_nomenclatures();
-    this.httpInterceptor.get_filter().subscribe((flag: any)=>{
-      //console.log(flag)
+    this.httpInterceptor.get_filter().subscribe((flag: any) => {
       this.show_filter = flag;
     });
     this.legends = {
-      'aqm-bosch-climo': 'https://image.flaticon.com/icons/svg/1808/1808701.svg',
+      'aqm-bosch-climo':
+        'https://image.flaticon.com/icons/svg/1808/1808701.svg',
       'pune-bins': 'https://image.flaticon.com/icons/svg/3299/3299935.svg',
-      'pune-streetlights': 'https://image.flaticon.com/icons/svg/1245/1245929.svg',
+      'pune-streetlights':
+        'https://image.flaticon.com/icons/svg/1245/1245929.svg',
     };
   }
   ngOnInit(): void {
@@ -102,11 +105,11 @@ export class MapViewComponent {
   }
 
   getMapData() {
-    if(window.sessionStorage.resource_groups != undefined){
+    if (window.sessionStorage.resource_groups != undefined) {
       this.searchQuery.resource_groups = window.sessionStorage.resource_groups;
       // console.log(this.searchQuery.resource_groups)
     }
-    
+
     this.httpInterceptor
       .post_api('customer/map', this.searchQuery)
       .then((response: any) => {
@@ -163,9 +166,8 @@ export class MapViewComponent {
   }
   get_filters(response) {
     this.resource_groups = response;
-    //console.log(this.resource_groups); var geometry = 'Point';
-      var types = 'intersects';
-      var point =[];
+    var types = 'intersects';
+    var point = [];
     this.resource_groups.forEach((a) => {
       if (this.searchQuery.resource_groups.includes(a.name)) a.flag = true;
       else a.flag = false;
@@ -176,19 +178,17 @@ export class MapViewComponent {
   }
   toggle_dataset(num) {
     this.resource_groups[num].flag = !this.resource_groups[num].flag;
-    //console.log(this.resource_groups[num].flag)
   }
   clear() {
-    
-    this.resource_groups.forEach(a=>{
+    this.resource_groups.forEach((a) => {
       a.flag = false;
     });
     this.searchQuery = {
-      
       resource_groups: [],
-      
     };
-    window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
+    window.sessionStorage.resource_groups = JSON.stringify(
+      this.searchQuery.resource_groups
+    );
     this.closeFilter();
     this.markerClusterGroup.clearLayers();
     this.markersLayer.clearLayers();
@@ -202,22 +202,37 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
-      //console.log(resource_groups);
+    //console.log(resource_groups);
     this.searchQuery.resource_groups = resource_groups;
-    window.sessionStorage.resource_groups = JSON.stringify(this.searchQuery.resource_groups);
-    if(this.searchQuery.resource_groups.length == 0){
-      this.markerClusterGroup.clearLayers();
-    }
-    if(this.is_drawn) {
-      this.markersLayer.clearLayers()
-      this.body.resource_groups = JSON.parse(window.sessionStorage.resource_groups);
+    window.sessionStorage.resource_groups = JSON.stringify(
+      this.searchQuery.resource_groups
+    );
+    if (this.is_drawn) {
+      this.markersLayer.clearLayers();
+      this.body.resource_groups = JSON.parse(
+        window.sessionStorage.resource_groups
+      );
       this.httpInterceptor
-      .post_api('customer/coordinates?city=ui-test',this.body)
-      .then((res) => {
-         console.log(res);
-         this.data = res;
-        this.callGeoJsonPlot(this.data);
-      });
+        .post_api('customer/coordinates?city=ui-test', this.body)
+        .then((res) => {
+          console.log(res);
+          this.data = res;
+          this.callGeoJsonPlot(this.data);
+        });
+    } else if (this.is_edited) {
+      this.markersLayer.clearLayers();
+      console.log('edited');
+
+      this.body.resource_groups = JSON.parse(
+        window.sessionStorage.resource_groups
+      );
+      this.httpInterceptor
+        .post_api('customer/coordinates?city=ui-test', this.body)
+        .then((res) => {
+          console.log(res);
+          this.data = res;
+          this.callGeoJsonPlot(this.data);
+        });
     } else {
       this.getMapData();
     }
@@ -255,15 +270,13 @@ export class MapViewComponent {
     };
     return draw_options;
   }
-  display_latest_data(event, data, id) {
-    //console.log(event);
-    //console.log(data);
-    //console.log(id);
-  }
+  display_latest_data(event, data, id) {}
 
   //Events created for Drawing, Editing & deleted
 
   onDrawCreated(e: any) {
+    console.log('created');
+
     this.is_drawn = true;
     const layer = (e as DrawEvents.Created).layer;
     this.markerClusterGroup.clearLayers();
@@ -271,103 +284,120 @@ export class MapViewComponent {
     this.drawnItems.clearLayers();
     var type = e.layerType;
     if (type === 'circle') {
+      console.log('circle');
+
       var geometry = 'Point';
       var types = 'intersects';
-      var point =[];
+      var point = [];
       var center_point = e.layer._latlng;
-      point.push(center_point['lng'] ,center_point['lat'])
+      point.push(center_point['lng'], center_point['lat']);
       var radius = Math.ceil(e.layer._mRadius);
       this.markersLayer.clearLayers();
       //Api call for getting items for that area
-      this.api_call(point,radius,types,geometry);
+      console.log('circle1');
+
+      this.api_call(point, radius, types, geometry);
     } else if (type === 'polygon') {
       var geometry = 'Polygon';
       var types = 'within';
       var radius = 0;
       var points = e.layer._latlngs[0];
       var polyPoints = [];
-      points.forEach(p=>{
-        polyPoints.push([p.lng,p.lat]);
+      points.forEach((p) => {
+        polyPoints.push([p.lng, p.lat]);
       });
-      polyPoints.push([points[0].lng,points[0].lat]);
+      polyPoints.push([points[0].lng, points[0].lat]);
       this.markersLayer.clearLayers();
-      this.api_call(polyPoints, radius,types,geometry);
+      this.api_call(polyPoints, radius, types, geometry);
     } else if (type === 'rectangle') {
       var geometry = 'bbox';
       var types = 'within';
       var radius = 0;
       var bound_points = e.layer._latlngs[0];
       var boundingPoints = [];
-      boundingPoints.push([bound_points[1]['lng'],bound_points[1]['lat']]);
-      boundingPoints.push([bound_points[3]['lng'],bound_points[3]['lat']]);
+      boundingPoints.push([bound_points[1]['lng'], bound_points[1]['lat']]);
+      boundingPoints.push([bound_points[3]['lng'], bound_points[3]['lat']]);
       //Api call for getting items for that area
       this.markersLayer.clearLayers();
-      this.api_call(boundingPoints,radius,types,geometry);
+      this.api_call(boundingPoints, radius, types, geometry);
     }
 
     this.drawnItems.addLayer(layer);
   }
   onDrawDeleted(e: any) {
+    this.is_edited = false;
     this.is_drawn = false;
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
+    this.is_edited = true;
     var layers = e.layers;
     layers.eachLayer((layer) => {
       if (layer instanceof L.Circle) {
+        var geometry = 'Point';
+        var types = 'intersects';
+        var point = [];
         var center_point = layer.getLatLng();
+        point.push(center_point['lng'], center_point['lat']);
         var radius = Math.ceil(layer.getRadius());
         this.markersLayer.clearLayers();
-        // this.api_call_circle(center_point, radius);
-        // this.api_call(center_point, radius);
+        this.api_call(point, radius, types, geometry);
       } else if (
         layer instanceof L.Polygon &&
         !(layer instanceof L.Rectangle)
       ) {
+        var geometry = 'Polygon';
+        var types = 'within';
+        var radius = 0;
         var polyPoints = [];
         var _obj = Object.keys(layers._layers)[0];
+        console.log(_obj);
+
         var points = layers._layers[_obj]['_latlngs'][0];
-        points.forEach(p => {
-          polyPoints.push([p.lng,p.lat]);
+        points.forEach((p) => {
+          polyPoints.push([p.lng, p.lat]);
         });
-        
+
         this.markersLayer.clearLayers();
-        // this.api_call_polygon(polyPoints);
-        // this.api_call(polyPoints, radius);
+        this.api_call(polyPoints, radius, types, geometry);
       } else if (layer instanceof L.Rectangle) {
+        var geometry = 'bbox';
+        var types = 'within';
+        var radius = 0;
         var _obj1 = Object.keys(layers._layers)[0];
         var bound_points = layers._layers[_obj1]['_latlngs'][0];
         var boundingPoints = [];
 
         boundingPoints.push([bound_points[1]['lng'], bound_points[1]['lat']]);
-        boundingPoints.push([bound_points[3]['lng'], bound_points[3]['lat']])
+        boundingPoints.push([bound_points[3]['lng'], bound_points[3]['lat']]);
         this.markersLayer.clearLayers();
-        // this.api_call_rectangle(boundingPoints);
-        // this.api_call(boundingPoints, radius);
+        this.api_call(boundingPoints, radius, types, geometry);
       }
     });
   }
   api_call(points, radius, types, geometry) {
-    
-    this.body.resource_groups = JSON.parse(window.sessionStorage.resource_groups);
-    // console.log(this.body.resource_groups)
-      this.body =
-        {
-          'type':types,
-          'geometry': geometry,
-          'radius':radius,
-          "coordinates": points,
-         'resource_groups': []
-        };
-      
-      this.httpInterceptor
-        .post_api('customer/coordinates?city=ui-test',this.body)
-        .then((res) => {
-           console.log(res);
-           this.data = res;
-          this.callGeoJsonPlot(this.data);
-        });
+    if (window.sessionStorage.resource_groups != undefined) {
+      this.body.resource_groups = window.sessionStorage.resource_groups;
+    } else {
+      this.body.resource_groups = [];
     }
+    // console.log(this.body.resource_groups);
+    this.body = {
+      type: types,
+      geometry: geometry,
+      radius: radius,
+      coordinates: points,
+      resource_groups: this.body.resource_groups,
+    };
+
+    this.httpInterceptor
+      .post_api('customer/coordinates?city=ui-test', this.body)
+      .then((res) => {
+        console.log(res);
+        this.data = res;
+        this.callGeoJsonPlot(this.data);
+      });
+  }
 
   callGeoJsonPlot(data) {
     for (const i of data.items) {
