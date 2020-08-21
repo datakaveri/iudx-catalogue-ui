@@ -63,7 +63,6 @@ export class MapViewComponent {
   texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
   is_drawn: Boolean;
-  is_edited: Boolean;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
@@ -215,7 +214,7 @@ export class MapViewComponent {
       this.httpInterceptor
         .post_api('customer/coordinates?city=ui-test', this.body)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.data = res;
           this.callGeoJsonPlot(this.data);
         });
@@ -270,8 +269,6 @@ export class MapViewComponent {
     this.drawnItems.clearLayers();
     var type = e.layerType;
     if (type === 'circle') {
-      console.log('circle');
-
       var geometry = 'Point';
       var types = 'intersects';
       var point = [];
@@ -280,8 +277,6 @@ export class MapViewComponent {
       var radius = Math.ceil(e.layer._mRadius);
       this.markersLayer.clearLayers();
       //Api call for getting items for that area
-      console.log('circle1');
-
       this.api_call(point, radius, types, geometry);
     } else if (type === 'polygon') {
       var geometry = 'Polygon';
@@ -335,7 +330,6 @@ export class MapViewComponent {
         var radius = 0;
         var polyPoints = [];
         var _obj = Object.keys(layers._layers)[0];
-        console.log(_obj);
 
         var points = layers._layers[_obj]['_latlngs'][0];
         points.forEach((p) => {
@@ -378,7 +372,7 @@ export class MapViewComponent {
     this.httpInterceptor
       .post_api('customer/coordinates?city=ui-test', this.body)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.data = res;
         this.callGeoJsonPlot(this.data);
       });
