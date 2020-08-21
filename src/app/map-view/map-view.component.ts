@@ -69,7 +69,7 @@ export class MapViewComponent {
     private httpInterceptor: InterceptorService
   ) {
     this.is_drawn = false;
-    this.is_edited = false;
+    
     this.show_filter = false;
     this.body = {};
     this.searchQuery = {
@@ -219,20 +219,6 @@ export class MapViewComponent {
           this.data = res;
           this.callGeoJsonPlot(this.data);
         });
-    } else if (this.is_edited) {
-      // this.markersLayer.clearLayers();
-      console.log('edited');
-
-      this.body.resource_groups = JSON.parse(
-        window.sessionStorage.resource_groups
-      );
-      this.httpInterceptor
-        .post_api('customer/coordinates?city=ui-test', this.body)
-        .then((res) => {
-          console.log(res);
-          this.data = res;
-          this.callGeoJsonPlot(this.data);
-        });
     } else {
       this.getMapData();
     }
@@ -325,12 +311,10 @@ export class MapViewComponent {
     this.drawnItems.addLayer(layer);
   }
   onDrawDeleted(e: any) {
-    this.is_edited = false;
     this.is_drawn = false;
     this.markersLayer.clearLayers();
   }
   onDrawEdited(e: any) {
-    this.is_edited = true;
     var layers = e.layers;
     layers.eachLayer((layer) => {
       if (layer instanceof L.Circle) {
