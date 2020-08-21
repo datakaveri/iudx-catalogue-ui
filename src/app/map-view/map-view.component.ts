@@ -88,11 +88,9 @@ export class MapViewComponent {
       this.show_filter = flag;
     });
     this.legends = {
-      'aqm-bosch-climo':
-        'https://image.flaticon.com/icons/svg/1808/1808701.svg',
+      'aqm-bosch-climo': 'https://image.flaticon.com/icons/svg/1808/1808701.svg',
       'pune-bins': 'https://image.flaticon.com/icons/svg/3299/3299935.svg',
-      'pune-streetlights':
-        'https://image.flaticon.com/icons/svg/1245/1245929.svg',
+      'pune-streetlights': 'https://image.flaticon.com/icons/svg/1245/1245929.svg',
     };
   }
   ngOnInit(): void {
@@ -277,33 +275,19 @@ export class MapViewComponent {
       console.log('polygon created');
       var points = e.layer._latlngs[0];
       var polyPoints = [];
-      var coordinates;
-      for (let i = 0; i <= points.length - 1; i += 1) {
-        coordinates = [points[i]['lng'] + ',' + points[i]['lat']];
-        polyPoints.push('[' + coordinates + ']');
-
-        polyPoints.join(',]');
-      }
-      // console.log(polyPoints);
+      points.forEach(p=>{
+        polyPoints.push([p.lng,p.lat]);
+      });
       this.markersLayer.clearLayers();
       this.api_call_polygon(polyPoints);
     } else if (type === 'rectangle') {
       var bound_points = e.layer._latlngs[0];
-      // console.log(bound_points);
-
       var boundingPoints = [];
-
-      var b1 = bound_points[1]['lng'] + ',' + bound_points[1]['lat'];
-      var b2 = bound_points[3]['lng'] + ',' + bound_points[3]['lat'];
-      boundingPoints.push('[' + b1 + ']');
-      boundingPoints.push('[' + b2 + ']');
-      boundingPoints.join(',');
-
-      // console.log(boundingPoints);
-
+      boundingPoints.push([bound_points[1]['lng'],bound_points[1]['lat']]);
+      boundingPoints.push([bound_points[3]['lng'],bound_points[3]['lat']]);
       //Api call for getting items for that area
       this.markersLayer.clearLayers();
-      this.api_call_rectangle(bound_points);
+      this.api_call_rectangle(boundingPoints);
     }
 
     this.drawnItems.addLayer(layer);
@@ -381,16 +365,16 @@ export class MapViewComponent {
       });
   }
   api_call_polygon(polyPoints) {
-    console.log(polyPoints);
+    polyPoints = [ ...polyPoints, polyPoints[0]];
     this.body =
       {
         'type':'within',
         'geometry':'Polygon',
         'radius':0,
-        "coordinates":[polyPoints+","+polyPoints[0]],
+        "coordinates":polyPoints,
        'resource_groups': []
       };
-    this.httpInterceptor
+      this.httpInterceptor
       // .get_api_test_map(
       //   `https://139.59.31.45:8443/iudx/cat/v1/search?geoproperty=location&georel=within&geometry=Polygon&coordinates=[[${polyPoints},${polyPoints[0]}]]`
       // )
@@ -403,15 +387,12 @@ export class MapViewComponent {
       });
   }
   api_call_rectangle(boundingPoints) {
-    console.log(JSON.stringify(boundingPoints));
-    // var arr = boundingPoints.split('"');
-    // console.log(arr)
     this.body =
     {
       'type':'within',
       'geometry':'bbox',
       'radius':0,
-      "coordinates":[[boundingPoints[1]['lng'] ,boundingPoints[1]['lat']],[boundingPoints[3]['lng'] ,boundingPoints[3]['lat']]],
+      "coordinates":boundingPoints,
      'resource_groups': []
     };
     this.httpInterceptor
