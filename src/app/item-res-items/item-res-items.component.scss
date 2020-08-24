@@ -1,59 +1,62 @@
 .results-div {
-  width: calc(100% - 50px);
-  border-left: 1px solid var(--border);
-  padding: 15px 25px;
-  .box-style {
-      width: calc(100% - 30px);
-      align-items: center;
-      transition: background-color 0.2s;
-      margin-bottom: 10px;
-      padding: 15px;
-      h4 {
-          font-weight: 600;
-          color: var(--primary);
-          img {
-              cursor: pointer;
-              width: 25px;
-              float: right;
-          }
-      }
-      p {
-          padding-top: 10px;
-          color: var(--secondary);
-      }
-      p {
-        img {
-            width: 20px;
-            vertical-align: sub;
-            margin-left: 10px;
-            cursor: pointer;
+    width: calc(100% - 0px);
+    padding: 15px 0;
+    .box-style {
+        width: calc(100% - 0px);
+        align-items: center;
+        transition: background-color 0.2s;
+        margin-bottom: 10px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border);
+        h4 {
+            font-weight: 600;
+            color: var(--primary);
+            span {
+                color: var(--tertiary);
+            }
+            img {
+                cursor: pointer;
+                width: 25px;
+                float: right;
+            }
         }
-      }
-      a {
-          color: var(--highlight);
-          font-weight: 600;
-          display: inline-block;
-          margin-top: 15px;
-          margin-right: 30px;
-      }
-      p:first-child {
-          color: var(--secondary);
-          padding-top: 20px;
-          font-weight: 500;
-      }
-      p > span {
-          color: var(--tertiary);
-          // font-weight: 500;
-      }
-
-      a:hover {
-          text-decoration: underline;
-          color: var(--highlight);
-      }
-  }
-  .box-style:nth-child(odd) {
-      background-color: var(--off-white);
-  }
+        p {
+            padding-top: 10px;
+            color: var(--secondary);
+        }
+        p {
+          img {
+              width: 20px;
+              vertical-align: sub;
+              margin-left: 10px;
+              cursor: pointer;
+          }
+        }
+        a {
+            color: var(--highlight);
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px;
+            margin-right: 30px;
+        }
+        p:first-child {
+            color: var(--secondary);
+            padding-top: 20px;
+            font-weight: 500;
+        }
+        p > span {
+            color: var(--tertiary);
+            // font-weight: 500;
+        }
+  
+        a:hover {
+            text-decoration: underline;
+            color: var(--highlight);
+        }
+    }
+    .box-style:last-of-type {
+        border: none;
+    }
 }
 .pagination-box {
   left: 50%;

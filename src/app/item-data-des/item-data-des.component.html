@@ -1,1 +1,35 @@
-<p>item-data-des works!</p>
+<div class="results-div">
+    <div class="box-style" *ngFor="let resource of data_descriptor">
+        <h4>
+            <span>
+                Key: 
+            </span>
+            {{ resource[0].value }}
+        </h4>
+        <div *ngFor="let key of resource;let i=index;">
+            <div *ngIf="i != 0 && key.level == 1">
+                <p>
+                    <span>
+                        {{key.key}}: 
+                    </span>
+                    {{key.value}}
+                </p>
+            </div>
+            <div *ngIf="i != 0 && key.level == 2">
+                <p>
+                    <span>
+                        {{key.key}}: 
+                    </span>
+                </p>
+                <div *ngFor="let item of key.value" class="level_2">
+                    <p>
+                        <span>
+                            {{item.key}}: 
+                        </span>
+                        {{item.value}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
