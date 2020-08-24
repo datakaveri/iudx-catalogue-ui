@@ -20,12 +20,12 @@
         </div>
       </div>
       <div class="map_view">
-      <button *ngIf="router.url != '/search/map'" (click)="showMap()">
+      <!-- <button *ngIf="router.url != '/search/map'" (click)="showMap()">
         Geo Information
       </button>
       <button *ngIf="router.url === '/search/map'" (click)="listView()">
         List View
-      </button>
+      </button> -->
       <button (click)="toggle()" *ngIf="show_filter_button">
         <img src=".\assets\filter.png" />
         Filters

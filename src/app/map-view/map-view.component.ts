@@ -106,7 +106,6 @@ export class MapViewComponent {
   getMapData() {
     if (window.sessionStorage.resource_groups != undefined) {
       this.searchQuery.resource_groups = window.sessionStorage.resource_groups;
-      // console.log(this.searchQuery.resource_groups)
     }
 
     this.httpInterceptor

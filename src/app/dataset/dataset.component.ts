@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ConstantsService } from '../constants.service';
 import { InterceptorService } from '../interceptor.service';
 
@@ -29,6 +29,11 @@ export class DatasetComponent implements OnInit {
     this.router.events.subscribe((route: any) => {
       if(Object.keys(route).length == 3 && route.url == '/search/dataset' && route.urlAfterRedirects == '/search/dataset') this.get_items();
     });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.set_route(this.router.url);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -43,7 +48,11 @@ export class DatasetComponent implements OnInit {
     this.httpInterceptor.post_api('customer/items', post_data).then((res) => {
       this.show_data = true;
       this.constantService.set_resource_details(res);
-      this.change_tab('Details');
+      if(this.router.url == '/search/dataset') {
+        this.change_tab('Details');
+      } else {
+        this.set_route(this.router.url);
+      }
     });
   }
 
@@ -58,6 +67,26 @@ export class DatasetComponent implements OnInit {
         break;
       case 'Items':
         this.router.navigate(['/search/dataset/items']);
+        break;
+      case 'Map':
+        this.router.navigate(['/search/dataset/map-view']);
+        break;
+    }
+  }
+
+  set_route(route) {
+    switch(route) {
+      case '/search/dataset/details':
+        this.active_tab = 'Details';
+        break;
+      case '/search/dataset/data-descriptors':
+        this.active_tab = 'Descriptors';
+        break;
+      case '/search/dataset/items':
+        this.active_tab = 'Items';
+        break;
+      case '/search/dataset/map-view':
+        this.active_tab = 'Map';
         break;
     }
   }

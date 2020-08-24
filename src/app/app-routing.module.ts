@@ -9,6 +9,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { ItemDataDesComponent } from './item-data-des/item-data-des.component';
 import { ItemResItemsComponent } from './item-res-items/item-res-items.component';
 import { DatasetComponent } from './dataset/dataset.component';
+import { ItemMapComponent } from './item-map/item-map.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
           {
             path: 'items',
             component: ItemResItemsComponent
+          },
+          {
+            path: 'map-view',
+            component: ItemMapComponent
           }
         ]
       },

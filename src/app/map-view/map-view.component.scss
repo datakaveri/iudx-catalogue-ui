@@ -2,9 +2,11 @@
   height: calc(100vh - 100px - 100px);
   z-index: 0;
   margin: 25px;
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
 }
-
+.map-border {
+  padding-top: 50px;
+}
 .filter_popup {
   width: calc(400px - 50px);
   padding: 25px;

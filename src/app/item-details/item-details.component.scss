@@ -8,7 +8,10 @@
   p {
     padding-top: 10px;
     color: var(--secondary);
-
+    a {
+      text-decoration: underline;
+      text-underline-position: below;
+    }
     span{
         color: var(--tertiary);
         margin-right: 8px;

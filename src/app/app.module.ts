@@ -25,6 +25,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { ItemDataDesComponent } from './item-data-des/item-data-des.component';
 import { ItemResItemsComponent } from './item-res-items/item-res-items.component';
 import { DatasetComponent } from './dataset/dataset.component';
+import { ItemMapComponent } from './item-map/item-map.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DatasetComponent } from './dataset/dataset.component';
     ItemDataDesComponent,
     ItemResItemsComponent,
     DatasetComponent,
+    ItemMapComponent,
   ],
   imports: [
     BrowserModule,
