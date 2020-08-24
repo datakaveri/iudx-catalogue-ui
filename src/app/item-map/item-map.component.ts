@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ConstantsService } from '../constants.service';
-import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 import {
   latLng,
   tileLayer,
   FeatureGroup,
-  DrawEvents,
   Map,
   featureGroup,
 } from 'leaflet';
@@ -98,7 +96,19 @@ export class ItemMapComponent implements OnInit {
     for (const c of this.resources) {
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng]);
+      const markers = L.marker([lat, lng]).bindPopup( 
+         `<div id="name">
+      <p>` +
+      c.name +
+        `</p>
+      
+        </div>
+        <div id="pop_up_` +
+        c.id +
+        `"><p class="text-center" style="padding-right:7.5px;">
+    </p>` +
+        
+        `</div>`);
       data.push(markers);
       this.markerClusterData = data;
     }
@@ -107,5 +117,5 @@ export class ItemMapComponent implements OnInit {
   markerClusterReady(group: L.MarkerClusterGroup) {
     this.markerClusterGroup = group;
   }
-
-}
+  
+  }

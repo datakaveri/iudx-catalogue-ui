@@ -259,8 +259,6 @@ export class MapViewComponent {
   //Events created for Drawing, Editing & deleted
 
   onDrawCreated(e: any) {
-    console.log('created');
-
     this.is_drawn = true;
     const layer = (e as DrawEvents.Created).layer;
     this.markerClusterGroup.clearLayers();
