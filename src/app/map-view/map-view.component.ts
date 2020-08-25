@@ -128,10 +128,6 @@ export class MapViewComponent {
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
           const markers = L.marker([lat, lng]).bindPopup(
-            // `<div id="name">
-            // <p>` +
-            //   this.describe.split('Description for')[1] +
-            //   `</p>
             `<div id="name">
             <p style='font-weight:bold'>` +
               this.name +
@@ -150,7 +146,7 @@ export class MapViewComponent {
               `">
               <p class="text-center" style='padding-right:2px'>
           </p>` +
-              ` <a style='color: var(--highlight); font-weight:bold; text-decoration: underline;' (click)="display_latest_data($event, ` +
+              ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
               response.items +
               `, ` +
               c.id +
@@ -414,24 +410,29 @@ export class MapViewComponent {
       var lat = data.location.geometry.coordinates[1];
 
       var customPopup =
-        `<div id="name">
-        <p>` +
-        rsg.split('/')[3] +
-        `</p>
-        <h1>` +
+      `<div id="name">
+      <p style='font-weight:bold'>` +
         this.name +
-        `</h1>
-          </div>
-                <div id="pop_up_` +
+        `</p>
+        </div>
+        <div class = "text-centre">
+          <p>` +
+        data.description +
+        `</p>
+        <p>Publisher: ` +
+        this.publisher +
+        `</p> 
+        </div>
+        <div id="pop_up_` +
         data.id +
-        `"><p class="text-center" style="padding-right:7px">
-            </p>` +
-        this.get_bullets() +
-        ` <a class='data-modal' (click)="display_latest_data($event, ` +
-        data +
+        `">
+        <p class="text-center" style='padding-right:2px'>
+    </p>` +
+        ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+      data.items +
         `, ` +
         data.id +
-        `)"> View Details</a><br>` +
+        `)"> View Details </a><br>` +
         `</div>`;
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),

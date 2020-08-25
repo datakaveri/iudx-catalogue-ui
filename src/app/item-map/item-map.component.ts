@@ -97,18 +97,30 @@ export class ItemMapComponent implements OnInit {
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
       const markers = L.marker([lat, lng]).bindPopup( 
-         `<div id="name">
-      <p>` +
-      c.name +
-        `</p>
-      
-        </div>
-        <div id="pop_up_` +
-        c.id +
-        `"><p class="text-center" style="padding-right:7.5px;">
-    </p>` +
-        
-        `</div>`);
+        `<div id="name">
+        <p style='font-weight:bold'>` +
+          c.name +
+          `</p>
+          </div>
+          <div class = "text-centre">
+            <p>` +
+          c.description+
+          `</p>
+          <p>Publisher: ` +
+          c.provider.name +
+          `</p> 
+          </div>
+          <div id="pop_up_` +
+          c.id +
+          `">
+          <p class="text-center " style='padding-right:2px'>
+      </p>` +
+          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+          c.items +
+          `, ` +
+          c.id +
+          `)"> View Details </a><br>` +
+          `</div>`);
       data.push(markers);
       this.markerClusterData = data;
     }
