@@ -59,6 +59,7 @@ export class MapViewComponent {
   data: any;
   name: string;
   describe: string;
+  publisher: string;
   legends: {};
   texts: { resource_groups: string; resource_items: string; providers: string };
   search_text: string;
@@ -68,7 +69,7 @@ export class MapViewComponent {
     private httpInterceptor: InterceptorService
   ) {
     this.is_drawn = false;
-    
+
     this.show_filter = false;
     this.body = {};
     this.searchQuery = {
@@ -119,25 +120,37 @@ export class MapViewComponent {
         /** Added this to get all items on opening GeoInformation**/
 
         for (const c of response.items) {
+          console.log(c);
+
           this.describe = c.description;
           this.name = c.name;
+          this.publisher = c.provider.name;
           var lng = c.location.geometry.coordinates[0];
           var lat = c.location.geometry.coordinates[1];
           const markers = L.marker([lat, lng]).bindPopup(
+            // `<div id="name">
+            // <p>` +
+            //   this.describe.split('Description for')[1] +
+            //   `</p>
             `<div id="name">
-            <p>` +
-              this.describe.split('Description for')[1] +
-              `</p>
-            <h1>` +
+            <p style='font-weight:bold'>` +
               this.name +
-              `</h1>
+              `</p>
+              </div>
+              <div class = "text-centre">
+                <p>` +
+              this.describe +
+              `</p>
+              <p>Publisher: ` +
+              this.publisher +
+              `</p> 
               </div>
               <div id="pop_up_` +
               c.id +
-              `"><p class="text-center" style="padding-right:7.5px;">
+              `">
+              <p class="text-center" style='padding-right:2px'>
           </p>` +
-              this.get_bullets() +
-              ` <a   class='data-modal'  (click)="display_latest_data($event, ` +
+              ` <a style='color: var(--highlight); font-weight:bold; text-decoration: underline;' (click)="display_latest_data($event, ` +
               response.items +
               `, ` +
               c.id +
@@ -411,7 +424,7 @@ export class MapViewComponent {
           </div>
                 <div id="pop_up_` +
         data.id +
-        `"><p class="text-center" style="padding-right:7.5px;">
+        `"><p class="text-center" style="padding-right:7px">
             </p>` +
         this.get_bullets() +
         ` <a class='data-modal' (click)="display_latest_data($event, ` +
