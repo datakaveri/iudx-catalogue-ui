@@ -148,4 +148,20 @@
             margin-right: 5%;
         }
     }
+    .input_div {
+        position: relative;
+        input {
+            width: calc(100% - 30px);
+            border: none;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 15px;
+            padding: 0 0 10px 30px;
+        }
+        img {
+            width: 20px;
+            position: absolute;
+            top: -1px;
+            left: 0;
+        }
+    }
 }

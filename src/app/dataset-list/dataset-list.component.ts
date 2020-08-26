@@ -18,7 +18,10 @@ export class DatasetListComponent implements OnInit {
   texts: any;
   tagSelected: any;
   tags: any;
+  filtered_tags: any;
   providers: any;
+  filtered_providers: any;
+  search: any;
   constructor(
     private router: Router,
     private constantService: ConstantsService,
@@ -26,11 +29,17 @@ export class DatasetListComponent implements OnInit {
   ) {
     this.show_filter = false;
     this.show_data = false;
+    this.search = {
+      tag: '',
+      provider: ''
+    }
     this.results = {};
     this.pages = 0;
     this.search_text = '';
     this.tags = [];
     this.providers = [];
+    this.filtered_tags = [];
+    this.filtered_providers = [];
     this.searchQuery = this.constantService.get_search_query();
     this.texts = this.constantService.get_nomenclatures();
     this.constantService.get_filter().subscribe((query: any)=>{
@@ -76,11 +85,13 @@ export class DatasetListComponent implements OnInit {
 
   get_filters(response) {
     this.tags = response.tags;
+    this.filtered_tags = this.tags;
     this.tags.forEach(a=>{
       if(this.searchQuery.tags.includes(a.tag)) a.flag = true;
       else a.flag = false;
     });
     this.providers = response.providers;
+    this.filtered_providers = this.providers;
     this.providers.forEach(a=>{
       if(this.searchQuery.providers.includes(a.id)) a.flag = true;
       else a.flag = false;
@@ -101,12 +112,16 @@ export class DatasetListComponent implements OnInit {
     this.httpInterceptor.set_filter(false);
   }
 
-  toggle_tag(num) {
-    this.tags[num].flag = !this.tags[num].flag;
+  toggle_tag(tag) {
+    this.tags.forEach((a,i)=>{
+      if(a.tag == tag) this.tags[i].flag = !this.tags[i].flag;
+    });
   }
 
-  toggle_provider(num) {
-    this.providers[num].flag = !this.providers[num].flag;
+  toggle_provider(id) {
+    this.providers.forEach((a,i)=>{
+      if(a.id == id) this.providers[i].flag = !this.providers[i].flag;
+    });
   }
 
   clear() {
@@ -122,6 +137,10 @@ export class DatasetListComponent implements OnInit {
       providers: [],
       page: 0,
     };
+    this.search = {
+      tag: '',
+      provider: ''
+    };
     this.constantService.set_search_query(this.searchQuery);
     this.close();
     this.searchDatasets();
@@ -135,6 +154,36 @@ export class DatasetListComponent implements OnInit {
     this.constantService.set_search_query(this.searchQuery);
     this.close();
     this.searchDatasets();
+  }
+
+  find_tag_status(tag) {
+    let flag = false;
+    this.tags.forEach(a=>{
+      if(a.tag == tag && a.flag == true) flag = true;
+    });
+    return flag;
+  }
+
+  find_provider_status(id) {
+    let flag = false;
+    this.providers.forEach(a=>{
+      if(a.id == id && a.flag == true) flag = true;
+    });
+    return flag;
+  }
+
+  filter_by_tag() {
+    let str = this.search.tag.toLowerCase();
+    this.filtered_tags = this.tags.filter((e) => {
+      return e.tag.toLowerCase().includes(str);
+    });
+  }
+
+  filter_by_provider() {
+    let str = this.search.provider.toLowerCase();
+    this.filtered_providers = this.providers.filter((e) => {
+      return e.name.toLowerCase().includes(str);
+    });
   }
 
 }

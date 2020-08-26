@@ -48,24 +48,32 @@
         <img src="assets/filter.png">
         Filter by Tag(s)
     </h4>
+    <div class="input_div">
+        <input placeholder="Search Tag . . ." [(ngModel)]="search.tag" (ngModelChange)="filter_by_tag()">
+        <img src="assets/search.png">
+    </div>
     <div class="scroll_div">
         <ul>
-            <li *ngFor="let tag of tags; let i = index;" (click)="toggle_tag(i)">
-                <img src="assets/unchecked.png" *ngIf="!tag.flag">
-                <img src="assets/checked.png" *ngIf="tag.flag">
+            <li *ngFor="let tag of filtered_tags" (click)="toggle_tag(tag.tag)">
+                <img src="assets/unchecked.png" *ngIf="!find_tag_status(tag.tag)">
+                <img src="assets/checked.png" *ngIf="find_tag_status(tag.tag)">
                 {{tag.tag}} ({{tag.count}} {{texts.resource_groups}})
             </li>
         </ul>
     </div>
     <h4>
         <img src="assets/filter.png">
-        Filter by Provider(s)
+        Filter by {{texts.providers}}(s)
     </h4>
+    <div class="input_div">
+        <input placeholder="Search {{texts.providers}} . . ." [(ngModel)]="search.provider" (ngModelChange)="filter_by_provider()">
+        <img src="assets/search.png">
+    </div>
     <div class="scroll_div">
         <ul>
-            <li *ngFor="let provider of providers; let i = index;" (click)="toggle_provider(i)">
-                <img src="assets/unchecked.png" *ngIf="!provider.flag">
-                <img src="assets/checked.png" *ngIf="provider.flag">
+            <li *ngFor="let provider of filtered_providers" (click)="toggle_provider(provider.id)">
+                <img src="assets/unchecked.png" *ngIf="!find_provider_status(provider.id)">
+                <img src="assets/checked.png" *ngIf="find_provider_status(provider.id)">
                 {{provider.name}}
             </li>
         </ul>

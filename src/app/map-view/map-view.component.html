@@ -1,51 +1,50 @@
 <div class="map-border">
-  <div
-    id="map"
-    leaflet
-    (leafletMapReady)="onMapReady($event)"
-    [leafletOptions]="options"
-    [leafletMarkerCluster]="markerClusterData"
-    [leafletMarkerClusterOptions]="markerClusterOptions"
-    (leafletMarkerClusterReady)="markerClusterReady($event)"
-  >
     <div
-      class="leaflet-left leaflet-top"
-      leafletDraw
-      [leafletDrawOptions]="drawOptions"
-      (leafletDrawCreated)="onDrawCreated($event)"
-      (leafletDrawDeleted)="onDrawDeleted($event)"
-      (leafletDrawEdited)="onDrawEdited($event)"
-    ></div>
-
-    <!-- Add the drawnItems featureGroup to the map -->
-    <div [leafletLayer]="drawnItems"></div>
-  </div>
-
-  <div class="filter_popup" *ngIf="show_filter">
-    <div class="header">
-      FILTERS
-      <img src="assets/cross.png" (click)="closeFilter()" />
+        id="map"
+        leaflet
+        (leafletMapReady)="onMapReady($event)"
+        [leafletOptions]="options"
+        [leafletMarkerCluster]="markerClusterData"
+        [leafletMarkerClusterOptions]="markerClusterOptions"
+        (leafletMarkerClusterReady)="markerClusterReady($event)">
+        <div
+            class="leaflet-left leaflet-top"
+            leafletDraw
+            [leafletDrawOptions]="drawOptions"
+            (leafletDrawCreated)="onDrawCreated($event)"
+            (leafletDrawDeleted)="onDrawDeleted($event)"
+            (leafletDrawEdited)="onDrawEdited($event)">
+        </div>
+        <div [leafletLayer]="drawnItems"></div>
     </div>
-
-    <h4>
-      <img src="assets/filter.png" />
-      Filter by Dataset(s)
-    </h4>
-    <div class="scroll_div">
-      <ul>
-        <li
-          *ngFor="let dataset of resource_groups; let i = index"
-          (click)="toggle_dataset(i)"
-        >
-          <img src="assets/unchecked.png" *ngIf="!dataset.flag" />
-          <img src="assets/checked.png" *ngIf="dataset.flag" />
-          {{ dataset.name }}
-        </li>
-      </ul>
+  
+    <div class="filter_popup" *ngIf="show_filter">
+        <div class="header">
+            FILTERS
+            <img src="assets/cross.png" (click)="closeFilter()" />
+        </div>
+    
+        <h4>
+            <img src="assets/filter.png" />
+            Filter by {{texts.resource_groups}}(s)
+        </h4>
+        <div class="input_div">
+            <input placeholder="Search {{texts.resource_groups}} . . ." [(ngModel)]="search.group" (ngModelChange)="filter_by_group()">
+            <img src="assets/search.png">
+        </div>
+        <div class="scroll_div">
+            <ul>
+                <li *ngFor="let dataset of filtered_resource_groups" (click)="toggle_dataset(dataset.id)">
+                    <img src="assets/unchecked.png" *ngIf="!find_group_status(dataset.id)" />
+                    <img src="assets/checked.png" *ngIf="find_group_status(dataset.id)" />
+                    {{ dataset.name }}
+                </li>
+            </ul>
+        </div>
+        <div class="button_div">
+            <button class="side_button" (click)="clear()">Clear All Filters</button>
+            <button class="main_button" (click)="apply()">Apply Filters</button>
+        </div>
     </div>
-    <div class="button_div">
-      <button class="side_button" (click)="clear()">Clear All Filters</button>
-      <button class="main_button" (click)="apply()">Apply Filters</button>
-    </div>
-  </div>
 </div>
+  
