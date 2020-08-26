@@ -2,6 +2,8 @@
   <div class="box-style" *ngFor="let resource of resource?.items">
       <h4>
         {{ resource.name }}
+        <img src="assets/locked.png" *ngIf="resourceAuthControlLevel != 'OPEN'">
+        <img src="assets/unlocked.png" *ngIf="resourceAuthControlLevel == 'OPEN'">
       </h4>
       <p>
         <span>{{texts.resource_items}} ID: </span>{{ resource.id }}

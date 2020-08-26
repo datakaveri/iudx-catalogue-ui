@@ -10,9 +10,11 @@ export class ItemDataDesComponent implements OnInit {
   resource: any;
   texts: any;
   data_descriptor: any;
+  flags: Array<Boolean>;
   constructor(
     private constant: ConstantsService
-  ) { 
+  ) {
+    this.flags = [];
     this.resource = this.constant.get_resource_details();
     this.texts = this.constant.get_nomenclatures();
     this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
@@ -29,8 +31,10 @@ export class ItemDataDesComponent implements OnInit {
       arr.push(o);
     });
     this.data_descriptor = arr;
+    this.flags.length = this.data_descriptor.length;
     this.data_descriptor.forEach((a,i)=>{
       this.data_descriptor[i] = this.convert_obj_array_of_objs(a);
+      this.flags[i] = false;
     });
   }
 
@@ -57,6 +61,10 @@ export class ItemDataDesComponent implements OnInit {
       }
     });
     return arr;
+  }
+
+  toggle(i) {
+    this.flags[i] = !this.flags[i];
   }
 
 }

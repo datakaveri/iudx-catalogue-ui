@@ -1,33 +1,37 @@
 <div class="results-div">
-    <div class="box-style" *ngFor="let resource of data_descriptor">
-        <h4>
+    <div class="box-style" *ngFor="let resource of data_descriptor; let i = index;">
+        <h4 (click)="toggle(i)">
             <span>
                 Key: 
             </span>
             {{ resource[0].value }}
+            <img src="assets/uncollapsed.png" *ngIf="flags[i]">
+            <img src="assets/collapsed.png" *ngIf="!flags[i]">
         </h4>
-        <div *ngFor="let key of resource;let i=index;">
-            <div *ngIf="i != 0 && key.level == 1">
-                <p>
-                    <span>
-                        {{key.key}}: 
-                    </span>
-                    {{key.value}}
-                </p>
-            </div>
-            <div *ngIf="i != 0 && key.level == 2">
-                <p>
-                    <span>
-                        {{key.key}}: 
-                    </span>
-                </p>
-                <div *ngFor="let item of key.value" class="level_2">
+        <div *ngIf="flags[i]">
+            <div *ngFor="let key of resource;let i=index;">
+                <div *ngIf="i != 0 && key.level == 1">
                     <p>
                         <span>
-                            {{item.key}}: 
+                            {{key.key}}: 
                         </span>
-                        {{item.value}}
+                        {{key.value}}
                     </p>
+                </div>
+                <div *ngIf="i != 0 && key.level == 2">
+                    <p>
+                        <span>
+                            {{key.key}}: 
+                        </span>
+                    </p>
+                    <div *ngFor="let item of key.value" class="level_2">
+                        <p>
+                            <span>
+                                {{item.key}}: 
+                            </span>
+                            {{item.value}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

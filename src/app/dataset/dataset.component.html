@@ -4,11 +4,33 @@
             <img src="assets/back.png"> Back
         </a>
     </div>
+    <div class="details-container" *ngIf="show_data">
+        <h3><span>{{texts.resource_groups}}: </span>{{ resource.resource_group.name }}</h3>
+        <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }}</p>
+        <p>
+          <span>Description:</span>{{ resource.resource_group.description }}
+        </p>
+        <p>
+          <span>{{texts.providers}}: </span>{{ resource.resource_group.provider.description }}
+        </p>
+        <p>
+          <span>Schema: </span><a href="{{ schema_url }}" target="_blank">{{ schema_url }}</a>
+        </p>
+        <p>
+          <span>Server Organization: </span> {{ resource.resource_group.resourceServer.description }}
+        </p>
+        <p>
+          <span>Location: </span>{{ resource.resource_group.location.address }}
+        </p>
+        <p>
+          <span>{{texts.resource_items}}s Count: </span>{{ resource.count }}
+        </p>
+    </div>      
     <div class="tab_div" *ngIf="show_data">
         <ul>
-            <li [ngClass]="{'active': active_tab == 'Details'}" (click)="change_tab('Details')">
+            <!-- <li [ngClass]="{'active': active_tab == 'Details'}" (click)="change_tab('Details')">
                 Details
-            </li>
+            </li> -->
             <li [ngClass]="{'active': active_tab == 'Descriptors'}" (click)="change_tab('Descriptors')">
                 Data Descriptors
             </li>

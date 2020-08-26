@@ -15,6 +15,8 @@ export class DatasetComponent implements OnInit {
   show_data: Boolean;
   texts: any;
   active_tab: string;
+  resource: any;
+  schema_url: string;
   constructor(
     private router: Router,
     private httpInterceptor: InterceptorService,
@@ -45,11 +47,13 @@ export class DatasetComponent implements OnInit {
       "resource_groups":[window.sessionStorage.resource_group_id],
       "page": 0
     }
-    this.httpInterceptor.post_api('customer/items', post_data).then((res) => {
+    this.httpInterceptor.post_api('customer/items', post_data).then((res: any) => {
       this.show_data = true;
+      this.resource = res;
+      this.schema_url = this.resource.resource_group['@context'] + this.resource.resource_group.type[1].split('iudx:')[1];
       this.constantService.set_resource_details(res);
       if(this.router.url == '/search/dataset') {
-        this.change_tab('Details');
+        this.change_tab('Items');
       } else {
         this.set_route(this.router.url);
       }
@@ -59,9 +63,9 @@ export class DatasetComponent implements OnInit {
   change_tab(tab) {
     this.active_tab = tab;
     switch(this.active_tab) {
-      case 'Details':
-        this.router.navigate(['/search/dataset/details']);
-        break;
+      // case 'Details':
+      //   this.router.navigate(['/search/dataset/details']);
+      //   break;
       case 'Descriptors':
         this.router.navigate(['/search/dataset/data-descriptors']);
         break;
@@ -76,9 +80,9 @@ export class DatasetComponent implements OnInit {
 
   set_route(route) {
     switch(route) {
-      case '/search/dataset/details':
-        this.active_tab = 'Details';
-        break;
+      // case '/search/dataset/details':
+      //   this.active_tab = 'Details';
+      //   break;
       case '/search/dataset/data-descriptors':
         this.active_tab = 'Descriptors';
         break;

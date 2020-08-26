@@ -9,10 +9,12 @@ import { ConstantsService } from '../constants.service';
 export class ItemResItemsComponent implements OnInit {
   resource: any;
   texts: any;
+  resourceAuthControlLevel: string;
   constructor(
     private constant: ConstantsService
   ) { 
     this.resource = this.constant.get_resource_details();
+    this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.texts = this.constant.get_nomenclatures();
   }
 

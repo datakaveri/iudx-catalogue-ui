@@ -11,11 +11,11 @@
         h4 {
             font-weight: 600;
             color: var(--primary);
+            cursor: pointer;
             span {
                 color: var(--tertiary);
             }
             img {
-                cursor: pointer;
                 width: 25px;
                 float: right;
             }
