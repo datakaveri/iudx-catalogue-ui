@@ -18,6 +18,7 @@
       <!-- <p>
           <span>Location: </span>{{ resource.location.address }}
       </p> -->
-      <a>Get Latest Data</a>
+      <a *ngIf="resourceAuthControlLevel == 'OPEN'">Get Latest Data</a>
+      <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
   </div>
 </div>

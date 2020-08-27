@@ -90,6 +90,9 @@ export class MapViewComponent {
     this.httpInterceptor.get_filter().subscribe((flag: any) => {
       this.show_filter = flag;
     });
+    if(this.searchQuery.resource_groups.length == 0) {
+      this.httpInterceptor.set_filter(true);
+    }
     this.legends = {
       'aqm-bosch-climo': 'https://image.flaticon.com/icons/svg/1808/1808701.svg',
       'pune-bins': 'https://image.flaticon.com/icons/svg/3299/3299935.svg',
@@ -264,6 +267,7 @@ export class MapViewComponent {
     .map((a) => {
       return (a = a.id);
     });
+    if(this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;

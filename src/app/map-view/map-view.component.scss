@@ -92,5 +92,11 @@
         top: -1px;
         left: 0;
     }
+  }
 }
+.mandatory {
+  font-size: 13px;
+  margin: 15px 0;
+  color: var(--error);
+  font-weight: 600;
 }
