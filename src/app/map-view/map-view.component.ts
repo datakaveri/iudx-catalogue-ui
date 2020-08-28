@@ -93,10 +93,17 @@ export class MapViewComponent {
     if(this.searchQuery.resource_groups.length == 0) {
       this.httpInterceptor.set_filter(true);
     }
+    // this.legends = {
+    //   'aqm-bosch-climo': 'https://image.flaticon.com/icons/svg/1808/1808701.svg',
+    //   'pune-bins': 'https://image.flaticon.com/icons/svg/3299/3299935.svg',
+    //   'pune-streetlights': 'https://image.flaticon.com/icons/svg/1245/1245929.svg',
+    // };
     this.legends = {
-      'aqm-bosch-climo': 'https://image.flaticon.com/icons/svg/1808/1808701.svg',
-      'pune-bins': 'https://image.flaticon.com/icons/svg/3299/3299935.svg',
-      'pune-streetlights': 'https://image.flaticon.com/icons/svg/1245/1245929.svg',
+      'aqm-bosch-climo':
+        this.getColor(0),
+      'pune-bins': this.getColor(1),
+      'pune-streetlights':
+      this.getColor(2),
     };
     this.city = this.constantService.get_city();
   }
@@ -164,15 +171,22 @@ export class MapViewComponent {
 
   mark_on_map() {
     const data: L.Marker[] = [];
+    
     for (const c of this.filtered_resource_items) {
+      console.log(this.filtered_resource_items.length)
+      console.log(c)
       this.describe = c.description;
       this.name = c.name;
       this.publisher = c.provider.name;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng]).bindPopup(
+      const markers = L.marker([lat, lng],{
+        icon: this.getMarkerIcon(c.resourceGroup),
+      }).bindPopup(
         `<div id="name"> <p style='font-weight:bold'>` + this.name + `</p> </div> <div class = "text-centre"> <p>` + this.describe + `</p> <p>Publisher: ` + this.publisher + `</p> </div> <div id="pop_up_` + c.id + `"> <p class="text-center" style='padding-right:2px'> </p>` + ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + this.filtered_resource_items + `, ` + c.id + `)"> View Details </a><br>` + `</div>`
       );
+      // this.markersLayer.addLayer(markers);
+      // this.markersLayer.addTo(this.map);
       data.push(markers);
       this.markerClusterData = data;
     }
@@ -325,7 +339,7 @@ export class MapViewComponent {
   }
 
   onDrawEdited(e: any) {
-    this.is_drawn = true;
+    // this.is_drawn = true;
     var layers = e.layers;
     layers.eachLayer((layer) => {
       if (layer instanceof L.Circle) {
@@ -405,7 +419,7 @@ export class MapViewComponent {
       `<div id="name"> <p style='font-weight:bold'>` + this.name + `</p> </div> <div class = "text-centre"> <p>` + data.description + `</p> <p>Publisher: ` + this.publisher + `</p> </div> <div id="pop_up_` + data.id + `"> <p class="text-center" style='padding-right:2px'> </p>` + ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + data.items + `, ` + data.id + `)"> View Details </a><br>` + `</div>`;
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
-        riseOnHover: true,
+        // riseOnHover: true,
       }).bindPopup(customPopup);
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
@@ -413,13 +427,36 @@ export class MapViewComponent {
   }
 
   getMarkerIcon(_rsg) {
-    return L.icon({
-      iconUrl: this.legends[_rsg.split('/')[3]],
+    //  return L.icon({
+    //   iconUrl: this.legends[_rsg.split('/')[3]],
+    //   iconSize: [38, 95], // size of the icon
+    //   iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
+    //   popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
+    //   shadowSize: [41, 41], // size of the shadow
+    // });
+    return L.divIcon({
       iconSize: [38, 95], // size of the icon
       iconAnchor: [12, 41], // point of the icon which will correspond to marker's location
       popupAnchor: [1, -34], // point from which the popup should open relative to the iconAnchor
       shadowSize: [41, 41], // size of the shadow
+      className: 'custom-div-icon',
+      html: this.legends[_rsg.split('/')[3]]
     });
+  }
+  getColor(i){
+    // var pathFillColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var pathFillColor = ['#2A81CB','#CB2B3E','#2AAD27	']
+    const markerHtmlStyles = `
+    background-color: ${pathFillColor[i]};
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: relative;
+    border-radius: 30px 30px 0;
+    transform: rotate(45deg);
+    border: 1px solid #FFFFFF`
+  
+  return   `<span style="${markerHtmlStyles}" />`
   }
 
 }
