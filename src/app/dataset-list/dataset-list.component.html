@@ -35,7 +35,7 @@
                 <span>{{texts.resource_items}}s Count: </span>{{ resource.resource_items }}
             </p>
             <a (click)="getResourceItems(resource)">View Details</a>
-            <a>Get Sample Data</a>
+            <a (click)='showSampleData()'>Get Sample Data</a>
         </div>
     </div>
 </div>
@@ -83,3 +83,16 @@
         <button class="main_button" (click)="apply()">Apply Filters</button>
     </div>
 </div>
+<div *ngIf='showSample' class="samplePopup">
+    <div class="samplePopup_head">
+        <h3 class="samplePopup_title">Sample Data</h3>
+        <span (click)='hideSampleData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
+    </div>
+    <div class="samplePopup_body">
+        <div *ngFor="let item of  sampleData[0] | keyvalue" class="samplePopup_item">
+                <h3>{{item.key}}</h3>
+                <p>{{item.value}}</p>
+        </div>
+    </div>
+</div>
+<div [ngClass]="{fadeIn:overlay}"></div>
