@@ -1,24 +1,46 @@
 <div class="results-div">
   <div class="box-style" *ngFor="let resource of resource?.items">
-      <h4>
-        {{ resource.name }}
-        <img src="assets/locked.png" *ngIf="resourceAuthControlLevel != 'OPEN'">
-        <img src="assets/unlocked.png" *ngIf="resourceAuthControlLevel == 'OPEN'">
-      </h4>
-      <p>
-        <span>{{texts.resource_items}} ID: </span>{{ resource.id }}
-        <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)">
+    <h4>
+      {{ resource.name }}
+      <img src="assets/locked.png" *ngIf="resourceAuthControlLevel != 'OPEN'">
+      <img src="assets/unlocked.png" *ngIf="resourceAuthControlLevel == 'OPEN'">
+    </h4>
+    <p>
+      <span>{{texts.resource_items}} ID: </span>{{ resource.id }}
+      <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)">
     </p>
-      <p>
-          <span>Description: </span>{{ resource.description }}
-      </p>
-      <p>
-          <span>{{texts.providers}}: </span>{{ resource.provider.description }}
-      </p>
-      <!-- <p>
-          <span>Location: </span>{{ resource.location.address }}
-      </p> -->
-      <a *ngIf="resourceAuthControlLevel == 'OPEN'">Get Latest Data</a>
-      <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
+    <p>
+      <span>Description: </span>{{ resource.description }}
+    </p>
+    <p>
+      <span>{{texts.providers}}: </span>{{ resource.provider.description }}
+    </p>
+    <!-- <p>
+        <span>Location: </span>{{ resource.location.address }}
+    </p> -->
+    <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)='showSampleData()'>Get Latest Data</a>
+    <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
   </div>
 </div>
+
+<div *ngIf='showSample' class="samplePopup">
+  <div class="samplePopup_head">
+    <h3 class="samplePopup_title">Sample Data</h3>
+    <span (click)='hideSampleData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
+  </div>
+  <div class="samplePopup_body">
+    <div class="samplePopup_item">
+      <table>
+        <tr>
+          <th *ngFor="let data of sampleData[0] | keyvalue">{{data.key}}</th>
+        </tr>
+        <tr *ngFor="let data of sampleData|keyvalue">
+          <ng-container *ngFor="let item of sampleData[data.key] | keyvalue">
+            <td>{{item.value}}</td>
+          </ng-container>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{fadeIn:overlay}" (click)='hideSampleData()'></div>
