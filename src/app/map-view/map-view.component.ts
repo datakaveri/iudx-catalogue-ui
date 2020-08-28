@@ -72,6 +72,7 @@ export class MapViewComponent {
   drawQuery: any;
   resource_items: any;
   filtered_resource_items: any;
+  count: any;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
@@ -81,6 +82,7 @@ export class MapViewComponent {
     this.search = {
       group: '',
     };
+    this.count = 0;
     this.show_filter = false;
     this.body = {};
     this.resource_items = [];
@@ -253,10 +255,20 @@ export class MapViewComponent {
     this.httpInterceptor.set_filter(false);
   }
   toggle_dataset(id) {
-    this.resource_groups.forEach((a, i) => {
+    this.count = ++this.count;
+    console.log(this.count)
+    if(this.count < 3){
+      
+      this.resource_groups.forEach((a, i) => {
       if (a.id == id)
         this.resource_groups[i].flag = !this.resource_groups[i].flag;
+        
+        
     });
+  }
+  else {
+    window.alert('Please select only 2 at a time')
+  }
   }
 
   find_group_status(id) {
@@ -275,6 +287,7 @@ export class MapViewComponent {
   }
 
   clear() {
+    this.count = 0;
     this.resource_groups.forEach((a) => {
       a.flag = false;
     });
