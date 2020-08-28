@@ -22,11 +22,16 @@ export class DatasetListComponent implements OnInit {
   providers: any;
   filtered_providers: any;
   search: any;
+  showSample:boolean;
+  sampleData:any;
+  overlay:any;
   constructor(
     private router: Router,
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
+    this.overlay = false;
+    this.showSample = false;
     this.show_filter = false;
     this.show_data = false;
     this.search = {
@@ -50,6 +55,16 @@ export class DatasetListComponent implements OnInit {
       this.show_filter = flag;
     });
     this.searchDatasets();
+    this.sampleData = [
+      {
+        'HOTSPOT_ID':71,
+        'USER_COUNT':0,
+        'NAME':'In front of kalyan nagar steel',
+        'LASTUPDATETIME':'2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS':'ON',
+        'ACCESS_POINT_COUNT':1
+      }
+    ]
   }
 
   ngOnInit(): void {
@@ -186,4 +201,13 @@ export class DatasetListComponent implements OnInit {
     });
   }
 
+  showSampleData(){
+    this.showSample = true;
+    this.overlay = true;
+  }
+
+  hideSampleData(){
+    this.showSample = false;
+    this.overlay = false;
+  }
 }
