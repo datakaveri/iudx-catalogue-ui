@@ -354,7 +354,7 @@ export class MapViewComponent {
   }
 
   onDrawEdited(e: any) {
-    // this.is_drawn = true;
+    this.is_drawn = true;
     var layers = e.layers;
     layers.eachLayer((layer) => {
       if (layer instanceof L.Circle) {
@@ -470,7 +470,8 @@ export class MapViewComponent {
         break;
       }
     }
-    var pathFillColor = ['#2A81CB', '#CB2B3E', '#2AAD27	'];
+    // var pathFillColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var pathFillColor = ['#2A81CB', '#CB2B3E', '#2AAD27'];
     const markerHtmlStyles = `
     background-color: ${pathFillColor[index]};
     width: 30px;

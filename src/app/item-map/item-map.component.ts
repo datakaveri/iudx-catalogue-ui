@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConstantsService } from '../constants.service';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { latLng, tileLayer, FeatureGroup, Map, featureGroup } from 'leaflet';
 import * as L from 'leaflet';
@@ -38,6 +39,7 @@ export class ItemMapComponent implements OnInit {
   resource: any;
   resourceAuthControlLevel: string;
   access: boolean;
+  markersLayer = new L.FeatureGroup(null);
   markerClusterData: L.Marker[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterGroup: L.MarkerClusterGroup;
@@ -54,14 +56,17 @@ export class ItemMapComponent implements OnInit {
       this.access = false;
     }
     this.city = this.constant.get_city();
-    this.getMapData();
+    // this.getMapData();
   }
 
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
   }
-
+  onMapReady(map: Map) {
+    this.map = map;
+    this.getMapData();
+  }
   initMap() {
     var map_options = {
       layers: [
