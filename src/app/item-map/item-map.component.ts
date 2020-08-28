@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConstantsService } from '../constants.service';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import {
   latLng,
@@ -40,6 +41,7 @@ export class ItemMapComponent implements OnInit {
   options: any;
   drawOptions: any;
   resources: any;
+  markersLayer = new L.FeatureGroup(null);
   markerClusterData: L.Marker[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterGroup: L.MarkerClusterGroup;
@@ -49,14 +51,17 @@ export class ItemMapComponent implements OnInit {
   ) {
     this.resources = this.constant.get_resource_details().items;
     this.city = this.constant.get_city();
-    this.getMapData();
+    // this.getMapData();
   }
 
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
   }
-
+  onMapReady(map: Map) {
+    this.map = map;
+    this.getMapData();
+  }
   initMap() {
     var map_options = {
       layers: [
@@ -121,8 +126,10 @@ export class ItemMapComponent implements OnInit {
           c.id +
           `)"> View Details </a><br>` +
           `</div>`);
-      data.push(markers);
-      this.markerClusterData = data;
+          this.markersLayer.addLayer(markers);
+          this.markersLayer.addTo(this.map)
+      // data.push(markers);
+      // this.markerClusterData = data;
     }
   }
 
