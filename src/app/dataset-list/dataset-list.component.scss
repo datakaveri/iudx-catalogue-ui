@@ -77,7 +77,6 @@
 
     p>span {
       color: var(--tertiary);
-      // font-weight: 500;
     }
 
     a:hover {
@@ -199,16 +198,6 @@
 }
 
 .samplePopup {
-  background-color: var(--white);
-  width: 400px;
-  padding: 15px 25px;
-  border-radius: 10px;
-  box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
-  z-index: 9999999;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   &_head{
     display: flex;
     align-items: center;
@@ -229,7 +218,6 @@
   &_item{
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
     cursor: pointer;
 
