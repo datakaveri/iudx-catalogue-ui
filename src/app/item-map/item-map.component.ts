@@ -136,8 +136,10 @@ export class ItemMapComponent implements OnInit {
           <br>` +
             `</div>`
         );
-        data.push(markers);
-        this.markerClusterData = data;
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+        // data.push(markers);
+        // this.markerClusterData = data;
       } else {
         const markers = L.marker([lat, lng]).bindPopup(
           `<div id="name">
@@ -163,8 +165,10 @@ export class ItemMapComponent implements OnInit {
           <br>` +
             `</div>`
         );
-        data.push(markers);
-        this.markerClusterData = data;
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+        // data.push(markers);
+        // this.markerClusterData = data;
       }
     }
   }
