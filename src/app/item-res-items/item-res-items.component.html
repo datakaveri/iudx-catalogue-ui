@@ -23,19 +23,19 @@
   </div>
 </div>
 
-<div *ngIf='showSample' class="samplePopup">
+<div *ngIf='showPopup' class="samplePopup">
   <div class="samplePopup_head">
-    <h3 class="samplePopup_title">Sample Data</h3>
+    <h3 class="samplePopup_title">Latest Data</h3>
     <span (click)='hideSampleData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
   </div>
   <div class="samplePopup_body">
     <div class="samplePopup_item">
       <table>
         <tr>
-          <th *ngFor="let data of sampleData[0] | keyvalue">{{data.key}}</th>
+          <th *ngFor="let data of lattesData[0] | keyvalue">{{data.key}}</th>
         </tr>
-        <tr *ngFor="let data of sampleData|keyvalue">
-          <ng-container *ngFor="let item of sampleData[data.key] | keyvalue">
+        <tr *ngFor="let data of lattesData|keyvalue">
+          <ng-container *ngFor="let item of lattesData[data.key] | keyvalue">
             <td>{{item.value}}</td>
           </ng-container>
         </tr>

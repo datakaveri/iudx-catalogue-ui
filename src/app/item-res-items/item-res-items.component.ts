@@ -10,8 +10,8 @@ export class ItemResItemsComponent implements OnInit {
   resource: any;
   texts: any;
   resourceAuthControlLevel: string;
-  showSample: boolean;
-  sampleData: any;
+  showPopup: boolean;
+  lattesData: any;
   overlay: any;
 
   constructor(
@@ -21,8 +21,8 @@ export class ItemResItemsComponent implements OnInit {
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.texts = this.constant.get_nomenclatures();
     this.overlay = false;
-    this.showSample = false;
-    this.sampleData = [
+    this.showPopup = false;
+    this.lattesData = [
       {
         'HOTSPOT_ID': 71,
         'USER_COUNT': 0,
@@ -101,13 +101,12 @@ export class ItemResItemsComponent implements OnInit {
   }
 
   showSampleData(){
-    this.showSample = true;
+    this.showPopup = true;
     this.overlay = true;
-    console.log(this.sampleData)
   }
 
   hideSampleData(){
-    this.showSample = false;
+    this.showPopup = false;
     this.overlay = false;
   }
 
