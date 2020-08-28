@@ -51,6 +51,48 @@ export class ItemResItemsComponent implements OnInit {
         'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
         'LOCATION_STATUS': 'ON',
         'ACCESS_POINT_COUNT': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1
       }
     ]
   }

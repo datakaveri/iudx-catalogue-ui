@@ -78,6 +78,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  max-height: 80%;
+  overflow: scroll;
 
   &_head {
     display: flex;
@@ -101,7 +103,6 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    cursor: pointer;
 
     h3 {
       color: var(--tertiary);
