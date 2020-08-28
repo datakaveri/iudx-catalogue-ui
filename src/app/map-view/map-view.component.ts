@@ -49,6 +49,8 @@ export class MapViewComponent {
   results: any;
   markerResults: any;
   searchQuery: any;
+  resource: any;
+  resourceAuthControlLevel: string;
   layers;
   coord: any = [];
   showContainer: boolean = false;
@@ -74,15 +76,18 @@ export class MapViewComponent {
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
+    // this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.is_drawn = false;
     this.search = {
-      group: ''
-    }
+      group: '',
+    };
     this.show_filter = false;
     this.body = {};
     this.resource_items = [];
     this.filtered_resource_items = [];
-    this.searchQuery = window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : { resource_groups: [] };
+    this.searchQuery = window.sessionStorage.map_search
+      ? JSON.parse(window.sessionStorage.map_search)
+      : { resource_groups: [] };
     this.drawQuery = {};
     this.filtered_resource_groups = [];
     this.resource_groups = [];
@@ -90,7 +95,7 @@ export class MapViewComponent {
     this.httpInterceptor.get_filter().subscribe((flag: any) => {
       this.show_filter = flag;
     });
-    if(this.searchQuery.resource_groups.length == 0) {
+    if (this.searchQuery.resource_groups.length == 0) {
       this.httpInterceptor.set_filter(true);
     }
     this.city = this.constantService.get_city();
@@ -103,43 +108,52 @@ export class MapViewComponent {
 
   getMapData() {
     this.filtered_resource_items = [];
-    if(this.is_drawn) {
-      this.httpInterceptor.post_api('customer/coordinates', this.drawQuery)
-      .then((data: any)=>{
-        this.is_drawn = false;
-        this.resource_items = data.items;
-        this.filtered_resource_items = this.resource_items;
-        this.filter_map_data();
-      });
+    if (this.is_drawn) {
+      this.httpInterceptor
+        .post_api('customer/coordinates', this.drawQuery)
+        .then((data: any) => {
+          this.is_drawn = false;
+          this.resource_items = data.items;
+          this.filtered_resource_items = this.resource_items;
+          this.filter_map_data();
+        });
     } else {
-      if(this.resource_items.length > 0) {
+      if (this.resource_items.length > 0) {
         this.filter_data();
       } else {
-        this.httpInterceptor.post_api('customer/map', this.searchQuery)
-        .then((data: any)=>{
-          this.resource_items = data.items;
-          this.resource_groups = data.resource_groups;
-          this.get_filters(data);
-          if(this.searchQuery.resource_groups.length != 0) this.filter_data();
-        });
+        this.httpInterceptor
+          .post_api('customer/map', this.searchQuery)
+          .then((data: any) => {
+            this.resource_items = data.items;
+            this.resource_groups = data.resource_groups;
+            this.get_filters(data);
+            if (this.searchQuery.resource_groups.length != 0)
+              this.filter_data();
+          });
       }
     }
   }
 
   filter_data() {
     this.filtered_resource_items = [];
-    this.resource_items.forEach(a=>{
-      let flag = this.check_if_contained(this.searchQuery.resource_groups,a.resourceGroup);
-      if(flag == true) this.filtered_resource_items.push(a);
+    this.resource_items.forEach((a) => {
+      let flag = this.check_if_contained(
+        this.searchQuery.resource_groups,
+        a.resourceGroup
+      );
+      if (flag == true) this.filtered_resource_items.push(a);
     });
     this.mark_on_map();
   }
 
   filter_map_data() {
     this.filtered_resource_items = [];
-    this.resource_items.forEach(a=>{
-      let flag = this.check_if_contained(this.searchQuery.resource_groups,a.resourceGroup);
-      if(flag == true) this.filtered_resource_items.push(a);
+    this.resource_items.forEach((a) => {
+      let flag = this.check_if_contained(
+        this.searchQuery.resource_groups,
+        a.resourceGroup
+      );
+      if (flag == true) this.filtered_resource_items.push(a);
     });
     this.callGeoJsonPlot(this.filtered_resource_items);
   }
@@ -147,13 +161,13 @@ export class MapViewComponent {
   get_filters(response) {
     this.resource_groups = response.resource_groups;
     this.filtered_resource_groups = this.resource_groups;
-    this.resource_groups.forEach(a=>{
-      if(this.searchQuery.resource_groups.includes(a.id)) a.flag = true;
+    this.resource_groups.forEach((a) => {
+      if (this.searchQuery.resource_groups.includes(a.id)) a.flag = true;
       else a.flag = false;
     });
   }
 
-  check_if_contained(arr,str) {
+  check_if_contained(arr, str) {
     return arr.includes(str);
   }
 
@@ -165,15 +179,27 @@ export class MapViewComponent {
       this.publisher = c.provider.name;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng],{
+      const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(c.resourceGroup),
       }).bindPopup(
-        `<div id="name"> <p style='font-weight:bold'>` + this.name + `</p> </div> <div class = "text-centre"> <p>` + this.describe + `</p> <p>Publisher: ` + this.publisher + `</p> </div> <div id="pop_up_` + c.id + `"> <p class="text-center" style='padding-right:2px'> </p>` + ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + this.filtered_resource_items + `, ` + c.id + `)"> View Details </a><br>` + `</div>`
+        `<div id="name"> <p style='font-weight:bold'>` +
+          this.name +
+          `</p> </div> <div class = "text-centre"> <p>` +
+          this.describe +
+          `</p> <p>Publisher: ` +
+          this.publisher +
+          `</p> </div> <div id="pop_up_` +
+          c.id +
+          `"> <p class="text-center" style='padding-right:2px'> </p>` +
+          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+          this.filtered_resource_items +
+          `, ` +
+          c.id +
+          `)"> View Details </a><br>` +
+          `</div>`
       );
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
-      // data.push(markers);
-      // this.markerClusterData = data;
     }
   }
 
@@ -201,7 +227,10 @@ export class MapViewComponent {
         ),
       ],
       zoom: 12,
-      center: latLng({ lng: this.city.configurations.map_default_view_lat_lng[1], lat: this.city.configurations.map_default_view_lat_lng[0] }),
+      center: latLng({
+        lng: this.city.configurations.map_default_view_lat_lng[1],
+        lat: this.city.configurations.map_default_view_lat_lng[0],
+      }),
     };
     return map_options;
   }
@@ -224,15 +253,16 @@ export class MapViewComponent {
     this.httpInterceptor.set_filter(false);
   }
   toggle_dataset(id) {
-    this.resource_groups.forEach((a,i)=>{
-      if(a.id == id) this.resource_groups[i].flag = !this.resource_groups[i].flag;
+    this.resource_groups.forEach((a, i) => {
+      if (a.id == id)
+        this.resource_groups[i].flag = !this.resource_groups[i].flag;
     });
   }
 
   find_group_status(id) {
     let flag = false;
-    this.resource_groups.forEach(a=>{
-      if(a.id == id && a.flag == true) flag = true;
+    this.resource_groups.forEach((a) => {
+      if (a.id == id && a.flag == true) flag = true;
     });
     return flag;
   }
@@ -260,13 +290,13 @@ export class MapViewComponent {
 
   apply() {
     this.searchQuery.resource_groups = this.resource_groups
-    .filter((a) => {
-      return a.flag == true;
-    })
-    .map((a) => {
-      return (a = a.id);
-    });
-    if(this.searchQuery.resource_groups.length == 0) return;
+      .filter((a) => {
+        return a.flag == true;
+      })
+      .map((a) => {
+        return (a = a.id);
+      });
+    if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;
@@ -372,8 +402,8 @@ export class MapViewComponent {
       type: types,
       geometry: geometry,
       radius: radius,
-      coordinates: points
-    }
+      coordinates: points,
+    };
     this.getMapData();
   }
 
@@ -401,7 +431,21 @@ export class MapViewComponent {
       var lng = data.location.geometry.coordinates[0];
       var lat = data.location.geometry.coordinates[1];
       var customPopup =
-      `<div id="name"> <p style='font-weight:bold'>` + this.name + `</p> </div> <div class = "text-centre"> <p>` + data.description + `</p> <p>Publisher: ` + this.publisher + `</p> </div> <div id="pop_up_` + data.id + `"> <p class="text-center" style='padding-right:2px'> </p>` + ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + data.items + `, ` + data.id + `)"> View Details </a><br>` + `</div>`;
+        `<div id="name"> <p style='font-weight:bold'>` +
+        this.name +
+        `</p> </div> <div class = "text-centre"> <p>` +
+        data.description +
+        `</p> <p>Publisher: ` +
+        this.publisher +
+        `</p> </div> <div id="pop_up_` +
+        data.id +
+        `"> <p class="text-center" style='padding-right:2px'> </p>` +
+        ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+        data.items +
+        `, ` +
+        data.id +
+        `)"> View Details </a><br>` +
+        `</div>`;
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
         // riseOnHover: true,
@@ -414,19 +458,19 @@ export class MapViewComponent {
   getMarkerIcon(_rsg) {
     return L.divIcon({
       className: 'custom-div-icon',
-      html: this.getColor(_rsg)
+      html: this.getColor(_rsg),
     });
   }
 
-  getColor(id){
+  getColor(id) {
     let index = -1;
-    for(let i=0;i<this.searchQuery.resource_groups.length;i++){
-      if(this.searchQuery.resource_groups[i] == id) {
+    for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
+      if (this.searchQuery.resource_groups[i] == id) {
         index = i;
         break;
       }
     }
-    var pathFillColor = ['#2A81CB','#CB2B3E','#2AAD27	'];
+    var pathFillColor = ['#2A81CB', '#CB2B3E', '#2AAD27	'];
     const markerHtmlStyles = `
     background-color: ${pathFillColor[index]};
     width: 30px;
@@ -436,7 +480,6 @@ export class MapViewComponent {
     border-radius: 30px 30px 0;
     transform: rotate(45deg);
     border: 1px solid #FFFFFF`;
-    return `<span style="${markerHtmlStyles}" />`
+    return `<span style="${markerHtmlStyles}" />`;
   }
-
 }
