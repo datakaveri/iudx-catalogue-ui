@@ -10,6 +10,8 @@ import { ItemDataDesComponent } from './item-data-des/item-data-des.component';
 import { ItemResItemsComponent } from './item-res-items/item-res-items.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { ItemMapComponent } from './item-map/item-map.component';
+import { SampleDataComponent } from './sample-data/sample-data.component';
+import { LatestDataComponent } from './latest-data/latest-data.component';
 
 const routes: Routes = [
   {
@@ -28,7 +30,13 @@ const routes: Routes = [
     children: [
       {
         path: 'datasets',
-        component: DatasetListComponent
+        component: DatasetListComponent,
+        children: [
+          {
+            path: 'sample-data',
+            component: SampleDataComponent
+          }
+        ]
       },
       {
         path: 'dataset',
@@ -44,17 +52,35 @@ const routes: Routes = [
           },
           {
             path: 'items',
-            component: ItemResItemsComponent
+            component: ItemResItemsComponent,
+            children: [
+              {
+                path: 'latest-data',
+                component: LatestDataComponent
+              }
+            ]
           },
           {
             path: 'map-view',
-            component: ItemMapComponent
+            component: ItemMapComponent,
+            children: [
+              {
+                path: 'latest-data',
+                component: LatestDataComponent
+              }
+            ]
           }
         ]
       },
       {
         path: 'map',
-        component: MapViewComponent
+        component: MapViewComponent,
+        children: [
+          {
+            path: 'latest-data',
+            component: LatestDataComponent
+          }
+        ]
       }
     ]
   },

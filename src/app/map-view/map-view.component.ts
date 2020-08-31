@@ -73,9 +73,9 @@ export class MapViewComponent {
   resource_items: any;
   filtered_resource_items: any;
   count: any;
+  limit: Number;
   constructor(
     private constantService: ConstantsService,
-    private constant: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
     // this.resource = this.constant.set_resource_details(this.resource_groups);
@@ -84,14 +84,14 @@ export class MapViewComponent {
     this.search = {
       group: '',
     };
+    this.limit = 2;
     this.count = 0;
     this.show_filter = false;
     this.body = {};
     this.resource_items = [];
     this.filtered_resource_items = [];
-    this.searchQuery = window.sessionStorage.map_search
-      ? JSON.parse(window.sessionStorage.map_search)
-      : { resource_groups: [] };
+    this.searchQuery = window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : { resource_groups: [] };
+    this.count = this.searchQuery.resource_groups.length;
     this.drawQuery = {};
     this.filtered_resource_groups = [];
     this.resource_groups = [];
@@ -176,7 +176,6 @@ export class MapViewComponent {
   }
 
   mark_on_map() {
-    console.log(this.resource_groups);
     let mySet = new Set();
     for (var i = 0; i < this.resource_groups.length; i++) {
       if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
@@ -186,10 +185,6 @@ export class MapViewComponent {
 
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
-      console.log(c);
-      console.log(c.resourceGroup);
-      console.log(this.resource_groups.length);
-
       this.describe = c.description;
       this.name = c.name;
       this.publisher = c.provider.name;
@@ -293,20 +288,20 @@ export class MapViewComponent {
     this.httpInterceptor.set_filter(false);
   }
   toggle_dataset(id) {
-    this.count = ++this.count;
-    console.log(this.count)
-    if(this.count < 3){
-      
-      this.resource_groups.forEach((a, i) => {
-      if (a.id == id)
-        this.resource_groups[i].flag = !this.resource_groups[i].flag;
-        
-        
+    this.resource_groups.forEach((a, i) => {
+      if (a.id == id) {
+        let flag = !this.resource_groups[i].flag;
+        if(flag && this.count == this.limit) {
+          this.constantService.set_alert({flag:true,title:'Limit Exceeeded.',message:'You can filter by maximum 2 resource groups at a time.'});
+        } else if(flag && this.count < this.limit) {
+          this.resource_groups[i].flag = !this.resource_groups[i].flag;
+          this.count++;
+        } else {
+          this.resource_groups[i].flag = !this.resource_groups[i].flag;
+          this.count--;
+        }
+      }
     });
-  }
-  else {
-    window.alert('Please select only 2 at a time')
-  }
   }
 
   find_group_status(id) {

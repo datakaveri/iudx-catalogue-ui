@@ -1,1 +1,9 @@
-<p>alert works!</p>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="header">
+            {{props.title}}
+        </div>
+        <p>{{props.message}}</p>
+        <a (click)="close()">Close</a>
+    </div>
+</div>
