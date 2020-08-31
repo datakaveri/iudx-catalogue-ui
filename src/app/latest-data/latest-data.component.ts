@@ -98,6 +98,7 @@ export class LatestDataComponent implements OnInit {
 
   hideLatestData(){
     if(this.router.url == '/search/map/latest-data'){
+    this.router.navigate(['/search/map']);
     this.showLatest = false;
     this.overlay = false;
     }

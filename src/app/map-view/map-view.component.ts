@@ -1,7 +1,7 @@
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
 import {
   latLng,
   tileLayer,
@@ -37,7 +37,7 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
 })
-export class MapViewComponent {
+export class MapViewComponent{
   map: Map;
   show_filter: boolean;
   options: any;
@@ -74,7 +74,7 @@ export class MapViewComponent {
   filtered_resource_items: any;
   count: any;
   limit: Number;
-  constructor(private constantService: ConstantsService,private httpInterceptor: InterceptorService,private router: Router,private elementRef: ElementRef
+  constructor(private constantService: ConstantsService,private httpInterceptor: InterceptorService,private router: Router,private elementRef: ElementRef, public ngZone : NgZone
   ) {
     // this.resource = this.constant.set_resource_details(this.resource_groups);
     // this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
@@ -304,7 +304,6 @@ export class MapViewComponent {
     this.resource_groups.forEach((a, i) => {
       if (a.id == id) {
         let flag = !this.resource_groups[i].flag;
-        console.log(flag);
         if (flag && this.count == this.limit) {
           this.constantService.set_alert({
             flag: true,
@@ -567,7 +566,10 @@ export class MapViewComponent {
   }
   display_latest_data(id){
     console.log(id)
-    this.router.navigate(['/search/map/latest-data'])
+    this.ngZone.run(() => {
+      this.router.navigate(['/search/map/latest-data'])
+    })
+    // this.router.navigate(['/search/map/latest-data'])
    
   }
 }
