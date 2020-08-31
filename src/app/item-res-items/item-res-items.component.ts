@@ -31,10 +31,4 @@ export class ItemResItemsComponent implements OnInit {
   showLatestData(){
     this.router.navigate(['/search/dataset/items/latest-data']);
   }
-
-  // hideSampleData(){
-  //   this.showPopup = false;
-  //   this.overlay = false;
-  // }
-
 }
