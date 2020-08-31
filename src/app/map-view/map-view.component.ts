@@ -74,8 +74,10 @@ export class MapViewComponent {
   filtered_resource_items: any;
   constructor(
     private constantService: ConstantsService,
+    private constant: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
+    // this.resource = this.constant.set_resource_details(this.resource_groups);
     // this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.is_drawn = false;
     this.search = {
@@ -172,34 +174,70 @@ export class MapViewComponent {
   }
 
   mark_on_map() {
+    console.log(this.resource_groups);
+    let mySet = new Set();
+    for (var i = 0; i < this.resource_groups.length; i++) {
+      if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
+        mySet.add(this.resource_groups[i].id);
+      }
+    }
+
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
+      console.log(c);
+      console.log(c.resourceGroup);
+      console.log(this.resource_groups.length);
+
       this.describe = c.description;
       this.name = c.name;
       this.publisher = c.provider.name;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng], {
-        icon: this.getMarkerIcon(c.resourceGroup),
-      }).bindPopup(
-        `<div id="name"> <p style='font-weight:bold'>` +
-          this.name +
-          `</p> </div> <div class = "text-centre"> <p>` +
-          this.describe +
-          `</p> <p>Publisher: ` +
-          this.publisher +
-          `</p> </div> <div id="pop_up_` +
-          c.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-          this.filtered_resource_items +
-          `, ` +
-          c.id +
-          `)"> View Details </a><br>` +
-          `</div>`
-      );
-      this.markersLayer.addLayer(markers);
-      this.markersLayer.addTo(this.map);
+      if (mySet.has(c.resourceGroup)) {
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(c.resourceGroup),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            this.name +
+            `</p> </div> <div class = "text-centre"> <p>` +
+            this.describe +
+            `</p> <p>Publisher: ` +
+            this.publisher +
+            `</p> </div> <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+            this.filtered_resource_items +
+            `, ` +
+            c.id +
+            `)"> View Details </a><br>` +
+            `</div>`
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+      } else {
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(c.resourceGroup),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            this.name +
+            `</p> </div> <div class = "text-centre"> <p>` +
+            this.describe +
+            `</p> <p>Publisher: ` +
+            this.publisher +
+            `</p> </div> <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            ` <a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
+            this.filtered_resource_items +
+            `, ` +
+            c.id +
+            `)"> Request Details </a><br>` +
+            `</div>`
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+      }
     }
   }
 
