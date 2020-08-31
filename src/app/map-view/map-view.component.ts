@@ -1,7 +1,7 @@
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import {
   latLng,
   tileLayer,
@@ -74,9 +74,7 @@ export class MapViewComponent {
   filtered_resource_items: any;
   count: any;
   limit: Number;
-  constructor(
-    private constantService: ConstantsService,
-    private httpInterceptor: InterceptorService
+  constructor(private constantService: ConstantsService,private httpInterceptor: InterceptorService,private router: Router,private elementRef: ElementRef
   ) {
     // this.resource = this.constant.set_resource_details(this.resource_groups);
     // this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
@@ -106,7 +104,7 @@ export class MapViewComponent {
     }
     this.city = this.constantService.get_city();
   }
-
+  
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
@@ -205,15 +203,23 @@ export class MapViewComponent {
             `</p> </div> <div id="pop_up_` +
             c.id +
             `"> <p class="text-center" style='padding-right:2px'> </p>` +
-            ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-            this.filtered_resource_items +
-            `, ` +
-            c.id +
-            `)"> Get Latest Data </a><br>` +
+            ` <a  class="data-link" data-Id=`+c.id +` style='color: var(--highlight); font-weight:bold;'> Get Latest Data </a><br>` +
             `</div>`
         );
+        
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
+        let self = this;
+        markers.on('popupopen', function() {
+      // add event listener to newly added a.merch-link element
+      self.elementRef.nativeElement.querySelector(".data-link")
+      .addEventListener('click', (e)=>
+      {
+        // get id from attribute
+         var dataId = e.target.getAttribute("data-Id");
+        self.display_latest_data(dataId)
+      });
+    });
       } else {
         const markers = L.marker([lat, lng], {
           icon: this.getMarkerIcon(c.resourceGroup),
@@ -227,7 +233,7 @@ export class MapViewComponent {
             `</p> </div> <div id="pop_up_` +
             c.id +
             `"> <p class="text-center" style='padding-right:2px'> </p>` +
-            ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` +
+            ` <a style='color: var(--highlight); font-weight:bold;' onClick="display_sample_data($event, ` +
             this.filtered_resource_items +
             `, ` +
             c.id +
@@ -505,11 +511,7 @@ export class MapViewComponent {
           `</p> </div> <div id="pop_up_` +
           data.id +
           `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-          data.items +
-          `, ` +
-          data.id +
-          `)"> Get Latest Data </a><br>` +
+          ` <a href="#" style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event,`+data.items+`,`+data.id+`)"> Get Latest Data </a><br>` +
           `</div>`;
       } else {
         var customPopup =
@@ -522,12 +524,12 @@ export class MapViewComponent {
           `</p> </div> <div id="pop_up_` +
           data.id +
           `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+          ` <a style='color: var(--highlight); font-weight:bold;' onClick="display_latest_data($event, ` +
           data.items +
           `, ` +
           data.id +
           `)"> Get Sample Data </a> &nbsp;&nbsp;
-        <a style='color: var(--error); font-weight:bold;' (click)="get_access($event, ` +
+        <a href="#" style='color: var(--error); font-weight:bold;' onClick="get_access($event, ` +
           data.items +
           `, ` +
           data.id +
@@ -562,5 +564,10 @@ export class MapViewComponent {
     var pathFillColor = ['#1c699d', '#ff7592', '#564d65','#2fcb83','#0ea3b1','#f39c1c','#d35414','#9b59b6'];
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
+  }
+  display_latest_data(id){
+    console.log(id)
+    this.router.navigate(['/search/map/latest-data'])
+   
   }
 }

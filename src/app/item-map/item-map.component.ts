@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ConstantsService } from '../constants.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
@@ -8,6 +8,7 @@ import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet.markercluster';
 import { getLocaleFirstDayOfWeek } from '@angular/common';
+import { Router } from '@angular/router';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -44,7 +45,7 @@ export class ItemMapComponent implements OnInit {
   markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterGroup: L.MarkerClusterGroup;
   city: any;
-  constructor(private constant: ConstantsService) {
+  constructor(private constant: ConstantsService,private elementRef: ElementRef,private router:Router) {
     this.resource = this.constant.get_resource_details();
     console.log(this.resource);
 

@@ -11,14 +11,14 @@ export class LatestDataComponent implements OnInit {
   latestData: any;
   overlay: boolean;
   showLatest:boolean;
-  lattesData:any;
+  // lattesData:any;
 
   constructor(private router: Router) {
 
     this.showLatest = true;
     this.overlay = true;
 
-    this.lattesData = [
+    this.latestData = [
       {
         'HOTSPOT_ID': 71,
         'USER_COUNT': 0,
@@ -97,8 +97,14 @@ export class LatestDataComponent implements OnInit {
   }
 
   hideLatestData(){
+    if(this.router.url == '/search/map/latest-data'){
+    this.showLatest = false;
+    this.overlay = false;
+    }
+    else{
     this.router.navigate(['../../search/dataset/items']);
     this.showLatest = false;
     this.overlay = false;
+    }
   }
 }
