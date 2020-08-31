@@ -84,7 +84,7 @@ export class MapViewComponent {
     this.search = {
       group: '',
     };
-    this.limit = 2;
+    this.limit = 5;
     this.count = 0;
     this.show_filter = false;
     this.body = {};
@@ -559,17 +559,8 @@ export class MapViewComponent {
         break;
       }
     }
-    // var pathFillColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-    var pathFillColor = ['#2A81CB', '#CB2B3E', '#2AAD27'];
-    const markerHtmlStyles = `
-    background-color: ${pathFillColor[index]};
-    width: 30px;
-    height: 30px;
-    display: block;
-    position: relative;
-    border-radius: 30px 30px 0;
-    transform: rotate(45deg);
-    border: 1px solid #FFFFFF`;
-    return `<span style="${markerHtmlStyles}" />`;
+    var pathFillColor = ['#1c699d', '#ff7592', '#564d65','#2fcb83','#0ea3b1','#f39c1c','#d35414','#9b59b6'];
+    
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill= ${pathFillColor[index]} width="48px" height="48px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" opacity="1"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9z"/><circle cx="12" cy="9" r="2.5"/></svg>`;
   }
 }
