@@ -2,17 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ConstantsService } from '../constants.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
-import {
-  latLng,
-  tileLayer,
-  FeatureGroup,
-  Map,
-  featureGroup,
-} from 'leaflet';
+import { latLng, tileLayer, FeatureGroup, Map, featureGroup } from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet.markercluster';
+import { getLocaleFirstDayOfWeek } from '@angular/common';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -33,7 +28,7 @@ L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-item-map',
   templateUrl: './item-map.component.html',
-  styleUrls: ['./item-map.component.scss']
+  styleUrls: ['./item-map.component.scss'],
 })
 export class ItemMapComponent implements OnInit {
   map: Map;
@@ -41,15 +36,25 @@ export class ItemMapComponent implements OnInit {
   options: any;
   drawOptions: any;
   resources: any;
+  resource: any;
+  resourceAuthControlLevel: string;
+  access: boolean;
   markersLayer = new L.FeatureGroup(null);
   markerClusterData: L.Marker[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterGroup: L.MarkerClusterGroup;
   city: any;
-  constructor(
-    private constant: ConstantsService
-  ) {
+  constructor(private constant: ConstantsService) {
+    this.resource = this.constant.get_resource_details();
+    console.log(this.resource);
+
+    this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.resources = this.constant.get_resource_details().items;
+    if (this.resourceAuthControlLevel == 'OPEN') {
+      this.access = true;
+    } else {
+      this.access = false;
+    }
     this.city = this.constant.get_city();
     // this.getMapData();
   }
@@ -77,11 +82,14 @@ export class ItemMapComponent implements OnInit {
         ),
       ],
       zoom: 12,
-      center: latLng({ lng: this.city.configurations.map_default_view_lat_lng[1], lat: this.city.configurations.map_default_view_lat_lng[0] }),
+      center: latLng({
+        lng: this.city.configurations.map_default_view_lat_lng[1],
+        lat: this.city.configurations.map_default_view_lat_lng[0],
+      }),
     };
     return map_options;
   }
-  
+
   drawOptionsInit() {
     var draw_options = {
       position: 'topleft',
@@ -99,42 +107,33 @@ export class ItemMapComponent implements OnInit {
   getMapData() {
     let data = [];
     for (const c of this.resources) {
+      console.log(c);
+      console.log(this.resource);
+
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng]).bindPopup( 
-        `<div id="name">
-        <p style='font-weight:bold'>` +
-          c.name +
-          `</p>
-          </div>
-          <div class = "text-centre">
-            <p>` +
-          c.description+
-          `</p>
-          <p>Publisher: ` +
-          c.provider.name +
-          `</p> 
-          </div>
-          <div id="pop_up_` +
-          c.id +
-          `">
-          <p class="text-center " style='padding-right:2px'>
-      </p>` +
-          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-          c.items +
-          `, ` +
-          c.id +
-          `)"> View Details </a><br>` +
-          `</div>`);
-          this.markersLayer.addLayer(markers);
-          this.markersLayer.addTo(this.map)
-      // data.push(markers);
-      // this.markerClusterData = data;
+      console.log(this.resourceAuthControlLevel);
+      if (this.resourceAuthControlLevel == 'OPEN') {
+        const markers = L.marker([lat, lng]).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` + c.name + `</p> </div> <p>Desc: ` + this.resource.resource_group.description + `</p> <div id="pop_up_` + c.id + `"> <p class="text-center " style='padding-right:2px'> </p>` + `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + c.items + `, ` + c.id + `)"> View Details </a> <br>` + `</div>`
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+        // data.push(markers);
+        // this.markerClusterData = data;
+      } else {
+        const markers = L.marker([lat, lng]).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` + c.name + `</p> </div> <div class = "text-centre"> <p>Desc: ` + this.resource.resource_group.description + `</p> </div> <div id="pop_up_` + c.id + `"> <p class="text-center " style='padding-right:2px'> </p>` + `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` + c.items + `, ` + c.id + `)"> Request Access </a> <br>` + `</div>`
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+        // data.push(markers);
+        // this.markerClusterData = data;
+      }
     }
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
     this.markerClusterGroup = group;
   }
-  
-  }
+}

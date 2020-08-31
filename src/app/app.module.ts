@@ -29,6 +29,9 @@ import { ItemDataDesComponent } from './item-data-des/item-data-des.component';
 import { ItemResItemsComponent } from './item-res-items/item-res-items.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { ItemMapComponent } from './item-map/item-map.component';
+import { SampleDataComponent } from './sample-data/sample-data.component';
+import { LatestDataComponent } from './latest-data/latest-data.component';
+import { ToasterComponent } from './toaster/toaster.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { ItemMapComponent } from './item-map/item-map.component';
     ItemResItemsComponent,
     DatasetComponent,
     ItemMapComponent,
+    SampleDataComponent,
+    LatestDataComponent,
+    ToasterComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,8 @@ export class ConstantsService {
   city: any;
   cities: Array<any>;
   resource: any;
+  toast_subject = new Subject<any>();
+  alert_subject = new Subject<any>();
   constructor(
     private title: Title
   ) {
@@ -71,6 +73,22 @@ export class ConstantsService {
 
   get_resource_details() {
     return this.resource;
+  }
+
+  set_alert(obj) {
+    this.alert_subject.next(obj);
+  }
+
+  get_alert(): Observable<any> {
+    return this.alert_subject.asObservable();
+  }
+
+  set_toaster(type,message) {
+    this.toast_subject.next({type:type,message:message});
+  }
+
+  get_toaster(): Observable<any> {
+    return this.toast_subject.asObservable();
   }
 
 }
