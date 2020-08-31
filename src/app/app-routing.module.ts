@@ -79,6 +79,10 @@ const routes: Routes = [
           {
             path: 'latest-data',
             component: LatestDataComponent
+          },
+          {
+            path: 'sample-data',
+            component: SampleDataComponent
           }
         ]
       }

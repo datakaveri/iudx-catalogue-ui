@@ -202,7 +202,7 @@ export class MapViewComponent{
             <div id="pop_up_` +c.id +`"> <p class="text-center" style='padding-right:2px'> </p>` + 
             ((isPublic) ? (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
             
-            (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
+            (`<a  class="sample-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
             `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
             `</div>`)
         );
@@ -211,6 +211,7 @@ export class MapViewComponent{
         let self = this;
         markers.on('popupopen', function() {
       // add event listener to newly added a.merch-link element
+      if(isPublic){
       self.elementRef.nativeElement.querySelector(".data-link")
       .addEventListener('click', (e)=>
       {
@@ -218,6 +219,16 @@ export class MapViewComponent{
          var dataId = e.target.getAttribute("data-Id");
         self.display_latest_data(dataId)
       });
+    }
+    else{
+      self.elementRef.nativeElement.querySelector(".sample-link")
+    .addEventListener('click', (e)=>
+    {
+      // get id from attribute
+       var dataId = e.target.getAttribute("data-Id");
+      self.display_sample_data(dataId)
+    });
+  }
     });
       
     }
@@ -483,7 +494,7 @@ export class MapViewComponent{
         <div id="pop_up_` +data.id+`"> <p class="text-center" style='padding-right:2px'> </p>` + 
         ((isPublic) ? (`<a  class="data-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
         
-        (`<a  class="data-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
+        (`<a  class="sample-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
         `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
         `</div>`);
       
@@ -494,6 +505,17 @@ export class MapViewComponent{
 
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
+      let self = this;
+      markers.on('popupopen', function() {
+    // add event listener to newly added a.merch-link element
+    self.elementRef.nativeElement.querySelector(".data-link")
+    .addEventListener('click', (e)=>
+    {
+      // get id from attribute
+       var dataId = e.target.getAttribute("data-Id");
+      self.display_latest_data(dataId)
+    });
+  });
     }
   }
 
@@ -520,6 +542,11 @@ export class MapViewComponent{
     // console.log(id)
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/latest-data'])
+    })
+  }
+  display_sample_data(id){
+    this.ngZone.run(() => {
+      this.router.navigate(['/search/map/sample-data'])
     })
   }
 }
