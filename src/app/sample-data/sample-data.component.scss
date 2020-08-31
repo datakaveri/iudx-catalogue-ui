@@ -20,15 +20,14 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
-      cursor: pointer;
   
       h3{
-        color: var(--tertiary);
+        color: var(--primary);
+        font-weight: 500;
       }
   
       p{
-        font-weight: 600;
-      color: var(--primary);
+        color: var(--tertiary);
       }
     }
   
