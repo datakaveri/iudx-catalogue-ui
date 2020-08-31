@@ -1,1 +1,21 @@
-<p>latest-data works!</p>
+<div  class="samplePopup">
+    <div class="samplePopup_head">
+      <h3 class="samplePopup_title">Latest Data</h3>
+      <span (click)='hideLatestData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
+    </div>
+    <div class="samplePopup_body">
+      <div class="samplePopup_item">
+        <table>
+          <tr>
+            <th *ngFor="let data of lattesData[0] | keyvalue">{{data.key}}</th>
+          </tr>
+          <tr *ngFor="let data of lattesData|keyvalue">
+            <ng-container *ngFor="let item of lattesData[data.key] | keyvalue">
+              <td>{{item.value}}</td>
+            </ng-container>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{fadeIn:overlay}"></div>
