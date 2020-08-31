@@ -27,7 +27,6 @@ export class FooterComponent implements OnInit {
   toggleChangeCity() {
     this.overlay = true;
     this.showChangeCity = true;
-
   }
 
   getChangeCity(value) {

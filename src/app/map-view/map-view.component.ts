@@ -90,7 +90,9 @@ export class MapViewComponent {
     this.body = {};
     this.resource_items = [];
     this.filtered_resource_items = [];
-    this.searchQuery = window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : { resource_groups: [] };
+    this.searchQuery = window.sessionStorage.map_search
+      ? JSON.parse(window.sessionStorage.map_search)
+      : { resource_groups: [] };
     this.count = this.searchQuery.resource_groups.length;
     this.drawQuery = {};
     this.filtered_resource_groups = [];
@@ -296,10 +298,14 @@ export class MapViewComponent {
     this.resource_groups.forEach((a, i) => {
       if (a.id == id) {
         let flag = !this.resource_groups[i].flag;
-        console.log(flag)
-        if(flag && this.count == this.limit) {
-          this.constantService.set_alert({flag:true,title:'Limit Exceeeded.',message:'You can filter by maximum 2 resource groups at a time.'});
-        } else if(flag && this.count < this.limit) {
+        console.log(flag);
+        if (flag && this.count == this.limit) {
+          this.constantService.set_alert({
+            flag: true,
+            title: 'Limit Exceeeded.',
+            message: 'You can filter by maximum 2 resource groups at a time.',
+          });
+        } else if (flag && this.count < this.limit) {
           this.resource_groups[i].flag = !this.resource_groups[i].flag;
           this.count++;
         } else {
@@ -478,30 +484,61 @@ export class MapViewComponent {
   }
 
   plotGeoJSONs(geoJsonObject, data, rsg) {
+    let mySet = new Set();
+    for (var i = 0; i < this.resource_groups.length; i++) {
+      if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
+        mySet.add(this.resource_groups[i].id);
+      }
+    }
     if (geoJsonObject == 'Point') {
       this.name = data.name;
       var lng = data.location.geometry.coordinates[0];
       var lat = data.location.geometry.coordinates[1];
-      var customPopup =
-        `<div id="name"> <p style='font-weight:bold'>` +
-        this.name +
-        `</p> </div> <div class = "text-centre"> <p>` +
-        data.description +
-        `</p> <p>Publisher: ` +
-        this.publisher +
-        `</p> </div> <div id="pop_up_` +
-        data.id +
-        `"> <p class="text-center" style='padding-right:2px'> </p>` +
-        ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-        data.items +
-        `, ` +
-        data.id +
-        `)"> Get Latest Data </a><br>` +
-        `</div>`;
+      if (mySet.has(rsg)) {
+        var customPopup =
+          `<div id="name"> <p style='font-weight:bold'>` +
+          this.name +
+          `</p> </div> <div class = "text-centre"> <p>` +
+          data.description +
+          `</p> <p>Publisher: ` +
+          this.publisher +
+          `</p> </div> <div id="pop_up_` +
+          data.id +
+          `"> <p class="text-center" style='padding-right:2px'> </p>` +
+          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+          data.items +
+          `, ` +
+          data.id +
+          `)"> Get Latest Data </a><br>` +
+          `</div>`;
+      } else {
+        var customPopup =
+          `<div id="name"> <p style='font-weight:bold'>` +
+          this.name +
+          `</p> </div> <div class = "text-centre"> <p>` +
+          data.description +
+          `</p> <p>Publisher: ` +
+          this.publisher +
+          `</p> </div> <div id="pop_up_` +
+          data.id +
+          `"> <p class="text-center" style='padding-right:2px'> </p>` +
+          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+          data.items +
+          `, ` +
+          data.id +
+          `)"> Get Sample Data </a> &nbsp;&nbsp;
+        <a style='color: var(--error); font-weight:bold;' (click)="get_access($event, ` +
+          data.items +
+          `, ` +
+          data.id +
+          `)"> Request Access </a><br>` +
+          `</div>`;
+      }
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
         // riseOnHover: true,
       }).bindPopup(customPopup);
+
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
     }
