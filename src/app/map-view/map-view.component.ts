@@ -229,7 +229,7 @@ export class MapViewComponent {
             this.filtered_resource_items +
             `, ` +
             c.id +
-            `)"> Get Sample Data </a> &nbsp;` +
+            `)"> Get Sample Data </a> &nbsp;&nbsp;` +
             `<a style='color: var(--error); font-weight:bold;' (click)="get_access($event, ` +
             this.filtered_resource_items +
             `, ` +
