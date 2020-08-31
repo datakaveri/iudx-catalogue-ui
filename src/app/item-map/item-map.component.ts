@@ -114,16 +114,49 @@ export class ItemMapComponent implements OnInit {
       var lat = c.location.geometry.coordinates[1];
       console.log(this.resourceAuthControlLevel);
       if (this.resourceAuthControlLevel == 'OPEN') {
-        const markers = L.marker([lat, lng]).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` + c.name + `</p> </div> <p>Desc: ` + this.resource.resource_group.description + `</p> <div id="pop_up_` + c.id + `"> <p class="text-center " style='padding-right:2px'> </p>` + `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + c.items + `, ` + c.id + `)"> Get Latest Data </a> <br>` + `</div>`
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(this.resource.resource_group),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            c.name +
+            `</p> </div> <p>Desc: ` +
+            this.resource.resource_group.description +
+            `</p> <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center " style='padding-right:2px'> </p>` +
+            `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+            c.items +
+            `, ` +
+            c.id +
+            `)"> Get Latest Data </a> <br>` +
+            `</div>`
         );
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
         // data.push(markers);
         // this.markerClusterData = data;
       } else {
-        const markers = L.marker([lat, lng]).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` + c.name + `</p> </div> <div class = "text-centre"> <p>Desc: ` + this.resource.resource_group.description + `</p> </div> <div id="pop_up_` + c.id + `"> <p class="text-center " style='padding-right:2px'> </p>` + `<a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` + c.items + `, ` + c.id + `)"> Get Sample Data </a>&nbsp;&nbsp;`+`<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` + c.items + `, ` + c.id + `)"> Request Access </a> <br>` + `</div>`
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(this.resource.resource_group),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            c.name +
+            `</p> </div> <div class = "text-centre"> <p>Desc: ` +
+            this.resource.resource_group.description +
+            `</p> </div> <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center " style='padding-right:2px'> </p>` +
+            `<a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` +
+            c.items +
+            `, ` +
+            c.id +
+            `)"> Get Sample Data </a>&nbsp;&nbsp;` +
+            `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
+            c.items +
+            `, ` +
+            c.id +
+            `)"> Request Access </a> <br>` +
+            `</div>`
         );
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
@@ -131,6 +164,33 @@ export class ItemMapComponent implements OnInit {
         // this.markerClusterData = data;
       }
     }
+  }
+  getMarkerIcon(_rsg) {
+    return L.divIcon({
+      className: 'custom-div-icon',
+      html: this.getColor(_rsg),
+    });
+  }
+  getColor(id) {
+    let index = 0;
+    // for (let i = 0; i < this.resource.resource_group.length; i++) {
+    //   if (this.resource.resource_groups[i] == id) {
+    //     index = i;
+    //     break;
+    //   }
+    // }
+    var pathFillColor = [
+      '#1c699d',
+      // '#ff7592',
+      // '#564d65',
+      // '#2fcb83',
+      // '#0ea3b1',
+      // '#f39c1c',
+      // '#d35414',
+      // '#9b59b6',
+    ];
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
+    `;
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
