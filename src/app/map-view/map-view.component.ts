@@ -177,36 +177,35 @@ export class MapViewComponent{
 
   mark_on_map() {
     let mySet = new Set();
+    var isPublic :boolean;
     for (var i = 0; i < this.resource_groups.length; i++) {
       if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
         mySet.add(this.resource_groups[i].id);
       }
     }
-
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
-      this.describe = c.description;
-      this.name = c.name;
-      this.publisher = c.provider.name;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
       if (mySet.has(c.resourceGroup)) {
+        isPublic = true;
+      }
+      else {
+        isPublic =false;
+      }
         const markers = L.marker([lat, lng], {
           icon: this.getMarkerIcon(c.resourceGroup),
         }).bindPopup(
           `<div id="name"> <p style='font-weight:bold'>` +
-            this.name +
-            `</p> </div> <div class = "text-centre"> <p>` +
-            this.describe +
-            `</p> <p>Publisher: ` +
-            this.publisher +
-            `</p> </div> <div id="pop_up_` +
-            c.id +
-            `"> <p class="text-center" style='padding-right:2px'> </p>` +
-            ` <a  class="data-link" data-Id=`+c.id +` style='color: var(--highlight); font-weight:bold;'> Get Latest Data </a><br>` +
-            `</div>`
+            c.name + `</p> </div>
+            <div class = "text-centre"> <p>`+ c.description +`</p><p>Group: `+c.resourceGroup.split('/')[3]+`</p> </div>
+            <div id="pop_up_` +c.id +`"> <p class="text-center" style='padding-right:2px'> </p>` + 
+            ((isPublic) ? (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
+            
+            (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
+            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
+            `</div>`)
         );
-        
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
         let self = this;
@@ -220,37 +219,9 @@ export class MapViewComponent{
         self.display_latest_data(dataId)
       });
     });
-      } else {
-        const markers = L.marker([lat, lng], {
-          icon: this.getMarkerIcon(c.resourceGroup),
-        }).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` +
-            this.name +
-            `</p> </div> <div class = "text-centre"> <p>` +
-            this.describe +
-            `</p> <p>Publisher: ` +
-            this.publisher +
-            `</p> </div> <div id="pop_up_` +
-            c.id +
-            `"> <p class="text-center" style='padding-right:2px'> </p>` +
-            ` <a style='color: var(--highlight); font-weight:bold;' onClick="display_sample_data($event, ` +
-            this.filtered_resource_items +
-            `, ` +
-            c.id +
-            `)"> Get Sample Data </a> &nbsp;&nbsp;` +
-            `<a style='color: var(--error); font-weight:bold;' (click)="get_access($event, ` +
-            this.filtered_resource_items +
-            `, ` +
-            c.id +
-            `)"> Request Access </a><br>` +
-            `</div>`
-        );
-        this.markersLayer.addLayer(markers);
-        this.markersLayer.addTo(this.map);
-      }
+      
     }
   }
-
   onMapReady(map: Map) {
     this.map = map;
     this.getMapData();
@@ -496,48 +467,29 @@ export class MapViewComponent{
       }
     }
     if (geoJsonObject == 'Point') {
+      let isPublic:boolean; 
       this.name = data.name;
       var lng = data.location.geometry.coordinates[0];
       var lat = data.location.geometry.coordinates[1];
       if (mySet.has(rsg)) {
-        var customPopup =
-          `<div id="name"> <p style='font-weight:bold'>` +
-          this.name +
-          `</p> </div> <div class = "text-centre"> <p>` +
-          data.description +
-          `</p> <p>Publisher: ` +
-          this.publisher +
-          `</p> </div> <div id="pop_up_` +
-          data.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          ` <a href="#" style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event,`+data.items+`,`+data.id+`)"> Get Latest Data </a><br>` +
-          `</div>`;
-      } else {
-        var customPopup =
-          `<div id="name"> <p style='font-weight:bold'>` +
-          this.name +
-          `</p> </div> <div class = "text-centre"> <p>` +
-          data.description +
-          `</p> <p>Publisher: ` +
-          this.publisher +
-          `</p> </div> <div id="pop_up_` +
-          data.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          ` <a style='color: var(--highlight); font-weight:bold;' onClick="display_latest_data($event, ` +
-          data.items +
-          `, ` +
-          data.id +
-          `)"> Get Sample Data </a> &nbsp;&nbsp;
-        <a href="#" style='color: var(--error); font-weight:bold;' onClick="get_access($event, ` +
-          data.items +
-          `, ` +
-          data.id +
-          `)"> Request Access </a><br>` +
-          `</div>`;
+        isPublic = true
       }
-      const markers = L.marker([lat, lng], {
+      else{
+        isPublic = false;
+      }
+        var customPopup = `<div id="name"> <p style='font-weight:bold'>` +
+        this.name + `</p> </div>
+        <div class = "text-centre"> <p>`+ data.description +`</p><p>Group: `+data.resourceGroup.split('/')[3]+`</p> </div>
+        <div id="pop_up_` +data.id+`"> <p class="text-center" style='padding-right:2px'> </p>` + 
+        ((isPublic) ? (`<a  class="data-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
+        
+        (`<a  class="data-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
+        `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
+        `</div>`);
+      
+        const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
-        // riseOnHover: true,
+        riseOnHover: true,
       }).bindPopup(customPopup);
 
       this.markersLayer.addLayer(markers);
@@ -565,11 +517,9 @@ export class MapViewComponent{
     `;
   }
   display_latest_data(id){
-    console.log(id)
+    // console.log(id)
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/latest-data'])
     })
-    // this.router.navigate(['/search/map/latest-data'])
-   
   }
 }
