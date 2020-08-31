@@ -115,26 +115,7 @@ export class ItemMapComponent implements OnInit {
       console.log(this.resourceAuthControlLevel);
       if (this.resourceAuthControlLevel == 'OPEN') {
         const markers = L.marker([lat, lng]).bindPopup(
-          `<div id="name">
-        <p style='font-weight:bold'>` +
-            c.name +
-            `</p>
-          </div>
-            <p>Desc: ` +
-            this.resource.resource_group.description +
-            `</p>
-          <div id="pop_up_` +
-            c.id +
-            `">
-          <p class="text-center " style='padding-right:2px'>
-      </p>` +
-            `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-            c.items +
-            `, ` +
-            c.id +
-            `)"> View Details </a>
-          <br>` +
-            `</div>`
+          `<div id="name"> <p style='font-weight:bold'>` + c.name + `</p> </div> <p>Desc: ` + this.resource.resource_group.description + `</p> <div id="pop_up_` + c.id + `"> <p class="text-center " style='padding-right:2px'> </p>` + `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` + c.items + `, ` + c.id + `)"> View Details </a> <br>` + `</div>`
         );
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
@@ -142,28 +123,7 @@ export class ItemMapComponent implements OnInit {
         // this.markerClusterData = data;
       } else {
         const markers = L.marker([lat, lng]).bindPopup(
-          `<div id="name">
-        <p style='font-weight:bold'>` +
-            c.name +
-            `</p>
-          </div>
-          <div class = "text-centre">
-            <p>Desc: ` +
-            this.resource.resource_group.description +
-            `</p>
-          </div>
-          <div id="pop_up_` +
-            c.id +
-            `">
-          <p class="text-center " style='padding-right:2px'>
-      </p>` +
-            `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
-            c.items +
-            `, ` +
-            c.id +
-            `)"> Request Access </a>
-          <br>` +
-            `</div>`
+          `<div id="name"> <p style='font-weight:bold'>` + c.name + `</p> </div> <div class = "text-centre"> <p>Desc: ` + this.resource.resource_group.description + `</p> </div> <div id="pop_up_` + c.id + `"> <p class="text-center " style='padding-right:2px'> </p>` + `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` + c.items + `, ` + c.id + `)"> Request Access </a> <br>` + `</div>`
         );
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
