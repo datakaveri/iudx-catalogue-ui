@@ -73,23 +73,25 @@ export class MapViewComponent {
   resource_items: any;
   filtered_resource_items: any;
   count: any;
+  limit: Number;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService
   ) {
+    // this.resource = this.constant.set_resource_details(this.resource_groups);
     // this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.is_drawn = false;
     this.search = {
       group: '',
     };
+    this.limit = 2;
     this.count = 0;
     this.show_filter = false;
     this.body = {};
     this.resource_items = [];
     this.filtered_resource_items = [];
-    this.searchQuery = window.sessionStorage.map_search
-      ? JSON.parse(window.sessionStorage.map_search)
-      : { resource_groups: [] };
+    this.searchQuery = window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : { resource_groups: [] };
+    this.count = this.searchQuery.resource_groups.length;
     this.drawQuery = {};
     this.filtered_resource_groups = [];
     this.resource_groups = [];
@@ -174,6 +176,13 @@ export class MapViewComponent {
   }
 
   mark_on_map() {
+    let mySet = new Set();
+    for (var i = 0; i < this.resource_groups.length; i++) {
+      if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
+        mySet.add(this.resource_groups[i].id);
+      }
+    }
+
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
       this.describe = c.description;
@@ -181,27 +190,51 @@ export class MapViewComponent {
       this.publisher = c.provider.name;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng], {
-        icon: this.getMarkerIcon(c.resourceGroup),
-      }).bindPopup(
-        `<div id="name"> <p style='font-weight:bold'>` +
-          this.name +
-          `</p> </div> <div class = "text-centre"> <p>` +
-          this.describe +
-          `</p> <p>Publisher: ` +
-          this.publisher +
-          `</p> </div> <div id="pop_up_` +
-          c.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-          this.filtered_resource_items +
-          `, ` +
-          c.id +
-          `)"> View Details </a><br>` +
-          `</div>`
-      );
-      this.markersLayer.addLayer(markers);
-      this.markersLayer.addTo(this.map);
+      if (mySet.has(c.resourceGroup)) {
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(c.resourceGroup),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            this.name +
+            `</p> </div> <div class = "text-centre"> <p>` +
+            this.describe +
+            `</p> <p>Publisher: ` +
+            this.publisher +
+            `</p> </div> <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+            this.filtered_resource_items +
+            `, ` +
+            c.id +
+            `)"> View Details </a><br>` +
+            `</div>`
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+      } else {
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(c.resourceGroup),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            this.name +
+            `</p> </div> <div class = "text-centre"> <p>` +
+            this.describe +
+            `</p> <p>Publisher: ` +
+            this.publisher +
+            `</p> </div> <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            ` <a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
+            this.filtered_resource_items +
+            `, ` +
+            c.id +
+            `)"> Request Details </a><br>` +
+            `</div>`
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+      }
     }
   }
 
@@ -255,20 +288,20 @@ export class MapViewComponent {
     this.httpInterceptor.set_filter(false);
   }
   toggle_dataset(id) {
-    this.count = ++this.count;
-    console.log(this.count)
-    if(this.count < 3){
-      
-      this.resource_groups.forEach((a, i) => {
-      if (a.id == id)
-        this.resource_groups[i].flag = !this.resource_groups[i].flag;
-        
-        
+    this.resource_groups.forEach((a, i) => {
+      if (a.id == id) {
+        let flag = !this.resource_groups[i].flag;
+        if(flag && this.count == this.limit) {
+          this.constantService.set_alert({flag:true,title:'Limit Exceeeded.',message:'You can filter by maximum 2 resource groups at a time.'});
+        } else if(flag && this.count < this.limit) {
+          this.resource_groups[i].flag = !this.resource_groups[i].flag;
+          this.count++;
+        } else {
+          this.resource_groups[i].flag = !this.resource_groups[i].flag;
+          this.count--;
+        }
+      }
     });
-  }
-  else {
-    window.alert('Please select only 2 at a time')
-  }
   }
 
   find_group_status(id) {
