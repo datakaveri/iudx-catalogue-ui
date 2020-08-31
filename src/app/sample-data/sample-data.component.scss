@@ -1,0 +1,46 @@
+.samplePopup {
+    &_head{
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      justify-content: space-between;
+  
+      h3{
+        font-weight: 500;
+        font-size: 18px;
+      }
+    }
+  
+    &_body{
+      margin-top: 35px;
+    }
+  
+    &_item{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      cursor: pointer;
+  
+      h3{
+        color: var(--tertiary);
+      }
+  
+      p{
+        font-weight: 600;
+      color: var(--primary);
+      }
+    }
+  
+    &_icon{
+      display: flex;
+      align-items: center;
+      width: 10%;
+      cursor: pointer;
+      justify-content: flex-end;
+    }
+  
+    img {
+      width: 20px;
+    }
+  }
