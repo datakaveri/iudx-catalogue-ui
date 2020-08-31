@@ -207,7 +207,7 @@ export class MapViewComponent {
             this.filtered_resource_items +
             `, ` +
             c.id +
-            `)"> View Details </a><br>` +
+            `)"> Get Latest Data </a><br>` +
             `</div>`
         );
         this.markersLayer.addLayer(markers);
@@ -225,11 +225,16 @@ export class MapViewComponent {
             `</p> </div> <div id="pop_up_` +
             c.id +
             `"> <p class="text-center" style='padding-right:2px'> </p>` +
-            ` <a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
+            ` <a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` +
             this.filtered_resource_items +
             `, ` +
             c.id +
-            `)"> Request Details </a><br>` +
+            `)"> Get Sample Data </a> &nbsp;&nbsp;` +
+            `<a style='color: var(--error); font-weight:bold;' (click)="get_access($event, ` +
+            this.filtered_resource_items +
+            `, ` +
+            c.id +
+            `)"> Request Access </a><br>` +
             `</div>`
         );
         this.markersLayer.addLayer(markers);
@@ -291,6 +296,7 @@ export class MapViewComponent {
     this.resource_groups.forEach((a, i) => {
       if (a.id == id) {
         let flag = !this.resource_groups[i].flag;
+        console.log(flag)
         if(flag && this.count == this.limit) {
           this.constantService.set_alert({flag:true,title:'Limit Exceeeded.',message:'You can filter by maximum 2 resource groups at a time.'});
         } else if(flag && this.count < this.limit) {
@@ -490,7 +496,7 @@ export class MapViewComponent {
         data.items +
         `, ` +
         data.id +
-        `)"> View Details </a><br>` +
+        `)"> Get Latest Data </a><br>` +
         `</div>`;
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
