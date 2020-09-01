@@ -177,7 +177,6 @@ export class MapViewComponent{
 
   mark_on_map() {
     let mySet = new Set();
-    var isPublic :boolean;
     for (var i = 0; i < this.resource_groups.length; i++) {
       if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
         mySet.add(this.resource_groups[i].id);
@@ -185,50 +184,45 @@ export class MapViewComponent{
     }
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
+      let isPublic :Boolean;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
       if (mySet.has(c.resourceGroup)) {
         isPublic = true;
       }
       else {
-        isPublic =false;
+        isPublic = false;
       }
-        const markers = L.marker([lat, lng], {
-          icon: this.getMarkerIcon(c.resourceGroup),
-        }).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` +
-            c.name + `</p> </div>
-            <div class = "text-centre"> <p>`+ c.description +`</p><p>Group: `+c.resourceGroup.split('/')[3]+`</p> </div>
-            <div id="pop_up_` +c.id +`"> <p class="text-center" style='padding-right:2px'> </p>` + 
-            ((isPublic) ? (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
-            
-            (`<a  class="sample-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
-            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
-            `</div>`)
-        );
-        this.markersLayer.addLayer(markers);
-        this.markersLayer.addTo(this.map);
-        let self = this;
-        markers.on('popupopen', function() {
+      const markers = L.marker([lat, lng], {
+        icon: this.getMarkerIcon(c.resourceGroup),
+      }).bindPopup(
+        `<div id="name"> <p style='font-weight:bold'>` +
+          c.name + `</p> </div>
+          <div class = "text-centre"> <p>`+ c.description +`</p><p>Group: `+c.resourceGroup.split('/')[3]+`</p> </div>
+          <div id="pop_up_` +c.id +`"> <p class="text-center" style='padding-right:2px'> </p>` + 
+          ((isPublic) ? (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
+          
+          (`<a  class="sample-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
+          `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
+          `</div>`)
+      );
+      this.markersLayer.addLayer(markers);
+      this.markersLayer.addTo(this.map);
+      let self = this;
+      markers.on('popupopen', function() {
       // add event listener to newly added a.merch-link element
       if(isPublic){
-      self.elementRef.nativeElement.querySelector(".data-link")
-      .addEventListener('click', (e)=>
-      {
-        // get id from attribute
-         var dataId = e.target.getAttribute("data-Id");
-        self.display_latest_data(dataId)
-      });
-    }
-    else{
-      self.elementRef.nativeElement.querySelector(".sample-link")
-    .addEventListener('click', (e)=>
-    {
-      // get id from attribute
-       var dataId = e.target.getAttribute("data-Id");
-      self.display_sample_data(dataId)
-    });
-  }
+        self.elementRef.nativeElement.querySelector(".data-link").addEventListener('click', (e)=> {
+          var dataId = e.target.getAttribute("data-Id");
+          self.display_latest_data(dataId);
+        });
+      }
+      else{
+        self.elementRef.nativeElement.querySelector(".sample-link").addEventListener('click', (e)=> {
+          var dataId = e.target.getAttribute("data-Id");
+          self.display_sample_data(dataId);
+        });
+      }
     });
       
     }
@@ -539,7 +533,6 @@ export class MapViewComponent{
     `;
   }
   display_latest_data(id){
-    // console.log(id)
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/latest-data'])
     })

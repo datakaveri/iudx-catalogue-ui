@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-sample-data',
   templateUrl: './sample-data.component.html',
@@ -10,7 +12,10 @@ export class SampleDataComponent implements OnInit {
   overlay: boolean;
   showSample:boolean;
   
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private location: Location
+  ) {
 
     this.showSample = true;
     this.overlay = true;
@@ -30,15 +35,6 @@ export class SampleDataComponent implements OnInit {
   }
 
   hideSampleData(){
-    if(this.router.url == '/search/map/sample-data'){
-      this.router.navigate(['/search/map']);
-      this.showSample = false;
-      this.overlay = false;
-      }
-      else{
-    this.router.navigate(['../search/datasets/']);
-    this.showSample = false;
-    this.overlay = false;
+    this.location.back();
   }
-}
 }

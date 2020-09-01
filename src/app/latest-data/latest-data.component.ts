@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-latest-data',
@@ -11,9 +12,11 @@ export class LatestDataComponent implements OnInit {
   latestData: any;
   overlay: boolean;
   showLatest:boolean;
-  // lattesData:any;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private location: Location
+  ) {
 
     this.showLatest = true;
     this.overlay = true;
@@ -97,15 +100,6 @@ export class LatestDataComponent implements OnInit {
   }
 
   hideLatestData(){
-    if(this.router.url == '/search/map/latest-data'){
-    this.router.navigate(['/search/map']);
-    this.showLatest = false;
-    this.overlay = false;
-    }
-    else{
-    this.router.navigate(['../../search/dataset/items']);
-    this.showLatest = false;
-    this.overlay = false;
-    }
+    this.location.back();
   }
 }

@@ -39,7 +39,7 @@ export class ItemMapComponent implements OnInit {
   resources: any;
   resource: any;
   resourceAuthControlLevel: string;
-  access: boolean;
+  access: Boolean;
   markersLayer = new L.FeatureGroup(null);
   markerClusterData: L.Marker[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
@@ -47,8 +47,6 @@ export class ItemMapComponent implements OnInit {
   city: any;
   constructor(private constant: ConstantsService,private elementRef: ElementRef,private router:Router) {
     this.resource = this.constant.get_resource_details();
-    console.log(this.resource);
-
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.resources = this.constant.get_resource_details().items;
     if (this.resourceAuthControlLevel == 'OPEN') {
@@ -57,7 +55,6 @@ export class ItemMapComponent implements OnInit {
       this.access = false;
     }
     this.city = this.constant.get_city();
-    // this.getMapData();
   }
 
   ngOnInit(): void {
@@ -108,12 +105,8 @@ export class ItemMapComponent implements OnInit {
   getMapData() {
     let data = [];
     for (const c of this.resources) {
-      console.log(c);
-      console.log(this.resource);
-
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-      console.log(this.resourceAuthControlLevel);
       if (this.resourceAuthControlLevel == 'OPEN') {
         const markers = L.marker([lat, lng], {
           icon: this.getMarkerIcon(this.resource.resource_group),
