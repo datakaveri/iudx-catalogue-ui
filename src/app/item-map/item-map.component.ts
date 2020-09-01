@@ -121,21 +121,7 @@ export class ItemMapComponent implements OnInit {
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(this.resource.resource_group),
       }).bindPopup(
-        // `<div id="name"> <p style='font-weight:bold'>` +
-        //   c.name +
-        //   `</p> </div> <p>Desc: ` +
-        //   this.resource.resource_group.description +
-        //   `</p> <div id="pop_up_` +
-        //   c.id +
-        //   `"> <p class="text-center " style='padding-right:2px'> </p>` +
-        //   `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-        //   c.items +
-        //   `, ` +
-        //   c.id +
-        //   `)"> Get Latest Data </a> <br>` +
-        //   `</div>`
-
-        `<div id="name"> <p style='font-weight:bold'>` +
+         `<div id="name"> <p style='font-weight:bold'>` +
           c.name +
           `</p> </div>
           <div class = "text-centre"> <p>` +
@@ -160,7 +146,6 @@ export class ItemMapComponent implements OnInit {
       this.markersLayer.addTo(this.map);
       let self = this;
       markers.on('popupopen', function () {
-        // add event listener to newly added a.merch-link element
         if (isPublic) {
           self.elementRef.nativeElement
             .querySelector('.data-link')
@@ -184,36 +169,6 @@ export class ItemMapComponent implements OnInit {
       //   this.map.closePopup();
       // });
 
-      // data.push(markers);
-      // this.markerClusterData = data;
-      // } else {
-      //   const markers = L.marker([lat, lng], {
-      //     icon: this.getMarkerIcon(this.resource.resource_group),
-      //   }).bindPopup(
-      //     `<div id="name"> <p style='font-weight:bold'>` +
-      //       c.name +
-      //       `</p> </div> <div class = "text-centre"> <p>Desc: ` +
-      //       this.resource.resource_group.description +
-      //       `</p> </div> <div id="pop_up_` +
-      //       c.id +
-      //       `"> <p class="text-center " style='padding-right:2px'> </p>` +
-      //       `<a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` +
-      //       c.items +
-      //       `, ` +
-      //       c.id +
-      //       `)"> Get Sample Data </a>&nbsp;&nbsp;` +
-      //       `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
-      //       c.items +
-      //       `, ` +
-      //       c.id +
-      //       `)"> Request Access </a> <br>` +
-      //       `</div>`
-      //   );
-      //   this.markersLayer.addLayer(markers);
-      //   this.markersLayer.addTo(this.map);
-      //   // data.push(markers);
-      //   // this.markerClusterData = data;
-      // }
     }
   }
 

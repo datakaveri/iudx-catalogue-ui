@@ -225,7 +225,6 @@ export class MapViewComponent {
       this.markersLayer.addTo(this.map);
       let self = this;
       markers.on('popupopen', function () {
-        // add event listener to newly added a.merch-link element
         if (isPublic) {
           self.elementRef.nativeElement
             .querySelector('.data-link')
