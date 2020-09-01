@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
 import { ConstantsService } from '../constants.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
@@ -45,7 +45,12 @@ export class ItemMapComponent implements OnInit {
   markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterGroup: L.MarkerClusterGroup;
   city: any;
-  constructor(private constant: ConstantsService,private elementRef: ElementRef,private router:Router) {
+  constructor(
+    private constant: ConstantsService,
+    private elementRef: ElementRef,
+    private router: Router,
+    public ngZone: NgZone
+  ) {
     this.resource = this.constant.get_resource_details();
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.resources = this.constant.get_resource_details().items;
@@ -105,60 +110,124 @@ export class ItemMapComponent implements OnInit {
   getMapData() {
     let data = [];
     for (const c of this.resources) {
+      let isPublic: Boolean;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
       if (this.resourceAuthControlLevel == 'OPEN') {
-        const markers = L.marker([lat, lng], {
-          icon: this.getMarkerIcon(this.resource.resource_group),
-        }).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` +
-            c.name +
-            `</p> </div> <p>Desc: ` +
-            this.resource.resource_group.description +
-            `</p> <div id="pop_up_` +
-            c.id +
-            `"> <p class="text-center " style='padding-right:2px'> </p>` +
-            `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
-            c.items +
-            `, ` +
-            c.id +
-            `)"> Get Latest Data </a> <br>` +
-            `</div>`
-        );
-        this.markersLayer.addLayer(markers);
-        this.markersLayer.addTo(this.map);
-        // data.push(markers);
-        // this.markerClusterData = data;
+        isPublic = true;
       } else {
-        const markers = L.marker([lat, lng], {
-          icon: this.getMarkerIcon(this.resource.resource_group),
-        }).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` +
-            c.name +
-            `</p> </div> <div class = "text-centre"> <p>Desc: ` +
-            this.resource.resource_group.description +
-            `</p> </div> <div id="pop_up_` +
-            c.id +
-            `"> <p class="text-center " style='padding-right:2px'> </p>` +
-            `<a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` +
-            c.items +
-            `, ` +
-            c.id +
-            `)"> Get Sample Data </a>&nbsp;&nbsp;` +
-            `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
-            c.items +
-            `, ` +
-            c.id +
-            `)"> Request Access </a> <br>` +
-            `</div>`
-        );
-        this.markersLayer.addLayer(markers);
-        this.markersLayer.addTo(this.map);
-        // data.push(markers);
-        // this.markerClusterData = data;
+        isPublic = false;
       }
+      const markers = L.marker([lat, lng], {
+        icon: this.getMarkerIcon(this.resource.resource_group),
+      }).bindPopup(
+        // `<div id="name"> <p style='font-weight:bold'>` +
+        //   c.name +
+        //   `</p> </div> <p>Desc: ` +
+        //   this.resource.resource_group.description +
+        //   `</p> <div id="pop_up_` +
+        //   c.id +
+        //   `"> <p class="text-center " style='padding-right:2px'> </p>` +
+        //   `<a style='color: var(--highlight); font-weight:bold;' (click)="display_latest_data($event, ` +
+        //   c.items +
+        //   `, ` +
+        //   c.id +
+        //   `)"> Get Latest Data </a> <br>` +
+        //   `</div>`
+
+        `<div id="name"> <p style='font-weight:bold'>` +
+          c.name +
+          `</p> </div>
+          <div class = "text-centre"> <p>` +
+          this.resource.resource_group.description +
+          `</p><p>Group: ` +
+          c.resourceGroup.split('/')[3] +
+          `</p> </div>
+          <div id="pop_up_` +
+          c.id +
+          `"> <p class="text-center" style='padding-right:2px'> </p>` +
+          (isPublic
+            ? `<a  class="data-link" data-Id=` +
+              c.id +
+              ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+            : `<a  class="sample-link" data-Id=` +
+              c.id +
+              ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+              `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+              `</div>`)
+      );
+      this.markersLayer.addLayer(markers);
+      this.markersLayer.addTo(this.map);
+      let self = this;
+      markers.on('popupopen', function () {
+        // add event listener to newly added a.merch-link element
+        if (isPublic) {
+          self.elementRef.nativeElement
+            .querySelector('.data-link')
+            .addEventListener('click', (e) => {
+              // this.layer.closePopup();
+              var dataId = e.target.getAttribute('data-Id');
+              self.display_latest_data(dataId);
+            });
+        } else {
+          self.elementRef.nativeElement
+            .querySelector('.sample-link')
+            .addEventListener('click', (e) => {
+              var dataId = e.target.getAttribute('data-Id');
+              self.display_sample_data(dataId);
+            });
+        }
+      });
+
+      // markers.getPopup().on('remove', function (map) {
+      //   console.log('close popup');
+      //   this.map.closePopup();
+      // });
+
+      // data.push(markers);
+      // this.markerClusterData = data;
+      // } else {
+      //   const markers = L.marker([lat, lng], {
+      //     icon: this.getMarkerIcon(this.resource.resource_group),
+      //   }).bindPopup(
+      //     `<div id="name"> <p style='font-weight:bold'>` +
+      //       c.name +
+      //       `</p> </div> <div class = "text-centre"> <p>Desc: ` +
+      //       this.resource.resource_group.description +
+      //       `</p> </div> <div id="pop_up_` +
+      //       c.id +
+      //       `"> <p class="text-center " style='padding-right:2px'> </p>` +
+      //       `<a style='color: var(--highlight); font-weight:bold;' (click)="display_sample_data($event, ` +
+      //       c.items +
+      //       `, ` +
+      //       c.id +
+      //       `)"> Get Sample Data </a>&nbsp;&nbsp;` +
+      //       `<a style='color: var(--error); font-weight:bold;' (click)="display_latest_data($event, ` +
+      //       c.items +
+      //       `, ` +
+      //       c.id +
+      //       `)"> Request Access </a> <br>` +
+      //       `</div>`
+      //   );
+      //   this.markersLayer.addLayer(markers);
+      //   this.markersLayer.addTo(this.map);
+      //   // data.push(markers);
+      //   // this.markerClusterData = data;
+      // }
     }
   }
+
+  display_latest_data(id) {
+    this.ngZone.run(() => {
+      this.router.navigate(['/search/dataset/map-view/latest-data']);
+    });
+  }
+  display_sample_data(id) {
+    this.ngZone.run(() => {
+      this.router.navigate(['/search/dataset/map-view/sample-data']);
+    });
+  }
+
   getMarkerIcon(_rsg) {
     return L.divIcon({
       className: 'custom-div-icon',

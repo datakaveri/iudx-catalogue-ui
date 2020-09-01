@@ -37,7 +37,7 @@ L.Marker.prototype.options.icon = iconDefault;
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
 })
-export class MapViewComponent{
+export class MapViewComponent {
   map: Map;
   show_filter: boolean;
   options: any;
@@ -74,7 +74,12 @@ export class MapViewComponent{
   filtered_resource_items: any;
   count: any;
   limit: Number;
-  constructor(private constantService: ConstantsService,private httpInterceptor: InterceptorService,private router: Router,private elementRef: ElementRef, public ngZone : NgZone
+  constructor(
+    private constantService: ConstantsService,
+    private httpInterceptor: InterceptorService,
+    private router: Router,
+    private elementRef: ElementRef,
+    public ngZone: NgZone
   ) {
     // this.resource = this.constant.set_resource_details(this.resource_groups);
     // this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
@@ -104,7 +109,7 @@ export class MapViewComponent{
     }
     this.city = this.constantService.get_city();
   }
-  
+
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
@@ -184,47 +189,63 @@ export class MapViewComponent{
     }
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
-      let isPublic :Boolean;
+      let isPublic: Boolean;
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
       if (mySet.has(c.resourceGroup)) {
         isPublic = true;
-      }
-      else {
+      } else {
         isPublic = false;
       }
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(c.resourceGroup),
       }).bindPopup(
         `<div id="name"> <p style='font-weight:bold'>` +
-          c.name + `</p> </div>
-          <div class = "text-centre"> <p>`+ c.description +`</p><p>Group: `+c.resourceGroup.split('/')[3]+`</p> </div>
-          <div id="pop_up_` +c.id +`"> <p class="text-center" style='padding-right:2px'> </p>` + 
-          ((isPublic) ? (`<a  class="data-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
-          
-          (`<a  class="sample-link" data-Id=`+ c.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
-          `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
-          `</div>`)
+          c.name +
+          `</p> </div>
+          <div class = "text-centre"> <p>` +
+          c.description +
+          `</p><p>Group: ` +
+          c.resourceGroup.split('/')[3] +
+          `</p> </div>
+          <div id="pop_up_` +
+          c.id +
+          `"> <p class="text-center" style='padding-right:2px'> </p>` +
+          (isPublic
+            ? `<a  class="data-link" data-Id=` +
+              c.id +
+              ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+            : `<a  class="sample-link" data-Id=` +
+              c.id +
+              ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+              `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+              `</div>`)
       );
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
       let self = this;
-      markers.on('popupopen', function() {
-      // add event listener to newly added a.merch-link element
-      if(isPublic){
-        self.elementRef.nativeElement.querySelector(".data-link").addEventListener('click', (e)=> {
-          var dataId = e.target.getAttribute("data-Id");
-          self.display_latest_data(dataId);
-        });
-      }
-      else{
-        self.elementRef.nativeElement.querySelector(".sample-link").addEventListener('click', (e)=> {
-          var dataId = e.target.getAttribute("data-Id");
-          self.display_sample_data(dataId);
-        });
-      }
-    });
-      
+      markers.on('popupopen', function () {
+        // add event listener to newly added a.merch-link element
+        if (isPublic) {
+          self.elementRef.nativeElement
+            .querySelector('.data-link')
+            .addEventListener('click', (e) => {
+              var dataId = e.target.getAttribute('data-Id');
+              self.display_latest_data(dataId);
+            });
+        } else {
+          self.elementRef.nativeElement
+            .querySelector('.sample-link')
+            .addEventListener('click', (e) => {
+              var dataId = e.target.getAttribute('data-Id');
+              self.display_sample_data(dataId);
+            });
+        }
+      });
+      // markers.getPopup().on('remove', function () {
+      //   console.log('close popup');
+      //   markers.closePopup();
+      // });
     }
   }
   onMapReady(map: Map) {
@@ -472,27 +493,38 @@ export class MapViewComponent{
       }
     }
     if (geoJsonObject == 'Point') {
-      let isPublic:boolean; 
+      let isPublic: boolean;
       this.name = data.name;
       var lng = data.location.geometry.coordinates[0];
       var lat = data.location.geometry.coordinates[1];
       if (mySet.has(rsg)) {
-        isPublic = true
-      }
-      else{
+        isPublic = true;
+      } else {
         isPublic = false;
       }
-        var customPopup = `<div id="name"> <p style='font-weight:bold'>` +
-        this.name + `</p> </div>
-        <div class = "text-centre"> <p>`+ data.description +`</p><p>Group: `+data.resourceGroup.split('/')[3]+`</p> </div>
-        <div id="pop_up_` +data.id+`"> <p class="text-center" style='padding-right:2px'> </p>` + 
-        ((isPublic) ? (`<a  class="data-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`) :
-        
-        (`<a  class="sample-link" data-Id=`+ data.id +` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; `+
-        `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>`)+
-        `</div>`);
-      
-        const markers = L.marker([lat, lng], {
+      var customPopup =
+        `<div id="name"> <p style='font-weight:bold'>` +
+        this.name +
+        `</p> </div>
+        <div class = "text-centre"> <p>` +
+        data.description +
+        `</p><p>Group: ` +
+        data.resourceGroup.split('/')[3] +
+        `</p> </div>
+        <div id="pop_up_` +
+        data.id +
+        `"> <p class="text-center" style='padding-right:2px'> </p>` +
+        (isPublic
+          ? `<a  class="data-link" data-Id=` +
+            data.id +
+            ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+          : `<a  class="sample-link" data-Id=` +
+            data.id +
+            ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+            `</div>`);
+
+      const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
         riseOnHover: true,
       }).bindPopup(customPopup);
@@ -500,16 +532,20 @@ export class MapViewComponent{
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
       let self = this;
-      markers.on('popupopen', function() {
-    // add event listener to newly added a.merch-link element
-    self.elementRef.nativeElement.querySelector(".data-link")
-    .addEventListener('click', (e)=>
-    {
-      // get id from attribute
-       var dataId = e.target.getAttribute("data-Id");
-      self.display_latest_data(dataId)
-    });
-  });
+      markers.on('popupopen', function () {
+        // add event listener to newly added a.merch-link element
+        self.elementRef.nativeElement
+          .querySelector('.data-link')
+          .addEventListener('click', (e) => {
+            // get id from attribute
+            var dataId = e.target.getAttribute('data-Id');
+            self.display_latest_data(dataId);
+          });
+      });
+      // markers.getPopup().on('remove', function () {
+      //   console.log('close popup');
+      //   this.map.closePopup();
+      // });
     }
   }
 
@@ -528,18 +564,27 @@ export class MapViewComponent{
         break;
       }
     }
-    var pathFillColor = ['#1c699d', '#ff7592', '#564d65','#2fcb83','#0ea3b1','#f39c1c','#d35414','#9b59b6'];
+    var pathFillColor = [
+      '#1c699d',
+      '#ff7592',
+      '#564d65',
+      '#2fcb83',
+      '#0ea3b1',
+      '#f39c1c',
+      '#d35414',
+      '#9b59b6',
+    ];
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
   }
-  display_latest_data(id){
+  display_latest_data(id) {
     this.ngZone.run(() => {
-      this.router.navigate(['/search/map/latest-data'])
-    })
+      this.router.navigate(['/search/map/latest-data']);
+    });
   }
-  display_sample_data(id){
+  display_sample_data(id) {
     this.ngZone.run(() => {
-      this.router.navigate(['/search/map/sample-data'])
-    })
+      this.router.navigate(['/search/map/sample-data']);
+    });
   }
 }
