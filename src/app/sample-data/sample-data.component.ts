@@ -30,8 +30,15 @@ export class SampleDataComponent implements OnInit {
   }
 
   hideSampleData(){
+    if(this.router.url == '/search/map/sample-data'){
+      this.router.navigate(['/search/map']);
+      this.showSample = false;
+      this.overlay = false;
+      }
+      else{
     this.router.navigate(['../search/datasets/']);
     this.showSample = false;
     this.overlay = false;
   }
+}
 }
