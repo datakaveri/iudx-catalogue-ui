@@ -21,8 +21,8 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPageComponent,
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'search',
@@ -34,9 +34,9 @@ const routes: Routes = [
         children: [
           {
             path: 'sample-data',
-            component: SampleDataComponent
-          }
-        ]
+            component: SampleDataComponent,
+          },
+        ],
       },
       {
         path: 'dataset',
@@ -44,11 +44,11 @@ const routes: Routes = [
         children: [
           {
             path: 'details',
-            component: ItemDetailsComponent
+            component: ItemDetailsComponent,
           },
           {
             path: 'data-descriptors',
-            component: ItemDataDesComponent
+            component: ItemDataDesComponent,
           },
           {
             path: 'items',
@@ -56,9 +56,9 @@ const routes: Routes = [
             children: [
               {
                 path: 'latest-data',
-                component: LatestDataComponent
-              }
-            ]
+                component: LatestDataComponent,
+              },
+            ],
           },
           {
             path: 'map-view',
@@ -66,11 +66,15 @@ const routes: Routes = [
             children: [
               {
                 path: 'latest-data',
-                component: LatestDataComponent
-              }
-            ]
-          }
-        ]
+                component: LatestDataComponent,
+              },
+              {
+                path: 'sample-data',
+                component: SampleDataComponent,
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'map',
@@ -78,24 +82,24 @@ const routes: Routes = [
         children: [
           {
             path: 'latest-data',
-            component: LatestDataComponent
+            component: LatestDataComponent,
           },
           {
             path: 'sample-data',
-            component: SampleDataComponent
-          }
-        ]
-      }
-    ]
+            component: SampleDataComponent,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '**',
     redirectTo: '',
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
