@@ -1,66 +1,76 @@
-<div class="landingPage__container">
-    <div class="hero__container">
-        <img src="assets/banner.png" alt="hero image" class="hero__image" />
-    </div>
-    <div class="landingPage__top">
-        <p class="landingPage__tagline">
-            Welcome to the <span>Smart City</span> of <span>{{city.configurations.smart_city_name}}</span>
-        </p>
-        <div class="searchBox-container">
-            <form name='form' ng-submit="getSearchResultsByText(query)" action='#' autocomplete="off">
-                <div class="searchBox">
-                    <input list='dropdown' name='dropdown' (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query" type="text" placeholder="Search public data..." />
-                    <button (click)="getSearchResultsByText(query)">
-                        <img src="assets/search.png" />
-                    </button>
-                </div>
-            </form>
-
-            <div *ngIf="query != ''" class="searchBox-dropdown">
-                <ul *ngIf="filteredTags.length != 0">
-                    <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
-                        <p (click)='getSearchResultsByTag(item.tag)'>
-                            <span class='tagSelected'>{{item.tag}}</span>
-                            <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="searchButton__container">
-            <a (click)="getAllDatasets()" class="active">View All {{names.resource_groups}}s</a>
-            <a (click)="getGeoInfo()">Geo Query</a>
-        </div>
-    </div>
-
-    <!-- <div class="categories__container" *ngIf="categoriesData.length > 0">
+<header class="header">
+  <div class="logo__container">
+    <a href="/"><img src="assets/logo.png" alt="" class="logo"/></a>
+  </div>
+  <nav>
     <ul>
-        <li *ngFor="let item of categoriesData">
-        <a href="#"><img src="{{ item.image }}" />{{item.name}}</a>
-        </li>
+      <li>
+        <a href="/">
+          Developers
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          Documents
+        </a>
+      </li>
     </ul>
-    </div> -->
-
-
-    <div class="landingPage__bottom" *ngIf="resultData">
+  </nav>
+</header>
+<main>
+  <div class="col-left">
+    <div>
+      <h2>
+        <span>Find The Dataset That Fits</span>
+        <span>You And Your Region</span>
+      </h2>
+      <div class="input-container">
+        <input placeholder="Search for dataset" type="text">
+        <img src="../../assets/search.png" alt="search" class="search-icon">
+        <button>
+          <img src="../../assets/map-search-outline.png" alt="">
+        </button>
+      </div>
+      <a class="link" href="/">View all Datasets</a>
+      <div class="quick-links">
+        <span>
+          quick links
+        </span>
         <ul>
-            <li>
-                <h5>{{ names.resource_groups }}s</h5>
-                <p>{{ resultData.resource_groups }}</p>
-            </li>
-            <li>
-                <h5>{{ names.resource_items }}s</h5>
-                <p>{{ resultData.resource_items }}</p>
-            </li>
-            <li>
-                <h5>{{ names.providers }}s</h5>
-                <p>{{ resultData.providers }}</p>
-            </li>
-            <li>
-                <h5>API Hits</h5>
-                <p>{{ resultData.api_calls }}</p>
-            </li>
+          <li>
+            <a href="/">
+              <img src="../../assets/education.png" alt="education">
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              <img src="../../assets/transport.png" alt="transport">
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              <img src="../../assets/environment.png" alt="environment">
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              <img src="../../assets/finance.png" alt="finance">
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              <img src="../../assets/health.png" alt="health">
+            </a>
+          </li>
         </ul>
+      </div>
     </div>
-</div>
+    <footer>
+      <p>
+        Showing content for: <b>Pune</b>
+        <a href="/">Change city</a>
+      </p>
+    </footer>
+  </div>
+  <div class="col-right"></div>
+</main>
