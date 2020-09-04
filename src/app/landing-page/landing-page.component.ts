@@ -22,11 +22,18 @@ export class LandingPageComponent implements OnInit {
   filteredTags: any = [];
   city: any;
   arrowkeyLocation: any;
+
+  //Showing Dropdown
+  showDevCard: boolean;
+  showDocCard: boolean;
   constructor(
     public router: Router,
     private network: InterceptorService,
     private constantService: ConstantsService
   ) {
+    this.showDevCard = true;
+    this.showDocCard = false;
+
     this.query = '';
     this.categoriesData = [
       {
@@ -60,7 +67,10 @@ export class LandingPageComponent implements OnInit {
     this.arrowkeyLocation = -1;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+
+  }
 
   get_data() {
     this.network.get_api('customer/summary').then((data) => {
