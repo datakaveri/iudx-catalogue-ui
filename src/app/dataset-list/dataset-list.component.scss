@@ -25,7 +25,7 @@
   background: var(--white);
   border-radius: 7px;
   margin-bottom: 15px;
-  padding: 10px 25px;
+  padding: 5px 25px;
   position: relative;
   width: 70%;
 
@@ -40,16 +40,18 @@
     border-radius: 7px 0 0 7px;
   }
 
-  & > *{
+  li:not(:last-child){
     margin: 8px 0;
   }
+
   h3{
     font-weight: 600;
   }
 
   &-link{
     border-top: 1px dashed var(--border);
-    padding-top: 8px;
+    padding: 6px 0;
+    margin-top: 18px;
     a{
       display: inline-block;
       margin-right: 15px;
