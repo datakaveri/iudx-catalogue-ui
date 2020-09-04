@@ -2,21 +2,22 @@
   position: fixed;
   left: 0;
   top: 84.65px;
-  width: calc(100% - 50px);
+  width: 500px;
   padding: 15px 25px;
   display: flex;
   background: white;
   z-index: 1;
   .search_bar {
-    width: 60%;
+    width: 88%;
     position: relative;
     input {
       border: none;
       box-sizing: border-box;
-      // width: calc(100% - 125px - 3px);\
       width: 100%;
       padding: 8px 12px;
       border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--off-white);
     }
     button {
       background: none;
@@ -29,23 +30,21 @@
     }
   }
   .map_view {
-    width: 40%;
+    width: 12%;
     text-align: right;
     button {
       float: right;
-      width: 160px;
+      width: 50px;
+      border-radius: 7px;
       padding: 8px 12px;
       border: 1px solid var(--border);
-      background: var(--white);
-    }
-    button:last-child {
-      // margin-right: 15px;
+      background: #00796B;
     }
     img {
       height: 20px;
       width: 20px;
-      margin: 0 8px;
       vertical-align: middle;
+      fill: #fff;
     }
   }
 }

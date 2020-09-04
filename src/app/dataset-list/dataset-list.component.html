@@ -12,7 +12,7 @@
         </p>
     </div>
     <div class="results-div">
-        <div class="box-style" *ngFor="let resource of results?.items">
+        <!-- <div class="box-style" *ngFor="let resource of results?.items">
             <h4>
                 {{ resource.name }}
                 <img src="assets/locked.png" *ngIf="resource.resourceAuthControlLevel != 'OPEN'">
@@ -36,6 +36,22 @@
             </p>
             <a (click)="getResourceItems(resource)">View Details</a>
             <a (click)='showSampleData()'>Get Sample Data</a>
+        </div> -->
+        <div class="results-item" *ngFor="let resource of results?.items">
+            <li><span class="status">Public</span></li>
+            <li><h3>{{ resource.name }}</h3></li>
+            <li class="results-item-about">
+                <div class="results-item-location"><img src='#'><span>{{resource.location.address}}</span></div>
+                <div class="results-item-resources"><img src='#'><span>{{ resource.resource_items }}</span></div>
+            </li>
+            <li>{{ resource.id }} <span><img src='../../assets/copy.png'></span></li>
+            <li>{{resource.description}}</li>
+            <li>{{ resource.provider.description }}</li>
+            <li class="results-item-link">
+                <a (click)="getResourceItems(resource)">View Details</a>
+                <a (click)='showSampleData()'>Get Sample Data</a>
+            </li>
+           
         </div>
     </div>
 </div>
