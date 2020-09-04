@@ -99,10 +99,12 @@
     </div>
     <footer>
       <p>
-        Showing content for: <b>Pune</b>
-        <a href="/">Change city</a>
+        Showing content for: <b>{{city.configurations.smart_city_name}}</b>
+        <a  (click)='toggleChangeCity()' >Change city</a>
       </p>
     </footer>
   </div>
   <div class="col-right"></div>
 </main>
+<div [ngClass]="{fadeIn:overlay}"></div>
+<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>

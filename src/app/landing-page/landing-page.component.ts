@@ -10,7 +10,6 @@ import { InterceptorService } from '../interceptor.service';
 })
 export class LandingPageComponent implements OnInit {
   showAdvanceSearch: boolean = false;
-  overlay: boolean = false;
   names: any = {};
   query: string;
   resultData: any;
@@ -20,19 +19,18 @@ export class LandingPageComponent implements OnInit {
   tags: any;
   tagSelected: any;
   filteredTags: any = [];
-  city: any;
   arrowkeyLocation: any;
 
-  //Showing Dropdown
-  showDevCard: boolean;
-  showDocCard: boolean;
+  //City Change
+  city: any;
+  showChangeCity: boolean;
+  overlay: boolean;
   constructor(
     public router: Router,
     private network: InterceptorService,
+
     private constantService: ConstantsService
   ) {
-    this.showDevCard = true;
-    this.showDocCard = false;
 
     this.query = '';
     this.categoriesData = [
@@ -53,7 +51,6 @@ export class LandingPageComponent implements OnInit {
         image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/environment.png',
       },
     ];
-    this.overlay = false;
     this.names = this.constantService.get_nomenclatures();
     this.searchQuery = {
       text: '',
@@ -65,6 +62,10 @@ export class LandingPageComponent implements OnInit {
     this.get_data();
     this.get_tags();
     this.arrowkeyLocation = -1;
+
+
+    this.showChangeCity = false;
+    this.overlay = false;
   }
 
   ngOnInit(): void {
@@ -147,5 +148,17 @@ export class LandingPageComponent implements OnInit {
         this.arrowkeyLocation++;
         break;
     }
+  }
+  toggleChangeCity() {
+    this.overlay = true;
+    this.showChangeCity = true;
+  }
+
+  getChangeCity(value) {
+    this.showChangeCity = value;
+  }
+
+  getOverlayValue(value) {
+    this.overlay = value;
   }
 }
