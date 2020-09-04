@@ -2,7 +2,7 @@
     <div class="search_bar">
       <form action="" ng-submit="getSearchResultsByText(query)" autocomplete="off">
         <div class="searchBox">
-            <input type="text" (input)="filterItems(query)" (keydown)="keyDown($event)" name='input' placeholder="Search . . ." [(ngModel)]="query" />
+            <input type="text" (input)="filterItems(query)" (keydown)="keyDown($event)" name='input' placeholder="Search for datasets..." [(ngModel)]="query" />
             <button (click)="getSearchResultsByText(query)">
               <img src="assets/search.png" />
             </button>

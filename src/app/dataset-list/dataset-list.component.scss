@@ -40,8 +40,23 @@
     border-radius: 7px 0 0 7px;
   }
 
+  li{
+    line-height:2;
+  }
+
+  li:nth-child(4){
+    display: flex;
+    span{
+      margin-left: 18px;
+
+      img{
+        width: 22px;
+      }
+    }
+  }
+
   li:not(:last-child){
-    margin: 8px 0;
+    margin: 6px 0;
   }
 
   h3{

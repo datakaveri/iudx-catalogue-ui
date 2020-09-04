@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 84.65px;
-  width: 45%;
+  width: 500px;
   padding: 15px 25px;
   display: flex;
   background: white;
@@ -17,6 +17,7 @@
       padding: 8px 12px;
       border: 1px solid var(--border);
       border-radius: 7px;
+      background: var(--off-white);
     }
     button {
       background: none;
