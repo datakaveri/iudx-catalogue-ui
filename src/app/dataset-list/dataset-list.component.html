@@ -44,15 +44,16 @@
                 <div class="results-item-location"><img src='#'><span>{{resource.location.address}}</span></div>
                 <div class="results-item-resources"><img src='#'><span>{{ resource.resource_items }}</span></div>
             </li>
-            <li>{{ resource.id }}</li>
-            <li>{{resource.description}}</li>
-            <li>{{ resource.provider.description }}</li>
+            <li>Dataset ID: {{ resource.id }}</li>
+            <li>Description: {{resource.description}}</li>
+            <li>Publisher: {{ resource.provider.description }}</li>
             <div class="results-item-link">
                 <a (click)="getResourceItems(resource)">View Details</a>
                 <a (click)='showSampleData()'>Get Sample Data</a>
             </div>
            
         </div>
+        
     </div>
 </div>
 <div class="filder_popup" *ngIf="show_filter">

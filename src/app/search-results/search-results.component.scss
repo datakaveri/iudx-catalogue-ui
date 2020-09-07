@@ -8,7 +8,7 @@
   background: white;
   z-index: 1;
   .search_bar {
-    width: 88%;
+    width: 89%;
     position: relative;
     input {
       border: none;
@@ -16,33 +16,35 @@
       width: 100%;
       padding: 8px 12px;
       border: 1px solid var(--border);
-      border-radius: 7px;
+      border-radius: 5px;
       background: var(--off-white);
     }
     button {
       background: none;
       border: none;
       img {
-        width: 25px;
+        width: 16px;
         vertical-align: middle;
-        margin-left: -40px;
+        margin-left: -30px;
       }
     }
   }
   .map_view {
-    width: 12%;
+    width: 11%;
     text-align: right;
     button {
       float: right;
-      width: 50px;
-      border-radius: 7px;
-      padding: 8px 12px;
+      width: 42px;
+      border-radius: 5px;
+      padding: 10.45px 12px;
       border: 1px solid var(--border);
       background: #00796B;
+      display: flex;
+      justify-content: center;
     }
     img {
-      height: 20px;
-      width: 20px;
+      height: 16px;
+      width: 16px;
       vertical-align: middle;
       fill: #fff;
     }

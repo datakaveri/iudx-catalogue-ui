@@ -85,6 +85,7 @@ export class DatasetListComponent implements OnInit {
         this.show_data = true;
         this.results = response;
         this.get_filters(response);
+        
       });
     } else {
       this.search_text = '';
