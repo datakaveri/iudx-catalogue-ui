@@ -24,13 +24,13 @@ export class ConstantsService {
     this.providers = 'Publisher';
     this.city = '';
     this.search_params = window.sessionStorage.search_params ? JSON.parse(window.sessionStorage.search_params) : {"text":"","tags":[],"providers":[],"page":0,"resource_groups":[]};
-    let cities = [{"instanceID":"ui-test.iudx.org.in","configurations":{"smart_city_name":"PSCDCL","map_default_view_lat_lng":[18.5644,73.7858]}}];
+    let cities = ['pune'];
     // let host = location.host == 'localhost:4000' ? 'ui-test' : location.host.split('.')[0];
-    let host = 'ui-test';
+    let host = 'pune';
     cities.forEach(a=>{
-      if(a.instanceID == (host + '.iudx.org.in')) this.city = a;
+      if(a == host) this.city = a;
     });
-    this.title.setTitle(this.city.configurations.smart_city_name + " Data Kaveri | Indian Urban Data Exchang");
+    this.title.setTitle(this.city + " Data Kaveri | Indian Urban Data Exchang");
   }
 
   set_city(value: any) {

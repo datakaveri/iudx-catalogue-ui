@@ -6,7 +6,7 @@
     </div>
     <div class="searchCity__contentBox">
         <div *ngFor="let data of citiesData" class="searchCity__item" (click)="change_city(data)">
-            <h3>{{data.configurations.smart_city_name}}</h3>
+            <h3>{{data}}</h3>
             <p>1 {{text.resource_groups}}s</p>
         </div>
     </div>

@@ -20,7 +20,7 @@ export class InterceptorService {
     private constant: ConstantsService
   ) {
     this.api_url = environment.api_url;
-    this.city = this.constant.get_city().instanceID.split('.iudx.org.in')[0];
+    this.city = this.constant.get_city();
   }
 
   set_loader(flag: Boolean) {
