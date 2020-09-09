@@ -103,7 +103,7 @@
       margin-top: 70px;
       font-weight: 500;
       font-size: 16px;
-      right: 70px;
+      right: 0;
       color: var(--highlight);
 
       &:link,
@@ -305,13 +305,14 @@
   }
   .developers__container{
     border: 1px solid var(--border);
+    padding: 10px 0;
     border-radius: 8px;
     background: var(--white);
 
 
     div{
      &:not(:last-child){
-       margin-bottom: 8px;
+       margin-bottom: 12px;
      }
       padding: 5px 15px;
       transition: .3s ease;
@@ -329,3 +330,6 @@
     }
   }
 }
+
+
+//Popup buffs
