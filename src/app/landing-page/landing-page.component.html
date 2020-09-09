@@ -57,12 +57,25 @@
         <span>You And Your Region</span>
       </h2>
       <div class="input-container">
-        <input placeholder="Search for dataset" type="text">
-        <img src="../../assets/search.png" alt="search" class="search-icon">
-        <button>
+        <input autocomplete="off" placeholder="Search for dataset" type="text" list='dropdown' name='dropdown'
+                (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query">
+        <div class="search-icon">
+          <img src="../../assets/search.png" alt="search"  (click)="getSearchResultsByText(query)">
+        </div>
+        <button (click)="getGeoInfo()"  >
           <img src="../../assets/map-search-outline.png" alt="">
         </button>
-        <a class="link" href="/">View all Datasets</a>
+        <a (click)="getAllDatasets()" class="link" >View all {{names.resource_groups}}s</a>
+        <div *ngIf="query != ''" class="searchBox-dropdown">
+          <ul *ngIf="filteredTags.length != 0">
+            <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
+              <p (click)='getSearchResultsByTag(item.tag)'>
+                <span class='tagSelected'>{{item.tag}}</span>
+                <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
+              </p>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="quick-links">
         <span>
