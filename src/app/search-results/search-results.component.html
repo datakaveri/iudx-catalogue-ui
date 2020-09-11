@@ -1,34 +1,39 @@
-<div class="search_div">
+<div class="search_div-container">
+  <div class="search_div">
     <div class="search_bar">
       <form action="" ng-submit="getSearchResultsByText(query)" autocomplete="off">
         <div class="searchBox">
-            <input type="text" (input)="filterItems(query)" (keydown)="keyDown($event)" name='input' placeholder="Search for datasets..." [(ngModel)]="query" />
-            <button (click)="getSearchResultsByText(query)">
-              <img src="assets/search.png" />
-            </button>
-          </div>
+          <input type="text" (input)="filterItems(query)" (keydown)="keyDown($event)" name='input'
+            placeholder="Search for datasets..." [(ngModel)]="query" />
+          <button (click)="getSearchResultsByText(query)">
+            <img src="assets/search.png" />
+          </button>
+        </div>
       </form>
       <div *ngIf="query != ''" class="searchBox-dropdown">
         <ul *ngIf="filteredTags.length != 0">
-          <li (click)='closeDropDown()' *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
+          <li (click)='closeDropDown()' *ngFor="let item of filteredTags; let i = index"
+            [class.active]="i == arrowkeyLocation">
             <p (click)='getSearchResultsByTag(item.tag)'>
               <span class='tagSelected'>{{item.tag}}</span>
               <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
             </p>
           </li>
         </ul>
-        </div>
       </div>
-      <div class="map_view">
+    </div>
+    <div class="map_view">
       <!-- <button *ngIf="router.url != '/search/map'" (click)="showMap()">
-        Geo Information
-      </button>
-      <button *ngIf="router.url === '/search/map'" (click)="listView()">
-        List View
-      </button> -->
+          Geo Information
+        </button>
+        <button *ngIf="router.url === '/search/map'" (click)="listView()">
+          List View
+        </button> -->
       <button (click)="toggle()" *ngIf="show_filter_button">
         <img src=".\assets\filter.png" />
       </button>
+    </div>
   </div>
 </div>
+
 <router-outlet></router-outlet>

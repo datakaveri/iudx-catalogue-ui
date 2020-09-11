@@ -1,14 +1,23 @@
 .search_div {
-  position: fixed;
+  box-sizing: border-box;
   left: 0;
   top: 84.65px;
-  width: 500px;
-  padding: 15px 25px;
+  width: 850px;
+  margin-left: 25px;
   display: flex;
   background: white;
-  z-index: 1;
+
+  &-container{
+    position: fixed;
+    top: 80.88px;
+    background: #fff;
+    width: 100%;
+    z-index: 2;
+    padding: 15px 0;
+  }
+
   .search_bar {
-    width: 89%;
+    width: 92%;
     position: relative;
     input {
       border: none;
@@ -30,7 +39,7 @@
     }
   }
   .map_view {
-    width: 11%;
+    width: 8%;
     text-align: right;
     button {
       float: right;
