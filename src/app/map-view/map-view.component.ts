@@ -108,6 +108,8 @@ export class MapViewComponent {
       this.httpInterceptor.set_filter(true);
     }
     this.city = this.constantService.get_city();
+    console.log(this.city);
+    
   }
 
   ngOnInit(): void {
