@@ -78,14 +78,14 @@ a {
   width: 100vw;
   height: 100vh;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .popup {
   background-color: var(--white);
   width: 400px;
   padding: 15px 25px;
-  border-radius: 10px;
+  // border-radius: 10px;
   box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
   z-index: 9999999;
   position: fixed;
