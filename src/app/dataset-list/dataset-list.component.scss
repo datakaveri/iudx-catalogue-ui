@@ -5,6 +5,7 @@
   }
   padding-top: 196px;
   min-height: calc(100vh - 197px);
+  background: var(--off-white);
 }
 
 .para-div {
@@ -124,7 +125,6 @@
 
 .results-div {
   padding: 15px 0 0 15px;
-  background: var(--off-white);
   .box-style:last-of-type {
     border: none;
   }
