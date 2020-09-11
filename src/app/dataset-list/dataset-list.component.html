@@ -51,6 +51,7 @@
             <a (click)='showSampleData()'>Get Sample Data</a>
         </div> -->
         <div class="results-item" *ngFor="let resource of results?.items">
+  
             <li *ngIf="resource.resourceAuthControlLevel != 'OPEN'"><span class="status status-private">Private</span></li>
             <li *ngIf="resource.resourceAuthControlLevel == 'OPEN'"><span class="status status-public">Public</span></li>
 
@@ -66,6 +67,8 @@
                 <a (click)="getResourceItems(resource)">View Details</a>
                 <a (click)='showSampleData()'>Get Sample Data</a>
             </div>
+                      <div *ngIf="resource.resourceAuthControlLevel == 'OPEN'" class="results-item-shade green"></div>
+            <div *ngIf="resource.resourceAuthControlLevel != 'OPEN'" class="results-item-shade light-green"></div>
            
         </div>
         
