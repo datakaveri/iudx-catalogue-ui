@@ -33,7 +33,7 @@ nav {
 }
 
 .logo {
-  width: 120px;
+  height: 40px;
 }
 
 .logo__container a {
@@ -83,7 +83,7 @@ nav {
 .documentation__container {
   border: 1px solid var(--border);
   padding: 5px 15px;
-  border-radius: 8px;
+  // border-radius: 8px;
 
   div {
     font-size: 18px;
