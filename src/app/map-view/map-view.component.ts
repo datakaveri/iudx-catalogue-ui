@@ -274,8 +274,8 @@ export class MapViewComponent {
       ],
       zoom: 12,
       center: latLng({
-        lng: this.city.configurations.map_default_view_lat_lng[1],
-        lat: this.city.configurations.map_default_view_lat_lng[0],
+        lng: 73.8567,
+        lat:  18.5204,
       }),
     };
     return map_options;
