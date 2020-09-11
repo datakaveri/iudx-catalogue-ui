@@ -121,7 +121,7 @@ export class DatasetListComponent implements OnInit {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    alert(this.texts.resource_groups + ' ID copied to Clipboard.');
+    this.constantService.set_toaster('success', this.texts.resource_groups + ' ID copied to Clipboard.');
   }
 
   close() {
