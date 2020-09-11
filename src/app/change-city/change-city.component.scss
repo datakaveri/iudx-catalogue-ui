@@ -1,5 +1,5 @@
 .searchCity {
-  
+
   &__item {
     display: flex;
     justify-content: space-between;
@@ -11,6 +11,7 @@
   h3 {
     font-weight: 600;
     color: var(--primary);
+    text-transform: capitalize;
   }
 
   p {

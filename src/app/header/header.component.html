@@ -1,44 +1,53 @@
 <header class="header">
   <div class="logo__container">
-    <a href="/"><img src="assets/logo.png" alt="" class="logo" /></a>
+    <a href="/"><img src="assets/logo.png" alt="" class="logo"/></a>
   </div>
   <nav>
-    <ul class="navList">
-      <li (mouseenter)="showDevCard = true" (mouseleave)="showDevCard = false">
-        <a href="#" class="navLink">Developers</a>
-        <div *ngIf="showDevCard" class="developers">
-          <span>&#9650;</span>
-          <div class="developers__container">
-            <div>
-              <h3><a href="https://apidocs.iudx.org.in/">API Docs</a></h3>
-              <p>Full Endpoint Documentation for all</p>
-            </div>
-            <div>
-              <h3><a href="https://colab.research.google.com/github/iudx/pyIUDX/blob/master/examples/pyIUDX_sample_usecases.ipynb">Jupyter Notebook</a></h3>
-              <p>Full Endpoint Documentation for all</p>
-            </div>
-            <div>
-              <h3><a href="https://github.com/iudx/pyIUDX">Python SDK</a></h3>
-              <p>Full Endpoint Documentation for all</p>
+    <ul>
+      <li>
+        <a href="/">
+          Developers
+          <div class="drop-menu developers">
+            <span>&#9650;</span>
+            <div class="developers__container">
+              <div>
+                <h3><a href="https://apidocs.iudx.org.in/">API Docs</a></h3>
+                <p>Full Endpoint Documentation for all</p>
+              </div>
+              <div>
+                <h3><a
+                  href="https://colab.research.google.com/github/iudx/pyIUDX/blob/master/examples/pyIUDX_sample_usecases.ipynb">Jupyter
+                  Notebook</a></h3>
+                <p>Full Endpoint Documentation for all</p>
+              </div>
+              <div>
+                <h3><a href="https://github.com/iudx/pyIUDX">Python SDK</a></h3>
+                <p>Full Endpoint Documentation for all</p>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </li>
-      <li (mouseenter)="showDocCard = true" (mouseleave)="showDocCard = false">
-        <a href="#" class="navLink">Documentation</a>
-        <div *ngIf="showDocCard" class="documentation">
-          <span>&#9650;</span>
-          <div class="documentation__container">
-            <div>
-              <h3><a href="https://pudx.catalogue.iudx.org.in/assets/resources/IUDX-UserManual-v1.0.pdf">Get Started</a></h3>
-              <p>Get to "Ahoy, World!" fast in your stack.</p>
-            </div>
-            <div>
-              <h3><a href="https://www.iudx.org.in/overview-of-iudx/">Overview</a></h3>
-              <p>Get an overview of IUDX</p>
+      <li>
+        <a href="/">
+          Documents
+          <div class="drop-menu documentation">
+            <span>&#9650;</span>
+            <div class="developers__container">
+              <div>
+                <h3><a href="https://pudx.catalogue.iudx.org.in/assets/resources/IUDX-UserManual-v1.0.pdf">Get Started</a></h3>
+                <p>Get to "Ahoy, World!" fast in your stack.</p>
+              </div>
+              <div>
+                <h3><a href="https://www.iudx.org.in/overview-of-iudx/">Overview</a></h3>
+                <p>Get an overview of IUDX</p>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
+      </li>
+      <li>
+        <a (click)="getGeoInfo()" class="btn-round">Geo Query</a>
       </li>
     </ul>
   </nav>
