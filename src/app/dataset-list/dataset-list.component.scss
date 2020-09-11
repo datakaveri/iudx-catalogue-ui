@@ -4,7 +4,6 @@
     font-weight: bolder;
   }
   padding-top: 196px;
-  background: var(--off-white);
   min-height: calc(100vh - 197px);
 }
 
@@ -33,7 +32,7 @@
   box-shadow: 7px 7px 8px -5px rgba(0, 0, 0, 0.05);
   background: var(--white);
   // border-radius: 10px;
-  padding: 15px 25px;
+  padding: 15px 25px 5px 25px;
   position: relative;
   width: calc(100% - 50px);
   max-width: 900px;
@@ -46,10 +45,6 @@
     top: 0;
     height: 100%;
     width: 10px;
-  }
-
-  li{
-    line-height:2;
   }
 
   li:nth-child(4){
@@ -102,6 +97,7 @@
     border-top: 1px dashed var(--border);
     padding: 6px 0;
     margin-top: 18px;
+    text-align: center;
     a{
       display: inline-block;
       margin-right: 15px;
@@ -129,9 +125,6 @@
 .results-div {
   padding: 15px 0 0 15px;
   background: var(--off-white);
-
-  text-align: center;
-
   .box-style:last-of-type {
     border: none;
   }
