@@ -8,7 +8,7 @@
       <img src="assets/unlocked.png" *ngIf="resourceAuthControlLevel == 'OPEN'"> -->
     </h4>
     <p>
-      <span>{{texts.resource_items}} ID: </span>{{ resource.id }}
+      <span>{{texts.resource_items}} ID: </span>{{ resource.id.length > 85 ? resource.id.substring(0,85)+'.....' : resource.id }}
       <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)">
     </p>
     <p>

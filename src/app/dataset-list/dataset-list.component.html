@@ -24,7 +24,7 @@
                 <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.resource_items }} Resources</span></div>
             </li>
 
-            <li>Dataset ID: {{ resource.id }}<span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)"></span></li>
+            <li>Dataset ID: {{ resource.id.length > 85 ? resource.id.substring(0,85)+'.....' : resource.id }}<span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)"></span></li>
 
             <li>Description: {{resource.description}}</li>
             <li>Publisher: {{ resource.provider.description }}</li>
