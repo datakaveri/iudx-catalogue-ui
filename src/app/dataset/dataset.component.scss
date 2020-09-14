@@ -13,15 +13,18 @@
       color: var(--primary);
       font-weight: 600;
     }
+
     .para-div {
-        padding: 0px 35px;
-        p span:nth-child(odd) {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        p span:nth-child(even) {
-            color: var(--tertiary);
-        }
+      padding: 0px 35px;
+
+      p span:nth-child(odd) {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      p span:nth-child(even) {
+        color: var(--tertiary);
+      }
     }
   }
 
@@ -35,40 +38,46 @@
       margin-bottom: 5px;
       vertical-align: middle;
     }
+
     .tab_div {
-        // margin: 0 25px 25px 25px;
-        padding: 10px 35px;
-        background: var(--off-white);
-        ul {
-            list-style: none;
-            // border-bottom: 1px solid var(--border);
-            margin-bottom: 15px;
-            li {
-                cursor: pointer;
-                display: inline-block;
-                margin-right: 35px;
-                padding: 10px 0;
-                text-align: center;
-                color: var(--tertiary);
-                background: var(--off-white);
-            }
-            .active {
-                border-bottom: 2px solid var(--highlight);
-                font-weight: 600;
-                color: var(--primary);
-            }
+      // margin: 0 25px 25px 25px;
+      padding: 10px 35px;
+      background: var(--off-white);
+
+      ul {
+        list-style: none;
+        // border-bottom: 1px solid var(--border);
+        margin-bottom: 15px;
+
+        li {
+          cursor: pointer;
+          display: inline-block;
+          margin-right: 35px;
+          padding: 10px 0;
+          text-align: center;
+          color: var(--tertiary);
+          background: var(--off-white);
         }
+
+        .active {
+          border-bottom: 2px solid var(--highlight);
+          font-weight: 600;
+          color: var(--primary);
+        }
+      }
     }
   }
 }
 
 .details-container {
-    padding: 5px 25px 30px 35px;
-    h3 {
-      font-weight: 600;
-      color: var(--primary);
-      span{
-        color: var(--tertiary);
+  padding: 5px 25px 30px 35px;
+
+  h3 {
+    font-weight: 600;
+    color: var(--primary);
+
+    span {
+      color: var(--tertiary);
     }
   }
 
@@ -87,4 +96,3 @@
     }
   }
 }
-
