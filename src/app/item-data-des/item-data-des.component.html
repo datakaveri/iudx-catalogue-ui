@@ -6,12 +6,12 @@
       </h2>
       <table>
         <tr>
-          <th></th>
-          <th></th>
+          <th *ngFor="let data of latestData[0] | keyvalue">{{data.key}}</th>
         </tr>
-        <tr>
-          <td></td>
-          <td></td>
+        <tr *ngFor="let data of latestData|keyvalue">
+          <ng-container *ngFor="let item of latestData[data.key] | keyvalue">
+            <td>{{item.value}}</td>
+          </ng-container>
         </tr>
       </table>
     </div>

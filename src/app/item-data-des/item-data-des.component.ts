@@ -10,6 +10,7 @@ export class ItemDataDesComponent implements OnInit {
   resource: any;
   texts: any;
   data_descriptor: any;
+  latestData:any;
   flags: Array<Boolean>;
   constructor(
     private constant: ConstantsService
@@ -18,6 +19,90 @@ export class ItemDataDesComponent implements OnInit {
     this.resource = this.constant.get_resource_details();
     this.texts = this.constant.get_nomenclatures();
     this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
+
+    this.latestData = [
+      {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      }, {
+        'HOTSPOT_ID': 71,
+        'USER_COUNT': 0,
+        'NAME': 'In front of kalyan nagar steel',
+        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
+        'LOCATION_STATUS': 'ON',
+        'ACCESS_POINT_COUNT': 1,
+        'ACCESS_POINT_COUNT2': 1,
+        'ACCESS_POINT_COUNT3': 1,
+        'ACCESS_POINT_COUNT4': 1
+      },
+    ]
   }
 
   ngOnInit(): void {

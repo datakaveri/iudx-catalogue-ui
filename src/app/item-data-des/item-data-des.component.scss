@@ -10,31 +10,46 @@
   justify-content: space-between;
   .sample-data-table {
     width: calc(100% - 30% - 25px);
-    table {
-     width: 100%;
-      max-height: 330px;
-      border: 1px solid #CCCCCC;
-      background: var(--white);
-      border-collapse: collapse;
-      height: 100%;
 
-      tr, th, td {
-        border: 1px solid #CCCCCC;
-        border-collapse: collapse;
-      }
+    table, th, tr {
+      border: 1px solid var(--border);
+      border-collapse: collapse;
+    }
+
+    table {
+
+      max-width: 1000px;
+      overflow-x: scroll;
+      display: block;
+      background: var(--white);
 
       th {
-        height: 35px;
-        &:first-of-type {
-          width: 25%;
+        padding: 10px 12px;
+        font-weight: 700;
+        font-size: 12px;
+        text-align: left;
+        &:nth-child(1){
+          width: 200px;
         }
       }
 
       tr {
+        &:nth-child(1){
+          border-bottom: none;
+        }
+        &:nth-child(2){
+          border-top: none;
+        }
+        td {
+          padding: 5px;
+          font-weight: 300;
+          text-align: left;
 
+        }
       }
-
     }
+
+
   }
 }
 
