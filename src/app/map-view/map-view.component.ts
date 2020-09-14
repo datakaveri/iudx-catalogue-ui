@@ -411,7 +411,6 @@ export class MapViewComponent {
     this.is_drawn = false;
     this.markersLayer.clearLayers();
     this.resource_items = [];
-    this.getMapData();
   }
 
   onDrawEdited(e: any) {
