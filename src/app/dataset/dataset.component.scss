@@ -38,32 +38,32 @@
       margin-bottom: 5px;
       vertical-align: middle;
     }
+  }
 
-    .tab_div {
-      // margin: 0 25px 25px 25px;
-      padding: 10px 35px;
-      background: var(--off-white);
+  .tab_div {
+    // margin: 0 25px 25px 25px;
+    padding: 10px 35px;
+    background: var(--off-white);
 
-      ul {
-        list-style: none;
-        // border-bottom: 1px solid var(--border);
-        margin-bottom: 15px;
+    ul {
+      list-style: none;
+      // border-bottom: 1px solid var(--border);
+      margin-bottom: 15px;
 
-        li {
-          cursor: pointer;
-          display: inline-block;
-          margin-right: 35px;
-          padding: 10px 0;
-          text-align: center;
-          color: var(--tertiary);
-          background: var(--off-white);
-        }
+      li {
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 35px;
+        padding: 10px 0;
+        text-align: center;
+        color: var(--tertiary);
+        background: var(--off-white);
+      }
 
-        .active {
-          border-bottom: 2px solid var(--highlight);
-          font-weight: 600;
-          color: var(--primary);
-        }
+      .active {
+        border-bottom: 2px solid var(--highlight);
+        font-weight: 600;
+        color: var(--primary);
       }
     }
   }
@@ -77,22 +77,73 @@
     color: var(--primary);
 
     span {
-      color: var(--tertiary);
+      color: var(--highlight);
+      font-weight: 500;
+      font-size: 14px;
     }
   }
 
   p {
-    padding-top: 10px;
+    padding: 5px 0;
     color: var(--secondary);
+    display: flex;
 
     a {
       text-decoration: underline;
       text-underline-position: below;
+      color: var(--highlight);
+      font-weight: 500;
     }
 
     span {
       color: var(--tertiary);
       margin-right: 8px;
     }
+
+    .copy {
+      margin-left: 18px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      img {
+        width: 24px;
+      }
+    }
+  }
+
+  // p:first-child {
+    
+  // }
+}
+
+.results-item {
+  &-about {
+    display: flex;
+    margin: 10px 0;
+  }
+
+  &-resources,
+  &-location {
+    display: flex;
+    align-items: center;
+  }
+
+  &-location {
+    margin-right: 20px;
+
+    img {
+      width: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  &-resources {
+
+    img {
+      width: 24px;
+      margin-right: 10px
+    }
+
   }
 }

@@ -31,4 +31,14 @@ export class ItemResItemsComponent implements OnInit {
   showLatestData(){
     this.router.navigate(['/search/dataset/items/latest-data']);
   }
+
+  copy(id) {
+    const el = document.createElement('textarea');
+    el.value = id;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert(this.texts.resource_items + ' ID copied to Clipboard.');
+  }
 }

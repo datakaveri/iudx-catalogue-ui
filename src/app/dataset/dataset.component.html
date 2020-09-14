@@ -7,8 +7,18 @@
         </a>
     </div>
     <div class="details-container" *ngIf="show_data">
-        <h3><span>{{texts.resource_groups}}: </span>{{ resource.resource_group.name }}</h3>
-        <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }}</p>
+        <h3>{{ resource.resource_group.name }} 
+          <span *ngIf="resource.resourceAuthControlLevel != 'OPEN'">(Private)</span>
+          <span *ngIf="resource.resourceAuthControlLevel == 'OPEN'">(Public)</span>
+        </h3>
+
+        <!-- <h3>{{ resource.label }}</h3> -->
+
+        <div class="results-item-about">
+                <div class="results-item-location"><img src='../../assets/location.png'><span>{{resource.resource_group.location.address}}</span></div>
+                <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.count }} Resources</span></div>
+        </div>
+        <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }} <span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)"></span></p>
         <p>
           <span>Description:</span>{{ resource.resource_group.description }}
         </p>
@@ -21,12 +31,12 @@
         <p>
           <span>Server Organization: </span> {{ resource.resource_group.resourceServer.description }}
         </p>
-        <p>
+        <!-- <p>
           <span>Location: </span>{{ resource.resource_group.location.address }}
         </p>
         <p>
           <span>{{texts.resource_items}}s Count: </span>{{ resource.count }}
-        </p>
+        </p> -->
     </div>
     <div class="tab_div" *ngIf="show_data">
         <ul>
@@ -34,7 +44,7 @@
                 Details
             </li> -->
             <li [ngClass]="{'active': active_tab == 'Descriptors'}" (click)="change_tab('Descriptors')">
-                Data Descriptors
+                Overview
             </li>
             <li [ngClass]="{'active': active_tab == 'Items'}" (click)="change_tab('Items')">
                 {{ results.count }} {{texts.resource_items}}s
