@@ -3,9 +3,10 @@
     font-size: 17px;
     font-weight: bolder;
   }
-  padding-top: 196px;
-  min-height: calc(100vh - 197px);
+  padding-top: 199px;
+  min-height: calc(100vh - 199px);
   background: var(--off-white);
+  padding-bottom: 15px;
 }
 
 .para-div {
@@ -32,8 +33,7 @@
   box-sizing: border-box;
   box-shadow: 7px 7px 8px -5px rgba(0, 0, 0, 0.05);
   background: var(--white);
-  // border-radius: 10px;
-  padding: 15px 25px 5px 25px;
+  padding: 5px 25px 5px 25px;
   position: relative;
   width: calc(100% - 50px);
   max-width: 900px;
@@ -109,12 +109,16 @@
   }
   span:first-child{
     display: block;
-    // color: var(--highlight);
     font-weight: 500;
   }
 
   &-about{
     display: flex;
+  }
+
+  &-id{
+    display: flex;
+    justify-content: space-between;
   }
 
 }
@@ -174,7 +178,6 @@
     max-height: 275px;
     overflow-y: auto;
     border: 1px solid var(--border);
-    // border-radius: 5px;
 
     ul {
       list-style: none;

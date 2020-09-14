@@ -1,19 +1,12 @@
 .results-div {
     width: calc(100% - 0px);
-    // padding: 15px 35px;
     background: var(--off-white);
     .box-style {
-        // width: calc(100% - 0px);
-        // align-items: center;
-        // transition: background-color 0.2s;
-        // margin-bottom: 10px;
-        // padding: 15px 0;
-        // border-bottom: 1px solid var(--border);
         position: relative;
         box-sizing: border-box;
         box-shadow: 7px 7px 8px -5px rgba(0, 0, 0, 0.05);
         background: var(--white);
-        padding: 10px 25px;
+        padding: 12px 25px;
         max-width: 900px;
         margin-top: 10px;
         h4 {
@@ -32,29 +25,27 @@
             padding-top: 10px;
             color: var(--secondary);
         }
-        p {
-          img {
+        p:first-of-type {
+            display: flex;
+            justify-content: space-between;
+
+            img {
               width: 20px;
               vertical-align: sub;
               margin-left: 10px;
               cursor: pointer;
-          }
+            }
         }
         a {
           text-align: center;
             color: var(--highlight);
             font-weight: 500;
-            // margin-right: 30px;
             margin-top: 10px;
             display: block;
             border-top: 1px dashed var(--border);
             padding-top: 10px;
         }
-        p:first-child {
-            color: var(--secondary);
-            padding-top: 20px;
-            font-weight: 500;
-        }
+
         p > span {
             color: var(--tertiary);
         }

@@ -57,6 +57,8 @@ export class DatasetComponent implements OnInit {
       } else {
         this.set_route(this.router.url);
       }
+      console.log(this.resource);
+      
     });
   }
 

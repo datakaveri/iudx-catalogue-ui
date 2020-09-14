@@ -1,11 +1,8 @@
 <app-header></app-header>
-<!-- <app-search-results></app-search-results> -->
 <div class="results-div">
   <div class="box-style" *ngFor="let resource of resource?.items">
     <h4>
       {{ resource.name }}
-      <!-- <img src="assets/locked.png" *ngIf="resourceAuthControlLevel != 'OPEN'">
-      <img src="assets/unlocked.png" *ngIf="resourceAuthControlLevel == 'OPEN'"> -->
     </h4>
     <p>
       <span>{{texts.resource_items}} ID: </span>{{ resource.id.length > 85 ? resource.id.substring(0,85)+'.....' : resource.id }}
@@ -14,12 +11,6 @@
     <p>
       <span>Description: </span>{{ resource.description }}
     </p>
-    <!-- <p>
-      <span>{{texts.providers}}: </span>{{ resource.provider.description }}
-    </p> -->
-    <!-- <p>
-        <span>Location: </span>{{ resource.location.address }}
-    </p> -->
     <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)="showLatestData()">Get Latest Data</a>
     <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
     <div _ngcontent-jvd-c49="" class="results-item-shade green"></div>

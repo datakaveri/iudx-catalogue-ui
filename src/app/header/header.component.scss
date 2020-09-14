@@ -12,7 +12,7 @@
   align-items: center;
   background: var(--white);
   .logo {
-    height: 40px;
+    height: 35px;
   }
 
   .logo__container a {
@@ -38,7 +38,7 @@
         &.btn-round{
           // border-radius: 30px;
           border: 1px solid var(--secondary);
-          padding: 10px 30px;
+          padding: 7px 20px;
         }
 
         &:hover{

@@ -8,12 +8,9 @@
     </div>
     <div class="details-container" *ngIf="show_data">
         <h3>{{ resource.resource_group.name }} 
-          <span *ngIf="resource.resourceAuthControlLevel != 'OPEN'">(Private)</span>
-          <span *ngIf="resource.resourceAuthControlLevel == 'OPEN'">(Public)</span>
+          <span *ngIf="resource.resource_group.resourceAuthControlLevel != 'OPEN'">(Private)</span>
+          <span *ngIf="resource.resource_group.resourceAuthControlLevel == 'OPEN'">(Public)</span>
         </h3>
-
-        <!-- <h3>{{ resource.label }}</h3> -->
-
         <div class="results-item-about">
                 <div class="results-item-location"><img src='../../assets/location.png'><span>{{resource.resource_group.location.address}}</span></div>
                 <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.count }} Resources</span></div>
@@ -26,23 +23,14 @@
           <span>{{texts.providers}}: </span>{{ resource.resource_group.provider.description }}
         </p>
         <p>
-          <span>Schema: </span><a href="{{ schema_url }}" target="_blank">{{ schema_url }}</a>
-        </p>
-        <p>
           <span>Server Organization: </span> {{ resource.resource_group.resourceServer.description }}
         </p>
-        <!-- <p>
-          <span>Location: </span>{{ resource.resource_group.location.address }}
-        </p>
         <p>
-          <span>{{texts.resource_items}}s Count: </span>{{ resource.count }}
-        </p> -->
+          <span>Schema: </span><a href="{{ schema_url }}" target="_blank">{{ schema_url }}</a>
+        </p>
     </div>
     <div class="tab_div" *ngIf="show_data">
         <ul>
-            <!-- <li [ngClass]="{'active': active_tab == 'Details'}" (click)="change_tab('Details')">
-                Details
-            </li> -->
             <li [ngClass]="{'active': active_tab == 'Descriptors'}" (click)="change_tab('Descriptors')">
                 Overview
             </li>
