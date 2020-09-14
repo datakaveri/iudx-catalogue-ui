@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   .sample-data-table {
-    width: calc(100% - 30% - 25px);
+    width: calc(100% - 500px - 25px);
 
     table, th, tr {
       border: 1px solid var(--border);
@@ -17,12 +17,10 @@
     }
 
     table {
-
-      max-width: 1000px;
-      overflow-x: scroll;
+      max-width: 100%;
+      overflow-x: auto;
       display: block;
       background: var(--white);
-
       th {
         padding: 10px 12px;
         font-weight: 700;
@@ -55,8 +53,7 @@
 
 .results-div {
   background: var(--off-white);
-  width: 30%;
-
+  width: 500px;
   .box-style {
     align-items: center;
     transition: background-color 0.2s;
