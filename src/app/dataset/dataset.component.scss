@@ -1,8 +1,17 @@
 .content-container {
-    margin-top: calc(80.88px + 68.8px);
-    h1 {
-        font-size: 17px;
-        font-weight: bolder;
+  margin-top: calc(80.88px + 68.8px);
+
+  h1 {
+    font-size: 17px;
+    font-weight: bolder;
+  }
+
+  .para-div {
+    padding: 0px 35px;
+
+    p span:nth-child(odd) {
+      color: var(--primary);
+      font-weight: 600;
     }
     .para-div {
         padding: 0px 35px;
@@ -14,15 +23,17 @@
             color: var(--tertiary);
         }
     }
-    .back {
-        display: block;
-        margin: 15px 0;
-        color: var(--tertiary);
-        img {
-            width: 25px;
-            margin-bottom: 5px;
-            vertical-align: middle;
-        }
+  }
+
+  .back {
+    display: block;
+    margin: 15px 0;
+    color: var(--tertiary);
+
+    img {
+      width: 25px;
+      margin-bottom: 5px;
+      vertical-align: middle;
     }
     .tab_div {
         // margin: 0 25px 25px 25px;
@@ -48,7 +59,9 @@
             }
         }
     }
+  }
 }
+
 .details-container {
     padding: 5px 25px 30px 35px;
     h3 {
@@ -57,18 +70,21 @@
       span{
         color: var(--tertiary);
     }
+  }
+
+  p {
+    padding-top: 10px;
+    color: var(--secondary);
+
+    a {
+      text-decoration: underline;
+      text-underline-position: below;
     }
-    p {
-      padding-top: 10px;
-      color: var(--secondary);
-      a {
-        text-decoration: underline;
-        text-underline-position: below;
-      }
-      span{
-          color: var(--tertiary);
-          margin-right: 8px;
-      }
+
+    span {
+      color: var(--tertiary);
+      margin-right: 8px;
     }
   }
-  
+}
+
