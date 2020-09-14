@@ -41,8 +41,9 @@
           }
         }
         a {
+          text-align: center;
             color: var(--highlight);
-            font-weight: 600;
+            font-weight: 500;
             // margin-right: 30px;
             margin-top: 10px;
             display: block;
@@ -76,7 +77,7 @@
 }
 
 .results-item-shade[_ngcontent-jvd-c49] {
-    position: absolute; 
+    position: absolute;
     left: 0;
     top: 0;
     height: 100%;
