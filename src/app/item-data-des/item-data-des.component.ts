@@ -59,11 +59,14 @@ export class ItemDataDesComponent implements OnInit {
   }
 
   manipulate_data_descriptor(obj) {
+    // console.log(obj);
     let arr = [];
     let keys = Object.keys(obj);
     keys.forEach((a,i)=>{
+      if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label'){
       let o = { key: a, ...obj[a] };
       arr.push(o);
+      }
     });
     this.data_descriptor = arr;
     this.flags.length = this.data_descriptor.length;
