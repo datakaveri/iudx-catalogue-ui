@@ -140,7 +140,7 @@
 
       .searchBox-dropdown {
         box-sizing: border-box;
-        max-height: 200px;
+        max-height: 210px;
         border: 1px solid var(--border);
         border-top: 0;
         background-color: var(--white);
@@ -148,7 +148,8 @@
         position: absolute;
         top: 100%;
         overflow-y: auto;
-        width: calc(100% - 70px);
+        // width: calc(100% - 70px);
+        width: 100%;
         text-align: left;
 
         .no_data {
@@ -277,7 +278,8 @@
     transform: translate(-50%,0px);
     span{
       left: 50%;
-      transform: translate(-50%,0px);
+      transform: translate(-50%,-1px);
+      color: var(--border);
     }
   }
   &.documentation{
@@ -285,7 +287,8 @@
     transform: translate(-50%,0px);
     span{
       left: 80%;
-      transform: translate(-50%,0px);
+      transform: translate(-50%,-1px);
+      color: var(--border);
     }
   }
   .developers__container{
