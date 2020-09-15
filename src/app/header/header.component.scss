@@ -60,12 +60,12 @@
   visibility: hidden;
   position: absolute;
   margin-top: 10px;
-  width: 325px;
+  width: 285px;
   transition: all .3s ease;
   span {
     position: absolute;
-    color: var(--secondary);
-    top: -15px;
+    color: var(--border);
+    top: -14px;
 
   }
   &.developers{
@@ -86,7 +86,7 @@
   }
   .developers__container{
     border: 1px solid var(--border);
-    padding: 0;
+    padding: 5px 0;
     background: var(--white);
     h3{
       a{
@@ -102,7 +102,7 @@
 
     div{
       &:not(:last-child){
-        margin-bottom: 12px;
+        margin-bottom: 7px;
       }
       padding: 5px 15px;
       transition: .3s ease;
