@@ -1,7 +1,7 @@
 .samplePopup {
     background-color: var(--white);
-    width: calc(100% - 125px);
-    max-height: calc(100% - 65px);
+    // width: calc(100% - 125px);
+    // max-height: calc(100% - 65px);
     padding: 15px 25px;
     border-radius: 10px;
     box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.15);
@@ -10,6 +10,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    width: 35%;
+    height: 75%;
+    max-width: 1200px;
 
     &_head {
       display: flex;
@@ -23,6 +27,16 @@
         font-size: 18px;
       }
     }
+
+    &-list{
+      padding-top: 15px;
+    }
+
+    &-items{
+      margin: 10px 0;
+    }
+
+
 
 
     &_item {
@@ -53,10 +67,10 @@
       width: 20px;
     }
 
-    table, th, tr {
-      border: 1px solid var(--border);
-      border-collapse: collapse;
-    }
+    // table, th, tr {
+    //   border: 1px solid var(--border);
+    //   border-collapse: collapse;
+    // }
 
     table {
       width: 100%;
@@ -94,3 +108,15 @@
       }
     }
   }
+
+.key{
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.value{
+  font-size: 16px;
+  color: var(--tertiary);
+  margin-left: 10px;
+  color: var(--highlight);
+}

@@ -3,7 +3,7 @@
       <h3 class="samplePopup_title">Latest Data</h3>
       <span (click)='hideLatestData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
     </div>
-    <div class="samplePopup_body">
+    <!-- <div class="samplePopup_body">
       <div class="samplePopup_item">
         <table>
           <tr>
@@ -16,6 +16,18 @@
           </tr>
         </table>
       </div>
-    </div>
+    </div> -->
+    <!-- <div ngNonBindable>{{</div> 
+      <div ngNonBindable>[</div>  -->
+    <ul class='samplePopup-list'>
+      <li class='samplePopup-items' *ngFor="let data of latestData[0] | keyvalue">
+        <span class='key'>{{data.key | json}}</span>:<span  class='value'>{{data.value | json}}</span>
+      </li>
+    </ul>
+    <!-- <div ngNonBindable>]</div> 
+    <div ngNonBindable>}}</div>  -->
   </div>
+  
   <div [ngClass]="{fadeIn:overlay}"></div>
+
+
