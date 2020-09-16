@@ -17,6 +17,7 @@ export class ItemDataDesComponent implements OnInit {
   ) {
     this.flags = [];
     this.resource = this.constant.get_resource_details();
+    console.log(this.resource);
     this.texts = this.constant.get_nomenclatures();
     this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
 

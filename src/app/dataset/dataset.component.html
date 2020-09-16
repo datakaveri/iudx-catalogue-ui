@@ -31,9 +31,9 @@
     </div>
     <div class="tab_div" *ngIf="show_data">
         <ul>
-            <li [ngClass]="{'active': active_tab == 'Descriptors'}" (click)="change_tab('Descriptors')">
+            <!-- <li [ngClass]="{'active': active_tab == 'Descriptors'}" (click)="change_tab('Descriptors')">
                 Overview
-            </li>
+            </li> -->
             <li [ngClass]="{'active': active_tab == 'Items'}" (click)="change_tab('Items')">
                 {{ results.count }} {{texts.resource_items}}s
             </li>
