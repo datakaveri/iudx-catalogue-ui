@@ -62,7 +62,45 @@
       </div>
     </div>
   </div>
+  <div *ngIf="showDescriptor" class="descriptor-results-div">
+    <h2>
+      Data Descriptors: <span>{{ resource.resource_group.label }} </span>
+    </h2>
+    <div class="box-style" *ngFor="let resource of data_descriptor; let i = index;">
+      <h4 (click)="toggle(i)">
+        {{ resource[0].value }}
+        <img src="assets/drop-arrow-green.png" style="transform: rotate(180deg)" *ngIf="flags[i]">
+        <img src="assets/drop-arrow-green.png" *ngIf="!flags[i]">
+      </h4>
+      <div *ngIf="flags[i]">
+        <div *ngFor="let key of resource;let i=index;">
+          <div *ngIf="i != 0 && key.level == 1">
+            <p>
+              <span>
+                {{key.key}}:
+              </span>
+              {{key.value}}
+            </p>
+          </div>
+          <div *ngIf="i != 0 && key.level == 2">
+            <p>
+              <span>
+                {{key.key}}:
+              </span>
+            </p>
+            <div *ngFor="let item of key.value" class="level_2">
+              <p>
+                <span>
+                  {{item.key}}:
+                </span>
+                {{item.value}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>
-
-
 <router-outlet></router-outlet>
