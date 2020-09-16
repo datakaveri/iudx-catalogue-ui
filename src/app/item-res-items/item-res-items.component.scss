@@ -42,16 +42,18 @@
               cursor: pointer;
             }
         }
+        .links-div{
+          display:flex;
+          justify-content: left;
+          border-top: 1px dashed var(--border);
+          margin-top: 15px;
         a {
-          text-align: center;
             color: var(--highlight);
             font-weight: 500;
-            margin-top: 10px;
-            display: block;
-            border-top: 1px dashed var(--border);
             padding-top: 10px;
+            padding-right: 40px;
         }
-
+      }
         p > span {
             color: var(--tertiary);
         }

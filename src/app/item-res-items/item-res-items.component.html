@@ -13,13 +13,17 @@
       <p>
         <span>Description: </span>{{ resource.description }}
       </p>
+      <div class="links-div">
+      <a *ngIf="true" (click)="showDataDescriptor()">Show Data Descriptor</a>
       <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)="showLatestData()">Get Latest Data</a>
       <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
+      </div>
+      
       <!-- <a *ngIf='!resource.resource_group.dataDescriptor'>Data Descriptor</a> -->
       <div _ngcontent-jvd-c49="" class="results-item-shade green"></div>
     </div>
   </div>
-  <div *ngIf='resource.resource_group.dataDescriptor' class="descriptor-results-div">
+  <div *ngIf="resource.resource_group.dataDescriptor" class="descriptor-results-div">
     <h2>
       Data Descriptors: <span>{{ resource.resource_group.label }} </span>
     </h2>
