@@ -90,9 +90,14 @@
 
   h2{
     font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 18px;
+    font-weight: 400;
+    margin-bottom: 24px;
     color: var(--secondary);
+
+    span{
+        font-weight: 600;
+        margin-left: 5px;
+    }
   }
   .box-style {
     align-items: center;

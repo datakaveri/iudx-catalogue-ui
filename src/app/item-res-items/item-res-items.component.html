@@ -21,7 +21,7 @@
   </div>
   <div *ngIf='resource.resource_group.dataDescriptor' class="descriptor-results-div">
     <h2>
-      Data Descriptors
+      Data Descriptors: <span>{{ resource.resource_group.label }} </span>
     </h2>
     <div class="box-style" *ngFor="let resource of data_descriptor; let i = index;">
       <h4 (click)="toggle(i)">
