@@ -133,3 +133,81 @@
 .level_2 {
   margin-left: 30px;
 }
+
+
+
+// data descriptors
+
+.descriptor-results-div {
+  background: var(--off-white);
+  width: 500px;
+  .box-style {
+    align-items: center;
+    transition: background-color 0.2s;
+    margin-bottom: 5px;
+    background: var(--white);
+    padding: 11px 20px 11px 30px;
+
+    h4 {
+      color: var(--highlight);
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        color: var(--tertiary);
+      }
+
+      img {
+        width: 15px;
+        float: right;
+      }
+    }
+
+    p {
+      padding-top: 10px;
+      color: var(--secondary);
+    }
+
+    p {
+      img {
+        width: 20px;
+        vertical-align: sub;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+    }
+
+    a {
+      color: var(--highlight);
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 15px;
+      margin-right: 30px;
+    }
+
+    p:first-child {
+      color: var(--secondary);
+      padding-top: 20px;
+      font-weight: 500;
+    }
+
+    p > span {
+      color: var(--tertiary);
+      // font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--highlight);
+    }
+  }
+
+  .box-style:last-of-type {
+    border: none;
+  }
+}
