@@ -74,6 +74,8 @@ export class MapViewComponent {
   filtered_resource_items: any;
   count: any;
   limit: Number;
+  highlightStyle: { color: string; opacity: number; weight: number; fillOpacity: number; };
+  defaultStyle: { color: string; opacity: number; weight: number; fillOpacity: number; };
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService,
@@ -109,6 +111,21 @@ export class MapViewComponent {
     }
     this.city = this.constantService.get_city();
     console.log(this.city);
+
+    // for map type=Polygon to highlight when there is overlapping of layers
+ this.highlightStyle = {
+  color: '#ff0000',
+  opacity:1,
+  weight: 3,
+  fillOpacity: 1,
+};
+
+this.defaultStyle = {
+  color: '#000000',
+  opacity:0.5,
+  weight: 1,
+  fillOpacity: 0.7,
+};
     
   }
 
@@ -192,37 +209,41 @@ export class MapViewComponent {
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
       let isPublic: Boolean;
-      var lng = c.location.geometry.coordinates[0];
-      var lat = c.location.geometry.coordinates[1];
-      if (mySet.has(c.resourceGroup)) {
-        isPublic = true;
-      } else {
-        isPublic = false;
-      }
-      const markers = L.marker([lat, lng], {
-        icon: this.getMarkerIcon(c.resourceGroup),
-      }).bindPopup(
-        `<div id="name"> <p style='font-weight:bold'>` +
-          c.name +
-          `</p> </div>
-          <div class = "text-centre"> <p>` +
-          c.description +
-          `</p><p>Group: ` +
-          c.resourceGroup.split('/')[3] +
-          `</p> </div>
-          <div id="pop_up_` +
-          c.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          (isPublic
-            ? `<a  class="data-link" data-Id=` +
-              c.id +
-              ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
-            : `<a  class="sample-link" data-Id=` +
-              c.id +
-              ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-              `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
-              `</div>`)
-      );
+      // console.log(c)
+      // Condition to check whether the geometry type is polygon or point
+      if(c.location.geometry.type == 'Point'){
+        var lng = c.location.geometry.coordinates[0];
+        var lat = c.location.geometry.coordinates[1];
+        if (mySet.has(c.resourceGroup)) {
+          isPublic = true;
+        } else {
+          isPublic = false;
+        }
+        const markers = L.marker([lat, lng], {
+          icon: this.getMarkerIcon(c.resourceGroup),
+        }).bindPopup(
+          `<div id="name"> <p style='font-weight:bold'>` +
+            c.name +
+            `</p> </div>
+            <div class = "text-centre"> <p>` +
+            c.description +
+            `</p><p>Group: ` +
+            c.resourceGroup.split('/')[3] +
+            `</p> </div>
+            <div id="pop_up_` +
+            c.id +
+            `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            (isPublic
+              ? `<a  class="data-link" data-Id=` +
+                c.id +
+                ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+              : `<a  class="sample-link" data-Id=` +
+                c.id +
+                ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+                `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+                `</div>`)
+        );
+
       this.markersLayer.addLayer(markers);
       this.markersLayer.addTo(this.map);
       let self = this;
@@ -243,10 +264,59 @@ export class MapViewComponent {
             });
         }
       });
-      // markers.getPopup().on('remove', function () {
-      //   console.log('close popup');
-      //   markers.closePopup();
-      // });
+      }
+
+      else if(c.location.geometry.type == 'Polygon'){
+
+        var points = c.location.geometry.coordinates[0];
+        // console.log(points);
+        console.log(c.resourceGroup.split('/')[3]);
+        if (mySet.has(c.resourceGroup)) {
+          isPublic = true;
+        } else {
+          isPublic = false;
+        }
+
+        console.log(c.location.geometry);
+        L.geoJSON((c.location.geometry), {
+          style: {
+              fillColor:this.stringToColour(c.resourceGroup.split('/')[3]),
+              weight: 2,
+              opacity: 1,
+              // color: 'white',
+              // dashArray: '3',
+              fillOpacity: 0.5
+          },
+          onEachFeature: function (feature, layer) {
+
+              // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
+              // layer.on('mouseover', function(e) {
+              //     this.setStyle(this.highlightStyle);
+              //     // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
+              //     this.bringToFront();
+              //     });
+
+                  // layer.on('mouseout', function(e) {
+                  // this.setStyle(this.defaultStyle);
+                  // this.bringToBack();
+                  // });
+              
+              // layer.on('click', function (e) {
+
+              //     activate_point_mode(_id)
+
+              // });
+              // layer.bindPopup(`<div id="pop_up_`+ resource_id_to_html_id(_id) +`"><p class="text-center" style="padding-right:7.5px;"><img src='`+
+              // ((is_public) ? "../assets/img/icons/green_unlock.svg" : "../assets/img/icons/red_lock.svg")
+              // +`' class='img-fluid secure_icon'></p>`+get_bullets()+` <a href='#' class='data-modal'  onclick="display_latest_data(event, this, '` + _id + `')"> Get latest-data</a><br>
+              //   `+get_bullets()+` <a href="#"  class="data-modal" onclick="display_temporal_data(event, this, '`+_json_object.id+`')">Get Temporal Data</a><br>` +
+              // ((is_secure) ? ` `+get_bullets()+` <a href='#' class='data-modal'  onclick="request_access_token('` + _json_object.id + `', '`+ _json_object["resourceServerGroup"]["value"] + `', '`+ _json_object["resourceId"]["value"] + `')">Request Access Token</a>` : ``
+              // + `</div>`)
+              // ).addTo(map);
+          }
+
+      }).addTo(this.map);
+      }
     }
   }
   onMapReady(map: Map) {
@@ -468,6 +538,7 @@ export class MapViewComponent {
   }
 
   callGeoJsonPlot(items) {
+    console.log(items);
     for (const i of items) {
       if (i.hasOwnProperty('location')) {
         this.plotGeoJSONs(
@@ -586,5 +657,20 @@ export class MapViewComponent {
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/sample-data']);
     });
+  }
+  stringToColour(str) {
+    
+    var color = [
+      '#1c699d',
+      '#ff7592',
+      '#564d65',
+      '#2fcb83',
+      '#0ea3b1',
+      '#f39c1c',
+      '#d35414',
+      '#9b59b6',
+    ]; 
+    
+    return color[0];
   }
 }
