@@ -111,13 +111,15 @@ export class ItemMapComponent implements OnInit {
     let data = [];
     for (const c of this.resources) {
       let isPublic: Boolean;
-      var lng = c.location.geometry.coordinates[0];
-      var lat = c.location.geometry.coordinates[1];
       if (this.resourceAuthControlLevel == 'OPEN') {
         isPublic = true;
       } else {
         isPublic = false;
       }
+      if(c.location.geometry.type == 'Point'){
+      var lng = c.location.geometry.coordinates[0];
+      var lat = c.location.geometry.coordinates[1];
+     
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(this.resource.resource_group),
       }).bindPopup(
@@ -163,12 +165,26 @@ export class ItemMapComponent implements OnInit {
             });
         }
       });
+    }
+    else if(c.location.geometry.type == 'Polygon'){
 
-      // markers.getPopup().on('remove', function (map) {
-      //   console.log('close popup');
-      //   this.map.closePopup();
-      // });
+      var points = c.location.geometry.coordinates[0];
+      // console.log(points);
+      console.log(c.resourceGroup.split('/')[3]);
+      
+      console.log(c.location.geometry);
+      L.geoJSON((c.location.geometry), {
+        style: {
+            fillColor:'#0ea3b1',
+            weight: 2,
+            opacity: 1,
+            // color: 'white',
+            //  dashArray: '3',
+            fillOpacity: 0.5
+        }
 
+    }).addTo(this.map);
+    }
     }
   }
 
