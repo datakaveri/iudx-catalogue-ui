@@ -20,8 +20,9 @@
     <!-- <div ngNonBindable>{{</div> 
       <div ngNonBindable>[</div>  -->
     <ul class='samplePopup-list'>
-      <li class='samplePopup-items' *ngFor="let data of latestData[0] | keyvalue">
-        <span class='key'>{{data.key | json}}</span>:<span  class='value'>{{data.value | json}}</span>
+      <li class='samplePopup-items'>
+        <pre id="json_id" class='key'>{{latestData | json}}</pre>
+        <!-- :<span  class='value'>{{data.value | json}}</span> -->
       </li>
     </ul>
     <!-- <div ngNonBindable>]</div> 
