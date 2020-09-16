@@ -15,11 +15,13 @@ export class ItemResItemsComponent implements OnInit {
   showPopup: boolean;
   overlay: any;
   flags: Array<Boolean>;
+  showDescriptor: boolean;
 
   constructor(
     private constant: ConstantsService,
     private router: Router
   ) {
+    this.showDescriptor = false;
     this.flags = [];
     this.resource = this.constant.get_resource_details();
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
@@ -81,6 +83,9 @@ export class ItemResItemsComponent implements OnInit {
 
   showLatestData(){
     this.router.navigate(['/search/dataset/items/latest-data']);
+  }
+  showDataDescriptor(){
+    this.showDescriptor = true;;
   }
 
   copy(id) {
