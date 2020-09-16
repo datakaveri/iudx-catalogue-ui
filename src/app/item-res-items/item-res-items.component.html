@@ -7,7 +7,7 @@
       </h4>
       <p>
         <span>{{texts.resource_items}} ID:
-        </span>{{ resource.id.length > 55 ? resource.id.substring(0,55)+'.....' : resource.id }}
+        </span>{{ resource.id.length > 85 ? resource.id.substring(0,85)+'.....' : resource.id }}
         <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)">
       </p>
       <p>
