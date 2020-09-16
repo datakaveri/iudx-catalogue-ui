@@ -13,7 +13,7 @@
         box-shadow: 7px 7px 8px -5px rgba(0, 0, 0, 0.05);
         background: var(--white);
         padding: 12px 25px;
-        max-width: 900px;
+        max-width: 1020px;
         margin-top: 10px;
         h4 {
             font-weight: 600;
@@ -32,8 +32,8 @@
             color: var(--secondary);
         }
         p:first-of-type {
-            display: flex;
-            justify-content: space-between;
+            // display: flex;
+            // justify-content: space-between;
 
             img {
               width: 20px;
@@ -54,6 +54,7 @@
 
         p > span {
             color: var(--tertiary);
+            padding-right: 3px;
         }
 
         a:hover {
@@ -87,12 +88,15 @@
 .descriptor-results-div{
     background: var(--off-white);
   width: 500px;
+  position: relative;
 
   h2{
     font-size: 14px;
     font-weight: 400;
-    margin-bottom: 24px;
+    // margin-bottom: 24px;
     color: var(--secondary);
+    position: absolute;
+    top: -45px;
 
     span{
         font-weight: 600;
@@ -105,6 +109,10 @@
     margin-bottom: 5px;
     background: var(--white);
     padding: 11px 20px 11px 30px;
+
+    &:first-of-type{
+        margin-top: 10px;
+    }
 
     h4 {
       color: var(--highlight);
