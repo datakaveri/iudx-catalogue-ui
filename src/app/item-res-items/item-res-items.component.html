@@ -21,7 +21,8 @@
       </div>
       
       <!-- <a *ngIf='!resource.resource_group.dataDescriptor'>Data Descriptor</a> -->
-      <div _ngcontent-jvd-c49="" class="results-item-shade green"></div>
+      <div _ngcontent-jvd-c49="" class = "results-item-shade" [ngClass] ="{'darkgreen': resourceAuthControlLevel == 'OPEN',
+      'lightgreen': resourceAuthControlLevel != 'OPEN'}"></div>
     </div>
   </div>
   <div *ngIf="resource.resource_group.dataDescriptor" class="descriptor-results-div">
