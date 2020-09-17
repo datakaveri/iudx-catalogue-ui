@@ -8,7 +8,7 @@
     </div>
     <div class="details-container" *ngIf="show_data">
         <h3>{{ resource.resource_group.label }} 
-          <span *ngIf="resource.resource_group.resourceAuthControlLevel != 'OPEN'">(Private)</span>
+          <span style="color:var(--private)" *ngIf="resource.resource_group.resourceAuthControlLevel != 'OPEN'">(Private)</span>
           <span *ngIf="resource.resource_group.resourceAuthControlLevel == 'OPEN'">(Public)</span>
         </h3>
         <div class="results-item-about">
