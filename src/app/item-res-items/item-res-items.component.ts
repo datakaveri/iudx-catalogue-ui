@@ -112,7 +112,12 @@ export class ItemResItemsComponent implements OnInit {
     alert(this.texts.resource_items + ' ID copied to Clipboard.');
   }
 
-  showSampleData(){
+  showSampleData(data){
+    if(data){
+      this.constant.set_resource_item(data);
+    } else {
+       this.constant.set_resource_item(this.resource.resource_group.dataSample);
+    }
     this.router.navigate(['/search/datasets/sample-data']);
   }
 }

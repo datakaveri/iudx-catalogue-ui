@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 export class ConstantsService {
   resource_groups: string;
   resource_items: string;
+  resource_item:string;
   providers: string;
   search_params: any;
   search_params_sub = new Subject<any>();
@@ -71,6 +72,14 @@ export class ConstantsService {
 
   get_resource_details() {
     return this.resource;
+  }
+
+  set_resource_item(value:any){
+    this.resource_item = value;
+  }
+
+  get_resource_item(){
+    return this.resource_item;
   }
 
   set_alert(obj) {

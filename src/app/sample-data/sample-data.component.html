@@ -4,9 +4,10 @@
         <span (click)='hideSampleData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
     </div>
     <div class="samplePopup_body">
-        <div *ngFor="let item of  sampleData | keyvalue" class="samplePopup_item">
-                <h3>{{item.key}}</h3>
-                <p>{{item.value}}</p>
+        <div class="samplePopup_item">
+                <!-- <h3>{{item.key}}</h3>
+                <p>{{item.value}}</p> -->
+                <pre>{{ sampleData | json}}</pre>
         </div>
     </div>
 </div>

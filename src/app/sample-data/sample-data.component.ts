@@ -20,9 +20,10 @@ export class SampleDataComponent implements OnInit {
     private location: Location
   ) {
     this.resource = this.constant.get_resource_details();
-    this.sampleData = this.resource.resource_group.dataSample;
+    // this.sampleData = this.resource.resource_group.dataSample;
     this.showSample = true;
     this.overlay = true;
+    this.sampleData = this.constant.get_resource_item();
   }
 
   ngOnInit(): void {
