@@ -108,4 +108,8 @@ export class ItemResItemsComponent implements OnInit {
     document.body.removeChild(el);
     alert(this.texts.resource_items + ' ID copied to Clipboard.');
   }
+
+  showSampleData(){
+    this.router.navigate(['/search/datasets/sample-data']);
+  }
 }
