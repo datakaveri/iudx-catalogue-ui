@@ -118,6 +118,6 @@ export class ItemResItemsComponent implements OnInit {
     } else {
        this.constant.set_resource_item(this.resource.resource_group.dataSample);
     }
-    this.router.navigate(['/search/datasets/sample-data']);
+    this.router.navigate(['/search/dataset/items/sample-data']);
   }
 }
