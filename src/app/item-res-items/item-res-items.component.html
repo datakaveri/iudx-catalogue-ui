@@ -14,7 +14,7 @@
         <span>Description: </span>{{ resource.description }}
       </p>
       <div class="links-div">
-      <a *ngIf="descriptor_items" (click)="showDataDescriptor()">Show Data Descriptor</a>
+      <a *ngIf="descriptor_items" (click)="showDataDescriptor(resource.dataDescriptor)">Show Data Descriptor</a>
       <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)="showLatestData()">Get Latest Data</a>
       <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
       </div>
@@ -64,7 +64,7 @@
   </div>
   <div *ngIf="showDescriptor" class="descriptor-results-div">
     <h2>
-      Data Descriptors: <span>{{ resource.resource_group.label }} </span>
+      Data Descriptors: <span>{{ label }} </span>
     </h2>
     <div class="box-style" *ngFor="let resource of data_descriptor; let i = index;">
       <h4 (click)="toggle(i)">
