@@ -16,7 +16,6 @@ export class SampleDataComponent implements OnInit {
     private router: Router,
     private location: Location
   ) {
-
     this.showSample = true;
     this.overlay = true;
     this.sampleData = [
