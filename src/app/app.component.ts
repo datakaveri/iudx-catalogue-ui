@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { InterceptorService } from './interceptor.service';
 import { ConstantsService } from './constants.service';
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,14 @@ export class AppComponent {
   show_toast: Boolean;
   alert_props: any;
   show_alert: Boolean;
+  cities_loaded: Boolean;
   constructor(
+    private title: Title,
     private network: InterceptorService,
     private global: ConstantsService
   ) {
+    this.cities_loaded = false;
+    this.get_cities();
     this.loader = false;
     this.show_toast = false;
     this.show_alert = false;
@@ -33,6 +38,21 @@ export class AppComponent {
     this.global.get_alert().subscribe(data => {
       this.alert_props = data;
       this.show_alert = data.flag;
+    });
+  }
+
+  get_cities() {
+    this.network.get_api('customer/cities')
+    .then((data: any)=>{
+      let cities = data, city;
+      let host = location.host == 'localhost:4000' ? 'pune' : location.host.split('.')[0];
+      cities.forEach(a=>{
+        if(a.key == host) city = a;
+      });
+      this.title.setTitle(city.name + " Data Kaveri | Indian Urban Data Exchang");
+      this.global.set_city(city);
+      this.global.set_cities(cities);
+      this.cities_loaded = true;
     });
   }
 }

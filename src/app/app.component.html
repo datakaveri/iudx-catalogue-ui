@@ -1,4 +1,6 @@
-<router-outlet></router-outlet>
+<div *ngIf="cities_loaded">
+    <router-outlet></router-outlet>
+</div>
 <app-loader *ngIf="loader"></app-loader>
 <app-toaster *ngIf="show_toast" [props]="toast_props"></app-toaster>
 <app-alert *ngIf="show_alert" [props]="alert_props"></app-alert>

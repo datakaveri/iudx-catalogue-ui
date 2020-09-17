@@ -58,14 +58,10 @@ export class LandingPageComponent implements OnInit {
       providers: [],
       page: 0,
     };
-    this.city = this.constantService.get_city();
-    console.log(this.city);
-    
+    this.city = this.constantService.get_city();    
     this.get_data();
     this.get_tags();
     this.arrowkeyLocation = -1;
-
-
     this.showChangeCity = false;
     this.overlay = false;
   }

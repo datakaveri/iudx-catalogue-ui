@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Title } from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root',
@@ -16,29 +15,28 @@ export class ConstantsService {
   resource: any;
   toast_subject = new Subject<any>();
   alert_subject = new Subject<any>();
-  constructor(
-    private title: Title
-  ) {
+  constructor( ) {
     this.resource_groups = 'Dataset';
     this.resource_items = 'Resource';
     this.providers = 'Publisher';
     this.city = '';
     this.search_params = window.sessionStorage.search_params ? JSON.parse(window.sessionStorage.search_params) : {"text":"","tags":[],"providers":[],"page":0,"resource_groups":[]};
-    let cities = ['pune'];
-    // let host = location.host == 'localhost:4000' ? 'ui-test' : location.host.split('.')[0];
-    let host = 'pune';
-    cities.forEach(a=>{
-      if(a == host) this.city = a;
-    });
-    this.title.setTitle(this.city + " Data Kaveri | Indian Urban Data Exchang");
   }
 
   set_city(value: any) {
     this.city = value;
   }
 
+  set_cities(value: any) {
+    this.cities = value;
+  }
+
   get_city() {
     return this.city;
+  }
+
+  get_cities() {
+    return this.cities;
   }
 
   get_nomenclatures() {

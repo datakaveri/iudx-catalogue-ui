@@ -1,6 +1,9 @@
 <header class="header">
   <div class="logo__container">
-    <a href="/"><img src="assets/logo.png" alt="" class="logo"/></a>
+    <a href="/"><img src="https://iudx.s3.ap-south-1.amazonaws.com/iudx_logo.png" alt="" class="logo"/></a>
+    <a href="/"><img src="{{city.logo}}" alt="" class="logo"/></a>
+    <a href="/"><img src="https://iudx.s3.ap-south-1.amazonaws.com/smart_city_logo.png" alt="" class="logo"/></a>
+    <a href="/"><img src="https://iudx.s3.ap-south-1.amazonaws.com/iisc_logo.png" alt="" class="logo"/></a>
   </div>
   <nav>
     <ul>
@@ -113,12 +116,12 @@
     </div>
     <footer>
       <p>
-        Showing content for: <b>{{city}}</b>
+        Showing content for: <b>{{city.name}}</b>
         <a  (click)='toggleChangeCity()' >Change city</a>
       </p>
     </footer>
   </div>
-  <div class="col-right"></div>
+  <div class="col-right" style="background-image: url({{city.cover}}), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
 </main>
 <div [ngClass]="{fadeIn:overlay}"></div>
 <app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>

@@ -35,7 +35,7 @@ export class ChangeCityComponent implements OnInit {
   }
   
   change_city(data) {
-    window.open('https://' + data.instanceID);
+    window.open('https://' + data.key + '.catalogue.iudx.io');
   }
 
   @Output() showChangeCity = new EventEmitter();

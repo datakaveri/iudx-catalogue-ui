@@ -13,14 +13,12 @@ export class InterceptorService {
   loader_subject = new Subject<any>();
   filter_subject = new Subject<any>();
   loader: Boolean;
-  city: string;
   constructor(
     private http: HttpClient,
     private router: Router,
     private constant: ConstantsService
   ) {
     this.api_url = environment.api_url;
-    this.city = this.constant.get_city();
   }
 
   set_loader(flag: Boolean) {
@@ -42,7 +40,7 @@ export class InterceptorService {
   get_api(route) {
     this.set_loader(true);
     return new Promise((resolve, reject) => {
-      this.http.get(this.api_url + route + '?city=' + this.city).subscribe(
+      this.http.get(this.api_url + route + '?city=' + this.constant.get_city().key).subscribe(
         (data: any) => {
           this.set_loader(false);
           resolve(data);
@@ -97,7 +95,7 @@ export class InterceptorService {
     this.set_loader(true);
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.api_url + route + '?city=' + this.city, body)
+        .post(this.api_url + route + '?city=' + this.constant.get_city().key, body)
         .subscribe(
           (data: any) => {
             this.set_loader(false);
@@ -128,7 +126,7 @@ export class InterceptorService {
 
   get_api_wl(route) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.api_url + route + '?city=' + this.city).subscribe(
+      this.http.get(this.api_url + route + '?city=' + this.constant.get_city().key).subscribe(
         (data: any) => {
           resolve(data);
         },

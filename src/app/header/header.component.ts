@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ConstantsService } from '../constants.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,12 +11,14 @@ export class HeaderComponent implements OnInit {
 
   showDevCard: boolean;
   showDocCard: boolean;
-
-  constructor(  public router: Router) {
+  city: any;
+  constructor(
+    public router: Router,
+    private constant: ConstantsService
+    ) {
     this.showDevCard = false;
     this.showDocCard = false;
-
-
+    this.city = this.constant.get_city();
   }
 
   ngOnInit(): void {
