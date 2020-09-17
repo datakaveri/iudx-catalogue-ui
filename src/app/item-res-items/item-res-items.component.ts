@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ItemResItemsComponent implements OnInit {
   resource: any;
+  sampleData: any;
   texts: any;
   data_descriptor: any;
   resourceAuthControlLevel: string;
@@ -21,10 +22,13 @@ export class ItemResItemsComponent implements OnInit {
     private constant: ConstantsService,
     private router: Router
   ) {
+   
     this.descriptor_items = false;
     this.showDescriptor = false;
     this.flags = [];
     this.resource = this.constant.get_resource_details();
+    this.sampleData = this.resource.resource_group.dataSample;
+    
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.texts = this.constant.get_nomenclatures();
     this.overlay = false;
@@ -43,7 +47,6 @@ export class ItemResItemsComponent implements OnInit {
   }
 
   manipulate_data_descriptor(obj) {
-    // console.log(obj);
     let arr = [];
     let keys = Object.keys(obj);
     keys.forEach((a,i)=>{

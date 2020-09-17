@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { ConstantsService } from '../constants.service'
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -8,26 +9,20 @@ import { Location } from '@angular/common';
   styleUrls: ['./sample-data.component.scss']
 })
 export class SampleDataComponent implements OnInit {
+  resource:any;
   sampleData: any;
   overlay: boolean;
   showSample:boolean;
   
   constructor(
+    private constant: ConstantsService,
     private router: Router,
     private location: Location
   ) {
+    this.resource = this.constant.get_resource_details();
+    this.sampleData = this.resource.resource_group.dataSample;
     this.showSample = true;
     this.overlay = true;
-    this.sampleData = [
-      {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }
-    ]
   }
 
   ngOnInit(): void {

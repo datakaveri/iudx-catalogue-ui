@@ -16,7 +16,7 @@
       <div class="links-div">
       <a *ngIf="descriptor_items" (click)="showDataDescriptor()">Show Data Descriptor</a>
       <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)="showLatestData()">Get Latest Data</a>
-      <a (click)="showSampleData()">Get Sample Data</a>
+      <a *ngIf='sampleData' (click)="showSampleData()">Get Sample Data</a>
       <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
       </div>
       
