@@ -18,6 +18,7 @@ export class ItemResItemsComponent implements OnInit {
   flags: Array<Boolean>;
   showDescriptor: boolean;
   descriptor_items : boolean;
+  label: any;
   constructor(
     private constant: ConstantsService,
     private router: Router
@@ -33,24 +34,28 @@ export class ItemResItemsComponent implements OnInit {
     this.texts = this.constant.get_nomenclatures();
     this.overlay = false;
     this.showPopup = false;
-    this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
-    
   }
 
   ngOnInit(): void {
-    if(this.resource.resource_group.dataDescriptor === {}){
-      this.descriptor_items = true;
+    if(this.resource.resource_group.hasOwnProperty('dataDescriptor')){
+      this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
+      this.descriptor_items = false;
+     
     }
     else{
-      this.descriptor_items = false;
+      this.descriptor_items = true;
     }
   }
 
   manipulate_data_descriptor(obj) {
+<<<<<<< HEAD
+=======
+    //  console.log(obj);
+>>>>>>> 3933d802b0523a2f9b5346bac4156a9d32d42604
     let arr = [];
     let keys = Object.keys(obj);
     keys.forEach((a,i)=>{
-      if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label'){
+      if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
       let o = { key: a, ...obj[a] };
       arr.push(o);
       }
@@ -95,8 +100,10 @@ export class ItemResItemsComponent implements OnInit {
   showLatestData(){
     this.router.navigate(['/search/dataset/items/latest-data']);
   }
-  showDataDescriptor(){
-    this.showDescriptor = true;;
+  showDataDescriptor(val: any){
+    this.showDescriptor = true;
+    this.manipulate_data_descriptor(val);
+    this.label = val.dataDescriptorLabel;
   }
 
   copy(id) {
