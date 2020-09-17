@@ -14,7 +14,7 @@
         <span>Description: </span>{{ resource.description }}
       </p>
       <div class="links-div">
-      <a *ngIf="true" (click)="showDataDescriptor()">Show Data Descriptor</a>
+      <a *ngIf="descriptor_items" (click)="showDataDescriptor()">Show Data Descriptor</a>
       <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)="showLatestData()">Get Latest Data</a>
       <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a>
       </div>

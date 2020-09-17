@@ -16,11 +16,12 @@ export class ItemResItemsComponent implements OnInit {
   overlay: any;
   flags: Array<Boolean>;
   showDescriptor: boolean;
-
+  descriptor_items : boolean;
   constructor(
     private constant: ConstantsService,
     private router: Router
   ) {
+    this.descriptor_items = false;
     this.showDescriptor = false;
     this.flags = [];
     this.resource = this.constant.get_resource_details();
@@ -29,9 +30,16 @@ export class ItemResItemsComponent implements OnInit {
     this.overlay = false;
     this.showPopup = false;
     this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
+    
   }
 
   ngOnInit(): void {
+    if(this.resource.resource_group.dataDescriptor === {}){
+      this.descriptor_items = true;
+    }
+    else{
+      this.descriptor_items = false;
+    }
   }
 
   manipulate_data_descriptor(obj) {
