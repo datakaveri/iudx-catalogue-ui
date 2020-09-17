@@ -48,10 +48,6 @@ export class ItemResItemsComponent implements OnInit {
   }
 
   manipulate_data_descriptor(obj) {
-<<<<<<< HEAD
-=======
-    //  console.log(obj);
->>>>>>> 3933d802b0523a2f9b5346bac4156a9d32d42604
     let arr = [];
     let keys = Object.keys(obj);
     keys.forEach((a,i)=>{
