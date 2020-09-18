@@ -31,12 +31,7 @@ const routes: Routes = [
       {
         path: 'datasets',
         component: DatasetListComponent,
-        children: [
-          {
-            path: 'sample-data',
-            component: SampleDataComponent,
-          },
-        ],
+        
       },
       {
         path: 'dataset',

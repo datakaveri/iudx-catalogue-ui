@@ -49,7 +49,7 @@ export class AppComponent {
       cities.forEach(a=>{
         if(a.key == host) city = a;
       });
-      this.title.setTitle(city.name + " Data Kaveri | Indian Urban Data Exchang");
+      this.title.setTitle(city.name + " Data Kaveri | Indian Urban Data Exchange");
       this.global.set_city(city);
       this.global.set_cities(cities);
       this.cities_loaded = true;
