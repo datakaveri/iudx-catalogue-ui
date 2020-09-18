@@ -86,8 +86,8 @@ export class ItemMapComponent implements OnInit {
       ],
       zoom: 12,
       center: latLng({
-        lng: 73.8567,
-        lat:  18.5204,
+        lng: this.city.coordinates[1],
+        lat: this.city.coordinates[0],
       }),
     };
     return map_options;
