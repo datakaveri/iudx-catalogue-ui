@@ -33,12 +33,16 @@ export class SearchResultsComponent implements OnInit {
       providers: [],
       page: 0,
     };
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if(this.router.url == '/search/datasets' || this.router.url == '/search/map') this.show_filter_button = true;
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+        if(this.router.url == '/search/datasets' || this.router.url == '/search/map') {
+          this.show_filter_button = true;
+          console.log('showing');
+          
+        }
         else this.show_filter_button = false;
-      }
-    });
+    //   }
+    // });
     this.network.get_filter().subscribe((flag: any)=>{
       this.show_filter = flag;
     });
