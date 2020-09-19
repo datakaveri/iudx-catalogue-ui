@@ -325,7 +325,7 @@ this.defaultStyle = {
   }
   onMapReady(map: Map) {
     this.map = map;
-    L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).addTo(this.map);
+    L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).bindPopup(this.city.name+' Office').addTo(this.markersLayer);
     this.getMapData();
     
   }
@@ -681,23 +681,19 @@ this.defaultStyle = {
     
     return color[0];
   }
-  // getLegends(){
-  //   // Adding Legend to the map
-  // var legend = L.control({ position: 'bottomright' });
-
-  // }
+  
   get_legends(val:any){
-// Adding Legend to the map
-const legend = new (L.Control.extend({
+  // Adding Legend to the map
+  const legend = new (L.Control.extend({
   options: { position: 'bottomleft' }
-}));
+  }));
   legend.onAdd = function (map) {
-    const div = L.DomUtil.create('div', 'legend');
-    const labels = [
-                  "../../assets/marker_blue.png",
-                  "assets/marker_pink2.png",
-                //  "https://img.icons8.com/ultraviolet/40/000000/marker.png",
-                //  "https://img.icons8.com/color/48/000000/marker.png", 
+  const div = L.DomUtil.create('div', 'legend');
+  const labels = [
+                "assets/marker_blue.png",
+                "assets/marker_pink2.png",
+                // "https://img.icons8.com/ultraviolet/40/000000/marker.png",
+                // "https://img.icons8.com/color/48/000000/marker.png", 
                 "https://img.icons8.com/color/48/000000/air-quality.png", 
                 "https://img.icons8.com/office/16/000000/sensor.png", 
                 "https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png", 
