@@ -132,6 +132,9 @@ this.defaultStyle = {
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
+     
+    //  this.markersLayer.addLayer(marker);
+    //   this.markersLayer.addTo(this.map);
   }
 
   getMapData() {
@@ -155,6 +158,7 @@ this.defaultStyle = {
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
+            this.get_legends(this.resource_groups);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -209,7 +213,7 @@ this.defaultStyle = {
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
       let isPublic: Boolean;
-      // console.log(c)
+       console.log(c)
       // Condition to check whether the geometry type is polygon or point
       if(c.location.geometry.type == 'Point'){
         var lng = c.location.geometry.coordinates[0];
@@ -240,7 +244,7 @@ this.defaultStyle = {
               : `<a  class="sample-link" data-Id=` +
                 c.id +
                 ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-                `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+                `<a style="color: var(--erthis.resource_groupsror); font-weight:bold;"> Request Access </a><br>` +
                 `</div>`)
         );
 
@@ -321,7 +325,9 @@ this.defaultStyle = {
   }
   onMapReady(map: Map) {
     this.map = map;
+    L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).addTo(this.map);
     this.getMapData();
+    
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
@@ -331,7 +337,7 @@ this.defaultStyle = {
   initMap() {
     var map_options = {
       layers: [
-        tileLayer(
+        L.tileLayer(
           'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
           {
             maxZoom: 19,
@@ -340,7 +346,7 @@ this.defaultStyle = {
               '</span>' +
               '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
           }
-        ),
+        ),L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault })
       ],
       zoom: 12,
       center: latLng({
@@ -350,6 +356,8 @@ this.defaultStyle = {
     };
     return map_options;
   }
+
+  
 
   drawOptionsInit() {
     var draw_options = {
@@ -672,5 +680,44 @@ this.defaultStyle = {
     ]; 
     
     return color[0];
+  }
+  // getLegends(){
+  //   // Adding Legend to the map
+  // var legend = L.control({ position: 'bottomright' });
+
+  // }
+  get_legends(val:any){
+// Adding Legend to the map
+const legend = new (L.Control.extend({
+  options: { position: 'bottomleft' }
+}));
+  legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'legend');
+    const labels = [
+                  "../../assets/marker_blue.png",
+                  "assets/marker_pink2.png",
+                //  "https://img.icons8.com/ultraviolet/40/000000/marker.png",
+                //  "https://img.icons8.com/color/48/000000/marker.png", 
+                "https://img.icons8.com/color/48/000000/air-quality.png", 
+                "https://img.icons8.com/office/16/000000/sensor.png", 
+                "https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png", 
+                
+                 
+
+    ];
+    // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
+    const grades =[];
+    console.log(val);
+    val.forEach(a => {
+      console.log(a);
+      grades.push(a.id.split('/')[3])
+    });
+    div.innerHTML = '<div><h1 style="color:black;font-size:18px;font-weight:500;">LEGENDS</h1></div><br>';
+    for (let i = 0; i < grades.length; i++) {
+      div.innerHTML += (" <div style='display: flex;align-items: center;'><img src=" + labels[i] + " height='50' width='50'>") + "<span style='font-weight:500;padding-left: 15px;font-size:16px'>"+ grades[i] +"</span></div>" +'<br>';
+    }
+    return div;
+  };
+  legend.addTo(this.map);
   }
 }
