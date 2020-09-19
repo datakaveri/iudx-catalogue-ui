@@ -12,8 +12,8 @@
           <span *ngIf="resource.resource_group.resourceAuthControlLevel == 'OPEN'">(Public)</span>
         </h3>
         <div class="results-item-about">
-                <div class="results-item-location"><img src='../../assets/location.png'><span>{{resource.resource_group.location.address}}</span></div>
-                <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.count }} Resources</span></div>
+          <div class="results-item-location"><img src='../../assets/location.png'><span>{{resource.resource_group.location.address}}</span></div>
+          <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.count }} Resources</span></div>
         </div>
         <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }} <span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)"></span></p>
         <p>
@@ -22,9 +22,9 @@
         <p>
           <span>{{texts.providers}}: </span>{{ resource.resource_group.provider.description }}
         </p>
-        <p>
+        <!-- <p>
           <span>Server Organization: </span> {{ resource.resource_group.resourceServer.description }}
-        </p>
+        </p> -->
         <p>
           <span>Schema: </span><a href="{{ schema_url }}" target="_blank">{{ schema_url }}</a>
         </p>
@@ -37,9 +37,9 @@
             <li [ngClass]="{'active': active_tab == 'Items'}" (click)="change_tab('Items')">
                 {{ results.count }} {{texts.resource_items}}s
             </li>
-            <li [ngClass]="{'active': active_tab == 'Map'}" (click)="change_tab('Map')">
+            <!-- <li [ngClass]="{'active': active_tab == 'Map'}" (click)="change_tab('Map')">
                 Map View
-            </li>
+            </li> -->
         </ul>
         <router-outlet></router-outlet>
     </div>

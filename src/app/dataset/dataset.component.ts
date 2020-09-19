@@ -56,21 +56,13 @@ export class DatasetComponent implements OnInit {
         this.change_tab('Items');
       } else {
         this.set_route(this.router.url);
-      }
-      console.log(this.resource);
-      
+      }      
     });
   }
 
   change_tab(tab) {
     this.active_tab = tab;
     switch(this.active_tab) {
-      // case 'Details':
-      //   this.router.navigate(['/search/dataset/details']);
-      //   break;
-      case 'Descriptors':
-        this.router.navigate(['/search/dataset/data-descriptors']);
-        break;
       case 'Items':
         this.router.navigate(['/search/dataset/items']);
         break;
@@ -82,12 +74,6 @@ export class DatasetComponent implements OnInit {
 
   set_route(route) {
     switch(route) {
-      // case '/search/dataset/details':
-      //   this.active_tab = 'Details';
-      //   break;
-      case '/search/dataset/data-descriptors':
-        this.active_tab = 'Descriptors';
-        break;
       case '/search/dataset/items':
         this.active_tab = 'Items';
         break;
@@ -108,6 +94,6 @@ export class DatasetComponent implements OnInit {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    alert(this.texts.resource_items + ' ID copied to Clipboard.');
+    this.constantService.set_toaster('success', this.texts.resource_groups + ' ID copied to Clipboard.');
   }
 }
