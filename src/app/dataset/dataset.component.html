@@ -38,9 +38,9 @@
             <li [ngClass]="{'active': active_tab == 'Items'}" (click)="change_tab('Items')">
                 {{ results.count }} {{texts.resource_items}}s
             </li>
-            <!-- <li [ngClass]="{'active': active_tab == 'Map'}" (click)="change_tab('Map')">
+            <li *ngIf ="resource.resource_group.dataDescriptor" [ngClass]="{'active': active_tab == 'Map'}" (click)="change_tab('Map')">
                 Map View
-            </li> -->
+            </li>
         </ul>
         <router-outlet></router-outlet>
     </div>

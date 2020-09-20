@@ -8,6 +8,7 @@ export class ConstantsService {
   resource_groups: string;
   resource_items: string;
   resource_item:string;
+  map_cordinates:any;
   providers: string;
   search_params: any;
   search_params_sub = new Subject<any>();
@@ -81,7 +82,13 @@ export class ConstantsService {
   get_resource_item(){
     return this.resource_item;
   }
-
+  set_map_coordinates(value:any){
+    this.map_cordinates = value;
+    console.log(this.map_cordinates);
+  }
+  get_map_coordinates(){
+    return this.map_cordinates;
+  }
   set_alert(obj) {
     this.alert_subject.next(obj);
   }

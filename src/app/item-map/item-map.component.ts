@@ -38,13 +38,14 @@ export class ItemMapComponent implements OnInit {
   drawOptions: any;
   resources: any;
   resource: any;
-  resourceAuthControlLevel: string;
+  accessPolicy: string;
   access: Boolean;
   markersLayer = new L.FeatureGroup(null);
   markerClusterData: L.Marker[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
   markerClusterGroup: L.MarkerClusterGroup;
   city: any;
+  map_geometry: any;
   constructor(
     private constant: ConstantsService,
     private elementRef: ElementRef,
@@ -52,9 +53,10 @@ export class ItemMapComponent implements OnInit {
     public ngZone: NgZone
   ) {
     this.resource = this.constant.get_resource_details();
-    this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
+    this.accessPolicy = this.resource.resource_group.accessPolicy;
     this.resources = this.constant.get_resource_details().items;
-    if (this.resourceAuthControlLevel == 'OPEN') {
+    this.map_geometry = this.constant.get_map_coordinates();
+    if (this.accessPolicy == 'OPEN') {
       this.access = true;
     } else {
       this.access = false;
@@ -109,9 +111,19 @@ export class ItemMapComponent implements OnInit {
 
   getMapData() {
     let data = [];
+    // console.log(this.map_geometry);
+    if(this.map_geometry){
+      var lng = this.map_geometry.location.coordinates[0];
+      var lat = this.map_geometry.location.coordinates[1];
+      const markers = L.marker([lat, lng], {
+        icon: this.getMarkerIcon(this.resource.resource_group),
+      }).bindPopup(this.map_geometry.depot_name);
+      this.markersLayer.addLayer(markers);
+      this.markersLayer.addTo(this.map);
+    }
     for (const c of this.resources) {
       let isPublic: Boolean;
-      if (this.resourceAuthControlLevel == 'OPEN') {
+      if (this.accessPolicy == 'OPEN') {
         isPublic = true;
       } else {
         isPublic = false;
@@ -170,9 +182,9 @@ export class ItemMapComponent implements OnInit {
 
       var points = c.location.geometry.coordinates[0];
       // console.log(points);
-      console.log(c.resourceGroup.split('/')[3]);
+      // console.log(c.resourceGroup.split('/')[3]);
       
-      console.log(c.location.geometry);
+      // console.log(c.location.geometry);
       L.geoJSON((c.location.geometry), {
         style: {
             fillColor:'#0ea3b1',

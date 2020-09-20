@@ -121,4 +121,11 @@ export class ItemResItemsComponent implements OnInit {
     }
     this.router.navigate(['/search/dataset/items/sample-data']);
   }
+  mapView(data){
+    console.log(data.location);
+    if(data.location){
+      this.constant.set_map_coordinates(data);
+    }
+    this.router.navigate(['/search/dataset/map-view']);
+  }
 }
