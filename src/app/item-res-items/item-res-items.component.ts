@@ -28,7 +28,7 @@ export class ItemResItemsComponent implements OnInit {
     this.showDescriptor = false;
     this.flags = [];
     this.resource = this.constant.get_resource_details();
-    console.log(this.resource)
+    // console.log(this.resource)
     this.sampleData = this.resource.resource_group.dataSample;
     
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
@@ -125,7 +125,6 @@ export class ItemResItemsComponent implements OnInit {
     this.router.navigate(['/search/dataset/items/sample-data']);
   }
   mapView(data){
-    console.log(data.location);
     if(data.location){
       this.constant.set_map_coordinates(data);
     }

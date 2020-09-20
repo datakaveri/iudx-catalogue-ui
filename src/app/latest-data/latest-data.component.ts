@@ -27,7 +27,7 @@ export class LatestDataComponent implements OnInit {
     this.showLatest = true;
     this.overlay = true;
     this.item_id = this.constantService.get_item_id();
-    console.log(this.item_id);
+    // console.log(this.item_id);
     this.getLatestData(this.item_id);
     }
 
@@ -41,7 +41,7 @@ export class LatestDataComponent implements OnInit {
   getLatestData(id:string){
      this.interceptorService.get_api_resource_server('https://rs.iudx.io/ngsi-ld/v1/entities/iisc.ac.in/89a36273d77dac4cf38114fca1bbe64392547f86/rs.iudx.io/surat-itms-realtime-information/surat-itms-live-eta').then((data)=>{
       // this.interceptorService.get_api_resource_server('https://rs.iudx.io/ngsi-ld/v1/entities/'+id).then((data)=>{  
-      console.log(data);
+      // console.log(data);
       this.latestData = data;
     })
   }
