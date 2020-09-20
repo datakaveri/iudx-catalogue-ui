@@ -253,11 +253,14 @@
 
 .status{
   &-private{
-    color: #2FCB83;
+    color: #fc8019;
   }
 
   &-public{
     color: var(--highlight);
+  }
+  &-misc{
+    color:  #2FCB83;
   }
 }
 
@@ -267,6 +270,9 @@
 
 .light-green{
   background: #2FCB83;
+}
+.red{
+  background: #fc8019;
 }
 
 .copy:hover{

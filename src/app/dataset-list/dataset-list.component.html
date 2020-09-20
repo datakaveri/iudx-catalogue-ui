@@ -18,8 +18,9 @@
     <div class="results-div">
         <div class="results-item" *ngFor="let resource of results?.items">
 
-            <li *ngIf="resource.resourceAuthControlLevel != 'OPEN'"><span class="status status-private">Private</span></li>
-            <li *ngIf="resource.resourceAuthControlLevel == 'OPEN'"><span class="status status-public">Public</span></li>
+            <li *ngIf="resource.accessPolicy == 'SECURE'"><span class="status status-private">Private</span></li>
+            <li *ngIf="resource.accessPolicy == 'OPEN'"><span class="status status-public">Public</span></li>
+            <li *ngIf="resource.accessPolicy == 'MISC'"><span class="status status-misc">Public/Private</span></li>
             <li><h3>{{ resource.label }}</h3></li>
 
             <li class="results-item-about">
@@ -34,8 +35,9 @@
             <div class="results-item-link">
                 <a (click)="getResourceItems(resource)">View Details</a>
             </div>
-            <div *ngIf="resource.resourceAuthControlLevel == 'OPEN'" class="results-item-shade green"></div>
-            <div *ngIf="resource.resourceAuthControlLevel != 'OPEN'" class="results-item-shade light-green"></div>
+            <div *ngIf="resource.accessPolicy == 'OPEN'" class="results-item-shade green"></div>
+            <div *ngIf="resource.accessPolicy == 'SECURE'" class="results-item-shade red"></div>
+            <div *ngIf="resource.accessPolicy == 'MISC'" class="results-item-shade light-green"></div>
         </div>
     </div>
 </div>

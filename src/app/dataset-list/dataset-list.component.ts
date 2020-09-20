@@ -72,6 +72,7 @@ export class DatasetListComponent implements OnInit {
       this.search_text = this.searchQuery.text;
       this.httpInterceptor.post_api('customer/search', this.searchQuery)
       .then((response: any) => {
+        console.log(response);
         this.show_data = true;
         this.results = response;
         this.get_filters(response);
@@ -82,6 +83,7 @@ export class DatasetListComponent implements OnInit {
       this.search_text = this.searchQuery.tags.join(', ');
       this.httpInterceptor.post_api('customer/datasets', this.searchQuery)
       .then((response: any) => {
+        console.log(response);
         this.show_data = true;
         this.results = response;
         this.get_filters(response);

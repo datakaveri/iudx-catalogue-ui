@@ -28,6 +28,7 @@ export class ItemResItemsComponent implements OnInit {
     this.showDescriptor = false;
     this.flags = [];
     this.resource = this.constant.get_resource_details();
+    console.log(this.resource)
     this.sampleData = this.resource.resource_group.dataSample;
     
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;

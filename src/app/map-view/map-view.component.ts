@@ -50,7 +50,7 @@ export class MapViewComponent {
   markerResults: any;
   searchQuery: any;
   resource: any;
-  resourceAuthControlLevel: string;
+  // resourceAuthControlLevel: string;
   layers;
   coord: any = [];
   showContainer: boolean = false;
@@ -155,10 +155,11 @@ this.defaultStyle = {
         this.httpInterceptor
           .post_api('customer/map', this.searchQuery)
           .then((data: any) => {
+            console.log(data);  
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
-            this.get_legends(this.resource_groups);
+            // this.get_legends(this.resource_groups);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -206,14 +207,14 @@ this.defaultStyle = {
   mark_on_map() {
     let mySet = new Set();
     for (var i = 0; i < this.resource_groups.length; i++) {
-      if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
+      if (this.resource_groups[i].accessPolicy == 'OPEN') {
         mySet.add(this.resource_groups[i].id);
       }
     }
     const data: L.Marker[] = [];
     for (const c of this.filtered_resource_items) {
       let isPublic: Boolean;
-       console.log(c)
+      //  console.log(c)
       // Condition to check whether the geometry type is polygon or point
       if(c.location.geometry.type == 'Point'){
         var lng = c.location.geometry.coordinates[0];
@@ -325,7 +326,7 @@ this.defaultStyle = {
   }
   onMapReady(map: Map) {
     this.map = map;
-    L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).bindPopup(this.city.name+' Office').addTo(this.markersLayer);
+    // L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).bindPopup('<h5>'+this.city.name+'Office'+'</h5>').addTo(this.map);
     this.getMapData();
     
   }
@@ -346,7 +347,8 @@ this.defaultStyle = {
               '</span>' +
               '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
           }
-        ),L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault })
+        )
+        // ,L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault })
       ],
       zoom: 12,
       center: latLng({
@@ -437,6 +439,7 @@ this.defaultStyle = {
       });
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
+    // console.log(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
@@ -567,7 +570,7 @@ this.defaultStyle = {
   plotGeoJSONs(geoJsonObject, data, rsg) {
     let mySet = new Set();
     for (var i = 0; i < this.resource_groups.length; i++) {
-      if (this.resource_groups[i].resourceAuthControlLevel == 'OPEN') {
+      if (this.resource_groups[i].accessPolicy == 'OPEN') {
         mySet.add(this.resource_groups[i].id);
       }
     }
@@ -703,14 +706,14 @@ this.defaultStyle = {
     ];
     // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
     const grades =[];
-    console.log(val);
+    // console.log(val);
     val.forEach(a => {
-      console.log(a);
+      // console.log(a);
       grades.push(a.id.split('/')[3])
     });
-    div.innerHTML = '<div><h1 style="color:black;font-size:18px;font-weight:500;">LEGENDS</h1></div><br>';
+    div.innerHTML = '<div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:15px">LEGENDS</h1></div><br>';
     for (let i = 0; i < grades.length; i++) {
-      div.innerHTML += (" <div style='display: flex;align-items: center;'><img src=" + labels[i] + " height='50' width='50'>") + "<span style='font-weight:500;padding-left: 15px;font-size:16px'>"+ grades[i] +"</span></div>" +'<br>';
+      div.innerHTML += (" <div style='display: flex;align-items: center;'><img src=" + labels[i] + " height='50' width='50'>") + "<span style='font-weight:600;padding-left: 15px;font-size:16px'>"+ grades[i] +"</span></div>" +'<br>';
     }
     return div;
   };

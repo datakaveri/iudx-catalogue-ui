@@ -1,29 +1,29 @@
 <app-header></app-header>
 <div class="content-container">
   <div class="item-results-div">
-    <div class="box-style" *ngFor="let resource of resource?.items">
+    <div class="box-style" *ngFor="let item of resource?.items">
       <h4>
-        {{ resource.label }}
+        {{ item.label }}
       </h4>
       <p>
         <span>{{texts.resource_items}} ID:
-        </span><span class='id'>{{ resource.id.length > 88 ? resource.id.substring(0,88)+'.....' : resource.id }}
-        <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(resource.id)"></span>
+        </span><span class='id'>{{ item.id.length > 88 ? item.id.substring(0,88)+'.....' : item.id }}
+        <img src="assets/copy.png" title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)"></span>
       </p>
       <p>
-        <span>Description: </span>{{ resource.description }}
+        <span>Description: </span>{{ item.description }}
       </p>
       <div class="links-div">
-      <a *ngIf="descriptor_items" (click)="showDataDescriptor(resource.dataDescriptor)">Show Data Descriptor</a>
-      <a *ngIf="resourceAuthControlLevel == 'OPEN'" (click)="showLatestData()">Get Latest Data</a>
-      <a (click)="showSampleData(resource.dataSample)">Get Sample Data</a>
+      <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
+      <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM'" (click)="showLatestData()">Get Latest Data</a>
+      <a (click)="showSampleData(item.dataSample)">Get Sample Data</a>
       <!-- <a *ngIf='dataSample' (click)="showSampleData(dataSample)">Get Sample Data</a> -->
       <!-- <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a> -->
       </div>
       
       <!-- <a *ngIf='!resource.resource_group.dataDescriptor'>Data Descriptor</a> -->
-      <div _ngcontent-jvd-c49="" class = "results-item-shade" [ngClass] ="{'darkgreen': resourceAuthControlLevel == 'OPEN',
-      'lightgreen': resourceAuthControlLevel != 'OPEN'}"></div>
+      <div _ngcontent-jvd-c49="" class = "results-item-shade" [ngClass] ="{'darkgreen': resource.resource_group.accessPolicy == 'OPEN',
+      'orange': resource.resource_group.accessPolicy == 'SECURE', 'lightgreen': resource.resource_group.accessPolicy == 'MISC'}"></div>
     </div>
   </div>
   <div *ngIf="resource.resource_group.dataDescriptor" class="descriptor-results-div">
