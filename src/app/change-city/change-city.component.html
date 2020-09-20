@@ -1,13 +1,16 @@
 <div class="searchCity popup">
     <div class="searchBox">
-        <span class="searchBox__icon searchBox__icon--search"><img src='assets/search.png'></span>
-        <input [(ngModel)]="query" type="text" placeholder="Search City...">
-        <span (click)='close()' class="searchBox__icon searchBox__icon--close"><img src='assets/cross.png'></span>
+        <!-- <span class="searchBox__icon searchBox__icon--search"><img src='assets/search.png'></span>
+        <input [(ngModel)]="query" type="text" placeholder="Search City..."> -->
+        <h3>
+            Change City
+            <span (click)='close()' class="searchBox__icon searchBox__icon--close"><img src='assets/cross.png'></span>
+        </h3>
     </div>
     <div class="searchCity__contentBox">
         <div *ngFor="let data of citiesData" class="searchCity__item" (click)="change_city(data)">
             <h3>{{data.name}}</h3>
-            <p>1 {{text.resource_groups}}s</p>
+            <p>{{data.count}} {{text.resource_groups}}s</p>
         </div>
     </div>
 </div>
