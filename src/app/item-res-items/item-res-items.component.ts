@@ -109,7 +109,7 @@ export class ItemResItemsComponent implements OnInit {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    alert(this.texts.resource_items + ' ID copied to Clipboard.');
+    this.constant.set_toaster('success', this.texts.resource_items + ' ID copied to Clipboard.');
   }
 
   showSampleData(data){

@@ -3,8 +3,8 @@
     font-size: 17px;
     font-weight: bolder;
   }
-  padding-top: 224px;
-  min-height: calc(100vh - 224px - 15px);
+  padding-top: 259px;
+  min-height: calc(100vh - 259px - 15px);
   background: var(--off-white);
   padding-bottom: 15px;
 }
@@ -28,6 +28,17 @@
   }
 }
 
+.back {
+  display: block;
+  margin: 5px 0;
+  color: var(--highlight);
+  font-weight: 500;
+  img {
+    width: 20px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+  }
+}
 
 .results-item {
   box-sizing: border-box;

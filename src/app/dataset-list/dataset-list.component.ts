@@ -89,6 +89,10 @@ export class DatasetListComponent implements OnInit {
     }
   }
 
+  back() {
+    this.router.navigate(['/']);
+  }
+
   get_filters(response) {
     this.tags = response.tags;
     this.filtered_tags = this.tags;

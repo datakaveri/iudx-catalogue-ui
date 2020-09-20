@@ -1,5 +1,8 @@
 <app-header></app-header>
 <div class="para-div" *ngIf="show_data">
+    <a class="back" (click)="back()">
+        <img src="assets/back.png"> Back
+    </a>
     <p *ngIf="!(searchQuery.tags.length == 0 && searchQuery.text == '')">
         <span>{{ results.count }}</span>
         <span> Dataset(s) for </span>
@@ -21,7 +24,7 @@
 
             <li class="results-item-about">
                 <div class="results-item-location"><img src='../../assets/location.png'><span>{{resource.location.address}}</span></div>
-                <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.resource_items }} Resources</span></div>
+                <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.resource_items.length }} Resources</span></div>
             </li>
 
             <li class='results-item-id'>Dataset ID: {{ resource.id.length > 85 ? resource.id.substring(0,85)+'.....' : resource.id }}<span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)"></span></li>
