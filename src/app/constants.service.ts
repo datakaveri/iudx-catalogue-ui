@@ -17,6 +17,7 @@ export class ConstantsService {
   resource: any;
   toast_subject = new Subject<any>();
   alert_subject = new Subject<any>();
+  id: any;
   constructor( ) {
     this.resource_groups = 'Dataset';
     this.resource_items = 'Resource';
@@ -88,6 +89,12 @@ export class ConstantsService {
   }
   get_map_coordinates(){
     return this.map_cordinates;
+  }
+  set_item_id(id:any){
+    this.id = id;
+  }
+  get_item_id(){
+    return this.id;
   }
   set_alert(obj) {
     this.alert_subject.next(obj);

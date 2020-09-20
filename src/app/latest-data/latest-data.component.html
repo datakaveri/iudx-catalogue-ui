@@ -3,30 +3,12 @@
       <h3 class="samplePopup_title">Latest Data</h3>
       <span (click)='hideLatestData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
     </div>
-    <!-- <div class="samplePopup_body">
-      <div class="samplePopup_item">
-        <table>
-          <tr>
-            <th *ngFor="let data of latestData[0] | keyvalue">{{data.key}}</th>
-          </tr>
-          <tr *ngFor="let data of latestData|keyvalue">
-            <ng-container *ngFor="let item of latestData[data.key] | keyvalue">
-              <td>{{item.value}}</td>
-            </ng-container>
-          </tr>
-        </table>
-      </div>
-    </div> -->
-    <!-- <div ngNonBindable>{{</div> 
-      <div ngNonBindable>[</div>  -->
     <ul class='samplePopup-list'>
       <li class='samplePopup-items'>
         <pre id="json_id" class='key'>{{latestData | json}}</pre>
         <!-- :<span  class='value'>{{data.value | json}}</span> -->
       </li>
     </ul>
-    <!-- <div ngNonBindable>]</div> 
-    <div ngNonBindable>}}</div>  -->
   </div>
   
   <div [ngClass]="{fadeIn:overlay}"></div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ConstantsService } from '../constants.service';
+import { InterceptorService } from '../interceptor.service';
 
 @Component({
   selector: 'app-latest-data',
@@ -13,98 +15,34 @@ export class LatestDataComponent implements OnInit {
   overlay: boolean;
   showLatest:boolean;
   res: string;
+  item_id: string;
 
   constructor(
     private router: Router,
-    private location: Location
+    private location: Location,
+    private constantService : ConstantsService,
+    private interceptorService:InterceptorService
   ) {
 
     this.showLatest = true;
     this.overlay = true;
-
-     this.latestData = 
-
-    //  [{"@context":"https://voc.iudx.org.in/","type":["iudx:ResourceGroup"],"id":"providerID/example.com/senosrs","description":"Description of this resource group","name":"sensors","tags":"sensor, sensing, resource, battery operated","itemStatus":"ACTIVE","provider":"providerID","resourceServer":"resourceProviderID/exapmle.com","resourceAuthControlLevel":"INDIVIDUAL","resourceType":"messageStream","authServerInfo":{"type":["AuthServerInfoValue"],"authServerURL":"https://myauth.server.org/","authType":"iudx-auth"},"accessObjectInfo":{"type":["AccessObjectInfoValue"],"accessObject":"https://example.com/sensorsApis.json","additionalInfoURL":"https://example.com/sensorsApis","accessObjectType":"openAPI"},"iudxResourceAPIs":["attribute","temporal"],"itemCreatedAt":"2019-02-20T10:30:06.093121","location":{"type":"Place","address":"Bangalore"}}]
-     [
-      {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, 
-      {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }, {
-        'HOTSPOT_ID': 71,
-        'USER_COUNT': 0,
-        'NAME': 'In front of kalyan nagar steel',
-        'LASTUPDATETIME': '2020-03-10T13:33:21+05:30',
-        'LOCATION_STATUS': 'ON',
-        'ACCESS_POINT_COUNT': 1
-      }
-    ]
-   }
+    this.item_id = this.constantService.get_item_id();
+    console.log(this.item_id);
+    this.getLatestData(this.item_id);
+    }
 
   ngOnInit(): void {
+   
   }
 
   hideLatestData(){
     this.location.back();
+  }
+  getLatestData(id:string){
+     this.interceptorService.get_api_resource_server('https://rs.iudx.io/ngsi-ld/v1/entities/iisc.ac.in/89a36273d77dac4cf38114fca1bbe64392547f86/rs.iudx.io/surat-itms-realtime-information/surat-itms-live-eta').then((data)=>{
+      // this.interceptorService.get_api_resource_server('https://rs.iudx.io/ngsi-ld/v1/entities/'+id).then((data)=>{  
+      console.log(data);
+      this.latestData = data;
+    })
   }
 }

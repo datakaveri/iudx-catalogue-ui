@@ -94,7 +94,10 @@ export class ItemResItemsComponent implements OnInit {
     this.flags[i] = !this.flags[i];
   }
 
-  showLatestData(){
+  showLatestData(id){
+    if(id){
+      this.constant.set_item_id(id);
+    }
     this.router.navigate(['/search/dataset/items/latest-data']);
   }
   showDataDescriptor(val: any){
