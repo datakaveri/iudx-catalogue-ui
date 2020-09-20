@@ -19,19 +19,12 @@ export class ChangeCityComponent implements OnInit {
     private network: InterceptorService,
     private location: Location
   ) {
-    this.get_cities();
+    this.citiesData = this.global.get_cities();
     this.text = this.global.get_nomenclatures();
   }
 
   ngOnInit(): void {
 
-  }
-
-  get_cities() {
-    this.network.get_api('customer/cities')
-    .then((response)=>{
-      this.citiesData = response;
-    });
   }
   
   change_city(data) {
