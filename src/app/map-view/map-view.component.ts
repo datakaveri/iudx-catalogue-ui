@@ -110,7 +110,7 @@ export class MapViewComponent {
       this.httpInterceptor.set_filter(true);
     }
     this.city = this.constantService.get_city();
-    console.log(this.city);
+    // console.log(this.city);
 
     // for map type=Polygon to highlight when there is overlapping of layers
  this.highlightStyle = {
@@ -143,6 +143,7 @@ this.defaultStyle = {
       this.httpInterceptor
         .post_api('customer/coordinates', this.drawQuery)
         .then((data: any) => {
+          // console.log(data);
           this.is_drawn = false;
           this.resource_items = data.items;
           this.filtered_resource_items = this.resource_items;
@@ -153,9 +154,9 @@ this.defaultStyle = {
         this.filter_data();
       } else {
         this.httpInterceptor
-          .post_api('customer/map', this.searchQuery)
+          .post_api( 'customer/map', this.searchQuery)
           .then((data: any) => {
-            console.log(data);  
+            // console.log(data);  
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
@@ -169,19 +170,29 @@ this.defaultStyle = {
 
   filter_data() {
     this.filtered_resource_items = [];
-    this.resource_items.forEach((a) => {
+    // console.log( this.resource_items);
+    this.resource_items.forEach((i) => {
+      i.forEach((a)=>{
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
         a.resourceGroup
       );
-      if (flag == true) this.filtered_resource_items.push(a);
-    });
+
+      if (flag == true) 
+      {
+        this.filtered_resource_items.push(a);
+      }
+      });
+      // console.log(this.filtered_resource_items);
     this.mark_on_map();
+    });
+    
   }
 
   filter_map_data() {
     this.filtered_resource_items = [];
     this.resource_items.forEach((a) => {
+      // console.log(a);
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
         a.resourceGroup
@@ -201,6 +212,8 @@ this.defaultStyle = {
   }
 
   check_if_contained(arr, str) {
+    // console.log(arr);
+    // console.log(str);
     return arr.includes(str);
   }
 
@@ -212,6 +225,7 @@ this.defaultStyle = {
       }
     }
     const data: L.Marker[] = [];
+    // console.log(this.filtered_resource_items);
     for (const c of this.filtered_resource_items) {
       let isPublic: Boolean;
       //  console.log(c)
@@ -439,7 +453,7 @@ this.defaultStyle = {
       });
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
-    // console.log(this.searchQuery);
+     console.log(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
