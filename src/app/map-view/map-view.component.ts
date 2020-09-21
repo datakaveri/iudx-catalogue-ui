@@ -136,7 +136,9 @@ this.defaultStyle = {
     //  this.markersLayer.addLayer(marker);
     //   this.markersLayer.addTo(this.map);
   }
-
+  back() {
+    this.router.navigate(['/']);
+  }
   getMapData() {
     this.filtered_resource_items = [];
     if (this.is_drawn) {
@@ -167,10 +169,6 @@ this.defaultStyle = {
       }
     }
   }
-  back() {
-    this.router.navigate(['/search/datasets']);
-  }
-
   filter_data() {
     this.filtered_resource_items = [];
     console.log( this.resource_items);
