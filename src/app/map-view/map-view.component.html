@@ -1,5 +1,8 @@
 <app-header></app-header>
 <div class="map-border">
+  <a class="back" (click)="back()">
+    <img src="assets/back.png"> Back
+  </a>
     <div
         id="map"
         leaflet
@@ -18,7 +21,7 @@
         </div>
         <div [leafletLayer]="drawnItems"></div>
     </div>
-  
+
     <div class="filter_popup" *ngIf="show_filter">
         <div class="header">
             FILTERS

@@ -126,13 +126,13 @@ this.defaultStyle = {
   weight: 1,
   fillOpacity: 0.7,
 };
-    
+
   }
 
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
-     
+
     //  this.markersLayer.addLayer(marker);
     //   this.markersLayer.addTo(this.map);
   }
@@ -156,7 +156,7 @@ this.defaultStyle = {
         this.httpInterceptor
           .post_api( 'customer/map', this.searchQuery)
           .then((data: any) => {
-             console.log(data);  
+             console.log(data);
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
@@ -166,6 +166,9 @@ this.defaultStyle = {
           });
       }
     }
+  }
+  back() {
+    this.router.navigate(['/search/datasets']);
   }
 
   filter_data() {
@@ -177,7 +180,7 @@ this.defaultStyle = {
         a.resourceGroup
       );
 
-      if (flag == true) 
+      if (flag == true)
       {
         this.filtered_resource_items.push(a);
       }
@@ -316,7 +319,7 @@ this.defaultStyle = {
                   // this.setStyle(this.defaultStyle);
                   // this.bringToBack();
                   // });
-              
+
               // layer.on('click', function (e) {
 
               //     activate_point_mode(_id)
@@ -339,7 +342,7 @@ this.defaultStyle = {
     this.map = map;
     // L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).bindPopup('<h5>'+this.city.name+'Office'+'</h5>').addTo(this.map);
     this.getMapData();
-    
+
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
@@ -370,7 +373,7 @@ this.defaultStyle = {
     return map_options;
   }
 
-  
+
 
   drawOptionsInit() {
     var draw_options = {
@@ -681,7 +684,7 @@ this.defaultStyle = {
     });
   }
   stringToColour(str) {
-    
+
     var color = [
       '#1c699d',
       '#ff7592',
@@ -691,11 +694,11 @@ this.defaultStyle = {
       '#f39c1c',
       '#d35414',
       '#9b59b6',
-    ]; 
-    
+    ];
+
     return color[0];
   }
-  
+
   get_legends(val:any){
   // Adding Legend to the map
   const legend = new (L.Control.extend({
@@ -707,12 +710,12 @@ this.defaultStyle = {
                 "assets/marker_blue.png",
                 "assets/marker_pink2.png",
                 // "https://img.icons8.com/ultraviolet/40/000000/marker.png",
-                // "https://img.icons8.com/color/48/000000/marker.png", 
-                "https://img.icons8.com/color/48/000000/air-quality.png", 
-                "https://img.icons8.com/office/16/000000/sensor.png", 
-                "https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png", 
-                
-                 
+                // "https://img.icons8.com/color/48/000000/marker.png",
+                "https://img.icons8.com/color/48/000000/air-quality.png",
+                "https://img.icons8.com/office/16/000000/sensor.png",
+                "https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png",
+
+
 
     ];
     // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];

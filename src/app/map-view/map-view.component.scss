@@ -5,8 +5,23 @@
   border: 1px solid var(--border);
 }
 
+
 .map-border {
-  padding-top: 150px;
+  padding-top: 180px;
+}
+
+.back {
+  display: block;
+  padding: 5px 35px;
+  color: var(--highlight);
+  font-weight: 500;
+  img {
+    position: relative;
+    z-index: 100;
+    width: 20px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+  }
 }
 .filter_popup {
   width: calc(400px - 50px);
