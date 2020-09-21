@@ -56,9 +56,9 @@ export class ItemResItemsComponent implements OnInit {
     console.log(obj);
     keys.forEach((a,i)=>{
       // if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
-        if(typeof obj[a] == 'object'){
-      let o = { key: a, ...obj[a] };
-      arr.push(o);
+      if(typeof obj[a] == 'object'){
+        let o = { key: a, ...obj[a] };
+        arr.push(o);
       }
     });
     this.data_descriptor = arr;
@@ -97,6 +97,10 @@ export class ItemResItemsComponent implements OnInit {
       }
     });
     return arr;
+  }
+
+  typeOf(value) {
+    return typeof value;
   }
 
   toggle(i) {
