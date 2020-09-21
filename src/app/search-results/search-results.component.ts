@@ -35,8 +35,8 @@ export class SearchResultsComponent implements OnInit {
     };
     // this.router.events.subscribe((event) => {
       // if (event instanceof NavigationEnd) {
-        if(this.router.url === '/search/datasets' || this.router.url === '/search/map') this.show_filter_button = true;
-        else this.show_filter_button = false;
+        // if(this.router.url === '/search/datasets' || this.router.url === '/search/map') this.show_filter_button = true;
+        // else this.show_filter_button = false;
       // }
     // });
     this.network.get_filter().subscribe((flag: any)=>{
@@ -46,7 +46,10 @@ export class SearchResultsComponent implements OnInit {
     this.get_tags();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if(this.router.url === '/search/datasets' || this.router.url === '/search/map') this.show_filter_button = true;
+        else this.show_filter_button = false;
+   }
 
   showMap() {
     this.router.navigate(['/search/map']);

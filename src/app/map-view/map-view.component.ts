@@ -156,7 +156,7 @@ this.defaultStyle = {
         this.httpInterceptor
           .post_api( 'customer/map', this.searchQuery)
           .then((data: any) => {
-            // console.log(data);  
+             console.log(data);  
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
@@ -170,9 +170,8 @@ this.defaultStyle = {
 
   filter_data() {
     this.filtered_resource_items = [];
-    // console.log( this.resource_items);
-    this.resource_items.forEach((i) => {
-      i.forEach((a)=>{
+    console.log( this.resource_items);
+      this.resource_items.forEach((a)=>{
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
         a.resourceGroup
@@ -183,10 +182,8 @@ this.defaultStyle = {
         this.filtered_resource_items.push(a);
       }
       });
-      // console.log(this.filtered_resource_items);
+      console.log(this.filtered_resource_items);
     this.mark_on_map();
-    });
-    
   }
 
   filter_map_data() {
