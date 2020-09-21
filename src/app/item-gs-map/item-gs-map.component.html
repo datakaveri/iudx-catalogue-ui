@@ -1,0 +1,20 @@
+<div *ngIf='showPopup'  class="samplePopup popup">
+  <div class="popup_head">
+    <h3 class="samplePopup_title">Map View</h3>
+    <span (click)='hideSampleData()' class="popup_icon"><img src='assets/cross.png'></span>
+  </div>
+  <div class="popup_body">
+    <div class="popup_item">
+      <div
+        id="map"
+        leaflet
+        (leafletMapReady)="onMapReady($event)"
+        [leafletOptions]="options"
+        [leafletMarkerCluster]="markerClusterData"
+        [leafletMarkerClusterOptions]="markerClusterOptions"
+        (leafletMarkerClusterReady)="markerClusterReady($event)">
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{fadeIn:overlay}"></div>

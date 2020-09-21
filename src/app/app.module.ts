@@ -32,6 +32,7 @@ import { ItemMapComponent } from './item-map/item-map.component';
 import { SampleDataComponent } from './sample-data/sample-data.component';
 import { LatestDataComponent } from './latest-data/latest-data.component';
 import { ToasterComponent } from './toaster/toaster.component';
+import { ItemGsMapComponent } from './item-gs-map/item-gs-map.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ToasterComponent } from './toaster/toaster.component';
     SampleDataComponent,
     LatestDataComponent,
     ToasterComponent,
+    ItemGsMapComponent,
   ],
   imports: [
     BrowserModule,

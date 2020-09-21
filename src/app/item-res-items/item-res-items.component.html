@@ -21,7 +21,7 @@
       <!-- <a *ngIf='dataSample' (click)="showSampleData(dataSample)">Get Sample Data</a> -->
       <!-- <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a> -->
       </div>
-      
+
       <!-- <a *ngIf='!resource.resource_group.dataDescriptor'>Data Descriptor</a> -->
       <div _ngcontent-jvd-c49="" class = "results-item-shade" [ngClass] ="{'darkgreen': resource.resource_group.accessPolicy == 'OPEN',
       'orange': resource.resource_group.accessPolicy == 'SECURE', 'lightgreen': resource.resource_group.accessPolicy == 'MISC'}"></div>

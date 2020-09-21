@@ -19,29 +19,31 @@ export class ItemResItemsComponent implements OnInit {
   showDescriptor: boolean;
   descriptor_items : boolean;
   label: any;
+  showMapPopup:boolean
   constructor(
     private constant: ConstantsService,
     private router: Router
   ) {
-   
+
     this.descriptor_items = false;
     this.showDescriptor = false;
     this.flags = [];
     this.resource = this.constant.get_resource_details();
     // console.log(this.resource)
     this.sampleData = this.resource.resource_group.dataSample;
-    
+
     this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
     this.texts = this.constant.get_nomenclatures();
     this.overlay = false;
     this.showPopup = false;
+    this.showMapPopup = false;
   }
 
   ngOnInit(): void {
     if(this.resource.resource_group.hasOwnProperty('dataDescriptor')){
       this.manipulate_data_descriptor(this.resource.resource_group.dataDescriptor);
       this.descriptor_items = false;
-     
+
     }
     else{
       this.descriptor_items = true;
@@ -125,9 +127,10 @@ export class ItemResItemsComponent implements OnInit {
     this.router.navigate(['/search/dataset/items/sample-data']);
   }
   mapView(data){
+    this.router.navigate(['/search/dataset/items/map-gs']);
     if(data.location){
       this.constant.set_map_coordinates(data);
     }
-    this.router.navigate(['/search/dataset/map-view']);
+    // this.router.navigate(['/search/dataset/map-view']);
   }
 }

@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { DatasetListComponent } from './dataset-list/dataset-list.component';
-import { MapViewComponent } from './map-view/map-view.component';
-import { HomeComponent } from './home/home.component';
-import { ItemDetailsComponent } from './item-details/item-details.component';
-import { ItemDataDesComponent } from './item-data-des/item-data-des.component';
-import { ItemResItemsComponent } from './item-res-items/item-res-items.component';
-import { DatasetComponent } from './dataset/dataset.component';
-import { ItemMapComponent } from './item-map/item-map.component';
-import { SampleDataComponent } from './sample-data/sample-data.component';
-import { LatestDataComponent } from './latest-data/latest-data.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {LandingPageComponent} from './landing-page/landing-page.component';
+import {SearchResultsComponent} from './search-results/search-results.component';
+import {DatasetListComponent} from './dataset-list/dataset-list.component';
+import {MapViewComponent} from './map-view/map-view.component';
+import {HomeComponent} from './home/home.component';
+import {ItemDetailsComponent} from './item-details/item-details.component';
+import {ItemDataDesComponent} from './item-data-des/item-data-des.component';
+import {ItemResItemsComponent} from './item-res-items/item-res-items.component';
+import {DatasetComponent} from './dataset/dataset.component';
+import {ItemMapComponent} from './item-map/item-map.component';
+import {SampleDataComponent} from './sample-data/sample-data.component';
+import {LatestDataComponent} from './latest-data/latest-data.component';
+import { ItemGsMapComponent } from './item-gs-map/item-gs-map.component'
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
       {
         path: 'datasets',
         component: DatasetListComponent,
-        
+
       },
       {
         path: 'dataset',
@@ -56,6 +57,10 @@ const routes: Routes = [
               {
                 path: 'sample-data',
                 component: SampleDataComponent,
+              },
+              {
+                path: 'map-gs',
+                component: ItemGsMapComponent
               },
 
             ],
@@ -102,4 +107,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
