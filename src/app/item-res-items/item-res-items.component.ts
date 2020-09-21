@@ -53,8 +53,10 @@ export class ItemResItemsComponent implements OnInit {
   manipulate_data_descriptor(obj) {
     let arr = [];
     let keys = Object.keys(obj);
+    console.log(obj);
     keys.forEach((a,i)=>{
-      if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
+      // if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
+        if(typeof obj[a] == 'object'){
       let o = { key: a, ...obj[a] };
       arr.push(o);
       }
@@ -77,13 +79,18 @@ export class ItemResItemsComponent implements OnInit {
           data = {
             key: a,
             value: obj[a].includes(':') ? obj[a].split(':')[1] : obj[a],
-            level: 1
+            // level: 1
           }
-        } else {
+        } else if(typeof obj[a] == 'number'){
           data = {
             key: a,
-            value: this.convert_obj_array_of_objs(obj[a]),
-            level: 2
+            value: obj[a],
+            level: 1
+          }
+        } else if(typeof obj[a] == 'object') {
+          data = {
+            key: a,
+            value: this.convert_obj_array_of_objs(obj[a])
           }
         }
         arr.push(data);
