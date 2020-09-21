@@ -16,7 +16,7 @@ export class SearchResultsComponent implements OnInit {
   searchQuery: {};
   query: string;
   show_filter: Boolean;
-  show_filter_button: Boolean;
+  // show_filter_button: Boolean;
   arrowkeyLocation:any;
   constructor(
     public router: Router,
@@ -24,7 +24,7 @@ export class SearchResultsComponent implements OnInit {
     private constantService: ConstantsService
   ) {
     this.arrowkeyLocation = -1;
-    this.show_filter_button = false;
+    // this.show_filter_button = false;
     this.show_filter = false;
     this.query = '';
     this.searchQuery = {
@@ -47,8 +47,6 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.router.url === '/search/datasets' || this.router.url === '/search/map') this.show_filter_button = true;
-        else this.show_filter_button = false;
    }
 
   showMap() {
