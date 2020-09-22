@@ -80,7 +80,7 @@
         <img src="assets/drop-arrow-green.png" style="transform: rotate(180deg)" *ngIf="flags[i]">
         <img src="assets/drop-arrow-green.png" *ngIf="!flags[i]">
       </h4>
-      <div *ngIf="flags[i]">
+      <!-- <div *ngIf="flags[i]">
         <div *ngFor="let key of resource;let i=index;">
           <div *ngIf="i != 0 && key.level == 1">
             <p>
@@ -105,6 +105,37 @@
               </p>
             </div>
           </div>
+        </div>
+      </div> -->
+      <div *ngIf="flags[i]">
+        <div *ngFor="let key of resource;let j=index;">
+            <div *ngIf="j != 0 && typeOf(key.value) != 'object'">
+                <p>
+                    <span>{{key.key}}: </span> {{key.value}}
+                </p>
+            </div>
+            <div *ngIf="j != 0 && typeOf(key.value) == 'object'">
+                <p>
+                    <span>{{key.key}}: </span>
+                </p>
+                <div *ngFor="let item of key.value;let k=index;" class="level_2">
+                    <div *ngIf="k != 0 && typeOf(item.value) != 'object'">
+                        <p>
+                            <span>{{item.key}}: </span> {{item.value}}
+                        </p>
+                    </div>
+                    <div *ngIf="k != 0 && typeOf(item.value) == 'object'">
+                        <p>
+                            <span>{{item.key}}: </span>
+                        </p>
+                        <div *ngFor="let data of item.value" class="level_3">
+                            <p>
+                                <span>{{data.key}}: </span> {{data.value}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>
