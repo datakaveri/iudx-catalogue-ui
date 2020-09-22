@@ -1,4 +1,5 @@
 <div  *ngIf="showLatest" class="samplePopup">
+  <div class="samplePopup_container">
     <div class="samplePopup_head">
       <h3 class="samplePopup_title">Latest Data</h3>
       <span (click)='hideLatestData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
@@ -9,6 +10,8 @@
         <!-- :<span  class='value'>{{data.value | json}}</span> -->
       </li>
     </ul>
+  </div>
+    
   </div>
   
   <div [ngClass]="{fadeIn:overlay}"></div>

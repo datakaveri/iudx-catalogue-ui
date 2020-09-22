@@ -55,12 +55,12 @@ export class ItemResItemsComponent implements OnInit {
     let keys = Object.keys(obj);
     console.log(obj);
     keys.forEach((a,i)=>{
-      // if(a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
-      if(typeof obj[a] == 'object'){
+      if(typeof obj[a] == 'object' && a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
         let o = { key: a, ...obj[a] };
         arr.push(o);
       }
     });
+  
     this.data_descriptor = arr;
     this.flags.length = this.data_descriptor.length;
     this.data_descriptor.forEach((a,i)=>{
