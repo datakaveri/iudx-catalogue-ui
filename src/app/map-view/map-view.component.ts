@@ -74,8 +74,18 @@ export class MapViewComponent {
   filtered_resource_items: any;
   count: any;
   limit: Number;
-  highlightStyle: { color: string; opacity: number; weight: number; fillOpacity: number; };
-  defaultStyle: { color: string; opacity: number; weight: number; fillOpacity: number; };
+  highlightStyle: {
+    color: string;
+    opacity: number;
+    weight: number;
+    fillOpacity: number;
+  };
+  defaultStyle: {
+    color: string;
+    opacity: number;
+    weight: number;
+    fillOpacity: number;
+  };
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService,
@@ -113,20 +123,19 @@ export class MapViewComponent {
     // console.log(this.city);
 
     // for map type=Polygon to highlight when there is overlapping of layers
- this.highlightStyle = {
-  color: '#ff0000',
-  opacity:1,
-  weight: 3,
-  fillOpacity: 1,
-};
+    this.highlightStyle = {
+      color: '#ff0000',
+      opacity: 1,
+      weight: 3,
+      fillOpacity: 1,
+    };
 
-this.defaultStyle = {
-  color: '#000000',
-  opacity:0.5,
-  weight: 1,
-  fillOpacity: 0.7,
-};
-
+    this.defaultStyle = {
+      color: '#000000',
+      opacity: 0.5,
+      weight: 1,
+      fillOpacity: 0.7,
+    };
   }
 
   ngOnInit(): void {
@@ -156,13 +165,13 @@ this.defaultStyle = {
         this.filter_data();
       } else {
         this.httpInterceptor
-          .post_api( 'customer/map', this.searchQuery)
+          .post_api('customer/map', this.searchQuery)
           .then((data: any) => {
-             console.log(data);
+            console.log(data);
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
-            // this.get_legends(this.resource_groups);
+            this.get_legends(this.resource_groups);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -171,19 +180,19 @@ this.defaultStyle = {
   }
   filter_data() {
     this.filtered_resource_items = [];
-    console.log( this.resource_items);
-      this.resource_items.forEach((a)=>{
+    console.log(this.resource_items);
+    this.resource_items.forEach((a) => {
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
         a.resourceGroup
       );
 
-      if (flag == true)
-      {
+      if (flag == true) {
         this.filtered_resource_items.push(a);
       }
-      });
-      console.log(this.filtered_resource_items);
+    });
+    console.log(this.filtered_resource_groups);
+    // this.get_legends(this.filtered_resource_groups);
     this.mark_on_map();
   }
 
@@ -228,7 +237,7 @@ this.defaultStyle = {
       let isPublic: Boolean;
       //  console.log(c)
       // Condition to check whether the geometry type is polygon or point
-      if(c.location.geometry.type == 'Point'){
+      if (c.location.geometry.type == 'Point') {
         var lng = c.location.geometry.coordinates[0];
         var lat = c.location.geometry.coordinates[1];
         if (mySet.has(c.resourceGroup)) {
@@ -261,30 +270,27 @@ this.defaultStyle = {
                 `</div>`)
         );
 
-      this.markersLayer.addLayer(markers);
-      this.markersLayer.addTo(this.map);
-      let self = this;
-      markers.on('popupopen', function () {
-        if (isPublic) {
-          self.elementRef.nativeElement
-            .querySelector('.data-link')
-            .addEventListener('click', (e) => {
-              var dataId = e.target.getAttribute('data-Id');
-              self.display_latest_data(dataId);
-            });
-        } else {
-          self.elementRef.nativeElement
-            .querySelector('.sample-link')
-            .addEventListener('click', (e) => {
-              var dataId = e.target.getAttribute('data-Id');
-              self.display_sample_data(dataId);
-            });
-        }
-      });
-      }
-
-      else if(c.location.geometry.type == 'Polygon'){
-
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(this.map);
+        let self = this;
+        markers.on('popupopen', function () {
+          if (isPublic) {
+            self.elementRef.nativeElement
+              .querySelector('.data-link')
+              .addEventListener('click', (e) => {
+                var dataId = e.target.getAttribute('data-Id');
+                self.display_latest_data(dataId);
+              });
+          } else {
+            self.elementRef.nativeElement
+              .querySelector('.sample-link')
+              .addEventListener('click', (e) => {
+                var dataId = e.target.getAttribute('data-Id');
+                self.display_sample_data(dataId);
+              });
+          }
+        });
+      } else if (c.location.geometry.type == 'Polygon') {
         var points = c.location.geometry.coordinates[0];
         // console.log(points);
         console.log(c.resourceGroup.split('/')[3]);
@@ -295,44 +301,38 @@ this.defaultStyle = {
         }
 
         console.log(c.location.geometry);
-        L.geoJSON((c.location.geometry), {
+        L.geoJSON(c.location.geometry, {
           style: {
-              fillColor:this.stringToColour(c.resourceGroup.split('/')[3]),
-              weight: 2,
-              opacity: 1,
-              // color: 'white',
-              // dashArray: '3',
-              fillOpacity: 0.5
+            fillColor: this.stringToColour(c.resourceGroup.split('/')[3]),
+            weight: 2,
+            opacity: 1,
+            // color: 'white',
+            // dashArray: '3',
+            fillOpacity: 0.5,
           },
           onEachFeature: function (feature, layer) {
-
-              // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
-              // layer.on('mouseover', function(e) {
-              //     this.setStyle(this.highlightStyle);
-              //     // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
-              //     this.bringToFront();
-              //     });
-
-                  // layer.on('mouseout', function(e) {
-                  // this.setStyle(this.defaultStyle);
-                  // this.bringToBack();
-                  // });
-
-              // layer.on('click', function (e) {
-
-              //     activate_point_mode(_id)
-
-              // });
-              // layer.bindPopup(`<div id="pop_up_`+ resource_id_to_html_id(_id) +`"><p class="text-center" style="padding-right:7.5px;"><img src='`+
-              // ((is_public) ? "../assets/img/icons/green_unlock.svg" : "../assets/img/icons/red_lock.svg")
-              // +`' class='img-fluid secure_icon'></p>`+get_bullets()+` <a href='#' class='data-modal'  onclick="display_latest_data(event, this, '` + _id + `')"> Get latest-data</a><br>
-              //   `+get_bullets()+` <a href="#"  class="data-modal" onclick="display_temporal_data(event, this, '`+_json_object.id+`')">Get Temporal Data</a><br>` +
-              // ((is_secure) ? ` `+get_bullets()+` <a href='#' class='data-modal'  onclick="request_access_token('` + _json_object.id + `', '`+ _json_object["resourceServerGroup"]["value"] + `', '`+ _json_object["resourceId"]["value"] + `')">Request Access Token</a>` : ``
-              // + `</div>`)
-              // ).addTo(map);
-          }
-
-      }).addTo(this.map);
+            // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
+            // layer.on('mouseover', function(e) {
+            //     this.setStyle(this.highlightStyle);
+            //     // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
+            //     this.bringToFront();
+            //     });
+            // layer.on('mouseout', function(e) {
+            // this.setStyle(this.defaultStyle);
+            // this.bringToBack();
+            // });
+            // layer.on('click', function (e) {
+            //     activate_point_mode(_id)
+            // });
+            // layer.bindPopup(`<div id="pop_up_`+ resource_id_to_html_id(_id) +`"><p class="text-center" style="padding-right:7.5px;"><img src='`+
+            // ((is_public) ? "../assets/img/icons/green_unlock.svg" : "../assets/img/icons/red_lock.svg")
+            // +`' class='img-fluid secure_icon'></p>`+get_bullets()+` <a href='#' class='data-modal'  onclick="display_latest_data(event, this, '` + _id + `')"> Get latest-data</a><br>
+            //   `+get_bullets()+` <a href="#"  class="data-modal" onclick="display_temporal_data(event, this, '`+_json_object.id+`')">Get Temporal Data</a><br>` +
+            // ((is_secure) ? ` `+get_bullets()+` <a href='#' class='data-modal'  onclick="request_access_token('` + _json_object.id + `', '`+ _json_object["resourceServerGroup"]["value"] + `', '`+ _json_object["resourceId"]["value"] + `')">Request Access Token</a>` : ``
+            // + `</div>`)
+            // ).addTo(map);
+          },
+        }).addTo(this.map);
       }
     }
   }
@@ -340,7 +340,6 @@ this.defaultStyle = {
     this.map = map;
     // L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault }).bindPopup('<h5>'+this.city.name+'Office'+'</h5>').addTo(this.map);
     this.getMapData();
-
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
@@ -359,7 +358,7 @@ this.defaultStyle = {
               '</span>' +
               '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
           }
-        )
+        ),
         // ,L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault })
       ],
       zoom: 12,
@@ -370,8 +369,6 @@ this.defaultStyle = {
     };
     return map_options;
   }
-
-
 
   drawOptionsInit() {
     var draw_options = {
@@ -451,7 +448,7 @@ this.defaultStyle = {
       });
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
-     console.log(this.searchQuery);
+    console.log(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
@@ -668,6 +665,7 @@ this.defaultStyle = {
       '#d35414',
       '#9b59b6',
     ];
+    // return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
   }
@@ -682,7 +680,6 @@ this.defaultStyle = {
     });
   }
   stringToColour(str) {
-
     var color = [
       '#1c699d',
       '#ff7592',
@@ -697,38 +694,59 @@ this.defaultStyle = {
     return color[0];
   }
 
-  get_legends(val:any){
-  // Adding Legend to the map
-  const legend = new (L.Control.extend({
-  options: { position: 'bottomleft' }
-  }));
-  legend.onAdd = function (map) {
-  const div = L.DomUtil.create('div', 'legend');
-  const labels = [
-                "assets/marker_blue.png",
-                "assets/marker_pink2.png",
-                // "https://img.icons8.com/ultraviolet/40/000000/marker.png",
-                // "https://img.icons8.com/color/48/000000/marker.png",
-                "https://img.icons8.com/color/48/000000/air-quality.png",
-                "https://img.icons8.com/office/16/000000/sensor.png",
-                "https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png",
+  get_legends(val: any) {
+    // console.log(this.filtered_resource_groups);
 
+    // Adding Legend to the map
+    const legend = new (L.Control.extend({
+      options: { position: 'bottomleft' },
+    }))();
+    legend.onAdd = function (map) {
+      const div = L.DomUtil.create('div', 'legend');
+      const labels = [
+        // 'assets/marker_blue.png',
+        // 'assets/marker_pink2.png',
+        // "https://img.icons8.com/ultraviolet/40/000000/marker.png",
+        // "https://img.icons8.com/color/48/000000/marker.png",
+        // 'https://img.icons8.com/color/48/000000/air-quality.png',
+        // 'https://img.icons8.com/office/16/000000/sensor.png',
+        // 'https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png',
+      ];
 
+      // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
+      const grades = [];
+      // console.log(val);
+      val.forEach((a) => {
+        // var index = 0;
+        // console.log(a);
+        grades.push(a.id.split('/')[3]);
+      });
+      div.innerHTML =
+        '<div style = "background-color:white"><div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:55px"></h1></div><br>';
+      for (let i = 0; i < grades.length; i++) {
+        let index = 0;
+        var pathFillColor = [
+          '#1c699d',
+          '#ff7592',
+          '#564d65',
+          '#2fcb83',
+          '#0ea3b1',
+          '#f39c1c',
+          '#d35414',
+          '#9b59b6',
+        ];
+        console.log(pathFillColor[i]);
 
-    ];
-    // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
-    const grades =[];
-    // console.log(val);
-    val.forEach(a => {
-      // console.log(a);
-      grades.push(a.id.split('/')[3])
-    });
-    div.innerHTML = '<div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:15px">LEGENDS</h1></div><br>';
-    for (let i = 0; i < grades.length; i++) {
-      div.innerHTML += (" <div style='display: flex;align-items: center;'><img src=" + labels[i] + " height='50' width='50'>") + "<span style='font-weight:600;padding-left: 15px;font-size:16px'>"+ grades[i] +"</span></div>" +'<br>';
-    }
-    return div;
-  };
-  legend.addTo(this.map);
+        div.innerHTML +=
+          '<div style="display: flex;align-items: center; background-color:white">' +
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[i]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>` +
+          "<span style='font-weight:400;padding-left: 15px; padding-right : 19px;font-size:16px; background-color:white'>" +
+          grades[i] +
+          '</span></div></div>';
+        index++;
+      }
+      return div;
+    };
+    legend.addTo(this.map);
   }
 }
