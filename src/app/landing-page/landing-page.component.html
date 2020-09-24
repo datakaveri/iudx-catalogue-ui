@@ -115,12 +115,11 @@
           </li>
         </ul>
       </div> -->
-      <div class="cities-list">
+      <div class="cities-list" *ngIf="!city">
         <span>View Data For Cities</span>
         <ul>
           <li *ngFor="let city of cities ">  <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self"><img
-            src="{{city.logo}}"
-                                                                                            alt=""></a></li>
+            src="{{city.logo}}" alt=""></a></li>
         </ul>
       </div>
     </div>
