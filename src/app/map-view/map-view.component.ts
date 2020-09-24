@@ -171,7 +171,7 @@ export class MapViewComponent {
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
-            this.get_legends(this.resource_groups);
+            // this.get_legends(this.resource_groups);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -449,9 +449,11 @@ export class MapViewComponent {
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     console.log(this.searchQuery);
+    console.log(window.sessionStorage.map_search);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
+    // this. get_legends(this.searchQuery);
     this.getMapData();
   }
 
@@ -670,6 +672,8 @@ export class MapViewComponent {
     `;
   }
   display_latest_data(id) {
+    console.log(id);
+    this.constantService.set_item_id(id);
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/latest-data']);
     });
@@ -696,7 +700,10 @@ export class MapViewComponent {
 
   get_legends(val: any) {
     // console.log(this.filtered_resource_groups);
-
+    // console.log(val.resource_groups);
+    let rsg;
+    if(val != undefined)  { rsg = val.resource_groups;}
+  
     // Adding Legend to the map
     const legend = new (L.Control.extend({
       options: { position: 'bottomleft' },
@@ -716,11 +723,12 @@ export class MapViewComponent {
       // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
       const grades = [];
       // console.log(val);
-      val.forEach((a) => {
-        // var index = 0;
-        // console.log(a);
-        grades.push(a.id.split('/')[3]);
-      });
+       rsg.forEach((a) => {
+         var index = 0;
+         console.log(a);
+        
+         grades.push(a.split('/')[3]);
+       });
       div.innerHTML =
         '<div style = "background-color:white"><div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:55px"></h1></div><br>';
       for (let i = 0; i < grades.length; i++) {
