@@ -57,7 +57,7 @@ export class LandingPageComponent implements OnInit {
       page: 0,
     };
     this.city = this.constantService.get_city();
-    if(this.city) this.get_tags();
+    this.get_tags();
     this.arrowkeyLocation = -1;
     this.showChangeCity = false;
     this.overlay = false;

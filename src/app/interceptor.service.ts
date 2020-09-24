@@ -37,10 +37,15 @@ export class InterceptorService {
     return this.filter_subject.asObservable();
   }
 
+  get_city() {
+    if(this.constant.get_city()) return this.constant.get_city().key;
+    else return '';
+  }
+
   get_api(route) {
     this.set_loader(true);
     return new Promise((resolve, reject) => {
-      this.http.get(this.api_url + route + '?city=' + this.constant.get_city().key).subscribe(
+      this.http.get(this.api_url + route + '?city=' + this.get_city()).subscribe(
         (data: any) => {
           this.set_loader(false);
           resolve(data);
@@ -95,7 +100,7 @@ export class InterceptorService {
     this.set_loader(true);
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.api_url + route + '?city=' + this.constant.get_city().key, body)
+        .post(this.api_url + route + '?city=' + this.get_city(), body)
         .subscribe(
           (data: any) => {
             this.set_loader(false);
@@ -126,7 +131,7 @@ export class InterceptorService {
 
   get_api_wl(route) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.api_url + route + '?city=' + this.constant.get_city().key).subscribe(
+      this.http.get(this.api_url + route + '?city=' + this.get_city()).subscribe(
         (data: any) => {
           resolve(data);
         },
