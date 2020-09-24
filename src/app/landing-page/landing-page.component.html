@@ -18,7 +18,9 @@
                 <p>API Endpoint Documentation</p>
               </div>
               <div>
-                <h3><a href="https://colab.research.google.com/github/iudx/pyIUDX/blob/master/examples/pyIUDX_sample_usecases.ipynb" target="blank">Jupyter
+                <h3><a
+                  href="https://colab.research.google.com/github/iudx/pyIUDX/blob/master/examples/pyIUDX_sample_usecases.ipynb"
+                  target="blank">Jupyter
                   Notebook</a></h3>
                 <p>Jupyter Notebbook playground</p>
               </div>
@@ -37,7 +39,8 @@
             <span>&#9650;</span>
             <div class="developers__container">
               <div>
-                <h3><a href="https://pudx.catalogue.iudx.org.in/assets/resources/IUDX-UserManual-v1.0.pdf">Get Started</a></h3>
+                <h3><a href="https://pudx.catalogue.iudx.org.in/assets/resources/IUDX-UserManual-v1.0.pdf">Get
+                  Started</a></h3>
                 <p>Get to "Ahoy, World!" fast in your stack.</p>
               </div>
               <div>
@@ -48,7 +51,7 @@
           </div>
         </a>
       </li>
-      <li *ngIf="city">
+      <li>
         <a (click)="getGeoInfo()" class="btn-round">Geo Query</a>
       </li>
     </ul>
@@ -64,11 +67,11 @@
       </h2>
       <div class="input-container">
         <input autocomplete="off" placeholder="Search for dataset" type="text" list='dropdown' name='dropdown'
-                (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query">
+               (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query">
         <div class="search-icon">
-          <img src="../../assets/search.png" alt="search"  (click)="getSearchResultsByText(query)">
+          <img src="../../assets/search.png" alt="search" (click)="getSearchResultsByText(query)">
         </div>
-        <a (click)="getAllDatasets()" class="link" >View all {{names.resource_groups}}s</a>
+        <a (click)="getAllDatasets()" class="link">View all {{names.resource_groups}}s</a>
         <div *ngIf="query != ''" class="searchBox-dropdown">
           <ul *ngIf="filteredTags.length != 0">
             <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
@@ -112,16 +115,27 @@
           </li>
         </ul>
       </div> -->
+      <div class="cities-list">
+        <span>View Data For Cities</span>
+        <ul>
+          <li *ngFor="let city of cities ">  <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self"><img
+            src="{{city.logo}}"
+                                                                                            alt=""></a></li>
+        </ul>
+      </div>
     </div>
     <footer *ngIf="city">
       <p>
         Showing content for: <b>{{city.name}}</b>
-        <a  (click)='toggleChangeCity()' >Change city</a>
+        <a (click)='toggleChangeCity()'>Change city</a>
       </p>
     </footer>
   </div>
-  <div *ngIf="city" class="col-right" style="background-image: url({{city.cover}}), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
-  <div *ngIf="!city" class="col-right" style="background-image: url('assets/main_cover.jpg'), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
+  <div *ngIf="city" class="col-right"
+       style="background-image: url({{city.cover}}), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
+  <div *ngIf="!city" class="col-right"
+       style="background-image: url('assets/main_cover.jpg'), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
 </main>
 <div [ngClass]="{fadeIn:overlay}"></div>
-<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>
+<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"
+                 (showOverlay)="getOverlayValue($event)"></app-change-city>

@@ -155,4 +155,7 @@ export class LandingPageComponent implements OnInit {
   getOverlayValue(value) {
     this.overlay = value;
   }
+  log(x){
+    console.log(x)
+  }
 }
