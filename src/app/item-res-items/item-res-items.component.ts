@@ -53,7 +53,7 @@ export class ItemResItemsComponent implements OnInit {
   manipulate_data_descriptor(obj) {
     let arr = [];
     let keys = Object.keys(obj);
-    console.log(obj);
+    // console.log(obj);
     keys.forEach((a,i)=>{
       if(typeof obj[a] == 'object' && a != '@context' && a != 'type'&& a != 'id' &&a != 'name'&& a != 'description' && a != 'label' && a != 'dataDescriptorLabel'){
         let o = { key: a, ...obj[a] };
