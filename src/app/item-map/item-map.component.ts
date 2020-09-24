@@ -201,6 +201,7 @@ export class ItemMapComponent implements OnInit {
   }
 
   display_latest_data(id) {
+    this.constant.set_item_id(id);
     this.ngZone.run(() => {
       this.router.navigate(['/search/dataset/map-view/latest-data']);
     });
