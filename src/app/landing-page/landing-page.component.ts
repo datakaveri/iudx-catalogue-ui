@@ -20,18 +20,16 @@ export class LandingPageComponent implements OnInit {
   tagSelected: any;
   filteredTags: any = [];
   arrowkeyLocation: any;
-
-  //City Change
   city: any;
   showChangeCity: boolean;
   overlay: boolean;
+  cities: any;
   constructor(
     public router: Router,
     private network: InterceptorService,
-
     private constantService: ConstantsService
   ) {
-
+    this.cities = this.constantService.get_cities();
     this.query = '';
     this.categoriesData = [
       {
@@ -58,16 +56,14 @@ export class LandingPageComponent implements OnInit {
       providers: [],
       page: 0,
     };
-    this.city = this.constantService.get_city();    
-    // this.get_data();
-    this.get_tags();
+    this.city = this.constantService.get_city();
+    if(this.city) this.get_tags();
     this.arrowkeyLocation = -1;
     this.showChangeCity = false;
     this.overlay = false;
   }
 
   ngOnInit(): void {
-
 
   }
 
