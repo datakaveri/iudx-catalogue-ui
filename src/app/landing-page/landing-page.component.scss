@@ -66,10 +66,9 @@
   height: 100vh;
 
   .cities-list {
-    margin-top: 70px;
+    margin-top: 100px;
     span{
       display: block;
-      font-size: 16px;
       color: var(--tertiary);
       font-weight: 500;
       margin-bottom: 15px;
@@ -85,9 +84,8 @@
         display: inline-block;
         list-style: none;
         border: 1px solid var(--border);
-
         img {
-          height: 50px;
+          width: 90%;
           padding: 10px;
           display: block;
           margin: 0 auto;
