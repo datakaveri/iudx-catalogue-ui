@@ -38,6 +38,7 @@ L.Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./map-view.component.scss'],
 })
 export class MapViewComponent {
+  // legend:any;
   map: Map;
   show_filter: boolean;
   options: any;
@@ -171,7 +172,7 @@ export class MapViewComponent {
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
-            // this.get_legends(this.resource_groups);
+            this.get_legends(this.resource_groups);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -192,7 +193,7 @@ export class MapViewComponent {
       }
     });
     console.log(this.filtered_resource_groups);
-    // this.get_legends(this.filtered_resource_groups);
+    this.get_legends(this.filtered_resource_groups);
     this.mark_on_map();
   }
 
@@ -453,7 +454,7 @@ export class MapViewComponent {
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
-    // this. get_legends(this.searchQuery);
+    this.get_legends(this.searchQuery);
     this.getMapData();
   }
 
@@ -698,63 +699,74 @@ export class MapViewComponent {
     return color[0];
   }
 
+
   get_legends(val: any) {
-    // console.log(this.filtered_resource_groups);
-    // console.log(val.resource_groups);
     let rsg;
-    if(val != undefined)  { rsg = val.resource_groups;}
-  
+    var legend;
+    // console.log(val);
+    
+    if(val != undefined)  { rsg = val;}
     // Adding Legend to the map
-    const legend = new (L.Control.extend({
+     legend = new (L.Control.extend({
       options: { position: 'bottomleft' },
-    }))();
-    legend.onAdd = function (map) {
-      const div = L.DomUtil.create('div', 'legend');
-      const labels = [
-        // 'assets/marker_blue.png',
-        // 'assets/marker_pink2.png',
-        // "https://img.icons8.com/ultraviolet/40/000000/marker.png",
-        // "https://img.icons8.com/color/48/000000/marker.png",
-        // 'https://img.icons8.com/color/48/000000/air-quality.png',
-        // 'https://img.icons8.com/office/16/000000/sensor.png',
-        // 'https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png',
-      ];
-
-      // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
-      const grades = [];
-      // console.log(val);
-       rsg.forEach((a) => {
-         var index = 0;
-         console.log(a);
-        
-         grades.push(a.split('/')[3]);
-       });
-      div.innerHTML =
-        '<div style = "background-color:white"><div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:55px"></h1></div><br>';
-      for (let i = 0; i < grades.length; i++) {
-        let index = 0;
-        var pathFillColor = [
-          '#1c699d',
-          '#ff7592',
-          '#564d65',
-          '#2fcb83',
-          '#0ea3b1',
-          '#f39c1c',
-          '#d35414',
-          '#9b59b6',
+      onAdd : function (map) {
+        const div = L.DomUtil.create('div', 'legend');
+        const labels = [
+          // 'assets/marker_blue.png',
+          // 'assets/marker_pink2.png',
+          // "https://img.icons8.com/ultraviolet/40/000000/marker.png",
+          // "https://img.icons8.com/color/48/000000/marker.png",
+          // 'https://img.icons8.com/color/48/000000/air-quality.png',
+          // 'https://img.icons8.com/office/16/000000/sensor.png',
+          // 'https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png',
         ];
-        console.log(pathFillColor[i]);
-
-        div.innerHTML +=
-          '<div style="display: flex;align-items: center; background-color:white">' +
-          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[i]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>` +
-          "<span style='font-weight:400;padding-left: 15px; padding-right : 19px;font-size:16px; background-color:white'>" +
-          grades[i] +
-          '</span></div></div>';
-        index++;
+  
+        // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
+        const grades = [];
+  
+        if(val.resource_groups){
+          val.resource_groups.forEach((a) => {
+             if(a.flag == true){
+              grades.push(a.label);
+             }
+           });
+        } else {
+          val.forEach((a) => {
+             if(a.flag == true){
+              grades.push(a.label);
+             }
+           });
+        }
+        
+        
+        div.innerHTML =
+          '<div style = "background-color:white"><div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:55px"></h1></div><br>';
+        for (let i = 0; i < grades.length; i++) {
+          let index = 0;
+          var pathFillColor = [
+            '#1c699d',
+            '#ff7592',
+            '#564d65',
+            '#2fcb83',
+            '#0ea3b1',
+            '#f39c1c',
+            '#d35414',
+            '#9b59b6',
+          ];
+          console.log(pathFillColor[i]);
+  
+          div.innerHTML +=
+            '<div style="display: flex;align-items: center; background-color:white">' +
+            `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[i]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>` +
+            "<span style='font-weight:400;padding-left: 15px; padding-right : 19px;font-size:16px; background-color:white'>" +
+            grades[i] +
+            '</span></div></div>';
+          index++;
+        }
+        return div;
       }
-      return div;
-    };
+    }))();
+    this.map.removeControl(legend); 
     legend.addTo(this.map);
   }
 }
