@@ -55,10 +55,11 @@
     </div>
     <div class="scroll_div">
         <ul>
-            <li *ngFor="let tag of filtered_tags" (click)="toggle_tag(tag.tag)">
+            <li *ngFor="let tag of filtered_tags" (click)="toggle_tag(tag.tag)" title="{{tag.tag}}">
                 <img src="assets/unchecked.png" *ngIf="!find_tag_status(tag.tag)">
                 <img src="assets/checked.png" *ngIf="find_tag_status(tag.tag)">
-                {{tag.tag}} ({{tag.count}} {{texts.resource_groups}})
+                {{tag.tag}}
+                 <!-- ({{tag.count}} {{texts.resource_groups}}) -->
             </li>
         </ul>
     </div>
@@ -72,10 +73,10 @@
     </div>
     <div class="scroll_div">
         <ul>
-            <li *ngFor="let provider of filtered_providers" (click)="toggle_provider(provider.id)">
+            <li *ngFor="let provider of filtered_providers" (click)="toggle_provider(provider.id)" title="{{provider.description}}">
                 <img src="assets/unchecked.png" *ngIf="!find_provider_status(provider.id)">
                 <img src="assets/checked.png" *ngIf="find_provider_status(provider.id)">
-                {{provider.name}}
+                {{provider.description}}
             </li>
         </ul>
     </div>
