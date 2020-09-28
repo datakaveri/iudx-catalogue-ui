@@ -121,7 +121,6 @@ export class MapViewComponent {
       this.httpInterceptor.set_filter(true);
     }
     this.city = this.constantService.get_city();
-    // console.log(this.city);
 
     // for map type=Polygon to highlight when there is overlapping of layers
     this.highlightStyle = {
@@ -155,7 +154,6 @@ export class MapViewComponent {
       this.httpInterceptor
         .post_api('customer/coordinates', this.drawQuery)
         .then((data: any) => {
-          // console.log(data);
           this.is_drawn = false;
           this.resource_items = data.items;
           this.filtered_resource_items = this.resource_items;
@@ -168,7 +166,6 @@ export class MapViewComponent {
         this.httpInterceptor
           .post_api('customer/map', this.searchQuery)
           .then((data: any) => {
-            console.log(data);
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
@@ -181,7 +178,6 @@ export class MapViewComponent {
   }
   filter_data() {
     this.filtered_resource_items = [];
-    console.log(this.resource_items);
     this.resource_items.forEach((a) => {
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
@@ -192,7 +188,6 @@ export class MapViewComponent {
         this.filtered_resource_items.push(a);
       }
     });
-    console.log(this.filtered_resource_groups);
     this.get_legends(this.filtered_resource_groups);
     this.mark_on_map();
   }
@@ -200,7 +195,6 @@ export class MapViewComponent {
   filter_map_data() {
     this.filtered_resource_items = [];
     this.resource_items.forEach((a) => {
-      // console.log(a);
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
         a.resourceGroup
@@ -220,8 +214,6 @@ export class MapViewComponent {
   }
 
   check_if_contained(arr, str) {
-    // console.log(arr);
-    // console.log(str);
     return arr.includes(str);
   }
 
@@ -233,10 +225,8 @@ export class MapViewComponent {
       }
     }
     const data: L.Marker[] = [];
-    // console.log(this.filtered_resource_items);
     for (const c of this.filtered_resource_items) {
       let isPublic: Boolean;
-      //  console.log(c)
       // Condition to check whether the geometry type is polygon or point
       if (c.location.geometry.type == 'Point') {
         var lng = c.location.geometry.coordinates[0];
@@ -293,15 +283,12 @@ export class MapViewComponent {
         });
       } else if (c.location.geometry.type == 'Polygon') {
         var points = c.location.geometry.coordinates[0];
-        // console.log(points);
-        console.log(c.resourceGroup.split('/')[3]);
         if (mySet.has(c.resourceGroup)) {
           isPublic = true;
         } else {
           isPublic = false;
         }
 
-        console.log(c.location.geometry);
         L.geoJSON(c.location.geometry, {
           style: {
             fillColor: this.stringToColour(c.resourceGroup.split('/')[3]),
@@ -449,8 +436,6 @@ export class MapViewComponent {
       });
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
-    console.log(this.searchQuery);
-    console.log(window.sessionStorage.map_search);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
@@ -561,7 +546,6 @@ export class MapViewComponent {
   }
 
   callGeoJsonPlot(items) {
-    console.log(items);
     for (const i of items) {
       if (i.hasOwnProperty('location')) {
         this.plotGeoJSONs(
@@ -636,10 +620,6 @@ export class MapViewComponent {
             self.display_latest_data(dataId);
           });
       });
-      // markers.getPopup().on('remove', function () {
-      //   console.log('close popup');
-      //   this.map.closePopup();
-      // });
     }
   }
 
@@ -673,7 +653,6 @@ export class MapViewComponent {
     `;
   }
   display_latest_data(id) {
-    console.log(id);
     this.constantService.set_item_id(id);
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/latest-data']);
@@ -699,17 +678,17 @@ export class MapViewComponent {
     return color[0];
   }
 
-
   get_legends(val: any) {
     let rsg;
     var legend;
-    // console.log(val);
-    
-    if(val != undefined)  { rsg = val;}
+
+    if (val != undefined) {
+      rsg = val;
+    }
     // Adding Legend to the map
-     legend = new (L.Control.extend({
+    legend = new (L.Control.extend({
       options: { position: 'bottomleft' },
-      onAdd : function (map) {
+      onAdd: function (map) {
         const div = L.DomUtil.create('div', 'legend');
         const labels = [
           // 'assets/marker_blue.png',
@@ -720,25 +699,24 @@ export class MapViewComponent {
           // 'https://img.icons8.com/office/16/000000/sensor.png',
           // 'https://img.icons8.com/flat_round/64/000000/wi-fi-connected.png',
         ];
-  
+
         // const   grades = ["StreetLight", "AQM", "Flood-Sensor", "Wifi-Hotspot", "ITMS", "ChangeBhai", "SafetyPin", "TomTom"];
         const grades = [];
-  
-        if(val.resource_groups){
+
+        if (val.resource_groups) {
           val.resource_groups.forEach((a) => {
-             if(a.flag == true){
+            if (a.flag == true) {
               grades.push(a.label);
-             }
-           });
+            }
+          });
         } else {
           val.forEach((a) => {
-             if(a.flag == true){
+            if (a.flag == true) {
               grades.push(a.label);
-             }
-           });
+            }
+          });
         }
-        
-        
+
         div.innerHTML =
           '<div style = "background-color:white"><div><h1 style="color:black;font-size:18px;font-weight:600;padding-left:55px"></h1></div><br>';
         for (let i = 0; i < grades.length; i++) {
@@ -753,8 +731,7 @@ export class MapViewComponent {
             '#d35414',
             '#9b59b6',
           ];
-          console.log(pathFillColor[i]);
-  
+
           div.innerHTML +=
             '<div style="display: flex;align-items: center; background-color:white">' +
             `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[i]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>` +
@@ -764,9 +741,9 @@ export class MapViewComponent {
           index++;
         }
         return div;
-      }
+      },
     }))();
-    this.map.removeControl(legend); 
+    this.map.removeControl(legend);
     legend.addTo(this.map);
   }
 }
