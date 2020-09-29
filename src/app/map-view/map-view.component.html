@@ -41,11 +41,14 @@
         </div>
         <div class="scroll_div">
             <ul>
-                <li *ngFor="let dataset of filtered_resource_groups" (click)="toggle_dataset(dataset.id)">
+                <li *ngFor="let dataset of filtered_resource_groups" (click)="toggle_dataset(dataset.id)" title="{{ dataset.label }}">
                     <img src="assets/unchecked.png" *ngIf="!find_group_status(dataset.id)" />
                     <img src="assets/checked.png" *ngIf="find_group_status(dataset.id)" />
-                    {{ dataset.name }}
+                    {{ dataset.label }}
                 </li>
+              <li *ngIf="filtered_resource_groups.length === 0">
+                No Dataset found
+              </li>
             </ul>
         </div>
         <div class="button_div">

@@ -33,6 +33,7 @@
   margin: 5px 0;
   color: var(--highlight);
   font-weight: 500;
+  width: fit-content;
   img {
     width: 20px;
     margin-bottom: 5px;
@@ -192,13 +193,14 @@
 
     ul {
       list-style: none;
-
       li {
         color: var(--secondary);
         padding: 15px;
         text-transform: capitalize;
         cursor: pointer;
-
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         img {
           width: 25px;
           vertical-align: middle;
