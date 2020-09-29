@@ -1,11 +1,17 @@
-import {Component, OnInit, Output, EventEmitter, ElementRef, NgZone} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ElementRef,
+  NgZone,
+} from '@angular/core';
 
-import {ConstantsService} from '../constants.service'
-import {Router} from '@angular/router';
-import {Location} from '@angular/common';
-import * as L from "leaflet";
-import {featureGroup, FeatureGroup, latLng, Map, tileLayer} from "leaflet";
-
+import { ConstantsService } from '../constants.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import * as L from 'leaflet';
+import { featureGroup, FeatureGroup, latLng, Map, tileLayer } from 'leaflet';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -26,13 +32,12 @@ L.Marker.prototype.options.icon = iconDefault;
 @Component({
   selector: 'app-item-gs-map',
   templateUrl: './item-gs-map.component.html',
-  styleUrls: ['./item-gs-map.component.scss']
+  styleUrls: ['./item-gs-map.component.scss'],
 })
 export class ItemGsMapComponent implements OnInit {
   mapData: any;
   overlay: boolean;
   showPopup: boolean;
-
 
   map: Map;
   drawnItems: FeatureGroup = featureGroup();
@@ -120,7 +125,6 @@ export class ItemGsMapComponent implements OnInit {
 
   getMapData() {
     let data = [];
-    // console.log(this.map_geometry);
     if (this.map_geometry) {
       var lng = this.map_geometry.location.coordinates[0];
       var lat = this.map_geometry.location.coordinates[1];
@@ -145,25 +149,25 @@ export class ItemGsMapComponent implements OnInit {
           icon: this.getMarkerIcon(this.resource.resource_group),
         }).bindPopup(
           `<div id="name"> <p style='font-weight:bold'>` +
-          c.name +
-          `</p> </div>
+            c.name +
+            `</p> </div>
           <div class = "text-centre"> <p>` +
-          this.resource.resource_group.description +
-          `</p><p>Group: ` +
-          c.resourceGroup.split('/')[3] +
-          `</p> </div>
+            this.resource.resource_group.description +
+            `</p><p>Group: ` +
+            c.resourceGroup.split('/')[3] +
+            `</p> </div>
           <div id="pop_up_` +
-          c.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          (isPublic
-            ? `<a  class="data-link" data-Id=` +
             c.id +
-            ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
-            : `<a  class="sample-link" data-Id=` +
-            c.id +
-            ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
-            `</div>`)
+            `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            (isPublic
+              ? `<a  class="data-link" data-Id=` +
+                c.id +
+                ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+              : `<a  class="sample-link" data-Id=` +
+                c.id +
+                ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+                `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+                `</div>`)
         );
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
@@ -187,22 +191,16 @@ export class ItemGsMapComponent implements OnInit {
           }
         });
       } else if (c.location.geometry.type == 'Polygon') {
-
         var points = c.location.geometry.coordinates[0];
-        // console.log(points);
-        // console.log(c.resourceGroup.split('/')[3]);
-
-        // console.log(c.location.geometry);
-        L.geoJSON((c.location.geometry), {
+        L.geoJSON(c.location.geometry, {
           style: {
             fillColor: '#0ea3b1',
             weight: 2,
             opacity: 1,
             // color: 'white',
             //  dashArray: '3',
-            fillOpacity: 0.5
-          }
-
+            fillOpacity: 0.5,
+          },
         }).addTo(this.map);
       }
     }
@@ -256,5 +254,4 @@ export class ItemGsMapComponent implements OnInit {
   hideSampleData() {
     this.location.back();
   }
-
 }

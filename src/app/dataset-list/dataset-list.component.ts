@@ -22,9 +22,9 @@ export class DatasetListComponent implements OnInit {
   providers: any;
   filtered_providers: any;
   search: any;
-  showSample:boolean;
-  sampleData:any;
-  overlay:any;
+  showSample: boolean;
+  sampleData: any;
+  overlay: any;
   constructor(
     private router: Router,
     private constantService: ConstantsService,
@@ -36,8 +36,8 @@ export class DatasetListComponent implements OnInit {
     this.show_data = false;
     this.search = {
       tag: '',
-      provider: ''
-    }
+      provider: '',
+    };
     this.results = {};
     this.pages = 0;
     this.search_text = '';
@@ -47,18 +47,17 @@ export class DatasetListComponent implements OnInit {
     this.filtered_providers = [];
     this.searchQuery = this.constantService.get_search_query();
     this.texts = this.constantService.get_nomenclatures();
-    this.constantService.get_filter().subscribe((query: any)=>{
+    this.constantService.get_filter().subscribe((query: any) => {
       this.searchQuery = query;
       this.searchDatasets();
     });
-    this.httpInterceptor.get_filter().subscribe((flag: any)=>{
+    this.httpInterceptor.get_filter().subscribe((flag: any) => {
       this.show_filter = flag;
     });
     this.searchDatasets();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getResourceItems(resource) {
     window.sessionStorage.resource_group_id = resource.id;
@@ -70,24 +69,23 @@ export class DatasetListComponent implements OnInit {
     this.show_data = false;
     if (this.searchQuery.text != '') {
       this.search_text = this.searchQuery.text;
-      this.httpInterceptor.post_api('customer/search', this.searchQuery)
-      .then((response: any) => {
-        // console.log(response);
-        this.show_data = true;
-        this.results = response;
-        this.get_filters(response);
-
-      });
+      this.httpInterceptor
+        .post_api('customer/search', this.searchQuery)
+        .then((response: any) => {
+          this.show_data = true;
+          this.results = response;
+          this.get_filters(response);
+        });
     } else {
       this.search_text = '';
       this.search_text = this.searchQuery.tags.join(', ');
-      this.httpInterceptor.post_api('customer/datasets', this.searchQuery)
-      .then((response: any) => {
-         console.log(response);
-        this.show_data = true;
-        this.results = response;
-        this.get_filters(response);
-      });
+      this.httpInterceptor
+        .post_api('customer/datasets', this.searchQuery)
+        .then((response: any) => {
+          this.show_data = true;
+          this.results = response;
+          this.get_filters(response);
+        });
     }
   }
 
@@ -98,14 +96,14 @@ export class DatasetListComponent implements OnInit {
   get_filters(response) {
     this.tags = response.tags;
     this.filtered_tags = this.tags;
-    this.tags.forEach(a=>{
-      if(this.searchQuery.tags.includes(a.tag)) a.flag = true;
+    this.tags.forEach((a) => {
+      if (this.searchQuery.tags.includes(a.tag)) a.flag = true;
       else a.flag = false;
     });
     this.providers = response.providers;
     this.filtered_providers = this.providers;
-    this.providers.forEach(a=>{
-      if(this.searchQuery.providers.includes(a.id)) a.flag = true;
+    this.providers.forEach((a) => {
+      if (this.searchQuery.providers.includes(a.id)) a.flag = true;
       else a.flag = false;
     });
   }
@@ -117,7 +115,10 @@ export class DatasetListComponent implements OnInit {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    this.constantService.set_toaster('success', this.texts.resource_groups + ' ID copied to Clipboard.');
+    this.constantService.set_toaster(
+      'success',
+      this.texts.resource_groups + ' ID copied to Clipboard.'
+    );
   }
 
   close() {
@@ -125,22 +126,22 @@ export class DatasetListComponent implements OnInit {
   }
 
   toggle_tag(tag) {
-    this.tags.forEach((a,i)=>{
-      if(a.tag == tag) this.tags[i].flag = !this.tags[i].flag;
+    this.tags.forEach((a, i) => {
+      if (a.tag == tag) this.tags[i].flag = !this.tags[i].flag;
     });
   }
 
   toggle_provider(id) {
-    this.providers.forEach((a,i)=>{
-      if(a.id == id) this.providers[i].flag = !this.providers[i].flag;
+    this.providers.forEach((a, i) => {
+      if (a.id == id) this.providers[i].flag = !this.providers[i].flag;
     });
   }
 
   clear() {
-    this.tags.forEach(a=>{
+    this.tags.forEach((a) => {
       a.flag = false;
     });
-    this.providers.forEach(a=>{
+    this.providers.forEach((a) => {
       a.flag = false;
     });
     this.searchQuery = {
@@ -151,7 +152,7 @@ export class DatasetListComponent implements OnInit {
     };
     this.search = {
       tag: '',
-      provider: ''
+      provider: '',
     };
     this.constantService.set_search_query(this.searchQuery);
     this.close();
@@ -159,8 +160,20 @@ export class DatasetListComponent implements OnInit {
   }
 
   apply() {
-    let tags = this.tags.filter(a=> { return a.flag == true; }).map(a=> { return a = a.tag });
-    let providers = this.providers.filter(a=> { return a.flag == true; }).map(a=> { return a = a.id });
+    let tags = this.tags
+      .filter((a) => {
+        return a.flag == true;
+      })
+      .map((a) => {
+        return (a = a.tag);
+      });
+    let providers = this.providers
+      .filter((a) => {
+        return a.flag == true;
+      })
+      .map((a) => {
+        return (a = a.id);
+      });
     this.searchQuery.tags = tags;
     this.searchQuery.providers = providers;
     this.constantService.set_search_query(this.searchQuery);
@@ -170,16 +183,16 @@ export class DatasetListComponent implements OnInit {
 
   find_tag_status(tag) {
     let flag = false;
-    this.tags.forEach(a=>{
-      if(a.tag == tag && a.flag == true) flag = true;
+    this.tags.forEach((a) => {
+      if (a.tag == tag && a.flag == true) flag = true;
     });
     return flag;
   }
 
   find_provider_status(id) {
     let flag = false;
-    this.providers.forEach(a=>{
-      if(a.id == id && a.flag == true) flag = true;
+    this.providers.forEach((a) => {
+      if (a.id == id && a.flag == true) flag = true;
     });
     return flag;
   }
@@ -198,8 +211,7 @@ export class DatasetListComponent implements OnInit {
     });
   }
 
-  showSampleData(){
+  showSampleData() {
     this.router.navigate(['/search/datasets/sample-data']);
   }
-
 }
