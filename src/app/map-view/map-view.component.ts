@@ -108,15 +108,15 @@ export class MapViewComponent {
       group: '',
     };
     this.pathFillColor=[ 
-    '#1c699d',
-    '#ff7592',
-    '#564d65',
-    '#2fcb83',
-    '#0ea3b1',
-    '#f39c1c',
-    '#d35414',
-    '#9b59b6',
-  ];
+      '#1c699d',
+      '#ff7592',
+      '#564d65',
+      '#2fcb83',
+      '#0ea3b1',
+      '#f39c1c',
+      '#d35414',
+      '#9b59b6',
+    ];
     this.grades = [];
     this.limit = 5;
     this.count = 0;
@@ -669,7 +669,6 @@ export class MapViewComponent {
       '#d35414',
       '#9b59b6',
     ];
-    // return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
   }

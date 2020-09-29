@@ -128,5 +128,11 @@
     align-items: center;
     background: #fff;
     padding: 4px 8px;
+    p {
+      width: 250px;
+      overflow-x: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
 }
