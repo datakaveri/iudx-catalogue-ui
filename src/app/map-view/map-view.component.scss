@@ -116,3 +116,17 @@
   color: var(--error);
   font-weight: 600;
 }
+
+.legends{
+  position: absolute;
+  z-index: 2000;
+  margin: 10px 5px;
+  bottom: 0;
+
+  li{
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 4px 8px;
+  }
+}
