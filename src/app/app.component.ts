@@ -50,9 +50,9 @@ export class AppComponent {
         cities.forEach(a=>{
           if(a.key == host) city = a;
         });
-        this.title.setTitle(city.name + " Data Kaveri | Indian Urban Data Exchange");
+        this.title.setTitle(city.name + " IUDX | Indian Urban Data Exchange");
       } else {
-        this.title.setTitle("Data Kaveri | Indian Urban Data Exchange");
+        this.title.setTitle("IUDX | Indian Urban Data Exchange");
       }
       this.global.set_city(city);
       this.global.set_cities(cities);
