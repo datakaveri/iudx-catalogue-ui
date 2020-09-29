@@ -11,6 +11,7 @@
   justify-content: space-between;
   align-items: center;
   background: var(--white);
+
   .logo {
     height: 60px;
     margin-right: 25px;
@@ -30,20 +31,21 @@
         margin-right: 35px;
       }
 
-      a {
+      a, .link {
         font-weight: 500;
         line-height: 20px;
+        cursor: pointer;
         position: relative;
         color: var(--secondary);
 
-        &.btn-round{
+        &.btn-round {
           // border-radius: 30px;
           border: 1px solid var(--secondary);
           padding: 7px 20px;
         }
 
-        &:hover{
-          .drop-menu{
+        &:hover {
+          .drop-menu {
             opacity: 1;
             visibility: visible;
           }
@@ -56,68 +58,76 @@
 }
 
 
-.drop-menu{
+.drop-menu {
   opacity: 0;
   visibility: hidden;
   position: absolute;
   margin-top: 10px;
   width: 285px;
   transition: all .3s ease;
+
   span {
     position: absolute;
     color: var(--border);
     top: -14px;
 
   }
-  &.developers{
+
+  &.developers {
     left: 50%;
-    transform: translate(-50%,0px);
-    span{
+    transform: translate(-50%, 0px);
+
+    span {
       left: 50%;
-      transform: translate(-50%,0px);
+      transform: translate(-50%, 0px);
     }
   }
-  &.documentation{
+
+  &.documentation {
     left: -60%;
-    transform: translate(-50%,0px);
-    span{
+    transform: translate(-50%, 0px);
+
+    span {
       left: 80%;
-      transform: translate(-50%,0px);
+      transform: translate(-50%, 0px);
     }
   }
-  .developers__container{
+
+  .developers__container {
     border: 1px solid var(--border);
     padding: 5px 0;
     background: var(--white);
-    h3{
-      a{
-        font-size: 14px;
-        font-weight: 500;
-      }
-      &+p{
+
+    h3 {
+      font-size: 14px;
+      font-weight: 500;
+
+      & + p {
         font-size: 12px;
         color: var(--tertiary);
       }
     }
 
 
-    div{
-      &:not(:last-child){
+    a {
+      display: block;
+      &:not(:last-child) {
         margin-bottom: 7px;
       }
+
       padding: 5px 15px;
       transition: .3s ease;
-      &:hover{
+
+      &:hover {
         background: var(--off-white);
       }
     }
   }
-  div{
-    h3{
-      a{
-        font-size: 16px;
-        color: var(--primary);
-      }
+
+  div {
+    h3 {
+      font-size: 16px;
+      color: var(--primary);
     }
   }
 }

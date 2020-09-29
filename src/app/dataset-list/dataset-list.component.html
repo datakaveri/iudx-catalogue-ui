@@ -61,6 +61,9 @@
                 {{tag.tag}}
                  <!-- ({{tag.count}} {{texts.resource_groups}}) -->
             </li>
+          <li *ngIf="filtered_tags.length === 0">
+                No Tag found
+            </li>
         </ul>
     </div>
     <h4>

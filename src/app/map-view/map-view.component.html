@@ -42,6 +42,9 @@
                     <img src="assets/checked.png" *ngIf="find_group_status(dataset.id)" />
                     {{ dataset.label }}
                 </li>
+              <li *ngIf="filtered_resource_groups.length === 0">
+                No Dataset found
+              </li>
             </ul>
         </div>
         <div class="button_div">
