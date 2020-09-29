@@ -33,10 +33,11 @@
         margin-right: 35px;
       }
 
-      a {
+      .link,a {
         font-weight: 500;
         line-height: 20px;
         position: relative;
+        cursor: pointer;
         color: var(--secondary);
 
         &.btn-round {
@@ -67,12 +68,14 @@
 
   .cities-list {
     margin-top: 100px;
-    span{
+
+    span {
       display: block;
       color: var(--tertiary);
       font-weight: 500;
       margin-bottom: 15px;
     }
+
     ul {
       margin: 0;
       padding: 0;
@@ -84,6 +87,7 @@
         display: inline-block;
         list-style: none;
         border: 1px solid var(--border);
+
         img {
           width: 90%;
           padding: 10px;
@@ -340,12 +344,18 @@
     border: 1px solid var(--border);
     padding: 5px 0;
     background: var(--white);
+    /*a{
+      display: block;
+      padding: 0 15px;
+      margin-bottom: 6px;
+      &:hover{
+
+      }
+    }*/
 
     h3 {
-      a {
-        font-size: 14px;
-        font-weight: 500;
-      }
+      font-size: 14px;
+      font-weight: 500;
 
       & + p {
         font-size: 12px;
@@ -354,7 +364,8 @@
     }
 
 
-    div {
+    a {
+      display: block;
       &:not(:last-child) {
         margin-bottom: 7px;
       }
@@ -370,10 +381,9 @@
 
   div {
     h3 {
-      a {
-        font-size: 16px;
-        color: var(--primary);
-      }
+      font-size: 16px;
+      color: var(--primary);
+
     }
   }
 }
