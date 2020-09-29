@@ -81,6 +81,9 @@
                 <img src="assets/checked.png" *ngIf="find_provider_status(provider.id)">
                 {{provider.description}}
             </li>
+          <li *ngIf="filtered_providers.length === 0">
+            No Publisher found
+          </li>
         </ul>
     </div>
     <div class="button_div">
