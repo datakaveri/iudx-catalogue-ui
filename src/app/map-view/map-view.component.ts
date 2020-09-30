@@ -39,7 +39,10 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MapViewComponent {
   // legend:any;
+  markerValues:any;
    grades:any;
+   isPolygon:boolean;
+   notPolygon:boolean;
   aqmLegend;
   additionalLegend;
   binLegend;
@@ -118,6 +121,7 @@ export class MapViewComponent {
       '#9b59b6',
     ];
     this.grades = [];
+    this.markerValues = [];
     this.limit = 5;
     this.count = 0;
     this.show_filter = false;
@@ -224,7 +228,13 @@ export class MapViewComponent {
 
   get_filters(response) {
     this.resource_groups = response.resource_groups;
+    // this.resource_groups.forEach(element => {
+    //   if(element.location.geometry && element.location.geometry.type !== 'polygon'){
+    //     this.filtered_resource_groups.push(element);
+    //   }
+    // });
     this.filtered_resource_groups = this.resource_groups;
+    
     this.resource_groups.forEach((a) => {
       if (this.searchQuery.resource_groups.includes(a.id)) a.flag = true;
       else a.flag = false;
@@ -659,17 +669,17 @@ export class MapViewComponent {
         break;
       }
     }
-    var pathFillColor = [
-      '#1c699d',
-      '#ff7592',
-      '#564d65',
-      '#2fcb83',
-      '#0ea3b1',
-      '#f39c1c',
-      '#d35414',
-      '#9b59b6',
-    ];
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
+    // var pathFillColor = [
+    //   '#1c699d',
+    //   '#ff7592',
+    //   '#564d65',
+    //   '#2fcb83',
+    //   '#0ea3b1',
+    //   '#f39c1c',
+    //   '#d35414',
+    //   '#9b59b6',
+    // ];
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${this.pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
   }
   display_latest_data(id) {
@@ -694,35 +704,58 @@ export class MapViewComponent {
       '#d35414',
       '#9b59b6',
     ];
-
     return color[0];
   }
 
 
   showLegends(val:any){
-    this.grades = []
+    this.grades = [];
+    this.markerValues = [];
+    // this.markers = [];
+
+
+    
 
     if(val){
       this.displayLegends = true;
+     
       if(val.resource_groups){
         val.resource_groups.forEach((a) => {
-         
-           if(a.flag == true){
-            this.grades.push(a.label);
-           }
+          console.log(a);
+           if(a.flag === true && a.location.geometry){
+              // this.isPolygon = true;
+             
+              this.grades.push(a.label);
+              this.markerValues.push(true);
+              console.log('its a polygon');
+            }  else {
+              console.log('its not a polygon');
+             
+              // this.isPolygon = false;
+              this.markerValues.push(false);
+              this.grades.push(a.label);
+            }
          });
-        //  this.grades.push(this.pathFillColor);
       } else {
         val.forEach((a) => {
-         
-          if(a.flag == true){
-            this.grades.push(a.label);
-          }
+         console.log(a);
+          if(a.flag === true && a.location.geometry){
+              // this.isPolygon = true;
+            
+              this.grades.push(a.label);
+              this.markerValues.push(true);
+              console.log('its  a polygon');
+            }  else {
+              console.log('its not a polygon');
+              this.grades.push(a.label);
+              this.isPolygon = false;
+              this.markerValues.push(false);
+            }
          });
-        //  this.grades.push(pathFillColor);
       }
     } else {
       this.displayLegends = false;
     }
   }
 }
+ 

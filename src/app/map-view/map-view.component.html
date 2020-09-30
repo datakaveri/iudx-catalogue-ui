@@ -22,7 +22,8 @@
         <div [leafletLayer]="drawnItems"></div>
         <div class="legends">
             <li *ngFor="let item of grades;let i=index;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" [attr.fill]="pathFillColor[i]" width="30px" height="30px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
+                <div *ngIf='markerValues[i];else polygonShaped'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="48px" height="48px"><path d="M0 0h24v24H0z" fill="none"/><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg></div>
+                <ng-template #polygonShaped><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" [attr.fill]="pathFillColor[i]" width="30px" height="30px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg></ng-template>
                 <p title="{{item}}">{{item}}</p>
             </li>
         </div>
