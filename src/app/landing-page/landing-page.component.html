@@ -21,6 +21,10 @@
                 <h3>Resource Server API Docs</h3>
                 <p>Resource Server API Endpoint Docs</p>
               </a>
+              <a href="https://authdocs.iudx.org.in/" target="blank">
+                <h3>Authorization Server API Docs</h3>
+                <p>Authorization Server API Endpoint Docs</p>
+              </a>
               <!-- <a
                 href="https://colab.research.google.com/github/iudx/pyIUDX/blob/master/examples/pyIUDX_sample_usecases.ipynb"
                 target="blank">
@@ -55,7 +59,7 @@
           </div>
         </div>
       </li>
-      <li>
+      <li *ngIf="city">
         <a (click)="getGeoInfo()" class="btn-round">Geo Query</a>
       </li>
     </ul>
@@ -64,12 +68,12 @@
 <main>
   <div class="col-left">
     <div>
-      <h2>
+      <h2 *ngIf="city">
         Find The Dataset That Fits
         <br>
         You And Your Region
       </h2>
-      <div class="input-container">
+      <div class="input-container" *ngIf="city">
         <input autocomplete="off" placeholder="Search for dataset" type="text" list='dropdown' name='dropdown'
                (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query">
         <div class="search-icon">
@@ -120,7 +124,10 @@
         </ul>
       </div> -->
       <div class="cities-list" *ngIf="!city">
-        <span>View Data For Cities</span>
+        <h2 style="font-size: 50px;text-align: center;">
+          Welcome to IUDX
+        </h2>
+        <span style="font-size: 18px;">View Data for the Cities</span>
         <ul>
           <li *ngFor="let city of cities ">  <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self"><img
             src="{{city.logo}}" alt=""></a></li>

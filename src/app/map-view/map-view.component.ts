@@ -413,7 +413,7 @@ export class MapViewComponent {
           this.constantService.set_alert({
             flag: true,
             title: 'Limit Exceeeded.',
-            message: 'You can filter by maximum 2 resource groups at a time.',
+            message: 'You can filter by maximum 5 resource groups at a time.',
           });
         } else if (flag && this.count < this.limit) {
           this.resource_groups[i].flag = !this.resource_groups[i].flag;
