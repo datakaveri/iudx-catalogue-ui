@@ -188,10 +188,11 @@ export class MapViewComponent {
         this.httpInterceptor
           .post_api('customer/map', this.searchQuery)
           .then((data: any) => {
+            console.log(data);
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
-            this.showLegends(this.resource_groups);
+            // this.showLegends(this.resource_groups);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -210,7 +211,8 @@ export class MapViewComponent {
         this.filtered_resource_items.push(a);
       }
     });
-    this.showLegends(this.filtered_resource_groups);
+    // this.showLegends(this.filtered_resource_groups);
+    this.showLegends(this.filtered_resource_items);
     this.mark_on_map();
   }
 
@@ -328,15 +330,15 @@ export class MapViewComponent {
           },
           onEachFeature: function (feature, layer) {
             // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
-            // layer.on('mouseover', function(e) {
-            //     this.setStyle(this.highlightStyle);
-            //     // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
-            //     this.bringToFront();
-            //     });
-            // layer.on('mouseout', function(e) {
-            // this.setStyle(this.defaultStyle);
-            // this.bringToBack();
-            // });
+                layer.on('mouseover', function(e) {
+                this.setStyle(this.highlightStyle);
+                // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
+                this.bringToFront();
+                });
+              layer.on('mouseout', function(e) {
+              this.setStyle(this.defaultStyle);
+              this.bringToBack();
+              });
             // layer.on('click', function (e) {
             //     activate_point_mode(_id)
             // });
@@ -462,12 +464,15 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
+      console.log(this.searchQuery.resource_groups);
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
-    this.showLegends(this.searchQuery);
+    console.log(this.searchQuery);
+    // this.showLegends(this.searchQuery);
+    this.showLegends(this.resource_items);
     this.getMapData();
   }
 
@@ -694,6 +699,13 @@ export class MapViewComponent {
     });
   }
   stringToColour(str) {
+    console.log(str);
+    let index = -1;
+    for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
+      if (this.searchQuery.resource_groups[i] == str) {
+        index = i;
+        break;
+      }
     var color = [
       '#1c699d',
       '#ff7592',
@@ -704,58 +716,79 @@ export class MapViewComponent {
       '#d35414',
       '#9b59b6',
     ];
-    return color[0];
+    return color[index];
   }
 
-
+  }
   showLegends(val:any){
     this.grades = [];
     this.markerValues = [];
     // this.markers = [];
+    console.log(val);
 
-
+    val.forEach((a) => {
+      console.log(a);
+      if(a.location.geometry){
+        if(a.location.geometry.type == 'Polygon'){
+          console.log(a.resourceGroup);
+          console.log(this.searchQuery);
+          let res = this.searchStringInArray(a.resourceGroup,this.searchQuery.resource_groups );
+        //  let f = this.searchQuery.resource_groups.find((str) => str === a.resourceGroup);
+        //   console.log(f);
+        console.log(res);
+        
+      }
+        }
+    
+    });
     
 
-    if(val){
-      this.displayLegends = true;
+    // if(val){
+    //   this.displayLegends = true;
      
-      if(val.resource_groups){
-        val.resource_groups.forEach((a) => {
-          console.log(a);
-           if(a.flag === true && a.location.geometry){
-              // this.isPolygon = true;
+    //   if(val.resource_groups){
+    //     val.resource_groups.forEach((a) => {
+    //       console.log(a);
+    //        if(a.flag === true && a.location.geometry){
+    //           // this.isPolygon = true;
              
-              this.grades.push(a.label);
-              this.markerValues.push(true);
-              console.log('its a polygon');
-            }  else {
-              console.log('its not a polygon');
+    //           this.grades.push(a.label);
+    //           this.markerValues.push(true);
+    //           console.log('its a polygon');
+    //         }  else {
+    //           console.log('its not a polygon');
              
-              // this.isPolygon = false;
-              this.markerValues.push(false);
-              this.grades.push(a.label);
-            }
-         });
-      } else {
-        val.forEach((a) => {
-         console.log(a);
-          if(a.flag === true && a.location.geometry){
-              // this.isPolygon = true;
+    //           // this.isPolygon = false;
+    //           this.markerValues.push(false);
+    //           this.grades.push(a.label);
+    //         }
+    //      });
+    //   } else {
+    //     val.forEach((a) => {
+    //      console.log(a);
+    //       if(a.flag === true && a.location.geometry){
+    //           // this.isPolygon = true;
             
-              this.grades.push(a.label);
-              this.markerValues.push(true);
-              console.log('its  a polygon');
-            }  else {
-              console.log('its not a polygon');
-              this.grades.push(a.label);
-              this.isPolygon = false;
-              this.markerValues.push(false);
-            }
-         });
-      }
-    } else {
-      this.displayLegends = false;
+    //           this.grades.push(a.label);
+    //           this.markerValues.push(true);
+    //           console.log('its  a polygon');
+    //         }  else {
+    //           console.log('its not a polygon');
+    //           this.grades.push(a.label);
+    //           this.isPolygon = false;
+    //           this.markerValues.push(false);
+    //         }
+    //      });
+    //   }
+    // } else {
+    //   this.displayLegends = false;
+    // }
+  }
+   searchStringInArray (str, strArray) {
+    for (var j=0; j<strArray.length; j++) {
+        if (strArray[j].match(str)) return j;
     }
+    return -1;
   }
 }
  
