@@ -733,9 +733,9 @@ export class MapViewComponent {
           console.log(a.resourceGroup);
           console.log(this.searchQuery);
           let res = this.searchStringInArray(a.resourceGroup,this.searchQuery.resource_groups );
-        //  let f = this.searchQuery.resource_groups.find((str) => str === a.resourceGroup);
-        //   console.log(f);
-        console.log(res);
+          let f = this.searchQuery.resource_groups.find((str) => str === a.resourceGroup);
+           console.log(f);
+          console.log(res);
         
       }
         }
@@ -786,9 +786,9 @@ export class MapViewComponent {
   }
    searchStringInArray (str, strArray) {
     for (var j=0; j<strArray.length; j++) {
-        if (strArray[j].match(str)) return j;
+        if (strArray[j].match(str)) return true;
     }
-    return -1;
+    return false;
   }
 }
  
