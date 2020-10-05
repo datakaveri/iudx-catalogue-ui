@@ -97,6 +97,7 @@ export class MapViewComponent {
     weight: number;
     fillOpacity: number;
   };
+  label: any;
   constructor(
     private constantService: ConstantsService,
     private httpInterceptor: InterceptorService,
@@ -192,7 +193,7 @@ export class MapViewComponent {
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
             this.get_filters(data);
-            // this.showLegends(this.resource_groups);
+            this.showLegends(this.resource_items);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
           });
@@ -332,13 +333,13 @@ export class MapViewComponent {
             // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
                 layer.on('mouseover', function(e) {
                 this.setStyle(this.highlightStyle);
-                // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
+                this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+c.resourceGroup.split('/')[3]+`</strong></p></div>`)
                 this.bringToFront();
                 });
-              layer.on('mouseout', function(e) {
-              this.setStyle(this.defaultStyle);
-              this.bringToBack();
-              });
+                layer.on('mouseout', function(e) {
+                this.setStyle(this.defaultStyle);
+                this.bringToBack();
+                });
             // layer.on('click', function (e) {
             //     activate_point_mode(_id)
             // });
@@ -350,7 +351,7 @@ export class MapViewComponent {
             // + `</div>`)
             // ).addTo(map);
           },
-        }).addTo(this.map);
+        }).addTo(this.markersLayer);
       }
     }
   }
@@ -451,9 +452,9 @@ export class MapViewComponent {
     };
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.closeFilter();
-    this.markerClusterGroup.clearLayers();
+    // this.markerClusterGroup.clearLayers();
     this.markersLayer.clearLayers();
-    this.getMapData();
+     this.getMapData();
   }
 
   apply() {
@@ -464,6 +465,12 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
+
+      // this.label = this.resource_groups.filter((a) => {
+      //       return a.flag == true;
+      //       }) .map((a) => {
+      //         return (a = a.label);
+      //       });
     // console.log(this.searchQuery.resource_groups);
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
@@ -674,16 +681,6 @@ export class MapViewComponent {
         break;
       }
     }
-    // var pathFillColor = [
-    //   '#1c699d',
-    //   '#ff7592',
-    //   '#564d65',
-    //   '#2fcb83',
-    //   '#0ea3b1',
-    //   '#f39c1c',
-    //   '#d35414',
-    //   '#9b59b6',
-    // ];
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${this.pathFillColor[index]} width="48px" height="48px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
   }
@@ -699,13 +696,6 @@ export class MapViewComponent {
     });
   }
   stringToColour(str) {
-    // console.log(str);
-    let index = -1;
-    for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
-      if (this.searchQuery.resource_groups[i] == str) {
-        index = i;
-        break;
-      }
     var color = [
       '#1c699d',
       '#ff7592',
@@ -716,37 +706,44 @@ export class MapViewComponent {
       '#d35414',
       '#9b59b6',
     ];
-    return color[index];
+     console.log(str);
+     console.log(this.searchQuery.resource_groups);
+    let index = -1;
+    for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
+      if (this.searchQuery.resource_groups[i].split('/')[3] === str) {
+        console.log(this.searchQuery.resource_groups[i]);
+        index = i;
+        console.log(index);
+        break;
+      }
   }
-
+  return color[index];
   }
   showLegends(val:any){
+    // console.log(label);
     this.grades = [];
     this.markerValues = [];
     // console.log(this.searchQuery.resource_groups);
     for(let i=0;i<this.searchQuery.resource_groups.length;i++){
-      console.log(this.searchQuery.resource_groups[i]);
+      // console.log(this.searchQuery.resource_groups[i]);
       for(let j = 0 ; j < val.length ; j++){
       
         if(val[j].location.geometry){
           if(val[j].location.geometry.type == 'Polygon'){
             
             var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i]);
-            console.log(val[j].resourceGroup);
-            console.log(this.searchQuery.resource_groups[i])
-            console.log(res);
+            // console.log(val[j].resourceGroup);
+            // console.log(this.searchQuery.resource_groups[i])
+            // console.log(res);
             if(res === true) {
               this.grades.push(val[j].resourceGroup.split('/')[3]);
-              console.log(val[j].resourceGroup.split('/')[3]);
+              // console.log(val[j].resourceGroup.split('/')[3]);
               this.markerValues.push(true);
               break;
             }
         } else if(val[j].location.geometry.type == 'Point' ){
           var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
-          console.log(res);
-          
-          // res = this.searchStringInArray(val[i].resourceGroup,this.searchQuery.resource_groups );
-          // console.log(this.searchQuery.resource_groups);
+          // console.log(res);
           
           if(res === true) {
             this.grades.push(val[j].resourceGroup.split('/')[3]);
