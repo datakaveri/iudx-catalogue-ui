@@ -442,6 +442,7 @@ export class MapViewComponent {
   }
 
   clear() {
+    console.log('cleared');
     this.count = 0;
     this.resource_groups.forEach((a) => {
       a.flag = false;
@@ -454,7 +455,7 @@ export class MapViewComponent {
     this.markerClusterGroup.clearLayers();
     this.markersLayer.clearLayers();
     this.getMapData();
-  }
+  } 
 
   apply() {
     this.searchQuery.resource_groups = this.resource_groups
