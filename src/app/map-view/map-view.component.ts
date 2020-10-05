@@ -464,13 +464,13 @@ export class MapViewComponent {
       .map((a) => {
         return (a = a.id);
       });
-      console.log(this.searchQuery.resource_groups);
+    // console.log(this.searchQuery.resource_groups);
     if (this.searchQuery.resource_groups.length == 0) return;
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.closeFilter();
     this.is_drawn = false;
     this.markersLayer.clearLayers();
-    console.log(this.searchQuery);
+    // console.log(this.searchQuery);
     // this.showLegends(this.searchQuery);
     this.showLegends(this.resource_items);
     this.getMapData();
@@ -699,7 +699,7 @@ export class MapViewComponent {
     });
   }
   stringToColour(str) {
-    console.log(str);
+    // console.log(str);
     let index = -1;
     for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
       if (this.searchQuery.resource_groups[i] == str) {
@@ -723,115 +723,55 @@ export class MapViewComponent {
   showLegends(val:any){
     this.grades = [];
     this.markerValues = [];
-    console.log(this.searchQuery.resource_groups);
-    
-    for(let i = 0 ; i < val.length ; i++){
+    // console.log(this.searchQuery.resource_groups);
+    for(let i=0;i<this.searchQuery.resource_groups.length;i++){
+      console.log(this.searchQuery.resource_groups[i]);
+      for(let j = 0 ; j < val.length ; j++){
       
-      if(val[i].location.geometry){
-        if(val[i].location.geometry.type == 'Polygon'){
-          
-          var res = this.searchStringInArray(val[i].resourceGroup,this.searchQuery.resource_groups );
-          console.log(res);
-          let f = this.searchQuery.resource_groups.find((str) => str === val[i].resourceGroup);
-          console.log(f);
-          
-          this.markerValues.push(false);
-          this.grades.push(val[i].resourceGroup.split('/')[3]);
-          
-      } else if(val[i].location.geometry.type == 'Point' ){
-        var res = this.searchStringInArray(val[i].resourceGroup,this.searchQuery.resource_groups );
-        console.log(res);
-        let f = this.searchQuery.resource_groups.find((str) => str === val[i].resourceGroup);
-        console.log(f);
-        // res = this.searchStringInArray(val[i].resourceGroup,this.searchQuery.resource_groups );
-        console.log(this.searchQuery.resource_groups);
-        
-        this.grades.push(val[i].resourceGroup.split('/')[3]);
-        this.markerValues.push(true);
-        if(res === true) {
-          break;
-        }
-      } else{
-        res = this.searchStringInArray(val[i].resourceGroup,this.searchQuery.resource_groups );
-        this.markerValues.push(true);
-      }
-      if(res === true) {
-        break;
-      }
-    }
-    
-  }
-     
-    
-
-    val.forEach((a) => {
-      
-      // console.log(a);
-      
-      // if(a.location.geometry){
-      //   // console.log(a);
-      // // this.grades.push(this.searchQuery.resource_groups.split('/')[4]);
-      //   if(a.location.geometry.type == 'Polygon'){
-      //     // console.log(a.resourceGroup);
-      //     // console.log(this.searchQuery);
-      //     let res = this.searchStringInArray(a.resourceGroup,this.searchQuery.resource_groups );
-      //     let f = this.searchQuery.resource_groups.find((str) => str === a.resourceGroup);
-          
-      //     this.markerValues.push(res);
-         
-      // } else{
-      //   this.markerValues.push(false);
-      // }
-      //   }
-    });
-    
-
-    // if(val){
-    //   this.displayLegends = true;
-     
-    //   if(val.resource_groups){
-    //     val.resource_groups.forEach((a) => {
-    //       console.log(a);
-    //        if(a.flag === true && a.location.geometry){
-    //           // this.isPolygon = true;
-             
-    //           this.grades.push(a.label);
-    //           this.markerValues.push(true);
-    //           console.log('its a polygon');
-    //         }  else {
-    //           console.log('its not a polygon');
-             
-    //           // this.isPolygon = false;
-    //           this.markerValues.push(false);
-    //           this.grades.push(a.label);
-    //         }
-    //      });
-    //   } else {
-    //     val.forEach((a) => {
-    //      console.log(a);
-    //       if(a.flag === true && a.location.geometry){
-    //           // this.isPolygon = true;
+        if(val[j].location.geometry){
+          if(val[j].location.geometry.type == 'Polygon'){
             
-    //           this.grades.push(a.label);
-    //           this.markerValues.push(true);
-    //           console.log('its  a polygon');
-    //         }  else {
-    //           console.log('its not a polygon');
-    //           this.grades.push(a.label);
-    //           this.isPolygon = false;
-    //           this.markerValues.push(false);
-    //         }
-    //      });
-    //   }
-    // } else {
-    //   this.displayLegends = false;
-    // }
-  }
-   searchStringInArray (str, strArray) {
-    for (var j=0; j<strArray.length; j++) {
-        if (strArray[j].match(str)) return true;
+            var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i]);
+            console.log(val[j].resourceGroup);
+            console.log(this.searchQuery.resource_groups[i])
+            console.log(res);
+            if(res === true) {
+              this.grades.push(val[j].resourceGroup.split('/')[3]);
+              console.log(val[j].resourceGroup.split('/')[3]);
+              this.markerValues.push(true);
+              break;
+            }
+        } else if(val[j].location.geometry.type == 'Point' ){
+          var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
+          console.log(res);
+          
+          // res = this.searchStringInArray(val[i].resourceGroup,this.searchQuery.resource_groups );
+          // console.log(this.searchQuery.resource_groups);
+          
+          if(res === true) {
+            this.grades.push(val[j].resourceGroup.split('/')[3]);
+            this.markerValues.push(false);
+            break;
+          }
+          
+        // } 
+        // else{
+        //   res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
+        //   this.markerValues.push(false);
+        // }
+       
+      }
+      
     }
+      
+    }
+    
+  } 
+}
+   searchStringInArray (str, strArray) {
+    // for (var j=0; j<strArray.length; j++) {
+        if (strArray.match(str)) return true;
+    // }
     return false;
   }
 }
- 
