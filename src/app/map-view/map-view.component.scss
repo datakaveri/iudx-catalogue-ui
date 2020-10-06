@@ -123,6 +123,17 @@
   margin: 10px 5px;
   bottom: 0;
 
+  li:nth-child(n+2){
+    svg{
+      width: 30px;
+      height: 25px;
+    }
+
+    div{
+      display: flex;
+    }
+  }
+
   li{
     display: flex;
     align-items: center;
