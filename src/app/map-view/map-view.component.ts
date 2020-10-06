@@ -145,20 +145,6 @@ export class MapViewComponent {
     }
     this.city = this.constantService.get_city();
 
-    // for map type=Polygon to highlight when there is overlapping of layers
-    this.highlightStyle = {
-      color: '#ff0000',
-      opacity: 1,
-      weight: 3,
-      fillOpacity: 1,
-    };
-
-    this.defaultStyle = {
-      color: '#000000',
-      opacity: 0.5,
-      weight: 1,
-      fillOpacity: 0.7,
-    };
   }
 
   ngOnInit(): void {
@@ -332,26 +318,59 @@ export class MapViewComponent {
           onEachFeature: function (feature, layer) {
             // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
                 layer.on('mouseover', function(e) {
-                this.setStyle(this.highlightStyle);
                 this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+c.resourceGroup.split('/')[3]+`</strong></p></div>`)
                 this.bringToFront();
                 });
                 layer.on('mouseout', function(e) {
-                this.setStyle(this.defaultStyle);
                 this.bringToBack();
                 });
+            
+            // layer.bindPopup( `<div id="name"> <p style='font-weight:bold'>` +
+            // c.name +
+            // `</p> </div>
+            // <div class = "text-centre"> <p>` +
+            // c.description +
+            // `</p><p>Group: ` +
+            // c.resourceGroup.split('/')[3] +
+            // `</p> </div>
+            // <div id="pop_up_` +
+            // c.id +
+            // `"> <p class="text-center" style='padding-right:2px'> </p>` +
+            // (isPublic
+            //   ? `<a  class="data-link" data-Id=` +
+            //     c.id +
+            //     ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+            //   : `<a  class="sample-link" data-Id=` +
+            //     c.id +
+            //     ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+            //     `<a style="color: var(--erthis.resource_groupsror); font-weight:bold;"> Request Access </a><br>` +
+            //     `</div>`)
+            // );
             // layer.on('click', function (e) {
-            //     activate_point_mode(_id)
+            //   let self = this;
+            //   // this.markersLayer.on('popupopen', function () {
+            //         if (isPublic) {
+            //           self.elementRef.nativeElement
+            //             .querySelector('.data-link')
+            //             .addEventListener('click', (e) => {
+            //               var dataId = e.target.getAttribute('data-Id');
+            //               self.display_latest_data(dataId);
+            //             });
+            //         } else {
+            //           self.elementRef.nativeElement
+            //             .querySelector('.sample-link')
+            //             .addEventListener('click', (e) => {
+            //               var dataId = e.target.getAttribute('data-Id');
+            //               self.display_sample_data(dataId);
+            //             });
+            //         }
+            //       // });
             // });
-            // layer.bindPopup(`<div id="pop_up_`+ resource_id_to_html_id(_id) +`"><p class="text-center" style="padding-right:7.5px;"><img src='`+
-            // ((is_public) ? "../assets/img/icons/green_unlock.svg" : "../assets/img/icons/red_lock.svg")
-            // +`' class='img-fluid secure_icon'></p>`+get_bullets()+` <a href='#' class='data-modal'  onclick="display_latest_data(event, this, '` + _id + `')"> Get latest-data</a><br>
-            //   `+get_bullets()+` <a href="#"  class="data-modal" onclick="display_temporal_data(event, this, '`+_json_object.id+`')">Get Temporal Data</a><br>` +
-            // ((is_secure) ? ` `+get_bullets()+` <a href='#' class='data-modal'  onclick="request_access_token('` + _json_object.id + `', '`+ _json_object["resourceServerGroup"]["value"] + `', '`+ _json_object["resourceId"]["value"] + `')">Request Access Token</a>` : ``
-            // + `</div>`)
-            // ).addTo(map);
           },
         }).addTo(this.markersLayer);
+       
+       
+        
       }
     }
   }
@@ -685,6 +704,7 @@ export class MapViewComponent {
     `;
   }
   display_latest_data(id) {
+    console.log(id);
     this.constantService.set_item_id(id);
     this.ngZone.run(() => {
       this.router.navigate(['/search/map/latest-data']);
@@ -720,51 +740,32 @@ export class MapViewComponent {
   return color[index];
   }
   showLegends(val:any){
-    // console.log(label);
     this.grades = [];
     this.markerValues = [];
-    // console.log(this.searchQuery.resource_groups);
     for(let i=0;i<this.searchQuery.resource_groups.length;i++){
-      // console.log(this.searchQuery.resource_groups[i]);
       for(let j = 0 ; j < val.length ; j++){
       
         if(val[j].location.geometry){
           if(val[j].location.geometry.type == 'Polygon'){
             
             var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i]);
-            // console.log(val[j].resourceGroup);
-            // console.log(this.searchQuery.resource_groups[i])
-            // console.log(res);
             if(res === true) {
               this.grades.push(val[j].resourceGroup.split('/')[3]);
-              // console.log(val[j].resourceGroup.split('/')[3]);
               this.markerValues.push(true);
               break;
             }
-        } else if(val[j].location.geometry.type == 'Point' ){
-          var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
-          // console.log(res);
-          
-          if(res === true) {
+          } else if(val[j].location.geometry.type == 'Point' ){
+            var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
+            if(res === true) {
             this.grades.push(val[j].resourceGroup.split('/')[3]);
             this.markerValues.push(false);
             break;
-          }
-          
-        // } 
-        // else{
-        //   res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
-        //   this.markerValues.push(false);
-        // }
-       
+            }
+            }
+        }
       }
-      
-    }
-      
-    }
-    
-  } 
-}
+    } 
+  }
    searchStringInArray (str, strArray) {
     // for (var j=0; j<strArray.length; j++) {
         if (strArray.match(str)) return true;
