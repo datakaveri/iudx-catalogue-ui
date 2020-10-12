@@ -17,7 +17,7 @@
       <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
       <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="showLatestData(item.id)">Get Latest Data</a>
       <a (click)="showSampleData(item.dataSample)">Get Sample Data</a>
-      <a *ngIf="item.resourceType == 'GSLAYER'" (click)="mapView(item.dataSample)">Map View</a>
+      <a *ngIf="item.resourceType == 'GSLAYER'" (click)="mapView(item.id)">Map View</a>
       <!-- <a *ngIf='dataSample' (click)="showSampleData(dataSample)">Get Sample Data</a> -->
       <!-- <a class="red" *ngIf="resourceAuthControlLevel != 'OPEN'">Request Access</a> -->
       </div>

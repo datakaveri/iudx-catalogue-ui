@@ -45,7 +45,7 @@ export class AppComponent {
     this.network.get_api('customer/cities')
     .then((data: any)=>{
       let cities = data, city;
-      let host = location.host == 'localhost:4000' ? 'varanasi' : location.host.split('.')[0];
+      let host = location.host == 'localhost:4000' ? 'surat' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue') {
         cities.forEach(a=>{
           if(a.key == host) city = a;

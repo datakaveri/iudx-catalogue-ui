@@ -144,9 +144,10 @@ export class ItemResItemsComponent implements OnInit {
     this.router.navigate(['/search/dataset/items/sample-data']);
   }
   mapView(data) {
-    if (data.location) {
+    console.log(data);
+    // if (data.location) {
       this.constant.set_map_coordinates(data);
-    }
+    // }
     // this.router.navigate(['/search/dataset/map-view']);
     this.router.navigate(['/search/dataset/items/map-gs']);
   }
