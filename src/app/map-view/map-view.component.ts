@@ -385,6 +385,13 @@ export class MapViewComponent {
   }
 
   initMap() {
+    let zoom = 12;
+    if(!this.city) {
+      this.city = {
+        coordinates: [20.5937,78.9629]
+      }
+      zoom = 5;
+    }
     var map_options = {
       layers: [
         L.tileLayer(
@@ -399,7 +406,7 @@ export class MapViewComponent {
         ),
         // ,L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault })
       ],
-      zoom: 12,
+      zoom: zoom,
       center: latLng({
         lng: this.city.coordinates[1],
         lat: this.city.coordinates[0],
