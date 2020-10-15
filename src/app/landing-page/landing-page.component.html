@@ -59,7 +59,7 @@
           </div>
         </div>
       </li>
-      <li *ngIf="city">
+      <li>
         <a (click)="getGeoInfo()" class="btn-round">Geo Query</a>
       </li>
     </ul>
@@ -68,12 +68,12 @@
 <main>
   <div class="col-left">
     <div>
-      <h2 *ngIf="city">
+      <h2>
         Find The Dataset That Fits
         <br>
         You And Your Region
       </h2>
-      <div class="input-container" *ngIf="city">
+      <div class="input-container">
         <input autocomplete="off" placeholder="Search for dataset" type="text" list='dropdown' name='dropdown'
                (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query">
         <div class="search-icon">
@@ -85,7 +85,7 @@
             <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
               <p (click)='getSearchResultsByTag(item.tag)'>
                 <span class='tagSelected'>{{item.tag}}</span>
-                <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span>
+                <!-- <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span> -->
               </p>
             </li>
           </ul>
@@ -124,9 +124,9 @@
         </ul>
       </div> -->
       <div class="cities-list" *ngIf="!city">
-        <h2 style="font-size: 50px;text-align: center;">
+        <!-- <h2 style="font-size: 50px;text-align: center;">
           Welcome to IUDX
-        </h2>
+        </h2> -->
         <span style="font-size: 18px;">View Data for the Cities</span>
         <ul>
           <li *ngFor="let city of cities ">  <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self"><img
