@@ -51,7 +51,7 @@ export class ItemResItemsComponent implements OnInit {
     let keys = Object.keys(obj);
     keys.forEach((a, i) => {
       // if (typeof obj[a] == 'object' && a != '@context' && a != 'type' && a != 'id' && a != 'name' && a != 'description' && a != 'label' && a != 'dataDescriptorLabel'
-      if (typeof obj[a] == 'object' && a != 'dataDescriptorLabel') {
+      if (typeof obj[a] == 'object' && a != 'dataDescriptorLabel'&& a != 'dataDescriptorLabel') {
         let o = { key: a, ...obj[a] };
         arr.push(o);
       }
