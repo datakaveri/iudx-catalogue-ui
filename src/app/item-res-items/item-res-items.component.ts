@@ -136,10 +136,10 @@ export class ItemResItemsComponent implements OnInit {
     }
     this.router.navigate(['/search/dataset/items/sample-data']);
   }
-  mapView(data) {
-    console.log(data);
+  mapView(id,label) {
+    console.log(id,label);
     // if (data.location) {
-      this.constant.set_map_coordinates(data);
+      this.constant.set_map_coordinates(id,label);
     // }
     // this.router.navigate(['/search/dataset/map-view']);
     this.router.navigate(['/search/dataset/items/map-gs']);
