@@ -51,6 +51,7 @@ export class ItemGsMapComponent implements OnInit {
   city: any;
   map_geometry: any;
   results: any;
+  map_label: any;
 
   constructor(
     private constant: ConstantsService,
@@ -84,8 +85,9 @@ export class ItemGsMapComponent implements OnInit {
             maxZoom: 19,
             attribution:
               '<span class="icons-font" id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
-              '</span>' +
-              '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
+              '</span>'
+              //  +
+              // '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
           }
         ),
       ],
@@ -114,18 +116,29 @@ export class ItemGsMapComponent implements OnInit {
 
   getMapData() {
     let data = [];
-    this.interceptorService.get_api_resource_server('https://rs.iudx.org.in/ngsi-ld/v1/entities?id='+this.map_geometry+'&q=id=='+this.map_geometry)
+    let isName : Boolean;
+    this.interceptorService.get_api_resource_server('https://rs.iudx.org.in/ngsi-ld/v1/entities?id='+this.map_geometry[0]+'&q=id=='+this.map_geometry[0])
     .then((data:any)=>{
       this.results = data.results;
+      console.log(data.results);
       for (let i=0;i<this.results.length;i++) {
        if (this.results[i].location) {
         var lng = this.results[i].location.coordinates[0];
         var lat = this.results[i].location.coordinates[1];
+        if(this.results[i].name){
+          isName = true;
+        }
+        else isName = false;
         const markers = L.marker([lat, lng], {
-          icon: this.getMarkerIcon()}).bindPopup(
-          `<div id="name"> <p style='font-weight:bold'>` +
-            this.results[i].depot_name +
-            `</p> </div>
+          icon: this.getMarkerIcon()}).bindPopup(isName ?
+          `<div id="name"> <p style='font-weight:bold'> `
+           +  this.results[i].name +
+            `</p> </div> <div class = "text-centre"><p>Address: ` +
+            this.results[i].address +
+           `</p> </div>`
+            :`<div id="name"> <p style='font-weight:bold'> `
+            +  this.results[i].depot_name +
+             `</p> </div>
        `);
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(this.map);
