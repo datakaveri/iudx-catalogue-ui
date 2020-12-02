@@ -1,5 +1,12 @@
 <header class="header">
- 
+  <div class="menu">
+    <div class="menu_container btn not-active">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div class="login_btn">Login</div>
 </header>
 
 <main>
@@ -9,14 +16,24 @@
         <img src='../../assets/iudx_logo 1 (1).png' class='logo' alt='logo'>
       </div> 
       <h2>Indian Urban Data Exchange Catalogue</h2>
-      <p>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc), Bangalore,
+      <p class='about'>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc), Bangalore,
         which focusses on the technical and non-technical issues related to the use of data to create public good.</p>
         <div class="searchBox">
           <button>
-            <img src="../../assets/search-white.png" />
+            <img src="../../assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
           </button>
-          <input type="text" name='input'
-            placeholder="Search for datasets. eg. mobility, transport"/>
+          <input type="text" name='input' autocomplete="off" (input)="filterItems(query)"
+            placeholder="Search for datasets. eg. mobility, transport" (keydown)="keyDown($event)" [(ngModel)]="query"/>
+          <div *ngIf="query != ''" class="searchBox-dropdown">
+            <ul *ngIf="filteredTags.length != 0">
+              <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
+                <p (click)='getSearchResultsByTag(item.tag)'>
+                  <span class='tagSelected'>{{item.tag}}</span>
+                    <!-- <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span> -->
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
     </div>
   </div>
@@ -38,7 +55,7 @@
       <ul>
         <li>
           <h1>47</h1>
-          <p>Datasets</p>
+          <p>Datasets &#9432;</p>
         </li>
         <li>
           <h1>295</h1>
@@ -59,23 +76,16 @@
     <h2>Where to start?</h2>
     <h5>Search and find datasets by city and region</h5>
     <ul class="cities_container">
-      <li>
-        <p>Pune</p>
-        <a href=""><img src="../../assets/pune_logo.png" alt=""></a></li>
-      <li>
-        <p>Surat</p>
-        <a href=""><img src="../../assets/surat_logo.png" alt=""></a></li>
-      <li>
-        <p>Varanasi</p>
-        <a href=""><img src="../../assets/varanasi_logo.png" alt=""></a>
-      </li>
+      <li *ngFor="let city of cities "><p>{{city.name}}</p>
+        <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self"><img
+        src="{{city.logo}}" alt=""></a></li>
     </ul>
   </div>
 </main>
 <footer>
   <div class="col_left">
     <ul>
-      <li><a href="">@IUDX 2020. All rights reserved.</a></li>
+      <li>@IUDX 2020. All rights reserved</li>
       <li><a href="">Privacy Policy</a></li>
       <li><a href="">Terms & Conditions</a></li>
     </ul>
