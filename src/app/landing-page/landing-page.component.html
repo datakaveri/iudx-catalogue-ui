@@ -57,7 +57,7 @@
   </div>
   <div class="cities">
     <h2>Where to start?</h2>
-    <p>Search and find datasets by city and region</p>
+    <h5>Search and find datasets by city and region</h5>
     <ul class="cities_container">
       <li>
         <p>Pune</p>
@@ -72,6 +72,23 @@
     </ul>
   </div>
 </main>
+<footer>
+  <div class="col_left">
+    <ul>
+      <li><a href="">@IUDX 2020. All rights reserved.</a></li>
+      <li><a href="">Privacy Policy</a></li>
+      <li><a href="">Terms & Conditions</a></li>
+    </ul>
+  </div>
+  <div class="col_right">
+    <p>Our Collaborators</p>
+    <ul>
+      <li><a href=""><img src="../../assets/iisc_logo 1 1.png" alt=""></a></li>
+      <li><a href=""><img src="../../assets/smart-cities-logo 1.png" alt=""></a></li>
+      <li><a href=""><img class='logo_big' src="../../assets/MoHUA1 1.png" alt=""></a></li>
+    </ul>
+  </div>
+</footer>
 <div [ngClass]="{fadeIn:overlay}"></div>
 <app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"
                  (showOverlay)="getOverlayValue($event)"></app-change-city>
