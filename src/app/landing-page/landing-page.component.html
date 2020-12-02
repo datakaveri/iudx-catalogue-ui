@@ -1,150 +1,76 @@
 <header class="header">
-  <div class="logo__container">
-    <a href="/"><img src="https://iudx.s3.ap-south-1.amazonaws.com/iudx_logo.png" alt="" class="logo"/></a>
-    <a href="/"><img src="{{city.logo}}" alt="" class="logo" *ngIf="city"></a>
-    <a href="/"><img src="https://iudx.s3.ap-south-1.amazonaws.com/smart_city_logo.png" alt="" class="logo"/></a>
-    <a href="/"><img src="https://iudx.s3.ap-south-1.amazonaws.com/iisc_logo.png" alt="" class="logo"/></a>
+ 
+</header>
+
+<main>
+  <div class="landingPage">
+    <div class="container">
+      <div class="title">
+        <img src='../../assets/iudx_logo 1 (1).png' class='logo' alt='logo'>
+      </div> 
+      <h2>Indian Urban Data Exchange Catalogue</h2>
+      <p>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc), Bangalore,
+        which focusses on the technical and non-technical issues related to the use of data to create public good.</p>
+        <div class="searchBox">
+          <button>
+            <img src="../../assets/search-white.png" />
+          </button>
+          <input type="text" name='input'
+            placeholder="Search for datasets. eg. mobility, transport"/>
+        </div>
+    </div>
   </div>
-  <nav>
-    <ul>
+  <div class="categories">
+    <h2>What to look for?</h2>
+    <p>Here are the most frequently searched tags</p>
+
+    <ul class="categories_container">
+      <li><a href=""><img src="../../assets/Vector (11).png" alt=""></a>Street light</li>
+      <li><a href=""><img src="../../assets/ion_bus-outline.png" alt=""></a>Urban Mobility</li>
+      <li><a href=""><img src="../../assets/carbon_tree.png" alt=""></a>Environment</li>
+      <li><a href=""><img src="../../assets/maki_waste-basket-11.png" alt=""></a>Waste Management</li>
+      <li><a href=""><img src="../../assets/cil_library-building.png" alt=""></a>Civic</li>
+    </ul>
+  </div>
+
+  <div class="result">
+    <div class="result_data">
+      <ul>
+        <li>
+          <h1>47</h1>
+          <p>Datasets</p>
+        </li>
+        <li>
+          <h1>295</h1>
+          <p>Resources</p>
+        </li>
+        <li>
+          <h1>3</h1>
+          <p>Publishers</p>
+        </li>
+        <li>
+          <h1>2.3K</h1>
+          <p>Api Calls</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="cities">
+    <h2>Where to start?</h2>
+    <p>Search and find datasets by city and region</p>
+    <ul class="cities_container">
       <li>
-        <div class="link">
-          Developers
-          <div class="drop-menu developers">
-            <span>&#9650;</span>
-            <div class="developers__container">
-              <a href="https://api.catalogue.iudx.org.in/apis" target="blank">
-                <h3>Catalogue API Docs</h3>
-                <p>Catalogue API Endpoint Docs</p>
-              </a>
-              <a href="https://rs.iudx.org.in/apis" target="blank">
-                <h3>Resource Server API Docs</h3>
-                <p>Resource Server API Endpoint Docs</p>
-              </a>
-              <a href="https://authdocs.iudx.org.in/" target="blank">
-                <h3>Authorization Server API Docs</h3>
-                <p>Authorization Server API Endpoint Docs</p>
-              </a>
-              <!-- <a
-                href="https://colab.research.google.com/github/iudx/pyIUDX/blob/master/examples/pyIUDX_sample_usecases.ipynb"
-                target="blank">
-                <h3>Jupyter
-                  Notebook</h3>
-                <p>Jupyter Notebbook playground</p>
-              </a>
-              <a href="https://github.com/iudx/pyIUDX" target="blank">
-                <h3>Python SDK</h3>
-                <p>Python SDK Endpoint</p>
-              </a> -->
-            </div>
-          </div>
-        </div>
-      </li>
+        <p>Pune</p>
+        <a href=""><img src="../../assets/pune_logo.png" alt=""></a></li>
       <li>
-        <div class="link">
-          Documents
-          <div class="drop-menu documentation">
-            <span>&#9650;</span>
-            <div class="developers__container">
-              <a href="https://pudx.catalogue.iudx.org.in/assets/resources/IUDX-UserManual-v1.0.pdf" target="_blank">
-                <h3>Get
-                  Started</h3>
-                <p>Get to "Ahoy, World!" fast in your stack.</p>
-              </a>
-              <a href="https://www.iudx.org.in/overview-of-iudx/" target="_blank">
-                <h3>Overview</h3>
-                <p>Get an overview of IUDX</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </li>
+        <p>Surat</p>
+        <a href=""><img src="../../assets/surat_logo.png" alt=""></a></li>
       <li>
-        <a (click)="getGeoInfo()" class="btn-round">Geo Query</a>
+        <p>Varanasi</p>
+        <a href=""><img src="../../assets/varanasi_logo.png" alt=""></a>
       </li>
     </ul>
-  </nav>
-</header>
-<main>
-  <div class="col-left">
-    <div>
-      <h2>
-        Find The Dataset That Fits
-        <br>
-        You And Your Region
-      </h2>
-      <div class="input-container">
-        <input autocomplete="off" placeholder="Search for dataset" type="text" list='dropdown' name='dropdown'
-               (input)="filterItems(query)" (keydown)="keyDown($event)" [(ngModel)]="query">
-        <div class="search-icon">
-          <img src="../../assets/search.png" alt="search" (click)="getSearchResultsByText(query)">
-        </div>
-        <a (click)="getAllDatasets()" class="link">View all {{names.resource_groups}}s</a>
-        <div *ngIf="query != ''" class="searchBox-dropdown">
-          <ul *ngIf="filteredTags.length != 0">
-            <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
-              <p (click)='getSearchResultsByTag(item.tag)'>
-                <span class='tagSelected'>{{item.tag}}</span>
-                <!-- <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span> -->
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- <div class="quick-links">
-        <span>
-          quick links
-        </span>
-        <ul>
-          <li>
-            <a href="/">
-              <img src="../../assets/education.png" alt="education">
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <img src="../../assets/transport.png" alt="transport">
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <img src="../../assets/environment.png" alt="environment">
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <img src="../../assets/finance.png" alt="finance">
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <img src="../../assets/health.png" alt="health">
-            </a>
-          </li>
-        </ul>
-      </div> -->
-      <div class="cities-list" *ngIf="!city">
-        <!-- <h2 style="font-size: 50px;text-align: center;">
-          Welcome to IUDX
-        </h2> -->
-        <span style="font-size: 18px;">View Data for the Cities</span>
-        <ul>
-          <li *ngFor="let city of cities ">  <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self"><img
-            src="{{city.logo}}" alt=""></a></li>
-        </ul>
-      </div>
-    </div>
-    <footer *ngIf="city">
-      <p>
-        Showing content for: <b>{{city.name}}</b>
-        <a (click)='toggleChangeCity()'>Change city</a>
-      </p>
-    </footer>
   </div>
-  <div *ngIf="city" class="col-right"
-       style="background-image: url({{city.cover}}), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
-  <div *ngIf="!city" class="col-right"
-       style="background-image: url('assets/main_cover.jpg'), linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));"></div>
 </main>
 <div [ngClass]="{fadeIn:overlay}"></div>
 <app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"

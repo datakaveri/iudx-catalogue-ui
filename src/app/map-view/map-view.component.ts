@@ -245,7 +245,7 @@ export class MapViewComponent {
     for (const c of this.filtered_resource_items) {
       let isPublic: Boolean;
       // Condition to check whether the geometry type is polygon or point
-      if (c.location.geometry.type == 'Point') {
+      if (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Point') {
         var lng = c.location.geometry.coordinates[0];
         var lat = c.location.geometry.coordinates[1];
         if (mySet.has(c.resourceGroup)) {
@@ -298,7 +298,7 @@ export class MapViewComponent {
               });
           }
         });
-      } else if (c.location.geometry.type == 'Polygon') {
+      } else if (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Polygon') {
         var points = c.location.geometry.coordinates[0];
         if (mySet.has(c.resourceGroup)) {
           isPublic = true;
@@ -368,9 +368,6 @@ export class MapViewComponent {
             // });
           },
         }).addTo(this.markersLayer);
-       
-       
-        
       }
     }
   }
