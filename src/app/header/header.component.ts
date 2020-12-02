@@ -22,4 +22,6 @@ export class HeaderComponent implements OnInit {
   getGeoInfo() {
     this.router.navigate(['/search/map']);
   }
+  
 }
+

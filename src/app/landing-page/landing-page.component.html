@@ -1,14 +1,4 @@
-<header class="header">
-  <div class="menu">
-    <div class="menu_container btn not-active">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-  <div class="login_btn">Login</div>
-</header>
-
+<app-header></app-header>
 <main>
   <div class="landingPage">
     <div class="container">
@@ -29,7 +19,6 @@
               <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
                 <p (click)='getSearchResultsByTag(item.tag)'>
                   <span class='tagSelected'>{{item.tag}}</span>
-                    <!-- <span class='count'>{{ item.count }} {{names.resource_groups}}(s)</span> -->
                 </p>
               </li>
             </ul>
@@ -55,19 +44,19 @@
       <ul>
         <li>
           <h1>47</h1>
-          <p>Datasets &#9432;</p>
+          <p>Datasets <img src='../../assets/information-circle-outline.svg'></p>
         </li>
         <li>
           <h1>295</h1>
-          <p>Resources</p>
+          <p>Resources <img src='../../assets/information-circle-outline.svg'></p>
         </li>
         <li>
           <h1>3</h1>
-          <p>Publishers</p>
+          <p>Publishers <img src='../../assets/information-circle-outline.svg'></p>
         </li>
         <li>
           <h1>2.3K</h1>
-          <p>Api Calls</p>
+          <p>Api Calls <img src='../../assets/information-circle-outline.svg'></p>
         </li>
       </ul>
     </div>
@@ -82,23 +71,4 @@
     </ul>
   </div>
 </main>
-<footer>
-  <div class="col_left">
-    <ul>
-      <li>@IUDX 2020. All rights reserved</li>
-      <li><a href="">Privacy Policy</a></li>
-      <li><a href="">Terms & Conditions</a></li>
-    </ul>
-  </div>
-  <div class="col_right">
-    <p>Our Collaborators</p>
-    <ul>
-      <li><a href=""><img src="../../assets/iisc_logo 1 1.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/smart-cities-logo 1.png" alt=""></a></li>
-      <li><a href=""><img class='logo_big' src="../../assets/MoHUA1 1.png" alt=""></a></li>
-    </ul>
-  </div>
-</footer>
-<div [ngClass]="{fadeIn:overlay}"></div>
-<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"
-                 (showOverlay)="getOverlayValue($event)"></app-change-city>
+<app-footer></app-footer>
