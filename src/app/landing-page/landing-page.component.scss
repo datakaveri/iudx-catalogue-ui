@@ -104,7 +104,7 @@
   }
 }
 
-.categories{
+.categories {
   text-align: center;
 
   h2{
@@ -118,13 +118,13 @@
     padding-top: 10px;
   }
 
-  &_container{
+  &_container {
     display: flex;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     justify-content: space-around;
     padding: 50px 0;
-
+    width: 100%;
     li{
       font-size: 16px;
     }
@@ -152,7 +152,8 @@
   background: var(--off-white);
   padding: 60px 0;
   &_data{
-    width: 1100px;
+    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     
     ul {
@@ -190,11 +191,11 @@
  
   &_container{
     display: flex;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     justify-content: space-between;
     padding: 60px 0;
-
+    width: 100%;
     a{
       display: flex;
       align-items: center;
