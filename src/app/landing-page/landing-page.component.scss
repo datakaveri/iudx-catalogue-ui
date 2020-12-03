@@ -33,10 +33,15 @@
 
 .login_btn{
   border: 1px solid var(--white);
-  padding: 8px 40px;
   margin: 26px 25px 0 0;
   color: var(--white);
   font-size: 16px;
+
+  a{
+    color: var(--white);
+    display: block;
+    padding: 8px 40px;
+  }
 }
 
 .landingPage{
@@ -50,7 +55,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 960px;
+  max-width: 960px;
+  width: 100%;
   text-align: center;
 
   h2{
@@ -58,13 +64,9 @@
     margin-top: 20px;
   }
 
-  .about{
-    font-size: 16px;
-    margin-top: 40px;
-  }
-
   img{
     max-width: 300px;
+    width: 100%;
   }
 
   .title,h2,p{
@@ -72,10 +74,16 @@
   }
 }
 
+.about{
+  font-size: 16px;
+  margin-top: 40px;
+}
+
 .searchBox {
   display: flex;
   background: rgba(255, 255, 255, 0.25);
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
   margin-top: 40px;
 
@@ -117,8 +125,9 @@
     font-size: 16px;
     padding-top: 10px;
   }
+}
 
-  &_container {
+.categories_container{
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
@@ -130,28 +139,33 @@
     }
 
     a{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      margin: 0 auto;
-      border-radius: 50%;
-      box-shadow: 5px 5px 15px 0 rgba(0,0,0,.1);
-      background: var(--white);
-      text-align: center;
-      margin-bottom: 12px;
+      color: var(--primary);
+      display: block;
+      div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+        border-radius: 50%;
+        box-shadow: 5px 5px 15px 0 rgba(0,0,0,.1);
+        background: var(--white);
+        margin-bottom: 12px;
+        color: var(--primary);
+      }
     }
     img{
       width: 30px;
     }
   }
-}
 
 .result{
   background: var(--off-white);
   padding: 60px 0;
-  &_data{
+}
+
+.result_data{
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
@@ -163,51 +177,31 @@
       li {
         width: 25%;
         text-align: center;
-        h1{
-          color: var(--highlight);
-          font-size: 85px;
-          font-weight: 300;
-        }
-        p {
-          color: --var(--primary);
-          font-size: 18px;
+      }
+    }
 
-          img{
-            vertical-align: middle;
-            width:16px;
-          }
-        }
+    h1{
+      color: var(--highlight);
+      font-size: 85px;
+      font-weight: 300;
+    }
+    p {
+      color: --var(--primary);
+      font-size: 18px;
+
+      img{
+        vertical-align: middle;
+        width:16px;
       }
     }
   }
-}
 
 .cities{
   text-align: center;
+  padding: 0 30px;
 
   h5{
     color: var(--tertiary);
-  }
- 
-  &_container{
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: space-between;
-    padding: 60px 0;
-    width: 100%;
-    a{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 250px;
-      box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.1);
-      height: 100px;
-    }
-
-    img{
-      width: 170px;
-    }
   }
     h2{
       font-size: 24px;
@@ -226,6 +220,42 @@
       padding: 10px 0;
       font-weight: 500;
     }
+}
+
+.cities_container{
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding: 60px 0;
+  width: 100%;
+
+  li{
+    max-width: 250px;
+    width: 100%;
+  }
+  a{
+    color: var(--primary);
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 16px;
+    font-weight: 500;
+    div{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.1);
+      height: 100px;
+      margin-top: 10px;
+    }
+   
+  }
+
+  img{
+    width: 100%;
+    max-width: 170px;
+  }
 }
 
 .searchBox-dropdown {
@@ -303,13 +333,117 @@ footer{
         margin-right:40px;
 
         .logo_big{
-          width:190px;
+          max-width:175px;
+          width: 100%;
         }
       }
 
       img{
-        width: 90px;
+        max-width: 90px;
+        width: 100%;
       }
     }
+  }
+}
+
+
+@media only screen and (max-width: 900px) {
+  .result_data{
+        h1{
+          font-size: 65px;
+        }
+
+        p{
+          font-size: 16px;
+        }
+  }
+
+  .about{
+    padding: 0 15px;
+  }
+}
+
+
+  
+
+
+@media only screen and (max-width: 600px) {
+
+
+  .landingPage{
+    .container{
+      img{
+        max-width: 260px;
+      }
+
+      h2{
+        font-size: 22px;
+      }
+    }
+  }
+
+  .about{
+    font-size: 14px;
+  }
+  
+  .cities_container{
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li{
+      flex-basis: 100%;
+      font-size: 14px;
+
+      &:not(:last-child){
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .result_data{
+    ul{
+      flex-wrap: wrap;
+
+      li{
+        flex-basis: 50%;
+
+        h1{
+          font-size: 55px;
+        }
+
+        p{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .categories_container{
+    flex-wrap: wrap;
+    justify-content: start;
+
+    li{
+      flex-basis: 50%;
+      margin-bottom: 15px;
+    }
+  }
+
+  .searchBox{
+      max-width: 385px;
+
+      input{
+        &::placeholder{
+          font-size: 14px;
+        }
+      }
+  }
+
+  footer{
+    display: block;
+    padding: 20px;
+  }
+
+  .logo_big{
+    max-width:105px;
   }
 }
