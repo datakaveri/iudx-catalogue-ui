@@ -59,11 +59,13 @@
             </li>
           </ul>
         </div>
-        <div class="buttons">
-          <a (click)="getAllDatasets()"><span>View All Datasets</span></a>
-          <a (click)="getGeoInfo()"><span>Geo Query</span></a>
-        </div>
-        
+
+      </div>
+      <div class="buttons">
+        <a (click)="getAllDatasets()"><span>View All Datasets</span></a>
+        <a *ngIf="city" (click)="getGeoInfo()"><span>Geo Query</span></a>
+      </div>
+
     </div>
   </div>
   <div class="categories">
