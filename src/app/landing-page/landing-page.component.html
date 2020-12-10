@@ -1,24 +1,32 @@
 <header class="header">
   <div class="menu">
-    <input class='checkbox' type="checkbox" />
+    <input class='checkbox' type="checkbox"/>
     <div class="menu_container btn not-active">
       <span></span>
       <span></span>
       <span></span>
     </div>
-      <ul class="nav_list">
-       <a href='#'><li>Developers</li></a>
-       <a href='#'><li>Catalogue API Docs</li></a>
-       <a href='#'><li>Resource Server API Docs</li></a>
-       <a href='#'><li>Auth Server API Docs</li></a>
-       <a href='#'><li>Documents</li></a>
-       <a href='#'><li>Getting Started</li></a>
-       <a href='#'><li>Overview</li></a>
-       <a href='#'><li>About Us</li></a>
-      </ul>
-    
+    <ul class="nav_list">
+      <li><a href="#">Developers <img src="assets/down_arrow.png" alt="Down Arrow"></a>
+        <ul>
+          <li><a href='#'>Catalogue API Docs</a></li>
+          <li><a href='#'>Resource Server API Docs</a></li>
+          <li><a href='#'>Auth Server API Docs</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href='#'>Documents <img src="assets/down_arrow.png" alt="Down Arrow"> </a>
+        <ul>
+          <li><a href='#'>Getting Started</a></li>
+          <li><a href='#'>Overview</a></li>
+        </ul>
+      </li>
+      <li><a href='#'>
+        About Us
+      </a></li>
+    </ul>
 
-    
+
   </div>
   <div class="login_btn">
     <a href='https://accounts.iudx.org.in'>Login</a>
@@ -26,36 +34,38 @@
 </header>
 <main>
   <div class="landingPage">
-   
+
     <div class="container">
       <div class="title">
         <img src='../../assets/iudx_logo 1 (1).png' class='logo' alt='logo'>
-      </div> 
+      </div>
       <h2>Indian Urban Data Exchange Catalogue</h2>
-      <p class='about'>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc), Bangalore,
+      <p class='about'>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc),
+        Bangalore,
         which focusses on the technical and non-technical issues related to the use of data to create public good.</p>
-        <div class="searchBox">
-          <button>
-            <img src="../../assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
-          </button>
-          <input type="text" name='input' autocomplete="off" (input)="filterItems(query)"
-            placeholder="Search for datasets. eg. mobility, transport" (keydown)="keyDown($event)" [(ngModel)]="query"/>
-          <div *ngIf="query != ''" class="searchBox-dropdown">
-            <ul *ngIf="filteredTags.length != 0">
-              <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
-                <p (click)='getSearchResultsByTag(item.tag)'>
-                  <span class='tagSelected'>{{item.tag}}</span>
-                </p>
-              </li>
-            </ul>
-          </div>
-          
+      <div class="searchBox">
+        <button>
+          <img src="../../assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
+        </button>
+        <input type="text" name='input' autocomplete="off" (input)="filterItems(query)"
+               placeholder="Search for datasets. eg. mobility, transport" (keydown)="keyDown($event)"
+               [(ngModel)]="query"/>
+        <div *ngIf="query != ''" class="searchBox-dropdown">
+          <ul *ngIf="filteredTags.length != 0">
+            <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
+              <p (click)='getSearchResultsByTag(item.tag)'>
+                <span class='tagSelected'>{{item.tag}}</span>
+              </p>
+            </li>
+          </ul>
         </div>
-        <div class="buttons">
-          <a href="#"><span>View All Datasets</span></a>
-          <a href="#"><span>Geo Query</span></a>
-        </div>
-        
+
+      </div>
+      <div class="buttons">
+        <a href="#"><span>View All Datasets</span></a>
+        <a href="#"><span>Geo Query</span></a>
+      </div>
+
     </div>
   </div>
   <div class="categories">
@@ -63,11 +73,21 @@
     <p>Here are the most frequently searched tags</p>
 
     <ul class="categories_container">
-      <li><a href=""><div><img src="../../assets/Vector (11).png" alt=""></div>Street light</a></li>
-      <li><a href=""><div><img src="../../assets/ion_bus-outline.png" alt=""></div>Urban Mobility</a></li>
-      <li><a href=""><div><img src="../../assets/carbon_tree.png" alt=""></div>Environment</a></li>
-      <li><a href=""><div><img src="../../assets/maki_waste-basket-11.png" alt=""></div>Waste Management</a></li>
-      <li><a href=""><div><img src="../../assets/cil_library-building.png" alt=""></div>Civic</a></li>
+      <li><a href="">
+        <div><img src="../../assets/Vector (11).png" alt=""></div>
+        Street light</a></li>
+      <li><a href="">
+        <div><img src="../../assets/ion_bus-outline.png" alt=""></div>
+        Urban Mobility</a></li>
+      <li><a href="">
+        <div><img src="../../assets/carbon_tree.png" alt=""></div>
+        Environment</a></li>
+      <li><a href="">
+        <div><img src="../../assets/maki_waste-basket-11.png" alt=""></div>
+        Waste Management</a></li>
+      <li><a href="">
+        <div><img src="../../assets/cil_library-building.png" alt=""></div>
+        Civic</a></li>
     </ul>
   </div>
 
@@ -101,7 +121,7 @@
         <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self">
           <div><img
             src="{{city.logo}}" alt=""></div>
-        {{city.name}}</a>
+          {{city.name}}</a>
       </li>
     </ul>
   </div>
