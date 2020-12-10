@@ -8,6 +8,7 @@
 
 .menu{
   position: relative;
+  width: 100vw;
   input{
     display: block;
     width: 40px;
@@ -87,7 +88,7 @@
   height: 100vh;
   padding: 50px 25px;
   padding-top: 125px;
-  background: #ededed;
+  background: rgba(237, 237, 237,.9);
   list-style-type: none;
   z-index: 1;
   -webkit-font-smoothing: antialiased;
@@ -352,9 +353,10 @@
   background-color: var(--white);
   z-index: 100;
   position: absolute;
-  top: 100%;
+  top: 81.5%;
   overflow-y: auto;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   text-align: left;
 
   .no_data {
@@ -532,4 +534,22 @@ footer{
   .logo_big{
     max-width:105px;
   }
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .buttons a{
+      width: 130px;
+      height: 30px;
+
+      span{
+        font-size: 12px;
+      }
+    }
+
+    .menu input ~ ul{
+      width: 100%;
+    }
+  
 }
