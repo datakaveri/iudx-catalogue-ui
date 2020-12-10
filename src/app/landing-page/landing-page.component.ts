@@ -62,6 +62,8 @@ export class LandingPageComponent implements OnInit {
     this.arrowkeyLocation = -1;
     this.showChangeCity = false;
     this.overlay = false;
+
+
   }
 
   ngOnInit(): void {

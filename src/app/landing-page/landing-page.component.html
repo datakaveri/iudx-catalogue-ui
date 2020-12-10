@@ -63,7 +63,7 @@
       </div>
       <div class="buttons">
         <a href="#"><span>View All Datasets</span></a>
-        <a href="#"><span>Geo Query</span></a>
+        <a *ngIf="city" href="#"><span>Geo Query</span></a>
       </div>
 
     </div>
@@ -105,7 +105,7 @@
         <li>
           <h1>3</h1>
           <p>Publishers </p>
-<!--          <p>Publishers <img src='../../assets/information-circle-outline.svg'></p>-->
+          <!--          <p>Publishers <img src='../../assets/information-circle-outline.svg'></p>-->
         </li>
         <!--<li>
           <h1>2.3K</h1>
@@ -114,7 +114,7 @@
       </ul>
     </div>
   </div>
-  <div class="cities">
+  <div class="cities" *ngIf="!city">
     <h2>Where to start?</h2>
     <h5>Search and find datasets by city and region</h5>
     <ul class="cities_container">
