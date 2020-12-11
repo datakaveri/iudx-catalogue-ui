@@ -44,6 +44,7 @@ export class AppComponent {
   get_cities() {
     this.network.get_api('customer/cities')
     .then((data: any)=>{
+      // console.log(data);
       let cities = data, city;
       let host = location.host == 'localhost:4000' ? '' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue') {

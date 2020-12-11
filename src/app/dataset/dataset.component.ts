@@ -17,6 +17,7 @@ export class DatasetComponent implements OnInit {
   active_tab: string;
   resource: any;
   schema_url: string;
+  // cities: any[];
   constructor(
     private router: Router,
     private httpInterceptor: InterceptorService,
@@ -67,6 +68,12 @@ export class DatasetComponent implements OnInit {
         this.router.navigate(['/search/dataset/items']);
         break;
       case 'Map':
+        let cities = this.constantService.get_cities();
+        cities.forEach(a=>{
+          if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
+            this.constantService.set_city(a);
+          }
+        });
         this.router.navigate(['/search/dataset/map-view']);
         break;
     }
