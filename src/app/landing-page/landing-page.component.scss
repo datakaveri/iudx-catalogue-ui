@@ -18,7 +18,7 @@
     left: 11px;
     cursor: pointer;
     opacity: 0; /* hide this */
-    z-index: 2; /* and place it over the hamburger */
+    z-index: 10; /* and place it over the hamburger */
   }
 
   span {
@@ -46,6 +46,18 @@
 
 .menu_container {
   margin-left: 25px;
+  img{
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    top: 26px;
+
+    &:last-child{
+      z-index: 5;
+    }
+  }
+
+  
 }
 
 

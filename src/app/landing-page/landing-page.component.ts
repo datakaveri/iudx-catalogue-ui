@@ -10,6 +10,8 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
+  showBlack:boolean=false;
+  showWhite:boolean=true;
   showAdvanceSearch: boolean = false;
   names: any = {};
   query: string;
@@ -171,6 +173,16 @@ export class LandingPageComponent implements OnInit {
 
   go_to_home() {
     this.router.navigate(['/']);
+  }
+
+  toggleMenu(){
+    if(this.showWhite === true){
+      this.showBlack=true;
+      this.showWhite = false;
+    } else{
+      this.showWhite=true;
+      this.showBlack=false;
+    }
   }
 
 }
