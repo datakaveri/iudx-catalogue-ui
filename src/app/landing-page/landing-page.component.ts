@@ -25,6 +25,7 @@ export class LandingPageComponent implements OnInit {
   showChangeCity: boolean;
   overlay: boolean;
   cities: any;
+  summary: any;
   constructor(
     public router: Router,
     private network: InterceptorService,
@@ -57,7 +58,13 @@ export class LandingPageComponent implements OnInit {
       providers: [],
       page: 0,
     };
+    this.summary = {
+      datasets: 0,
+      resources: 0,
+      publishers: 0
+    }
     this.city = this.constantService.get_city();
+    this.get_data();
     this.get_tags();
     this.arrowkeyLocation = -1;
     this.showChangeCity = false;
@@ -72,7 +79,7 @@ export class LandingPageComponent implements OnInit {
 
   get_data() {
     this.network.get_api('customer/summary').then((data) => {
-      this.resultData = data;
+      this.summary = data;
     });
   }
 
@@ -161,4 +168,9 @@ export class LandingPageComponent implements OnInit {
   log(x){
     console.log(x)
   }
+
+  go_to_home() {
+    this.router.navigate(['/']);
+  }
+
 }

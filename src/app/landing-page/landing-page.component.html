@@ -7,7 +7,8 @@
       <span></span>
     </div>
     <ul class="nav_list">
-      <li><a href="#">Developers <img src="assets/down_arrow.png" alt="Down Arrow"></a>
+      <li (click)="go_to_home()">Home</li>
+      <li><a>Developers <img src="assets/down_arrow.png" alt="Down Arrow"></a>
         <ul>
           <li><a href='#'>Catalogue API Docs</a></li>
           <li><a href='#'>Resource Server API Docs</a></li>
@@ -15,26 +16,26 @@
         </ul>
       </li>
       <li>
-        <a href='#'>Documents <img src="assets/down_arrow.png" alt="Down Arrow"> </a>
+        <a >Documents <img src="assets/down_arrow.png" alt="Down Arrow"> </a>
         <ul>
           <li><a href='#'>Getting Started</a></li>
           <li><a href='#'>Overview</a></li>
         </ul>
       </li>
-      <li><a href='#'>
+      <li><a href='https://iudx.org.in/' target="blank">
         About Us
       </a></li>
     </ul>
   </div>
   <div class="login_btn">
-    <a href='https://accounts.iudx.org.in'>Login</a>
+    <a href='https://accounts.iudx.org.in' target="blank">Login</a>
   </div>
 </header>
 <main>
   <div class="landingPage">
     <div class="container">
       <div class="title">
-        <img src='../../assets/iudx_logo 1 (1).png' class='logo' alt='logo'>
+        <img src='../../assets/iudx_logo.png' class='logo' alt='logo'>
       </div>
       <h2>Indian Urban Data Exchange Catalogue</h2>
       <p class='about'>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc),
@@ -65,7 +66,7 @@
 
     </div>
   </div>
-  <div class="categories">
+  <!-- <div class="categories">
     <h2>What to look for?</h2>
     <p>Here are the most frequently searched tags</p>
 
@@ -86,21 +87,21 @@
         <div><img src="../../assets/cil_library-building.png" alt=""></div>
         Civic</a></li>
     </ul>
-  </div>
+  </div> -->
 
   <div class="result">
     <div class="result_data">
       <ul>
         <li>
-          <h1>47</h1>
+          <h1>{{summary.datasets}}</h1>
           <p>Datasets <!--<img src='../../assets/information-circle-outline.svg'>--></p>
         </li>
         <li>
-          <h1>295</h1>
+          <h1>{{summary.resources}}</h1>
           <p>Resources <!--<img src='../../assets/information-circle-outline.svg'>--></p>
         </li>
         <li>
-          <h1>3</h1>
+          <h1>{{summary.publishers}}</h1>
           <p>Publishers </p>
           <!--          <p>Publishers <img src='../../assets/information-circle-outline.svg'></p>-->
         </li>
@@ -125,19 +126,19 @@
   </div>
 </main>
 <footer>
-  <div class="col_left">
+  <!-- <div class="col_left">
     <ul>
       <li>@IUDX 2020. All rights reserved</li>
       <li><a href="">Privacy Policy</a></li>
       <li><a href="">Terms & Conditions</a></li>
     </ul>
-  </div>
-  <div class="col_right">
+  </div> -->
+  <div class="col_left">
     <p>Our Collaborators</p>
     <ul>
-      <li><a href=""><img src="../../assets/iisc_logo 1 1.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/smart-cities-logo 1.png" alt=""></a></li>
-      <li><a href=""><img class='logo_big' src="../../assets/MoHUA1 1.png" alt=""></a></li>
+      <li><a href="https://www.iisc.ac.in/" target="blank"><img src="../../assets/iisc_logo.png" alt=""></a></li>
+      <li><a href="http://smartcities.gov.in/" target="blank"><img src="../../assets/smart-cities-logo.png" alt=""></a></li>
+      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="../../assets/mohua_logo.png" alt=""></a></li>
     </ul>
   </div>
 </footer>
