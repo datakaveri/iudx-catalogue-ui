@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConstantsService } from '../constants.service';
-import { InterceptorService } from '../interceptor.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ConstantsService} from '../constants.service';
+import {InterceptorService} from '../interceptor.service';
 
 
 @Component({
@@ -10,10 +10,11 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
-  menuCollapse:boolean ;
-  menuExpand:boolean;
-  showBlack:boolean=false;
-  showWhite:boolean=true;
+  subMenu1: boolean = false;
+  subMenu2: boolean = false;
+
+  showBlack: boolean = false;
+  showWhite: boolean = true;
   showAdvanceSearch: boolean = false;
   names: any = {};
   query: string;
@@ -30,13 +31,12 @@ export class LandingPageComponent implements OnInit {
   overlay: boolean;
   cities: any;
   summary: any;
+
   constructor(
     public router: Router,
     private network: InterceptorService,
     private constantService: ConstantsService
   ) {
-    this.menuCollapse = false;
-    this.menuExpand = false;
     this.cities = this.constantService.get_cities();
     this.query = '';
     this.categoriesData = [
@@ -159,10 +159,11 @@ export class LandingPageComponent implements OnInit {
         break;
     }
   }
+
   toggleChangeCity() {
     this.overlay = true;
     this.showChangeCity = true;
-    this.toggleMenu();
+    this.closeMenu();
   }
 
   getChangeCity(value) {
@@ -172,7 +173,8 @@ export class LandingPageComponent implements OnInit {
   getOverlayValue(value) {
     this.overlay = value;
   }
-  log(x){
+
+  log(x) {
     console.log(x)
   }
 
@@ -180,14 +182,51 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  toggleMenu(){
-    if(this.showWhite === true){
-      this.showBlack=true;
+  closeMenu() {
+    let checkbox = document.getElementsByClassName('checkbox')[0];
+    // @ts-ignore
+    checkbox.checked = false;
+    // @ts-ignore
+    if (this.showWhite === true) {
+      this.showBlack = true;
       this.showWhite = false;
-    } else{
-      this.showWhite=true;
-      this.showBlack=false;
+    } else {
+      this.showWhite = true;
+      this.showBlack = false;
+    }
+
+  }
+
+
+  toggleMenu() {
+    if (this.showWhite === true) {
+      this.showBlack = true;
+      this.showWhite = false;
+    } else {
+      this.showWhite = true;
+      this.showBlack = false;
     }
   }
 
+  toggleSubmenu1() {
+    let menu = document.getElementById(`submenu1`)
+    if (this.subMenu1 == false) {
+      this.subMenu1 = true;
+      menu.style.display = 'block';
+    } else {
+      this.subMenu1 = false;
+      menu.style.display = 'none';
+    }
+  }
+
+  toggleSubmenu2() {
+    let menu = document.getElementById(`submenu2`)
+    if (this.subMenu2 == false) {
+      this.subMenu2 = true;
+      menu.style.display = 'block';
+    } else {
+      this.subMenu2 = false;
+      menu.style.display = 'none';
+    }
+  }
 }
