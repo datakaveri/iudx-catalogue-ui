@@ -1,10 +1,12 @@
 <header class="header">
   <div class="menu">
-    <input class='checkbox' type="checkbox"/>
+    <input (click)='toggleMenu()' class='checkbox' type="checkbox"/>
     <div class="menu_container btn not-active">
+      <!-- <span></span>
       <span></span>
-      <span></span>
-      <span></span>
+      <span></span> -->
+      <img *ngIf='showWhite' src="../../assets/menuWhite.png" alt="">
+      <img *ngIf='showBlack' src="../../assets/menuBlack.png" alt="">
     </div>
     <ul class="nav_list">
       <li (click)="go_to_home()">Home</li>
@@ -33,7 +35,7 @@
   </div>
 </header>
 <main>
-  <div class="overlay" (click)="closeMenu()"></div>
+  <div class="overlay" *ngIf="!showWhite" (click)="closeMenu()"></div>
   <div class="landingPage">
     <div class="container">
       <div class="title">

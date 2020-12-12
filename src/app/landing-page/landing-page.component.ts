@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConstantsService } from '../constants.service';
-import { InterceptorService } from '../interceptor.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ConstantsService} from '../constants.service';
+import {InterceptorService} from '../interceptor.service';
 
 
 @Component({
@@ -10,6 +10,8 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
+  showBlack: boolean = false;
+  showWhite: boolean = true;
   showAdvanceSearch: boolean = false;
   names: any = {};
   query: string;
@@ -26,6 +28,7 @@ export class LandingPageComponent implements OnInit {
   overlay: boolean;
   cities: any;
   summary: any;
+
   constructor(
     public router: Router,
     private network: InterceptorService,
@@ -153,6 +156,7 @@ export class LandingPageComponent implements OnInit {
         break;
     }
   }
+
   toggleChangeCity() {
     this.overlay = true;
     this.showChangeCity = true;
@@ -165,14 +169,38 @@ export class LandingPageComponent implements OnInit {
   getOverlayValue(value) {
     this.overlay = value;
   }
-  log(x){
+
+  log(x) {
     console.log(x)
   }
 
   go_to_home() {
     this.router.navigate(['/']);
   }
-  closeMenu(){
-    console.log("menu will be closed ")
+
+  closeMenu() {
+    let checkbox = document.getElementsByClassName('checkbox')[0];
+    // @ts-ignore
+    checkbox.checked = false;
+    // @ts-ignore
+    if (this.showWhite === true) {
+      this.showBlack = true;
+      this.showWhite = false;
+    } else {
+      this.showWhite = true;
+      this.showBlack = false;
+    }
+
+  }
+
+
+  toggleMenu() {
+    if (this.showWhite === true) {
+      this.showBlack = true;
+      this.showWhite = false;
+    } else {
+      this.showWhite = true;
+      this.showBlack = false;
+    }
   }
 }
