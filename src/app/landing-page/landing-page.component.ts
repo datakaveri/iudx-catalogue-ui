@@ -10,6 +10,9 @@ import {InterceptorService} from '../interceptor.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
+  subMenu1: boolean = false;
+  subMenu2: boolean = false;
+
   showBlack: boolean = false;
   showWhite: boolean = true;
   showAdvanceSearch: boolean = false;
@@ -201,6 +204,28 @@ export class LandingPageComponent implements OnInit {
     } else {
       this.showWhite = true;
       this.showBlack = false;
+    }
+  }
+
+  toggleSubmenu1() {
+    let menu = document.getElementById(`submenu1`)
+    if (this.subMenu1 == false) {
+      this.subMenu1 = true;
+      menu.style.display = 'block';
+    } else {
+      this.subMenu1 = false;
+      menu.style.display = 'none';
+    }
+  }
+
+  toggleSubmenu2() {
+    let menu = document.getElementById(`submenu2`)
+    if (this.subMenu2 == false) {
+      this.subMenu2 = true;
+      menu.style.display = 'block';
+    } else {
+      this.subMenu2 = false;
+      menu.style.display = 'none';
     }
   }
 }

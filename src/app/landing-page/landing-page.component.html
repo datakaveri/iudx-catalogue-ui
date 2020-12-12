@@ -10,16 +10,22 @@
     </div>
     <ul class="nav_list">
       <li (click)="go_to_home()">Home</li>
-      <li><a>Developers <img src="assets/down_arrow.png" alt="Down Arrow"></a>
-        <ul>
+      <li><a (click)="toggleSubmenu1()">Developers
+        <img src="assets/down_arrow.png" alt="Down Arrow" *ngIf="subMenu1">
+        <img src="assets/uncollapsed.png" alt="Down Arrow" *ngIf="!subMenu1">
+      </a>
+        <ul id="submenu1">
           <li><a href="https://api.catalogue.iudx.org.in/apis" target="_blank">Catalogue API Docs</a></li>
           <li><a href="https://rs.iudx.org.in/apis" target="_blank">Resource Server API Docs</a></li>
           <li><a href="https://authdocs.iudx.org.in/" target="_blank">Auth Server API Docs</a></li>
         </ul>
       </li>
       <li>
-        <a>Documents <img src="assets/down_arrow.png" alt="Down Arrow"> </a>
-        <ul>
+        <a (click)="toggleSubmenu2()">Documents
+          <img src="assets/down_arrow.png" alt="Down Arrow" *ngIf="subMenu2">
+          <img src="assets/uncollapsed.png" alt="Down Arrow" *ngIf="!subMenu2">
+        </a>
+        <ul id="submenu2">
           <li><a href="https://pudx.catalogue.iudx.org.in/assets/resources/IUDX-UserManual-v1.0.pdf" target="_blank">Getting
             Started</a></li>
           <li><a href="https://www.iudx.org.in/overview-of-iudx/" target="_blank">Overview</a></li>
