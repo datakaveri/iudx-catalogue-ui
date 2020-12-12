@@ -9,7 +9,7 @@
       <img *ngIf='showBlack' src="../../assets/menuBlack.png" alt="">
     </div>
     <ul class="nav_list">
-      <li (click)="go_to_home()">Home</li>
+      <li><a (click)="go_to_home()">Home</a></li>
       <li><a (click)="toggleSubmenu1()">Developers
         <img src="assets/down_arrow.png" alt="Down Arrow" *ngIf="!subMenu1">
         <img src="assets/uncollapsed.png" alt="Down Arrow" *ngIf="subMenu1">
