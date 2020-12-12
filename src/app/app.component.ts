@@ -60,4 +60,5 @@ export class AppComponent {
       this.cities_loaded = true;
     });
   }
+
 }
