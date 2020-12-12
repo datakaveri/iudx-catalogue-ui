@@ -140,6 +140,10 @@
   transform: none;
 }
 
+.collapse{
+  transform:translate(-100%, 0)!important;
+}
+
 .header input:checked .menu span {
   transition: all .2s;
 }
@@ -148,6 +152,16 @@
   background-color: #000;
   opacity: 1;
   z-index: 2;
+}
+
+.change_city{
+  position: absolute;
+    bottom: 26px;
+    a{
+      text-decoration: underline;
+      color: var(--highlight);
+      font-weight: 500;
+    }
 }
 
 

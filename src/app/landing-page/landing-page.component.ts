@@ -10,6 +10,8 @@ import { InterceptorService } from '../interceptor.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
+  menuCollapse:boolean ;
+  menuExpand:boolean;
   showBlack:boolean=false;
   showWhite:boolean=true;
   showAdvanceSearch: boolean = false;
@@ -33,6 +35,8 @@ export class LandingPageComponent implements OnInit {
     private network: InterceptorService,
     private constantService: ConstantsService
   ) {
+    this.menuCollapse = false;
+    this.menuExpand = false;
     this.cities = this.constantService.get_cities();
     this.query = '';
     this.categoriesData = [
@@ -158,6 +162,7 @@ export class LandingPageComponent implements OnInit {
   toggleChangeCity() {
     this.overlay = true;
     this.showChangeCity = true;
+    this.toggleMenu();
   }
 
   getChangeCity(value) {

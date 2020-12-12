@@ -28,6 +28,7 @@
       <li><a href='https://iudx.org.in/' target="blank">
         About Us
       </a></li>
+      <p (click)='toggleChangeCity()' class='change_city'><a href='#'>Change City</a></p>
     </ul>
   </div>
   <div class="login_btn">
@@ -147,3 +148,6 @@
     </ul>
   </div>
 </footer>
+
+<div [ngClass]="{fadeIn:overlay}"></div>
+<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>
