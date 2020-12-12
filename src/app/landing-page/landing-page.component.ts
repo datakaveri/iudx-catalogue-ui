@@ -172,5 +172,7 @@ export class LandingPageComponent implements OnInit {
   go_to_home() {
     this.router.navigate(['/']);
   }
-
+  closeMenu(){
+    console.log("menu will be closed ")
+  }
 }
