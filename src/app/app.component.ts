@@ -46,7 +46,7 @@ export class AppComponent {
     .then((data: any)=>{
       // console.log(data);
       let cities = data, city;
-      let host = location.host == 'localhost:4000' ? 'pune' : location.host.split('.')[0];
+      let host = location.host == 'localhost:4000' ? '' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue') {
         cities.forEach(a=>{
           if(a.key == host) city = a;
