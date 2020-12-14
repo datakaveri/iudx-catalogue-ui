@@ -46,14 +46,14 @@ export class AppComponent {
     .then((data: any)=>{
       // console.log(data);
       let cities = data, city;
-      let host = location.host == 'localhost:4000' ? 'pune' : location.host.split('.')[0];
+      let host = location.host == 'localhost:4000' ? '' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue') {
         cities.forEach(a=>{
           if(a.key == host) city = a;
         });
-        this.title.setTitle(city.name + " IUDX | Indian Urban Data Exchange");
+        this.title.setTitle(city.name + " IUDX | India Urban Data Exchange");
       } else {
-        this.title.setTitle("IUDX | Indian Urban Data Exchange");
+        this.title.setTitle("IUDX | India Urban Data Exchange");
       }
       this.global.set_city(city);
       this.global.set_cities(cities);
