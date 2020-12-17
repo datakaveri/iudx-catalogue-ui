@@ -49,7 +49,9 @@
         <img src='assets/iudx_logo.png' class='logo' alt='logo'>
       </div>
       <h2>India Urban Data Exchange Catalogue</h2>
-      <p class='about'>The IUDX Program is a flagship initiative of India’s Smart Cities Mission, within the Ministry of Housing and Urban Affairs (MoHUA), which seeks to facilitate the use of data to achieve full potential of technology and innovation within Indian cities.</p>
+      <p class='about'>The IUDX Program is a flagship initiative of India’s Smart Cities Mission, within the Ministry of
+        Housing and Urban Affairs (MoHUA), which seeks to facilitate the use of data to achieve full potential of
+        technology and innovation within Indian cities.</p>
       <div class="searchBox">
         <button>
           <img src="assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
@@ -144,7 +146,8 @@
   <div class="col_left">
     <p>Our Collaborators</p>
     <ul>
-      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/mohua_logo.png" alt=""></a></li>
+      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/mohua_logo.png" alt=""></a>
+      </li>
       <li><a href="http://smartcities.gov.in/" target="blank"><img src="assets/smart-cities-logo.png" alt=""></a></li>
       <li><a href="https://www.iisc.ac.in/" target="blank"><img src="assets/iisc_logo.png" alt=""></a></li>
     </ul>
@@ -152,4 +155,5 @@
 </footer>
 
 <div [ngClass]="{fadeIn:overlay}"></div>
-<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>
+<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"
+                 (showOverlay)="getOverlayValue($event)"></app-change-city>
