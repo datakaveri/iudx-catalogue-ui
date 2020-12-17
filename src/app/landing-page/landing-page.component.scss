@@ -50,7 +50,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,.4);
+  background: rgba(0, 0, 0, .4);
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -59,13 +59,14 @@
 
 .menu_container {
   margin-left: 25px;
-  img{
+
+  img {
     width: 30px;
     height: 20px;
     position: absolute;
     top: 26px;
 
-    &:last-child{
+    &:last-child {
       z-index: 5;
     }
   }
@@ -116,9 +117,10 @@
   }
 }
 
+
+
 .landingPage {
   height: 100vh;
-  background: linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)), url('../../assets/landingpagebg.jpeg');
   background-size: cover;
 
   &::after {
@@ -154,8 +156,8 @@
   transform: none;
 }
 
-.collapse{
-  transform:translate(-100%, 0)!important;
+.collapse {
+  transform: translate(-100%, 0) !important;
 }
 
 .header input:checked .menu span {
@@ -168,14 +170,15 @@
   z-index: 2;
 }
 
-.change_city{
+.change_city {
   position: absolute;
-    bottom: 26px;
-    a{
-      text-decoration: underline;
-      color: var(--highlight);
-      font-weight: 500;
-    }
+  bottom: 26px;
+
+  a {
+    text-decoration: underline;
+    color: var(--highlight);
+    font-weight: 500;
+  }
 }
 
 

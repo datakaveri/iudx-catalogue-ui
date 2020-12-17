@@ -10,12 +10,12 @@ import {InterceptorService} from '../interceptor.service';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
-  subMenu1: boolean = false;
-  subMenu2: boolean = false;
+  subMenu1 = false;
+  subMenu2 = false;
 
-  showBlack: boolean = false;
-  showWhite: boolean = true;
-  showAdvanceSearch: boolean = false;
+  showBlack = false;
+  showWhite = true;
+  showAdvanceSearch = false;
   names: any = {};
   query: string;
   resultData: any;
@@ -31,6 +31,7 @@ export class LandingPageComponent implements OnInit {
   overlay: boolean;
   cities: any;
   summary: any;
+  coverImage: any;
 
   constructor(
     public router: Router,
@@ -39,6 +40,7 @@ export class LandingPageComponent implements OnInit {
   ) {
     this.cities = this.constantService.get_cities();
     this.query = '';
+    this.coverImage = '';
     this.categoriesData = [
       {
         name: 'Transport',
@@ -68,15 +70,19 @@ export class LandingPageComponent implements OnInit {
       datasets: 0,
       resources: 0,
       publishers: 0
-    }
+    };
     this.city = this.constantService.get_city();
     this.get_data();
     this.get_tags();
     this.arrowkeyLocation = -1;
     this.showChangeCity = false;
     this.overlay = false;
+    if (this.city) {
+      this.coverImage = this.city.cover;
+      console.log(this.city.cover);
+    }
 
-
+    console.log(document.querySelector('.landingPage'));
   }
 
   ngOnInit(): void {
@@ -96,7 +102,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   filterItems(word) {
-    let str = word.toLowerCase();
+    const str = word.toLowerCase();
     this.filteredTags = this.tags.filter((e) => {
       return e.tag.toLowerCase().includes(str);
     });
@@ -107,7 +113,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   go_to_city(city) {
-    window.open('https://' + city.key + '.' + window.location.host,'_self');
+    window.open('https://' + city.key + '.' + window.location.host, '_self');
   }
 
 
@@ -125,7 +131,7 @@ export class LandingPageComponent implements OnInit {
   getSearchResultsByText(text: string) {
     if (text.trim() !== '') {
       this.searchQuery = {
-        text: text,
+        text,
         tags: [],
         providers: [],
         page: 0,
@@ -179,7 +185,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   log(x) {
-    console.log(x)
+    console.log(x);
   }
 
   go_to_home() {
@@ -187,7 +193,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   closeMenu() {
-    let checkbox = document.getElementsByClassName('checkbox')[0];
+    const checkbox = document.getElementsByClassName('checkbox')[0];
     // @ts-ignore
     checkbox.checked = false;
     // @ts-ignore
@@ -213,7 +219,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   toggleSubmenu1() {
-    let menu = document.getElementById(`submenu1`)
+    const menu = document.getElementById(`submenu1`);
     if (this.subMenu1 == false) {
       this.subMenu1 = true;
       menu.style.display = 'block';
@@ -224,7 +230,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   toggleSubmenu2() {
-    let menu = document.getElementById(`submenu2`)
+    const menu = document.getElementById(`submenu2`);
     if (this.subMenu2 == false) {
       this.subMenu2 = true;
       menu.style.display = 'block';
@@ -233,4 +239,5 @@ export class LandingPageComponent implements OnInit {
       menu.style.display = 'none';
     }
   }
+
 }
