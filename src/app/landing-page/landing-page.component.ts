@@ -38,6 +38,7 @@ export class LandingPageComponent implements OnInit {
     private network: InterceptorService,
     private constantService: ConstantsService
   ) {
+
     this.cities = this.constantService.get_cities();
     this.query = '';
     this.coverImage = '';
@@ -81,8 +82,10 @@ export class LandingPageComponent implements OnInit {
       this.coverImage = this.city.cover;
       console.log(this.city.cover);
     }
+    setTimeout(() => {
+      this.setCoverIamge(this.city);
+    }, 1000);
 
-    console.log(document.querySelector('.landingPage'));
   }
 
   ngOnInit(): void {
@@ -114,6 +117,7 @@ export class LandingPageComponent implements OnInit {
 
   go_to_city(city) {
     window.open('https://' + city.key + '.' + window.location.host, '_self');
+
   }
 
 
@@ -205,6 +209,17 @@ export class LandingPageComponent implements OnInit {
       this.showBlack = false;
     }
 
+
+  }
+
+  setCoverIamge(city) {
+
+    const landingPage: any = document.getElementsByClassName('landingPage')[0];
+    if (city) {
+      landingPage.style.backgroundImage = ` linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url(${city.cover})`;
+    } else {
+      landingPage.style.backgroundImage = `linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)), url('../../assets/landingpagebg.jpeg')`;
+    }
   }
 
 
