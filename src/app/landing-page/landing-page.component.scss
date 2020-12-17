@@ -21,28 +21,6 @@
     opacity: 0; /* hide this */
     z-index: 10; /* and place it over the hamburger */
   }
-
-  span {
-    width: 20px;
-    height: 2px;
-    border-radius: 3px;
-    background-color: var(--white);
-    position: absolute;
-    transition: all .2s ease;
-  }
-
-  span:nth-child(1) {
-    top: 26px;
-  }
-
-  span:nth-child(2) {
-    top: 36px;
-    width: 30px;
-  }
-
-  span:nth-child(3) {
-    top: 46px;
-  }
 }
 
 
@@ -69,8 +47,6 @@
       z-index: 5;
     }
   }
-
-
 }
 
 
@@ -120,17 +96,6 @@
   height: 100vh;
   background: linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)), url('../../assets/landingpagebg.jpeg');
   background-size: cover;
-
-  &::after {
-    // content: "";
-    // width: 20%;
-    // background: rgba(255,255,255,.6);
-    // position: absolute;
-    // left: 0%;
-    // top: 0%;
-    // height: 100%;
-    // transform: scale(0);
-  }
 }
 
 .menu input ~ ul {
@@ -170,12 +135,12 @@
 
 .change_city{
   position: absolute;
-    bottom: 26px;
-    a{
-      text-decoration: underline;
-      color: var(--highlight);
-      font-weight: 500;
-    }
+  bottom: 26px;
+  a{
+    text-decoration: underline;
+    color: var(--highlight);
+    font-weight: 500;
+  }
 }
 
 
@@ -198,7 +163,7 @@
     width: 100%;
   }
 
-  .title, h2, p {
+  h2, p {
     color: var(--white);
   }
 }
@@ -409,7 +374,6 @@
       margin-top: 10px;
       background: var(--white);
     }
-
   }
 
   img {
@@ -470,19 +434,6 @@ footer {
   display: flex;
   justify-content: space-between;
 
-  // .col_left {
-  //   display: flex;
-  //   align-items: center;
-
-  //   li {
-  //     margin-bottom: 15px;
-
-  //     a {
-  //       color: var(--tertiary);
-  //     }
-  //   }
-  // }
-
   .col_left {
     p {
       margin-bottom: 10px;
@@ -528,7 +479,6 @@ footer {
 
 
 @media only screen and (max-width: 600px) {
-
 
   .landingPage {
     .container {
