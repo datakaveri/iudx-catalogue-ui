@@ -106,6 +106,10 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/search/map']);
   }
 
+  go_to_city(city) {
+    window.open('https://' + city.key + '.' + window.location.host,'_self');
+  }
+
 
   getAllDatasets() {
     this.searchQuery = {

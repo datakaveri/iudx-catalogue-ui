@@ -5,11 +5,11 @@
       <!-- <span></span>
       <span></span>
       <span></span> -->
-      <img *ngIf='showWhite' src="../../assets/menuWhite.png" alt="">
-      <img *ngIf='showBlack' src="../../assets/menuBlack.png" alt="">
+      <img *ngIf='showWhite' src="assets/menuWhite.png" alt="">
+      <img *ngIf='showBlack' src="assets/menuBlack.png" alt="">
     </div>
     <ul class="nav_list">
-      <li (click)="go_to_home()">Home</li>
+      <li><a (click)="go_to_home()">Home</a></li>
       <li><a (click)="toggleSubmenu1()">Developers
         <img src="assets/down_arrow.png" alt="Down Arrow" *ngIf="!subMenu1">
         <img src="assets/uncollapsed.png" alt="Down Arrow" *ngIf="subMenu1">
@@ -46,15 +46,13 @@
   <div class="landingPage">
     <div class="container">
       <div class="title">
-        <img src='../../assets/iudx_logo.png' class='logo' alt='logo'>
+        <img src='assets/iudx_logo.png' class='logo' alt='logo'>
       </div>
-      <h2>Indian Urban Data Exchange Catalogue</h2>
-      <p class='about'>IUDX Program is a multidisciplinary program within the Indian Institute of Science (IISc),
-        Bangalore,
-        which focusses on the technical and non-technical issues related to the use of data to create public good.</p>
+      <h2>India Urban Data Exchange Catalogue</h2>
+      <p class='about'>The IUDX Program is a flagship initiative of India’s Smart Cities Mission, within the Ministry of Housing and Urban Affairs (MoHUA), which seeks to facilitate the use of data to achieve full potential of technology and innovation within Indian cities.</p>
       <div class="searchBox">
         <button>
-          <img src="../../assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
+          <img src="assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
         </button>
         <input type="text" name='input' autocomplete="off" (input)="filterItems(query)"
                placeholder="Search for datasets. eg. mobility, transport" (keydown)="keyDown($event)"
@@ -83,19 +81,19 @@
 
     <ul class="categories_container">
       <li><a href="">
-        <div><img src="../../assets/Vector (11).png" alt=""></div>
+        <div><img src="assets/Vector (11).png" alt=""></div>
         Street light</a></li>
       <li><a href="">
-        <div><img src="../../assets/ion_bus-outline.png" alt=""></div>
+        <div><img src="assets/ion_bus-outline.png" alt=""></div>
         Urban Mobility</a></li>
       <li><a href="">
-        <div><img src="../../assets/carbon_tree.png" alt=""></div>
+        <div><img src="assets/carbon_tree.png" alt=""></div>
         Environment</a></li>
       <li><a href="">
-        <div><img src="../../assets/maki_waste-basket-11.png" alt=""></div>
+        <div><img src="assets/maki_waste-basket-11.png" alt=""></div>
         Waste Management</a></li>
       <li><a href="">
-        <div><img src="../../assets/cil_library-building.png" alt=""></div>
+        <div><img src="assets/cil_library-building.png" alt=""></div>
         Civic</a></li>
     </ul>
   </div> -->
@@ -105,20 +103,20 @@
       <ul>
         <li>
           <h1>{{summary.datasets}}</h1>
-          <p>Datasets <!--<img src='../../assets/information-circle-outline.svg'>--></p>
+          <p>Datasets <!--<img src='assets/information-circle-outline.svg'>--></p>
         </li>
         <li>
           <h1>{{summary.resources}}</h1>
-          <p>Resources <!--<img src='../../assets/information-circle-outline.svg'>--></p>
+          <p>Resources <!--<img src='assets/information-circle-outline.svg'>--></p>
         </li>
         <li>
           <h1>{{summary.publishers}}</h1>
           <p>Publishers </p>
-          <!--          <p>Publishers <img src='../../assets/information-circle-outline.svg'></p>-->
+          <!--          <p>Publishers <img src='assets/information-circle-outline.svg'></p>-->
         </li>
         <!--<li>
           <h1>2.3K</h1>
-          <p>Api Calls <img src='../../assets/information-circle-outline.svg'></p>
+          <p>Api Calls <img src='assets/information-circle-outline.svg'></p>
         </li>-->
       </ul>
     </div>
@@ -128,9 +126,8 @@
     <h5>Search and find datasets by city and region</h5>
     <ul class="cities_container">
       <li *ngFor="let city of cities ">
-        <a href="https://{{city.key}}.catalogue.iudx.org.in" target="_self">
-          <div><img
-            src="{{city.logo}}" alt=""></div>
+        <a (click)="go_to_city(city)" target="_self">
+          <div><img src="{{city.logo}}" alt=""></div>
           {{city.name}}</a>
       </li>
     </ul>
@@ -147,11 +144,9 @@
   <div class="col_left">
     <p>Our Collaborators</p>
     <ul>
-      <li><a href="https://www.iisc.ac.in/" target="blank"><img src="../../assets/iisc_logo.png" alt=""></a></li>
-      <li><a href="http://smartcities.gov.in/" target="blank"><img src="../../assets/smart-cities-logo.png" alt=""></a>
-      </li>
-      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="../../assets/mohua_logo.png" alt=""></a>
-      </li>
+      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/mohua_logo.png" alt=""></a></li>
+      <li><a href="http://smartcities.gov.in/" target="blank"><img src="assets/smart-cities-logo.png" alt=""></a></li>
+      <li><a href="https://www.iisc.ac.in/" target="blank"><img src="assets/iisc_logo.png" alt=""></a></li>
     </ul>
   </div>
 </footer>
