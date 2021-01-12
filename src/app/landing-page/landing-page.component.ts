@@ -32,6 +32,11 @@ export class LandingPageComponent implements OnInit {
   cities: any;
   summary: any;
   coverImage: any;
+  cityCount: number;
+  btnLess: boolean;
+  btnMore: boolean;
+  cities1: boolean;
+  cities2: boolean;
 
   constructor(
     public router: Router,
@@ -40,6 +45,10 @@ export class LandingPageComponent implements OnInit {
   ) {
 
     this.cities = this.constantService.get_cities();
+    this.cityCount = this.cities.length;
+    this.cities1 = false;
+    this.cities2 = true;
+    this.btnLess = false;
     this.query = '';
     this.coverImage = '';
     this.categoriesData = [
@@ -73,6 +82,7 @@ export class LandingPageComponent implements OnInit {
       publishers: 0
     };
     this.city = this.constantService.get_city();
+    console.log(this.city)
     this.get_data();
     this.get_tags();
     this.arrowkeyLocation = -1;
@@ -253,6 +263,16 @@ export class LandingPageComponent implements OnInit {
       this.subMenu2 = false;
       menu.style.display = 'none';
     }
+  }
+
+  showMore(){
+    this.cities1 = true;
+    this.cities2 = false;
+    this.btnLess = true;
+  }
+  showLess(){
+    this.cities2 = true;
+    this.cities1 = false;
   }
 
 }

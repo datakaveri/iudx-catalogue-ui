@@ -297,6 +297,7 @@
     display: flex;
     justify-content: center;
 
+
     li {
       width: 25%;
       text-align: center;
@@ -323,6 +324,7 @@
 .cities {
   text-align: center;
   padding: 0 30px;
+  margin-bottom: 12px;
 
   h5 {
     color: var(--tertiary);
@@ -349,6 +351,7 @@
 
 .cities_container {
   display: flex;
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
   justify-content: space-between;
@@ -357,7 +360,8 @@
 
   li {
     max-width: 250px;
-    width: 100%;
+    // width: 100%;
+    width:25%;
 
     a{
       color: var(--primary);
@@ -389,8 +393,13 @@
       }
     }
   }
+  
 }
 
+.cities_btn{
+  color: var(--highlight);
+  font-weight: 500;
+}
 .searchBox-dropdown {
   box-sizing: border-box;
   max-height: 220px;
