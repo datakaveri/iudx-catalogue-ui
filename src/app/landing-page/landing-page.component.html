@@ -134,7 +134,7 @@
               {{city.name}}</a>
           </li>
         </ul>
-        <a class= "cities_btn" *ngIf="btnLess" (click)="showLess()">View Less</a>
+        <a class= "cities_btn" *ngIf="btnLess" (click)="showLess()">Collapse</a>
     </div>
     <div  *ngIf="cityCount > 8 && cities2">
       <ul  class="cities_container">
@@ -144,7 +144,7 @@
             {{city.name}}</a>
         </li>
       </ul>
-      <a class= "cities_btn" (click)="showMore()">View More</a>
+      <a class= "cities_btn" (click)="showMore()">View More Cities</a>
     </div>
   </div>
 </main>

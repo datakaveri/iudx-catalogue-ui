@@ -90,7 +90,6 @@ export class LandingPageComponent implements OnInit {
     this.overlay = false;
     if (this.city) {
       this.coverImage = this.city.cover;
-      console.log(this.city.cover);
     }
     setTimeout(() => {
       this.setCoverIamge(this.city);
