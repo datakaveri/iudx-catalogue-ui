@@ -125,7 +125,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   go_to_city(city) {
-    window.open('https://' + city.key + '.' + window.location.host, '_self');
+    window.open('https://' + city.key + '.catalogue.iudx.org.in', '_self');
 
   }
 
