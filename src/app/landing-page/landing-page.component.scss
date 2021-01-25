@@ -219,7 +219,10 @@
     justify-content: center;
     width: 180px;
     height: 40px;
-    border: 1px solid var(--white);
+    // border: 1px solid var(--white);
+    background: #F8F9FB;
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.25);
+    border-radius: 25px;
 
     &:first-child {
       margin-right: 20px;
@@ -227,7 +230,8 @@
 
     span {
       vertical-align: middle;
-      color: var(--white);
+      // color: var(--white);
+      color: var(--highlight-blue);
     }
   }
 }
@@ -454,9 +458,10 @@ footer {
   background: var(--off-white);
   padding: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content:center;
 
   .col_left {
+    
     p {
       margin-bottom: 10px;
       color: var(--tertiary);
@@ -464,7 +469,6 @@ footer {
 
     ul {
       display: flex;
-
       li {
         margin-right: 40px;
 
