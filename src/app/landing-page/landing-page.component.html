@@ -31,8 +31,12 @@
             <li><a href="https://github.com/datakaveri/iudx-readme" target="_blank">Getting
               Started</a></li>
           <!-- <li><a href="https://www.iudx.org.in/overview-of-iudx/" target="_blank">Overview</a></li> -->
+          <li><a href="https://iudx.s3.ap-south-1.amazonaws.com/unified_document_architecture.pdf" target="_blank">Unified Data Exchange Architecture</a></li>
         </ul>
       </li>
+      <li><a href='https://accounts.iudx.org.in/' target="blank">
+        Providers Panel
+      </a></li>
       <li><a href='https://iudx.org.in/' target="blank">
         About Us
       </a></li>
@@ -51,12 +55,13 @@
         <img src='assets/iudx_logo.png' class='logo' alt='logo'>
       </div>
       <h2>India Urban Data Exchange Catalogue</h2>
-      <p class='about'>The IUDX Program is a flagship initiative of India’s Smart Cities Mission, within the Ministry of
-        Housing and Urban Affairs (MoHUA), which seeks to facilitate the use of data to achieve full potential of
-        technology and innovation within Indian cities.</p>
+      <p class='about' *ngIf="!city">We seek to Facilitate the use of Data to achieve full potential of
+        Technology and Innovation within Indian cities.<br> Discover Datasets that fit your Region.</p>
+      <p *ngIf="city">We seek to Facilitate the use of Data to achieve full potential of
+        Technology and Innovation within Indian cities.<br> Discover Datasets for the city of {{city.name}}</p>
       <div class="searchBox">
         <button>
-          <img src="assets/search-white.png" alt="search" (click)="getSearchResultsByText(query)"/>
+          <img src="assets/search.png" alt="search" (click)="getSearchResultsByText(query)"/>
         </button>
         <input type="text" name='input' autocomplete="off" (input)="filterItems(query)"
                placeholder="Search for datasets. eg. mobility, transport" (keydown)="keyDown($event)"

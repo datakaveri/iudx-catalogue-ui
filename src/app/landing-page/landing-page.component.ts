@@ -227,9 +227,10 @@ export class LandingPageComponent implements OnInit {
     if (city) {
       landingPage.style.backgroundImage = ` linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url(${city.cover})`;
     } else {
-      landingPage.style.backgroundImage = `linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)), url('../../assets/landingpagebg.jpeg')`;
+      landingPage.style.backgroundImage = `linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url('../../assets/landingpagebg.jpeg')`;
     }
   }
+
 
 
   toggleMenu() {

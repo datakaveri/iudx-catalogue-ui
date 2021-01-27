@@ -178,7 +178,7 @@
 
 .searchBox {
   display: flex;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.8);
   width: 100%;
   max-width: 600px;
   margin: 40px auto;
@@ -205,7 +205,7 @@
   }
 
   img {
-    width: 25px;
+    width: 20px;
   }
 }
 
@@ -231,7 +231,9 @@
     span {
       vertical-align: middle;
       // color: var(--white);
-      color: var(--highlight-blue);
+      // color: var(--highlight-blue);
+      color:var(--highlight);
+      font-weight:500;
     }
   }
 }
@@ -570,6 +572,7 @@ footer {
     input {
       &::placeholder {
         font-size: 14px;
+        color:var(--primary);
       }
     }
   }
