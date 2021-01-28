@@ -55,10 +55,9 @@
         <img src='assets/iudx_logo.png' class='logo' alt='logo'>
       </div>
       <h2>India Urban Data Exchange Catalogue</h2>
-      <p class='about' *ngIf="!city">We seek to Facilitate the use of Data to achieve full potential of
+      <p class='about' *ngIf="!city">We seek to Facilitate the use of Data to achieve full potential<br>of
         Technology and Innovation within Indian cities.<br> Discover Datasets that fit your Region.</p>
-      <p *ngIf="city">We seek to Facilitate the use of Data to achieve full potential of
-        Technology and Innovation within Indian cities.<br> Discover Datasets for the city of {{city.name}}</p>
+      <p class='about' *ngIf="city">Discover Datasets for the city of {{city.name}}</p>
       <div class="searchBox">
         <button>
           <img src="assets/search.png" alt="search" (click)="getSearchResultsByText(query)"/>
@@ -165,14 +164,13 @@
   </div> -->
   <div class="col_left">
     <ul>
-      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/mohua_logo.png" alt=""></a>
-      </li>
       <li><a href="http://smartcities.gov.in/" target="blank"><img src="assets/smart-cities-logo.png" alt=""></a></li>
+      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/mohua_logo.png" alt=""></a></li>
       <li><a href="https://www.iisc.ac.in/" target="blank"><img src="assets/iisc_logo.png" alt=""></a></li>
+      <li *ngIf="city"><img src="{{city.logo}}" alt=""></li>
     </ul>
   </div>
 </footer>
 
 <div [ngClass]="{fadeIn:overlay}"></div>
-<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)"
-                 (showOverlay)="getOverlayValue($event)"></app-change-city>
+<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>
