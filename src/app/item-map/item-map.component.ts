@@ -62,6 +62,7 @@ export class ItemMapComponent implements OnInit {
       this.access = false;
     }
     this.city = this.constant.get_city();
+    console.log(this.city)
   }
 
   ngOnInit(): void {

@@ -72,6 +72,7 @@ export class DatasetComponent implements OnInit {
         cities.forEach(a=>{
           if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
             this.constantService.set_city(a);
+            console.log(a);
           }
         });
         this.router.navigate(['/search/dataset/map-view']);

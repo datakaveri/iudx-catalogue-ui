@@ -63,7 +63,9 @@ export class ItemGsMapComponent implements OnInit {
     this.results=[];
     this.resource = this.constant.get_resource_details();
     this.map_geometry = this.constant.get_map_coordinates();
+    // console.log(this.map_geometry);
     this.city = this.constant.get_city();
+    // console.log(this.city);
   }
 
   ngOnInit(): void {
@@ -120,7 +122,6 @@ export class ItemGsMapComponent implements OnInit {
     this.interceptorService.get_api_resource_server('https://rs.iudx.org.in/ngsi-ld/v1/entities?id='+this.map_geometry[0]+'&q=id=='+this.map_geometry[0])
     .then((data:any)=>{
       this.results = data.results;
-      console.log(data.results);
       for (let i=0;i<this.results.length;i++) {
        if (this.results[i].location) {
         var lng = this.results[i].location.coordinates[0];

@@ -56,6 +56,7 @@ export class AppComponent {
         this.title.setTitle("IUDX | India Urban Data Exchange");
       }
       this.global.set_city(city);
+      // console.log(city);
       this.global.set_cities(cities);
       this.cities_loaded = true;
     });
