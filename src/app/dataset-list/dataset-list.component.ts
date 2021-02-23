@@ -160,6 +160,7 @@ export class DatasetListComponent implements OnInit {
   }
 
   apply() {
+    // console.log(this.searchQuery)
     let tags = this.tags
       .filter((a) => {
         return a.flag == true;

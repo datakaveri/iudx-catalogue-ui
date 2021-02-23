@@ -63,9 +63,16 @@ export class ItemGsMapComponent implements OnInit {
     this.results=[];
     this.resource = this.constant.get_resource_details();
     this.map_geometry = this.constant.get_map_coordinates();
-    // console.log(this.map_geometry);
+    //  console.log(this.map_geometry);
+    let cities = this.constant.get_cities();
+    cities.forEach(a=>{
+      if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
+        this.constant.set_city(a);
+        // console.log(a);
+      }
+    });
     this.city = this.constant.get_city();
-    // console.log(this.city);
+     console.log(this.city);
   }
 
   ngOnInit(): void {

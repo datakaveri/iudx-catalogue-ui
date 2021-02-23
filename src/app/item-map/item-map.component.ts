@@ -61,6 +61,13 @@ export class ItemMapComponent implements OnInit {
     } else {
       this.access = false;
     }
+    let cities = this.constant.get_cities();
+    cities.forEach(a=>{
+      if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
+        this.constant.set_city(a);
+        console.log(a);
+      }
+    });
     this.city = this.constant.get_city();
     console.log(this.city)
   }

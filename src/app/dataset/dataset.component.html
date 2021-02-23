@@ -16,7 +16,7 @@
           <div class="results-item-location"><img src='../../assets/location.png'><span>{{resource.resource_group.location.address}}</span></div>
           <div class="results-item-resources"><img src='../../assets/resources.png'><span>{{ resource.count }} Resources</span></div>
         </div>
-        <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }} <span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id)"></span></p>
+        <p><span>{{texts.resource_groups}} ID: </span>{{ resource.resource_group.id }} <span class='copy'><img src="../../assets/copy.png" title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.resource_group.id)"></span></p>
         <p>
           <span>Description:</span>{{ resource.resource_group.description }}
         </p>

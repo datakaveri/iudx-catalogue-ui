@@ -137,18 +137,18 @@ export class ItemResItemsComponent implements OnInit {
     this.router.navigate(['/search/dataset/items/sample-data']);
   }
   mapView(id,label) {
-    // console.log(id,label);
+    console.log(id,label);
     // if (data.location) {
       this.constant.set_map_coordinates(id,label);
     // }
     // this.router.navigate(['/search/dataset/map-view']);
-    let cities = this.constant.get_cities();
-        cities.forEach(a=>{
-          if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
-            this.constant.set_city(a);
-            // console.log(a);
-          }
-        });
+    // let cities = this.constant.get_cities();
+    //     cities.forEach(a=>{
+    //       if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
+    //         this.constant.set_city(a);
+    //         // console.log(a);
+    //       }
+    //     });
     this.router.navigate(['/search/dataset/items/map-gs']);
   }
 }
