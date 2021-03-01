@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="search-container">
+  <div class="title">
+    <a href="/" class="back">
+      <img src="assets/back.png"/>
+    </a>
+    <h2 *ngIf="!(searchQuery.tags.length == 0 && searchQuery.text == '')">Datasets({{datasets.count}})</h2>
+    <h2  *ngIf="searchQuery.tags.length == 0 && searchQuery.text == ''">Datasets({{datasets.count}}) </h2>
+    <a (click)="open_dataset_filter(datasets)" class="link">Filters</a>
+  </div>
+  <!-- <p *ngIf="searchQuery.tags != ''" class="para">Filters Applied: {{filters.tags}}</p> -->
+  <p *ngIf="searchQuery.tags != '' && searchQuery.providers != ''"  class="para">Filters Applied: <span>{{filters.tag | titlecase}} </span><span>, {{filters.provider | titlecase}}</span></p>
+  <p *ngIf="filters.tag != '' && searchQuery.providers == ''"  class="para">Filters Applied: <span>{{filters.tag | titlecase}} </span></p>
+  <p *ngIf="searchQuery.tags == '' && searchQuery.providers != ''"  class="para">Filters Applied: <span> {{filters.provider | titlecase}}</span></p>
+  <p *ngIf="tags_filter" class="para">Filters Applied: <span class="text-style"> {{tags_filter}}</span></p>
+  <div class="list-container">
+    <div (click)="getResourceItems(resource)" class="results-container" [ngClass]="resource.accessPolicy == 'SECURE' ?'private':''" *ngFor="let resource of datasets?.items">
+      <div class="first-div">
+        <h5 *ngIf="resource.accessPolicy == 'SECURE'">Private</h5>
+        <h5 *ngIf="resource.accessPolicy == 'OPEN'">Public</h5>
+        <h5 *ngIf="resource.accessPolicy == 'MISC'">Public/Private</h5>
+        <a title="Copy ID" (click)="copy(resource.id);$event.stopPropagation()">Copy ID</a>
+      </div>
+      <div class="data-div">
+        <div class="location-data"><img src='assets/location.png'><span>{{resource.location.address}}</span></div>
+        <div *ngIf="datasets.count == 1" class="resource-data"><img src='assets/resources.png'><span>{{ datasets.count }} Resource</span></div>
+        <div *ngIf="datasets.count > 1" class="resource-data"><img src='assets/resources.png'><span>{{ datasets.count }} Resources</span></div>
+      </div>
+      <h2>{{resource.label}}</h2>
+      <p>
+        <!-- Unique ID: {{ resource.id.length > 80 ? resource.id.substring(0,80)+'.....' : resource.id }} -->
+        Dataset ID: {{resource.id}}
+      </p>
+      <p>Description: {{resource.description}}</p>
+      <p>Publisher: {{resource.provider.description}}</p>
+    </div>
+  </div>
+</div>
+<!-- <app-dataset-filters *ngIf="popup_status && popup_type === 'dataset-filter'"></app-dataset-filters> -->

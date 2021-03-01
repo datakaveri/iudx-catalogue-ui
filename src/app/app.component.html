@@ -1,6 +1,14 @@
+<!-- <app-header></app-header> -->
 <div *ngIf="cities_loaded">
     <router-outlet></router-outlet>
 </div>
-<app-loader *ngIf="loader"></app-loader>
+<app-dataset-filters *ngIf="popup_status && popup_type === 'dataset-filter'"></app-dataset-filters>
+<app-geo-query-filters *ngIf="popup_status && popup_type === 'geo-filter'"></app-geo-query-filters>
+<app-gs-map *ngIf="popup_status && popup_type === 'gs-map'"></app-gs-map>
+<app-menu *ngIf="popup_status && popup_type == 'menu'"></app-menu>
+<app-change-city *ngIf="popup_status && popup_type == 'city-popup'"></app-change-city>
+<app-latest-data *ngIf="popup_status && popup_type == 'latest-data'"></app-latest-data>
+<app-sample-data *ngIf="popup_status && popup_type == 'sample-data'"></app-sample-data>
 <app-toaster *ngIf="show_toast" [props]="toast_props"></app-toaster>
 <app-alert *ngIf="show_alert" [props]="alert_props"></app-alert>
+<app-loader *ngIf="loader"></app-loader>

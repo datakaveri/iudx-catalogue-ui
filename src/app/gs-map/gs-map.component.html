@@ -1,0 +1,23 @@
+<div class="overlay"></div>
+    <div *ngIf='showPopup'  class="popup">
+        <div class="popup_head">
+          <h3 class="samplePopup_title">Map View , {{map_geometry[1]}}</h3>
+          <img (click)='close()' src='assets/close.png'>
+        </div>
+        <div class="popup_body">
+          <div class="popup_item">
+            <div
+              id="map"
+              leaflet
+              (leafletMapReady)="onMapReady($event)"
+              [leafletOptions]="options"
+              >
+            </div>
+          </div>
+        </div>
+</div>
+
+
+
+ 
+  

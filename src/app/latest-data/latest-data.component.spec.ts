@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LatestDataComponent } from './latest-data.component';
 
@@ -6,12 +6,12 @@ describe('LatestDataComponent', () => {
   let component: LatestDataComponent;
   let fixture: ComponentFixture<LatestDataComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ LatestDataComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LatestDataComponent);

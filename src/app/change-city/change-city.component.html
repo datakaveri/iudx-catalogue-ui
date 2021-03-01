@@ -1,16 +1,19 @@
-<div class="searchCity popup">
-    <div class="searchBox">
-        <!-- <span class="searchBox__icon searchBox__icon--search"><img src='assets/search.png'></span>
-        <input [(ngModel)]="query" type="text" placeholder="Search City..."> -->
-        <h3>
-            Change City
-            <span (click)='close()' class="searchBox__icon searchBox__icon--close"><img src='assets/cross.png'></span>
-        </h3>
+<div class="overlay"></div>
+<div class="city-container">
+    <img class="close-btn" (click)= "close_popup()" src="assets/close.png"  alt="close">
+    <div class="title-container">
+        <h2>Want to change city ?</h2>
+        <p>Select the city and region for which you want to view datasets for</p>
     </div>
-    <div class="searchCity__contentBox">
-        <div *ngFor="let data of citiesData" class="searchCity__item" (click)="change_city(data)">
-            <h3>{{data.name}}</h3>
-            <!-- <p>{{data.count}} {{text.resource_groups}}s</p> -->
-        </div>
+    <div class="logo-container">
+        <ul class="cities-container">
+          <li *ngFor="let city of citiesData" (click)="change_city(city)">
+            <a target="_self">
+              <div><img src={{city.logo}} alt="">
+              </div>
+              {{city.name}}
+            </a>
+          </li>
+        </ul>
     </div>
 </div>

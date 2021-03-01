@@ -1,0 +1,59 @@
+<div class="overlay" ></div>
+<nav>
+    <div class="menu-content">
+      <img class="close-btn" (click)="closeMenu()" src="assets/close.png" alt="close">
+      <div class="col_style">
+        <h1>Menu</h1>
+        <ul>
+          <li ><a class="outer-list" href="/">Home</a></li>
+          <li class="outer-list">Developers
+            <ul class="inner-list">
+              <li class="first-list">
+                <a href="https://api.catalogue.iudx.org.in/apis" target="_blank">
+                  Catalogue API Docs
+                </a>
+              </li>
+              <li>
+                <a href="https://rs.iudx.org.in/apis" target="_blank">
+                  Resource Server API Docs
+                </a>
+              </li>
+              <li>
+                <a href="https://authdocs.iudx.org.in/" target="_blank">
+                  Auth Server API Docs
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="outer-list">Documents
+            <ul class="inner-list">
+              <li class="first-list">
+                <a href="https://github.com/datakaveri/iudx-readme" target="_blank">Getting Started</a>
+              </li>
+              <li>
+                <a href="https://iudx.s3.ap-south-1.amazonaws.com/unified_document_architecture.pdf" target="_blank">Unified Data
+                  Exchange Architecture</a>
+              </li>
+              <li>
+                <a target="_blank" href="https://iudx.org.in/overview">Overview</a>
+              </li>
+            </ul>
+          </li>
+          <li class="outer-list">
+            <a class="about" href="https://iudx.org.in/">About Us</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col_style panel">
+        <h1>Provider / Consumer Panel</h1>
+        <h2>Go to Accounts</h2>
+        <a href="https://accounts.iudx.org.in/" target="_blank">Register with Us</a>
+      </div>
+      <div class="change-city col_style">
+        <h1 *ngIf = "city">Current City</h1>
+        <h2  *ngIf = "city">{{current_city}}</h2>
+        <a (click)="open_city_popup()">Change City</a>
+      </div>
+    </div>
+</nav>
+<app-change-city *ngIf="popup_status && popup_type === 'city-popup'"></app-change-city>

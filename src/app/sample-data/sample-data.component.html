@@ -1,14 +1,13 @@
-<div *ngIf='showSample' style="width:600px;" class="samplePopup popup">
-    <div class="samplePopup_head">
-        <h3 class="samplePopup_title">Sample Data</h3>
-        <span (click)='hideSampleData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
+<div class="overlay">
+  <div class="popup">
+    <div class="head">
+      <h2>Sample Data</h2>
+      <img (click)="close()" src="./assets/close.png" alt="close">
     </div>
-    <div class="samplePopup_body">
-        <div class="samplePopup_item">
-                <!-- <h3>{{item.key}}</h3>
-                <p>{{item.value}}</p> -->
-                <pre>{{ sampleData | json}}</pre>
-        </div>
+    <div class="code_container">
+      <code>
+        {{data | json}}
+      </code>
     </div>
+  </div>
 </div>
-<div [ngClass]="{fadeIn:overlay}"></div>

@@ -1,75 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {ConstantsService} from '../constants.service';
-import {InterceptorService} from '../interceptor.service';
-
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GlobalService } from '../global.service';
+import { NetworkService } from '../network.service';
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss'],
+  styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  subMenu1 = false;
-  subMenu2 = false;
-
-  showBlack = false;
-  showWhite = true;
-  showAdvanceSearch = false;
-  names: any = {};
-  query: string;
-  resultData: any;
-  categoriesData: any[] = [];
-  results: any;
+  popup_status:boolean = false;
+  popup_type: string = '';
+  coverImage: string;
   searchQuery: {};
-  tags: any;
-  tagSelected: any;
+  query: string ='';
   filteredTags: any = [];
-  arrowkeyLocation: any;
-  city: any;
-  showChangeCity: boolean;
-  overlay: boolean;
-  cities: any;
+  tags: any;
+  city:any;
+  tagSelected: any;
   summary: any;
-  coverImage: any;
+  cities: any;
   cityCount: number;
   btnLess: boolean;
-  btnMore: boolean;
   cities1: boolean;
   cities2: boolean;
-
-  constructor(
-    public router: Router,
-    private network: InterceptorService,
-    private constantService: ConstantsService
-  ) {
-
-    this.cities = this.constantService.get_cities();
+    
+  constructor(private router:Router, private globalservice : GlobalService, private network: NetworkService) { 
+    this.cities = this.globalservice.get_cities();
+    // console.log(typeof(this.cities))
     this.cityCount = this.cities.length;
     this.cities1 = false;
     this.cities2 = true;
     this.btnLess = false;
-    this.query = '';
     this.coverImage = '';
-    this.categoriesData = [
-      {
-        name: 'Transport',
-        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/transport.png',
-      },
-      {
-        name: 'Education',
-        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/education.png',
-      },
-      {
-        name: 'Finance',
-        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/finance.png',
-      },
-      {
-        name: 'Environment',
-        image: 'https://dk-ui.s3.ap-south-1.amazonaws.com/environment.png',
-      },
-    ];
-    this.names = this.constantService.get_nomenclatures();
+    this.globalservice.get_popup().subscribe((data) => {
+      this.popup_status = data.flag;
+      this.popup_type = data.type;
+    });
     this.searchQuery = {
       text: '',
       tags: [],
@@ -81,27 +48,21 @@ export class LandingPageComponent implements OnInit {
       resources: 0,
       publishers: 0
     };
-    this.city = this.constantService.get_city();
-    console.log(this.city)
-    this.get_data();
-    this.get_tags();
-    this.arrowkeyLocation = -1;
-    this.showChangeCity = false;
-    this.overlay = false;
+    this.city = this.globalservice.get_city();
+    // console.log(this.city);
     if (this.city) {
-      this.coverImage = this.city.cover;
+      setTimeout(() => {
+        this.coverImage = this.city.cover;
+      }, 100);
     }
-    setTimeout(() => {
-      this.setCoverIamge(this.city);
-    }, 1000);
-
+    this.getSummary();
+    this.get_tags();
   }
 
   ngOnInit(): void {
-
   }
 
-  get_data() {
+  getSummary(){
     this.network.get_api('customer/summary').then((data) => {
       this.summary = data;
     });
@@ -112,49 +73,19 @@ export class LandingPageComponent implements OnInit {
       this.tags = data;
     });
   }
-
-  filterItems(word) {
-    const str = word.toLowerCase();
-    this.filteredTags = this.tags.filter((e) => {
-      return e.tag.toLowerCase().includes(str);
-    });
-  }
-
-  getGeoInfo() {
-    this.router.navigate(['/search/map']);
-  }
-
-  go_to_city(city) {
-    window.open('https://' + city.key + '.catalogue.iudx.org.in', '_self');
-
-  }
-
-
-  getAllDatasets() {
-    this.searchQuery = {
-      text: '',
-      tags: [],
-      providers: [],
-      page: 0,
-    };
-    this.constantService.set_search_query(this.searchQuery);
-    this.router.navigate(['/search/datasets']);
-  }
-
-  getSearchResultsByText(text: string) {
-    if (text.trim() !== '') {
-      this.searchQuery = {
-        text,
+  getSearchResultsByText(val: string) {
+    if (val.trim() !== '') {
+      this.searchQuery= {
+        text: val,
         tags: [],
         providers: [],
         page: 0,
       };
-      this.constantService.set_search_query(this.searchQuery);
-      this.router.navigate(['/search/datasets']);
+      this.globalservice.set_search_query(this.searchQuery);
+      this.router.navigate(['/datasets']);
     }
   }
-
-  getSearchResultsByTag(value) {
+  getSearchResultsByTag(value: any) {
     this.tagSelected = value;
     this.searchQuery = {
       text: '',
@@ -162,109 +93,45 @@ export class LandingPageComponent implements OnInit {
       providers: [],
       page: 0,
     };
-    this.constantService.set_search_query(this.searchQuery);
-    this.router.navigate(['/search/datasets']);
+    this.globalservice.set_search_query(this.searchQuery);
+    this.router.navigate(['/datasets']);
+  }
+  filterItems(val:string) {
+    const str = val.toLowerCase();
+    this.filteredTags = this.tags.filter((e : any) => {
+      return e.tag.toLowerCase().includes(str);
+    });
+  }
+  
+  openMenu() {
+   this.globalservice.set_popup(true,'menu');
   }
 
-  getOverlay(value) {
-    this.overlay = value;
+  getAllDatasets(){
+  //  console.log(this.searchQuery)
+  this.searchQuery = {
+    text: '',
+    tags: [],
+    providers: [],
+    page: 0,
+  };
+    this.globalservice.set_search_query(this.searchQuery);
+    this.router.navigate(['/datasets']);
   }
 
-
-  // list items selection with arrow key
-  keyDown(event: KeyboardEvent) {
-    switch (event.keyCode) {
-      case 38: // this is the ascii of arrow up
-        this.arrowkeyLocation--;
-        break;
-      case 40: // this is the ascii of arrow down
-        this.arrowkeyLocation++;
-        break;
-    }
+  getGeoInfo(){
+    this.router.navigate(['/geo-query']);
   }
-
-  toggleChangeCity() {
-    this.overlay = true;
-    this.showChangeCity = true;
-    this.closeMenu();
-  }
-
-  getChangeCity(value) {
-    this.showChangeCity = value;
-  }
-
-  getOverlayValue(value) {
-    this.overlay = value;
-  }
-
-  log(x) {
-    console.log(x);
-  }
-
-  go_to_home() {
-    this.router.navigate(['/']);
-  }
-
-  closeMenu() {
-    const checkbox = document.getElementsByClassName('checkbox')[0];
-    // @ts-ignore
-    checkbox.checked = false;
-    // @ts-ignore
-    if (this.showWhite === true) {
-      this.showBlack = true;
-      this.showWhite = false;
+  getImage(){
+    if (this.city) {
+      return  `linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url(${this.city.cover})`;
     } else {
-      this.showWhite = true;
-      this.showBlack = false;
-    }
-
-
-  }
-
-  setCoverIamge(city) {
-
-    const landingPage: any = document.getElementsByClassName('landingPage')[0];
-    if (city) {
-      landingPage.style.backgroundImage = ` linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url(${city.cover})`;
-    } else {
-      landingPage.style.backgroundImage = `linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url('../../assets/landingpagebg.jpeg')`;
+     return `linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url('../../assets/landingpagebg.jpeg')`;
     }
   }
-
-
-
-  toggleMenu() {
-    if (this.showWhite === true) {
-      this.showBlack = true;
-      this.showWhite = false;
-    } else {
-      this.showWhite = true;
-      this.showBlack = false;
-    }
+  go_to_city(city : any) {
+    window.open('https://' + city.key + '.catalogue.iudx.org.in', '_self');
   }
-
-  toggleSubmenu1() {
-    const menu = document.getElementById(`submenu1`);
-    if (this.subMenu1 == false) {
-      this.subMenu1 = true;
-      menu.style.display = 'block';
-    } else {
-      this.subMenu1 = false;
-      menu.style.display = 'none';
-    }
-  }
-
-  toggleSubmenu2() {
-    const menu = document.getElementById(`submenu2`);
-    if (this.subMenu2 == false) {
-      this.subMenu2 = true;
-      menu.style.display = 'block';
-    } else {
-      this.subMenu2 = false;
-      menu.style.display = 'none';
-    }
-  }
-
   showMore(){
     this.cities1 = true;
     this.cities2 = false;
@@ -274,5 +141,4 @@ export class LandingPageComponent implements OnInit {
     this.cities2 = true;
     this.cities1 = false;
   }
-
 }

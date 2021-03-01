@@ -1,7 +1,7 @@
 /* The Modal (background) */
 .modal {
     position: fixed; /* Stay in place */
-    z-index: 10000000000000000000; /* Sit on top */
+    z-index: 100000000000; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -12,7 +12,7 @@
 .loader {
     border: 5px solid var(--white);
     border-radius: 100%;
-    border-top: 5px solid var(--primary);
+    border-top: 5px solid var(--blue);
     width: 30px;
     height: 30px;
     -webkit-animation: spin 2s linear infinite; /* Safari */

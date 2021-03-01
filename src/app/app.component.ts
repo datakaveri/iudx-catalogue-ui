@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { InterceptorService } from './interceptor.service';
-import { ConstantsService } from './constants.service';
+import { NetworkService } from './network.service';
+import { GlobalService } from './global.service';
 import { Title } from "@angular/platform-browser";
 
 @Component({
@@ -9,22 +9,29 @@ import { Title } from "@angular/platform-browser";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  popup_status: Boolean;
+  popup_type: string;
   loader: Boolean;
   toast_props: any;
   show_toast: Boolean;
   alert_props: any;
   show_alert: Boolean;
-  cities_loaded: Boolean;
+  cities_loaded: Boolean=false;
   constructor(
     private title: Title,
-    private network: InterceptorService,
-    private global: ConstantsService
+    private network: NetworkService,
+    private global: GlobalService
   ) {
-    this.cities_loaded = false;
     this.get_cities();
     this.loader = false;
     this.show_toast = false;
     this.show_alert = false;
+    this.popup_status = false;
+    this.popup_type = '';
+    this.global.get_popup().subscribe((data) => {
+      this.popup_status = data.flag;
+      this.popup_type = data.type;
+    });
     this.network.get_loader().subscribe(flag => {
       this.loader = flag;
     });
@@ -44,17 +51,19 @@ export class AppComponent {
   get_cities() {
     this.network.get_api('customer/cities')
     .then((data: any)=>{
-      // console.log(data);
-      let cities = data, city;
-      let host = location.host == 'localhost:4000' ? '' : location.host.split('.')[0];
+      let cities = data;
+      let city : any;
+      let host = location.host == 'localhost:4200' ? 'pune' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue' && host != 'stgcatalogue') {
-        cities.forEach(a=>{
+        cities.forEach((a: any)=>{
           if(a.key == host) city = a;
         });
+        // console.log(city)
         this.title.setTitle(city.name + " IUDX | India Urban Data Exchange");
       } else {
         this.title.setTitle("IUDX | India Urban Data Exchange");
       }
+      // console.log(city);
       this.global.set_city(city);
       this.global.set_cities(cities);
       this.cities_loaded = true;

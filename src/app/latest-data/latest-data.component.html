@@ -1,21 +1,26 @@
-<div *ngIf="showLatest" class="samplePopup">
-  <div class="samplePopup_container">
-    <div class="samplePopup_head">
-      <h3 class="samplePopup_title">Latest Data</h3>
-      <span (click)='hideLatestData()' class="samplePopup_icon"><img src='assets/cross.png'></span>
+<div class="overlay">
+  <div class="popup">
+    <div class="head">
+      <h2>Latest Data</h2>
+      <img (click)="close()" src="./assets/close.png" alt="close">
     </div>
-    <div class="samplePopup_body">
-      <ul class='samplePopup-list'>
-        <li class='samplePopup-items'>
-          <pre id="json_id" class='key'>{{latestData?.results | json}}</pre>
-          <!-- :<span  class='value'>{{data.value | json}}</span> -->
-        </li>
-      </ul>
+    <div *ngIf="private">
+      <h4>This is a protected resource. Access to
+      this resource requires a valid token.</h4>
+      <input type="text" name="token" placeholder="Enter token here . . .">
+      <a>Get Latest Data</a>
+      <p>
+      * If you don’t have token with you, please contact us and
+      we will guide you through the authentication process.
+      </p>
+    </div>
+    <div *ngIf="!private">
+      <div class="code_container">
+        <code>
+          {{latestData?.results | json}}
+        </code>
+      </div>
     </div>
   </div>
 
 </div>
-
-<div [ngClass]="{fadeIn:overlay}"></div>
-
-

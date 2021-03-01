@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ConstantsService } from '../constants.service';
+import { GlobalService } from '../global.service';
 
 @Component({
   selector: 'app-alert',
@@ -9,7 +9,7 @@ import { ConstantsService } from '../constants.service';
 export class AlertComponent implements OnInit {
   @Input() props: any;
   constructor(
-    private global: ConstantsService
+    private global: GlobalService
   ) { }
 
   ngOnInit(): void {

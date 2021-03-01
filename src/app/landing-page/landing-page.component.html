@@ -1,148 +1,77 @@
-<header class="header">
-  <div class="menu">
-    <input (click)='toggleMenu()' class='checkbox' type="checkbox"/>
-    <div class="menu_container btn not-active">
-      <!-- <span></span>
-      <span></span>
-      <span></span> -->
-      <img *ngIf='showWhite' src="assets/menuWhite.png" alt="">
-      <img *ngIf='showBlack' src="assets/menuBlack.png" alt="">
-    </div>
-    <ul class="nav_list">
-      <!-- <li><a (click)="go_to_home()">Home</a></li> -->
-      <li><a (click)="toggleSubmenu1()">Developers
-        <img src="assets/down_arrow.png" alt="Down Arrow" *ngIf="!subMenu1">
-        <img src="assets/uncollapsed.png" alt="Down Arrow" *ngIf="subMenu1">
-      </a>
-        <ul id="submenu1">
-          <li><a href="https://api.catalogue.iudx.org.in/apis" target="_blank">Catalogue API Docs</a></li>
-          <li><a href="https://rs.iudx.org.in/apis" target="_blank">Resource Server API Docs</a></li>
-          <li><a href="https://authdocs.iudx.org.in/" target="_blank">Auth Server API Docs</a></li>
-        </ul>
-      </li>
-      <li>
-        <a (click)="toggleSubmenu2()">Documents
-          <img src="assets/down_arrow.png" alt="Down Arrow" *ngIf="!subMenu2">
-          <img src="assets/uncollapsed.png" alt="Down Arrow" *ngIf="subMenu2">
-        </a>
-        <ul id="submenu2">
-          <!-- <li><a href="https://catalogue.iudx.org.in/assets/IUDX-UserManual-v1.0.pdf" target="_blank">Getting
-            Started</a></li> -->
-            <li><a href="https://github.com/datakaveri/iudx-readme" target="_blank">Getting
-              Started</a></li>
-          <!-- <li><a href="https://www.iudx.org.in/overview-of-iudx/" target="_blank">Overview</a></li> -->
-          <li><a href="https://iudx.s3.ap-south-1.amazonaws.com/unified_document_architecture.pdf" target="_blank">Unified Data Exchange Architecture</a></li>
-        </ul>
-      </li>
-      <li><a href='https://accounts.iudx.org.in/' target="blank">
-        Providers Panel
-      </a></li>
-      <li><a href='https://iudx.org.in/' target="blank">
-        About Us
-      </a></li>
-      <p (click)='toggleChangeCity()' class='change_city'><a href='#'>Change City</a></p>
-    </ul>
+<header>
+  <div class="menu-container">
+    <a (click)='openMenu()'>
+      <img src="assets/menu-white.png" alt="">
+    </a>
   </div>
-  <!-- <div class="login_btn">
-    <a href='https://accounts.iudx.org.in' target="blank">Login</a>
-  </div> -->
+
 </header>
-<main>
-  <div class="overlay" *ngIf="!showWhite" (click)="closeMenu()"></div>
-  <div class="landingPage">
-    <div class="container">
-      <div class="title">
-        <img src='assets/iudx_logo.png' class='logo' alt='logo'>
-      </div>
-      <h2>India Urban Data Exchange Catalogue</h2>
-      <p class='about' *ngIf="!city">We seek to Facilitate the use of Data to achieve full potential<br>of
-        Technology and Innovation within Indian cities.<br> Discover Datasets that fit your Region.</p>
-      <p class='about' *ngIf="city">Discover Datasets for the city of {{city.name}}</p>
-      <div class="searchBox">
-        <button>
+
+<section>
+  <!-- <div class="main-container"  [ngStyle]="{'background-image':  city ? 'linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url('+ {{coverImage}} +')' : 'linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url(' +'assets/landingpagebg.jpeg'+ ')'}"> -->
+  <div class="main-container"
+       [ngStyle]="{'background-image': getImage()}">
+    <div class="content-container">
+      <img src='assets/iudx-logo-white.png' class='logo' alt='logo'>
+
+      <h1>India Urban Data Exchange Catalogue</h1>
+      <p>We seek to <span class="highlight">Facilitate </span>the use of <span class="highlight">Data </span>to achieve<br>
+        full potential of <span class="highlight">Technology and Innovation </span>within Indian cities.<br>Discover
+        <span class="highlight">Datasets</span> that fit your <span class="highlight">Region.</span></p>
+      <div class="search-box" [ngClass]="{'border-style': query != ''}">
+        <div class="img-container">
           <img src="assets/search.png" alt="search" (click)="getSearchResultsByText(query)"/>
-        </button>
-        <input type="text" name='input' autocomplete="off" (input)="filterItems(query)"
-               placeholder="Search for datasets. eg. mobility, transport" (keydown)="keyDown($event)"
-               [(ngModel)]="query"/>
+        </div>
+        <input type="text" name='input' (input)="filterItems(query)" placeholder="Search for datasets. eg. mobility, transport..." [(ngModel)]="query" />
         <div *ngIf="query != ''" class="searchBox-dropdown">
           <ul *ngIf="filteredTags.length != 0">
-            <li tabIndex="-1" *ngFor="let item of filteredTags; let i = index" [class.active]="i == arrowkeyLocation">
-              <p (click)='getSearchResultsByTag(item.tag)'>
-                <span class='tagSelected'>{{item.tag}}</span>
-              </p>
+            <li tabIndex="-1" *ngFor="let item of filteredTags">
+              <h2 (click)='getSearchResultsByTag(item.tag)'>
+                <span class='tagSelected'>{{item.tag | titlecase}}</span>
+              </h2>
             </li>
           </ul>
         </div>
-
       </div>
-      <div class="buttons">
-        <a (click)="getAllDatasets()"><span>View All Datasets</span></a>
-        <a *ngIf="city" (click)="getGeoInfo()"><span>Geo Query</span></a>
+      <div class="links-container">
+        <a (click)="getAllDatasets()"><span class="link-style">View All Datasets</span></a>
+        <a *ngIf="city" (click)="getGeoInfo()"><span class="link-style">Make Geo Query</span></a>
       </div>
-
     </div>
   </div>
-  <!-- <div class="categories">
-    <h2>What to look for?</h2>
-    <p>Here are the most frequently searched tags</p>
-
-    <ul class="categories_container">
-      <li><a href="">
-        <div><img src="assets/Vector (11).png" alt=""></div>
-        Street light</a></li>
-      <li><a href="">
-        <div><img src="assets/ion_bus-outline.png" alt=""></div>
-        Urban Mobility</a></li>
-      <li><a href="">
-        <div><img src="assets/carbon_tree.png" alt=""></div>
-        Environment</a></li>
-      <li><a href="">
-        <div><img src="assets/maki_waste-basket-11.png" alt=""></div>
-        Waste Management</a></li>
-      <li><a href="">
-        <div><img src="assets/cil_library-building.png" alt=""></div>
-        Civic</a></li>
+</section>
+<section class="stats">
+  <div class="stats_data">
+    <ul>
+      <li>
+        <h1>{{summary.datasets}}</h1>
+        <p>Datasets</p>
+      </li>
+      <li>
+        <h1>{{summary.resources}}</h1>
+        <p>Resources </p>
+      </li>
+      <li>
+        <h1>{{summary.publishers}}</h1>
+        <p>Publishers </p>
+      </li>
     </ul>
-  </div> -->
-
-  <div class="result">
-    <div class="result_data">
-      <ul>
-        <li>
-          <h1>{{summary.datasets}}</h1>
-          <p>Datasets <!--<img src='assets/information-circle-outline.svg'>--></p>
-        </li>
-        <li>
-          <h1>{{summary.resources}}</h1>
-          <p>Resources <!--<img src='assets/information-circle-outline.svg'>--></p>
-        </li>
-        <li>
-          <h1>{{summary.publishers}}</h1>
-          <p>Publishers </p>
-          <!--          <p>Publishers <img src='assets/information-circle-outline.svg'></p>-->
-        </li>
-        <!--<li>
-          <h1>2.3K</h1>
-          <p>Api Calls <img src='assets/information-circle-outline.svg'></p>
-        </li>-->
-      </ul>
-    </div>
   </div>
-  <div class="cities" *ngIf="!city">
-    <h2>Where to start?</h2>
-    <h5>Search and find datasets by city and region</h5>
+</section>
+<section class="cities" *ngIf="!city">
+  <h2>Where to start <span>?</span></h2>
+  <h5>Search and find datasets by city and region</h5>
     <div  *ngIf="cityCount <=8 || cities1">
-        <ul  class="cities_container">
-          <li *ngFor="let city of cities">
-            <a (click)="go_to_city(city)" target="_self">
-              <div><img src="{{city.logo}}" alt=""></div>
-              {{city.name}}</a>
-          </li>
-        </ul>
-        <a class= "cities_btn" *ngIf="btnLess" (click)="showLess()">Collapse</a>
+    <ul class="cities-container">
+      <li *ngFor="let city of cities">
+        <a (click)="go_to_city(city)" target="_self">
+          <div><img src="{{city.logo}}" alt=""></div>
+          {{city.name}}</a>
+      </li>
+    </ul>
+    <a class= "cities_btn"  *ngIf="btnLess" (click)="showLess()">Collapse</a>
     </div>
-    <div  *ngIf="cityCount > 8 && cities2">
+    <!-- <div  *ngIf="cityCount > 8 && cities2">
       <ul  class="cities_container">
         <li *ngFor="let city of cities | slice:0:4 ">
           <a (click)="go_to_city(city)" target="_self">
@@ -150,27 +79,8 @@
             {{city.name}}</a>
         </li>
       </ul>
-      <a class= "cities_btn" (click)="showMore()">View More Cities</a>
-    </div>
-  </div>
-</main>
-<footer>
-  <!-- <div class="col_left">
-    <ul>
-      <li>@IUDX 2020. All rights reserved</li>
-      <li><a href="">Privacy Policy</a></li>
-      <li><a href="">Terms & Conditions</a></li>
-    </ul>
-  </div> -->
-  <div class="col_left">
-    <ul>
-      <li><a href="http://smartcities.gov.in/" target="blank"><img src="assets/smart-cities-logo.png" alt=""></a></li>
-      <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/mohua_logo.png" alt=""></a></li>
-      <li><a href="https://www.iisc.ac.in/" target="blank"><img src="assets/iisc_logo.png" alt=""></a></li>
-      <li *ngIf="city"><img src="{{city.logo}}" alt=""></li>
-    </ul>
-  </div>
-</footer>
-
-<div [ngClass]="{fadeIn:overlay}"></div>
-<app-change-city *ngIf="showChangeCity" (showChangeCity)="getChangeCity($event)" (showOverlay)="getOverlayValue($event)"></app-change-city>
+      <a class="cities_btn" (click)="showMore()">View More Cities</a>
+    </div> -->
+</section>
+<app-footer></app-footer>
+<app-menu *ngIf="popup_status && popup_type === 'menu'"></app-menu>
