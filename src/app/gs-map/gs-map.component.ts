@@ -59,7 +59,6 @@ export class GsMapComponent implements OnInit {
       }
     });
     this.city = this.global.get_city();
-     console.log(this.city);
   }
 
   ngOnInit(): void {

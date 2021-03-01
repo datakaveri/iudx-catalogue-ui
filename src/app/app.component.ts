@@ -65,6 +65,7 @@ export class AppComponent {
       }
       // console.log(city);
       this.global.set_city(city);
+      // console.log(city);
       this.global.set_cities(cities);
       this.cities_loaded = true;
     });
