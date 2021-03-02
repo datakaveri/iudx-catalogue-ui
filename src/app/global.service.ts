@@ -23,6 +23,8 @@ export class GlobalService {
   temp_object: any;
   type: any;
   resource_groups_list: any;
+  tags: any;
+  provider_rel: any;
   constructor() { 
     this.resource_groups = 'Dataset';
     this.resource_items = 'Resource';
@@ -40,10 +42,26 @@ export class GlobalService {
   set_popup(flag: Boolean, type: string) {
     this.popup_subject.next({ flag: flag, type: type });
   }
+  set_tags(val:any){
+    this.tags = val;
+    console.log(val)
+  }
 
+  get_tags(){
+    return this.tags;
+  }
+
+  set_id_name_rel(val:any){
+    this.provider_rel = val;
+  }
+
+  get_id_name_rel(){
+    return this.provider_rel;
+  }
   get_temp_object() {
     return this.temp_object;
   }
+  
 
   set_temp_object(value: any) {
     this.temp_object = value;

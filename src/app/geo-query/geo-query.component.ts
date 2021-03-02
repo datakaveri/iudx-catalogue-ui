@@ -576,9 +576,8 @@ export class GeoQueryComponent implements OnInit {
     } 
   }
   getProviderDetails(){
-  this.network.get_api('/customer/get-name-id-rel').then((resp:any)=>{
-    this.pr_detail = resp;
-});
+      let resp = this.global.get_id_name_rel();
+      this.pr_detail = resp ;
   }
    searchStringInArray (str: any, strArray: string) {
     // for (var j=0; j<strArray.length; j++) {

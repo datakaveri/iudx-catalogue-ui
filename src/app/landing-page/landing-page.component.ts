@@ -56,7 +56,7 @@ export class LandingPageComponent implements OnInit {
       }, 100);
     }
     this.getSummary();
-    this.get_tags();
+    this.tags = this.globalservice.get_tags();
   }
 
   ngOnInit(): void {
@@ -67,12 +67,7 @@ export class LandingPageComponent implements OnInit {
       this.summary = data;
     });
   }
-
-  get_tags() {
-    this.network.get_api('customer/tags').then((data) => {
-      this.tags = data;
-    });
-  }
+ 
   getSearchResultsByText(val: string) {
     if (val.trim() !== '') {
       this.searchQuery= {

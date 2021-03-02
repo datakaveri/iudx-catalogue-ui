@@ -80,11 +80,10 @@ export class DatasetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.searchDatasets();
   }
 
   get_provider_name(){
-    this.network.get_api('/customer/get-name-id-rel').then((resp:any)=>{
+      let resp = this.globalservice.get_id_name_rel();
       this.searchQuery.providers.forEach((a:any) => {
         if(resp.hasOwnProperty(a)) {
           a = resp[a];
@@ -94,7 +93,7 @@ export class DatasetsComponent implements OnInit {
         this.filters.provider = this.filter_name.join(', ');
         // console.log(this.filters.provider)
       });
-    });
+    
   }
 
   searchDatasets() {
