@@ -44,7 +44,6 @@ export class GlobalService {
   }
   set_tags(val:any){
     this.tags = val;
-    console.log(val)
   }
 
   get_tags(){
