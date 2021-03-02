@@ -22,6 +22,7 @@ export class AppComponent {
     private network: NetworkService,
     private global: GlobalService
   ) {
+    this.get_data();
     this.get_cities();
     this.loader = false;
     this.show_toast = false;
@@ -48,24 +49,25 @@ export class AppComponent {
     });
   }
 
+  get_data() {
+    // get tags api and get id name rel api
+  }
+
   get_cities() {
     this.network.get_api('customer/cities')
     .then((data: any)=>{
       let cities = data;
       let city : any;
-      let host = location.host == 'localhost:4200' ? 'pune' : location.host.split('.')[0];
+      let host = location.host == 'localhost:4200' ? '' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue' && host != 'stgcatalogue') {
         cities.forEach((a: any)=>{
           if(a.key == host) city = a;
         });
-        // console.log(city)
         this.title.setTitle(city.name + " IUDX | India Urban Data Exchange");
       } else {
         this.title.setTitle("IUDX | India Urban Data Exchange");
       }
-      // console.log(city);
       this.global.set_city(city);
-      // console.log(city);
       this.global.set_cities(cities);
       this.cities_loaded = true;
     });
