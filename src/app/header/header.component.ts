@@ -34,8 +34,7 @@ export class HeaderComponent implements OnInit {
     this.router_url = this.router.url;
     this.names = this.globalservice.get_nomenclatures();
     this.city = this.globalservice.get_city();
-    // console.log(this.city);
-    this.get_tags();
+    this.tags = this.globalservice.get_tags();
    }
 
   ngOnInit(): void {
@@ -44,14 +43,8 @@ export class HeaderComponent implements OnInit {
     this.globalservice.set_popup(true,'menu');
    }
    OpenGeoQuery(){
-     this.router.navigate(['/geo-query']);
-     
+     this.router.navigate(['/geo-query']); 
    }
-   get_tags() {
-    this.network.get_api_wl('customer/tags').then((data) => {
-      this.tags = data;
-    });
-  }
   filterItems(val :string) {
     let str = val.toLowerCase();
     this.filteredTags = this.tags.filter((e:any) => {

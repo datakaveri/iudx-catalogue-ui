@@ -22,8 +22,6 @@ export class AppComponent {
     private network: NetworkService,
     private global: GlobalService
   ) {
-    this.get_tags();
-    this.get_provider_name();
     this.get_cities();
     this.loader = false;
     this.show_toast = false;
@@ -51,16 +49,14 @@ export class AppComponent {
   }
 
   get_tags() {
-    // get tags api and get id name rel api
     this.network.get_api('customer/tags').then((data) => {
-      // console.log(data);
      this.global.set_tags(data);
-
+     this.cities_loaded = true;
     });
   }
 
   get_provider_name(){
-    this.network.get_api('/customer/get-name-id-rel').then((resp:any)=>{
+    this.network.get_api('customer/get-name-id-rel').then((resp:any)=>{
       this.global.set_id_name_rel(resp);
     });
   }
@@ -69,7 +65,7 @@ export class AppComponent {
     this.network.get_api('customer/cities')
     .then((data: any)=>{
       let cities = data;
-      let city : any;
+      let city : any = '';
       let host = location.host == 'localhost:4200' ? 'pune' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue' && host != 'stgcatalogue') {
         cities.forEach((a: any)=>{
@@ -81,7 +77,8 @@ export class AppComponent {
       }
       this.global.set_city(city);
       this.global.set_cities(cities);
-      this.cities_loaded = true;
+      this.get_tags();
+      this.get_provider_name();
     });
   }
 

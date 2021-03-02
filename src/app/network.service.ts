@@ -32,7 +32,6 @@ export class NetworkService {
     return this.filter_subject.asObservable();
   }
 
-
   get_city() {
     if(this.global.get_city()) return this.global.get_city().key;
     else return '';

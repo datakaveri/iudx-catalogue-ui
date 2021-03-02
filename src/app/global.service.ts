@@ -69,21 +69,17 @@ export class GlobalService {
 
   set_city(value: any) {
     this.city = value;
-    // console.log(this.city);
   }
 
   get_city() {
-    // console.log(this.city);
     return (this.city);
   }
 
   set_cities(value: any) {
     this.cities = value;
-    // console.log(value)
   }
 
   get_cities() {
-    // console.log(this.cities);
     return this.cities;
   }
 
