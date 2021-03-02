@@ -80,7 +80,7 @@ export class DatasetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchDatasets();
+    // this.searchDatasets();
   }
 
   get_provider_name(){
