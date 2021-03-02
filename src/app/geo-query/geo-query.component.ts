@@ -245,7 +245,7 @@ export class GeoQueryComponent implements OnInit {
       this.network
         .post_api('customer/coordinates', this.drawQuery)
         .then((data: any) => {
-          console.log(data);
+          // console.log(data);
           this.is_drawn = false;
           this.resource_items = data.items;
           this.filtered_resource_items = this.resource_items;

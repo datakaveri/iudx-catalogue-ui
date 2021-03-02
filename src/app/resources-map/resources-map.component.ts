@@ -66,7 +66,7 @@ export class ResourcesMapComponent implements OnInit {
     this.global.get_popup().subscribe((data)=> {
       this.popup_type = data.type;
       this.popup_status = data.flag;
-      console.log(this.popup_status,this.popup_type)
+      // console.log(this.popup_status,this.popup_type)
       });
     }
 

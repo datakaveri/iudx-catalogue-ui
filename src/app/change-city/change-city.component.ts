@@ -11,7 +11,7 @@ export class ChangeCityComponent implements OnInit {
   text: { resource_groups: string; resource_items: string; providers: string; };
   constructor(private globalservice: GlobalService) { 
     this.citiesData = this.globalservice.get_cities();
-    console.log(this.citiesData)
+    // console.log(this.citiesData)
     this.text = this.globalservice.get_nomenclatures();
   }
 
