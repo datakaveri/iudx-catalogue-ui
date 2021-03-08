@@ -97,7 +97,7 @@ export class DatasetDetailsComponent implements OnInit {
     this.router.navigate(['/datasets']);
   }
   copy(id:any) {
-    console.log(id)
+    // console.log(id)
     const el = document.createElement('textarea');
     el.value = id;
     document.body.appendChild(el);

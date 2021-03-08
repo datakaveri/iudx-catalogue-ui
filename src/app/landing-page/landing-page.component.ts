@@ -121,7 +121,7 @@ export class LandingPageComponent implements OnInit {
     if (this.city) {
       return  `linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url(${this.city.cover})`;
     } else {
-     return `linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url('../../assets/landingpagebg.jpeg')`;
+     return `linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url('assets/landingpagebg.jpeg')`;
     }
   }
   go_to_city(city : any) {

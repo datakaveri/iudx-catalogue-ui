@@ -1,12 +1,7 @@
 import {Component, OnInit, ElementRef, NgZone} from '@angular/core';
 import { Location } from '@angular/common';
-import {Router} from "@angular/router";
-import {
-  latLng,
-  FeatureGroup,
-  Map,
-  featureGroup,
-} from 'leaflet';
+import { Router } from "@angular/router";
+import { latLng, FeatureGroup, Map, featureGroup } from 'leaflet';
 import * as L from 'leaflet';
 
 import { NetworkService } from '../network.service';
@@ -56,14 +51,12 @@ export class GeoQueryComponent implements OnInit {
       this.is_drawn = false;
       this.markersLayer.clearLayers();
       this.searchQuery =  window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : { resource_groups: [] };
-        // console.log(this.searchQuery);
       this.getMapData();
       }
     });
 
     this.global.get_filter().subscribe((query: any) => {
       this.searchQuery = query;
-      //  console.log(this.searchQuery)
       if(this.searchQuery.tags != '' || this.searchQuery.text !=''){
       this.router.navigate(['/datasets']);
       }

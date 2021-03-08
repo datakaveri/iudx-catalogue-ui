@@ -25,6 +25,7 @@ export class GlobalService {
   resource_groups_list: any;
   tags: any;
   provider_rel: any;
+  map_data: any;
   constructor() { 
     this.resource_groups = 'Dataset';
     this.resource_items = 'Resource';
@@ -57,19 +58,24 @@ export class GlobalService {
   get_id_name_rel(){
     return this.provider_rel;
   }
+
+  set_map_data(val:any){
+    // console.log(val)
+    this.map_data = val;
+  }
+
+  get_map_data(){
+    return this.map_data;
+  }
   get_temp_object() {
     return this.temp_object;
   }
-  
-
   set_temp_object(value: any) {
     this.temp_object = value;
   }
-
   set_city(value: any) {
     this.city = value;
   }
-
   get_city() {
     return (this.city);
   }
