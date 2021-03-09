@@ -1,7 +1,7 @@
 <div class="overlay"></div>
-<div class="filter_container"> 
-  <img src="assets/close.png" alt="close" class="close" (click)="close_filter()">
-  <div class="wid100">
+<div class="filter-container"> 
+  <img src="assets/close-btn.png" alt="close" class="close" (click)="close_filter()">
+  <!-- <div class="wid100">
     <div class="wid50">
       <p *ngIf="count == 0" >* Please select one or more {{texts.resource_groups}}.</p>
       <h4> Filter by {{texts.resource_groups}}(s)</h4>
@@ -24,6 +24,29 @@
         <a class="danger" (click)="clear()">Clear All Filters</a>
       </div>
     </div>
+  </div> -->
+  <div class="list_style box-right" >
+    <p *ngIf="count == 0" >* Please select one or more {{texts.resource_groups}}.</p>
+    <h4> Filter by {{texts.resource_groups}}(s)</h4>
+    <div class="search_container">
+      <img src="assets/search.png" alt="Search">
+      <input type="text" name="Search" placeholder="Search Datasets . . ." [(ngModel)]="search.group" (ngModelChange)="filter_by_group()">
+    </div>
+    <ul>
+      <li *ngFor="let dataset of filtered_resource_groups" (click)="toggle_dataset(dataset.id)" title="{{ dataset.label }}">
+        <img src="assets/unchecked.png" alt="Unchecked" *ngIf="!find_group_status(dataset.id)">
+        <img src="assets/checked.png" alt="Checked" *ngIf="find_group_status(dataset.id)">
+        {{dataset.label}}
+      </li>
+      <li *ngIf="filtered_resource_groups.length === 0">
+        No Dataset found
+      </li>
+    </ul>
   </div>
+  <div class="filter-links">
+    <a class="apply-btn" (click)="apply_filter()">Apply Filters</a>
+    <a (click)="clear()" class="danger">Clear All Filters</a>
+  </div>
+
 </div>
 <router-outlet></router-outlet>
