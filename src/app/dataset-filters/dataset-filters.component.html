@@ -1,7 +1,7 @@
 <div class="overlay"></div>
 <div class="filter-container">
-        <img class="close-btn" (click)= "close_filter()" src="assets/close.png"  alt="close">
-    <div class="list_style">
+        <img class="close-btn" (click)= "close_filter()" src="assets/close-btn.png"  alt="close">
+    <div class="list_style box-left">
         <h4>Filter by Tags</h4>
         <div class="search_container">
           <img src="assets/search.png" alt="Search">
@@ -18,7 +18,7 @@
         </li>
         </ul>
     </div>
-      <div class="list_style">
+      <div class="list_style box-right" >
         <h4>Filter by Publishers</h4>
         <div class="search_container">
           <img (click)="search()" src="./assets/search.png" alt="Search">
@@ -28,7 +28,7 @@
           <li *ngFor="let item of filtered_providers" (click)="toggle_provider(item.id)" title="{{item.description}}">
             <img src="assets/unchecked.png" *ngIf="!find_provider_status(item.id)">
             <img src="assets/checked.png" *ngIf="find_provider_status(item.id)">
-            {{item.description}}
+            <span>{{item.description}}</span>
           </li>
           <li *ngIf="filtered_providers.length === 0">
             No Publisher found
@@ -36,7 +36,7 @@
         </ul>
       </div>
       <div class="filter-links">
-        <a (click)="apply_filter()">Apply Filters</a>
+        <a class="apply-btn" (click)="apply_filter()">Apply Filters</a>
         <a (click)="clear()" class="danger">Clear All Filters</a>
       </div>
 </div>
