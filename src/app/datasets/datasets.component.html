@@ -19,7 +19,7 @@
         <h5 *ngIf="resource.accessPolicy == 'SECURE'">Private</h5>
         <h5 *ngIf="resource.accessPolicy == 'OPEN'">Public</h5>
         <h5 *ngIf="resource.accessPolicy == 'MISC'">Public/Private</h5>
-        <a title="Copy ID" (click)="copy(resource.id);$event.stopPropagation()">Copy ID</a>
+        <a title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.id);$event.stopPropagation()">Copy {{texts.resource_groups}} ID</a>
       </div>
       <div class="data-div">
         <div class="location-data"><img src='assets/location.png'><span>{{resource.location.address}}</span></div>
@@ -27,10 +27,10 @@
         <div *ngIf="datasets.count > 1" class="resource-data"><img src='assets/resources.png'><span>{{ datasets.count }} Resources</span></div>
       </div>
       <h2>{{resource.label}}</h2>
-      <p>
+      <!-- <p> -->
         <!-- Unique ID: {{ resource.id.length > 80 ? resource.id.substring(0,80)+'.....' : resource.id }} -->
-        Dataset ID: {{resource.id}}
-      </p>
+        <!-- Dataset ID: {{resource.id}} -->
+      <!-- </p> -->
       <p>Description: {{resource.description}}</p>
       <p>Publisher: {{resource.provider.description}}</p>
     </div>

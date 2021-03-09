@@ -11,9 +11,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
   .popup {
-    position: relative;
+    position: fixed;
+    margin:0 auto;
     max-width: 400px;
     background: var(--white);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
@@ -34,9 +36,9 @@
       height: 50px;
       width: 365px;
       padding-right: 5px;
-      background: #fff;
+      background:var(--white);
       box-sizing: border-box;
-
+      border-bottom: 1px solid var(--light-grey);
       img {
         /* position: absolute;
          top: 15px;
@@ -76,5 +78,3 @@
     }
 
   }
-}
-

@@ -1,13 +1,15 @@
 <div class="results-container">
     <div class="box-div">
         <div class="list-container" [ngClass] ="{'private': resource.resource_group.accessPolicy == 'SECURE', 'lightgreen': resource.resource_group.accessPolicy == 'MISC'}" *ngFor="let item of resource?.items">
-            
-            <h2>{{item.label}}</h2>
-            <p title="{{item.id}}">
+            <div class="title">
+                <h2>{{item.label}}</h2><a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy {{texts.resource_items}} ID</a>
+            </div>
+           
+            <!-- <p title="{{item.id}}"> -->
             <!-- Unique ID: {{ item.id.length > 55 ? item.id.substring(0,55)+'.....' : item.id }} -->
-            Resource ID: {{item.id}}
+            <!-- Resource ID: {{item.id}} -->
             <!-- <a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy ID</a> -->
-            </p>
+            <!-- </p> -->
             <p>Description: {{item.description}}</p>
             
             <div class="links-container" >
