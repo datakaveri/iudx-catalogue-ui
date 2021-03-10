@@ -35,17 +35,19 @@ export class GeoQueryComponent implements OnInit {
   pr_detail:any = {};
 
   constructor(private router: Router, private global: GlobalService, private network: NetworkService, private locate : Location, private elementRef: ElementRef, public ngZone: NgZone) {
-    this.searchQuery = window.sessionStorage.map_search
-    ? JSON.parse(window.sessionStorage.map_search)
-    : { resource_groups: [] };
+    // this.searchQuery = window.sessionStorage.map_search
+    // ? JSON.parse(window.sessionStorage.map_search)
+    // : { resource_groups: [] };
     //  console.log(window.sessionStorage.map_search)
-     if(this.searchQuery.resource_groups === [] || window.sessionStorage.map_search === undefined || window.sessionStorage.map_search){
-      this.network.post_api('customer/map', this.searchQuery)
-      .then((data: any) => {
-        this.global.set_filter_rsg(data.resource_groups);
-        this.global.set_popup(true,'geo-filter');
-      })
-    }
+    //  if(this.searchQuery.resource_groups === [] || window.sessionStorage.map_search === undefined || window.sessionStorage.map_search){
+    //   this.network.post_api('customer/map', this.searchQuery)
+    //   .then((data: any) => {
+    //     this.global.set_filter_rsg(data.resource_groups);
+    //     this.global.set_popup(true,'geo-filter');
+    //   })
+    // }
+    this.searchQuery = { resource_groups: []};
+    this.getMapData();
     this.global.get_popup().subscribe((data) => {
       if(data.flag == false && data.type == 'geo-filter'){
       this.is_drawn = false;
@@ -185,7 +187,7 @@ export class GeoQueryComponent implements OnInit {
   }
   onMapReady(map: Map) {
     this.map = map;
-    this.getMapData();
+    // this.getMapData();
   }
   initMap() {
     let zoom = 12;
@@ -254,6 +256,13 @@ export class GeoQueryComponent implements OnInit {
             //  console.log(data);
             this.resource_items = data.items;
             this.resource_groups = data.resource_groups;
+            // console.log(this.resource_groups);
+
+            this.resource_groups.forEach((a:any) => {
+              // let resource_groups=[];
+              this.searchQuery.resource_groups.push(a.id);
+            });
+            // console.log(this.searchQuery)
             this.global.set_filter_rsg(this.resource_groups)
             this.showLegends(this.resource_items);
             if (this.searchQuery.resource_groups.length != 0)
@@ -583,6 +592,7 @@ export class GeoQueryComponent implements OnInit {
   }
 
   open_filter(): void {
+    window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.global.set_popup(true, 'geo-filter');
   }
 

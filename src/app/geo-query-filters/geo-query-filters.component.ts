@@ -20,20 +20,21 @@ export class GeoQueryFiltersComponent implements OnInit {
 
   constructor(private global: GlobalService) {
     this.limit = 5;
-    this.count = 0;
+    // this.count = 0;
     this.texts = this.global.get_nomenclatures();
-    this.searchQuery = window.sessionStorage.map_search
-      ? JSON.parse(window.sessionStorage.map_search)
-      : { resource_groups: [] };
-      this.count = this.searchQuery.resource_groups.length;
+    // this.searchQuery = window.sessionStorage.map_search
+    //   ? window.sessionStorage.map_search
+    //   : { resource_groups: [] };
+      // this.count = this.searchQuery.resource_groups.length;
     this.search = {
       group: '',
     };
-    this.resource_groups = this.global.resource_groups_list;
+    this.searchQuery = JSON.parse(window.sessionStorage.map_search);
+    this.resource_groups = this.global.get_filter_rsg();
     this.get_filters();
   }
   get_filters() {
-      this.resource_groups = this.global.resource_groups_list;
+      // this.resource_groups = this.global.resource_groups_list;
       this.filtered_resource_groups = this.resource_groups;
       this.resource_groups.forEach((a : any) => {
         if (this.searchQuery.resource_groups.includes(a.id)) a.flag = true;
@@ -97,13 +98,19 @@ export class GeoQueryFiltersComponent implements OnInit {
     .map((a :any) => {
       return (a = a.id);
     });
-    if(this.searchQuery.resource_groups.length == 0) return;
+    if(this.searchQuery.resource_groups.length == 0){
+      this.global.set_toaster('error','Please select 1 or more dataset.')
+      return;
+    } 
     window.sessionStorage.map_search = JSON.stringify(this.searchQuery);
     this.close_filter();
   }
 
   close_filter(): void {
-    if(this.searchQuery.resource_groups.length == 0) return;
+    if(this.searchQuery.resource_groups.length == 0){
+      this.global.set_toaster('error','Please select 1 or more dataset.')
+      return;
+    }  
     this.global.set_popup(false, 'geo-filter');
   }
 }
