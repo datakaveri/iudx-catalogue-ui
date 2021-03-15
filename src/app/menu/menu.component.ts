@@ -20,7 +20,8 @@ export class MenuComponent implements OnInit {
     });
     this.city = this.globalservice.get_city();
      console.log(this.city)
-    this.current_city = window.sessionStorage.current_city_name ? window.sessionStorage.current_city_name[0].toUpperCase( ) + window.sessionStorage.current_city_name.substring(1): this.city.name;
+    // this.current_city = window.sessionStorage.current_city_name ? window.sessionStorage.current_city_name[0].toUpperCase( ) + window.sessionStorage.current_city_name.substring(1): this.city.name;
+    this.current_city = this.city.name;
     // console.log(this.current_city);
   }
 
