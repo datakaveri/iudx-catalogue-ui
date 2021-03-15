@@ -66,7 +66,7 @@ export class DatasetDetailsComponent implements OnInit {
   }
   set_route(route: string) {
     switch(route) {
-      case '/dataset-details/'+this.id+'resources':
+      case '/dataset-details/'+this.id+'/resources':
         this.active_tab = 'Items';
         break;
       case '/dataset-details/'+this.id+'/map':
