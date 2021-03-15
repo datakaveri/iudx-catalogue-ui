@@ -14,7 +14,7 @@
             
             <div class="links-container" >
                 <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
-                <a (click)="openSampleData(resource.resource_group.dataSample)">View Sample Data</a>
+                <a (click)="openSampleData(item.dataSample)">View Sample Data</a>
                 <!-- <a (click)="downloadJson(resource.resource_group.dataSample)">Get Sample Data</a> -->
                 <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
                 <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy == 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a> -->
