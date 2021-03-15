@@ -23,8 +23,8 @@
       </div>
       <div class="data-div">
         <div class="location-data"><img src='assets/location.png'><span>{{resource.location.address}}</span></div>
-        <div *ngIf="datasets.count == 1" class="resource-data"><img src='assets/resources.png'><span>{{ datasets.count }} Resource</span></div>
-        <div *ngIf="datasets.count > 1" class="resource-data"><img src='assets/resources.png'><span>{{ datasets.count }} Resources</span></div>
+        <div *ngIf="resource.resource_items.length == 1" class="resource-data"><img src='assets/resources.png'><span>{{ resource.resource_items.length }} Resource</span></div>
+        <div *ngIf="resource.resource_items.length > 1" class="resource-data"><img src='assets/resources.png'><span>{{ resource.resource_items.length }} Resources</span></div>
       </div>
       <h2>{{resource.label}}</h2>
       <!-- <p> -->
