@@ -182,6 +182,7 @@ export class GeoQueryComponent implements OnInit {
                 });
           },
         }).addTo(this.markersLayer);
+        this.markersLayer.addTo(this.map);
       }
     }
   }
@@ -263,7 +264,7 @@ export class GeoQueryComponent implements OnInit {
               this.searchQuery.resource_groups.push(a.id);
             });
             // console.log(this.searchQuery)
-            this.global.set_filter_rsg(this.resource_groups)
+            this.global.set_filter_rsg(this.resource_groups);
             this.showLegends(this.resource_items);
             if (this.searchQuery.resource_groups.length != 0)
               this.filter_data();
@@ -548,7 +549,7 @@ export class GeoQueryComponent implements OnInit {
     for(let i=0;i<this.searchQuery.resource_groups.length;i++){
       for(let j = 0 ; j < val.length ; j++){
       
-        if(val[j].location.geometry){
+        if(val[j].hasOwnProperty('location')){
           if(val[j].location.geometry.type == 'Polygon'){
             
             var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i]);
