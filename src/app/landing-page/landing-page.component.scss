@@ -176,8 +176,8 @@
   flex-wrap: wrap;
   width: 100%;
   padding: 60px 0;
-  //   max-width:1200px;
-
+  max-width: 1200px;
+  margin: 0 auto;
   li {
     width: 25%;
     max-width: 250px;
@@ -234,23 +234,7 @@
 
     li {
       cursor: pointer;
-
-      h2{
-        padding: 15px;
-        color: var(--primary);
-       
-
-        .tagSelected {
-          font-weight: 500;
-          font-size:12px;
-        }
-
-        .count {
-          float: right;
-          color: var(--tertiary);
-          font-weight: 400;
-        }
-      }
+      padding: 15px;
 
       &:hover {
         background-color: var(--off-white);

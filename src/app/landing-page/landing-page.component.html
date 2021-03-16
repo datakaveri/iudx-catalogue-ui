@@ -25,10 +25,8 @@
         <input type="text" name='input' (input)="filterItems(query)" placeholder="Search for datasets. eg. mobility, transport..." [(ngModel)]="query" />
         <div *ngIf="query != ''" class="searchBox-dropdown">
           <ul *ngIf="filteredTags.length != 0">
-            <li tabIndex="-1" *ngFor="let item of filteredTags">
-              <h2 (click)='getSearchResultsByTag(item.tag)'>
-                <span class='tagSelected'>{{item.tag | titlecase}}</span>
-              </h2>
+            <li tabIndex="-1" *ngFor="let item of filteredTags" (click)='getSearchResultsByTag(item.tag)'>
+              {{item.tag | titlecase}}
             </li>
           </ul>
         </div>

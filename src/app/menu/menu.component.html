@@ -52,7 +52,8 @@
       <div class="change-city col_style">
         <h1 *ngIf = "city">Current City</h1>
         <h2  *ngIf = "city">{{current_city}}</h2>
-        <a (click)="open_city_popup()">Change City</a>
+        <a *ngIf = "city" (click)="open_city_popup()">Change City</a>
+        <a *ngIf = "!city" (click)="open_city_popup()">Choose City</a>
       </div>
     </div>
 </nav>
