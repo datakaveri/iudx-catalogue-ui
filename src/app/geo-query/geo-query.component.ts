@@ -99,7 +99,7 @@ export class GeoQueryComponent implements OnInit {
     for (c of this.filtered_resource_items) {
       let isPublic: Boolean;
       // Condition to check whether the geometry type is polygon or point
-      if (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Point') {
+      if (c.location && c.location.geometry && (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Point')) {
         var lng = c.location.geometry.coordinates[0];
         var lat = c.location.geometry.coordinates[1];
         if (mySet.has(c.resourceGroup)) {
@@ -156,7 +156,7 @@ export class GeoQueryComponent implements OnInit {
               });
           }
         });
-      } else if (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Polygon') {
+      } else if (c.location && c.location.geometry && (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Polygon')) {
         // var points = c.location.geometry.coordinates[0];
         if (mySet.has(c.resourceGroup)) {
           isPublic = true;
@@ -264,9 +264,8 @@ export class GeoQueryComponent implements OnInit {
             });
             // console.log(this.searchQuery)
             this.global.set_filter_rsg(this.resource_groups)
-            this.showLegends(this.resource_items);
-            if (this.searchQuery.resource_groups.length != 0)
-              this.filter_data();
+            if (this.searchQuery.resource_groups.length != 0) this.filter_data();
+            else this.showLegends(this.resource_items);
           });
       }
     }
@@ -547,10 +546,8 @@ export class GeoQueryComponent implements OnInit {
     this.getProviderDetails();
     for(let i=0;i<this.searchQuery.resource_groups.length;i++){
       for(let j = 0 ; j < val.length ; j++){
-      
-        if(val[j].location.geometry){
+        if(val[j].location && val[j].location.geometry){
           if(val[j].location.geometry.type == 'Polygon'){
-            
             var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i]);
             if(res === true) {
 
