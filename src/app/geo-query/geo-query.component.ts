@@ -182,6 +182,7 @@ export class GeoQueryComponent implements OnInit {
                 });
           },
         }).addTo(this.markersLayer);
+        this.markersLayer.addTo(this.map);
       }
     }
   }
