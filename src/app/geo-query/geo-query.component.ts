@@ -451,10 +451,10 @@ export class GeoQueryComponent implements OnInit {
         `"> <p class="text-center" style='padding-right:2px'> </p>` +
         (isPublic
           ? `<a  class="data-link" data-Id=` +
-            data +
-            ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+            data.id +  ` data-rsg =`+data.resourceGroup.split('/')[3] +
+            ` style="color: var(--highlight); font-weight:bold;"> View Latest Data </a>`
           : `<a  class="sample-link" data-Id=` +
-            data.id +
+            data.id + ` data-rsg =`+data.resourceGroup.split('/')[3] +
             ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
             `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
             `</div>`);
@@ -474,13 +474,15 @@ export class GeoQueryComponent implements OnInit {
           .addEventListener('click', (e: any) => {
             // get id from attribute
             var dataId = e.target.getAttribute('data-Id');
-            // self.display_latest_data(dataId);
+            var dataRsg = e.target.getAttribute('data-rsg');
+            self.display_latest_data(dataId,dataRsg);
           });
       });
       // markers.getPopup().on('remove', function () {
       //   this.map.closePopup();
       // });
     }
+    
   }
 
   getMarkerIcon(_rsg: any) {
@@ -502,6 +504,8 @@ export class GeoQueryComponent implements OnInit {
     `;
   }
   display_latest_data(id: any, rsg:any) {
+    console.log(rsg);
+    console.log(id);
      this.resource_groups.forEach((e:any) => {
       if(e.name == rsg) {
         this.accesspolicy = e.accessPolicy;}
