@@ -82,12 +82,6 @@ export class DatasetDetailsComponent implements OnInit {
         this.router.navigate(['/dataset-details/'+ this.id +'/resources']);
         break;
       case 'Map':
-        let cities = this.global.get_cities();
-        cities.forEach((a: any)=>{
-          if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
-            this.global.set_city(a);
-          }
-        });
         this.router.navigate(['/dataset-details/'+ this.id +'/map']);
         break;
     }

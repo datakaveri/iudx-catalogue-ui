@@ -58,11 +58,12 @@ export class ResourcesMapComponent implements OnInit {
     let cities = this.global.get_cities();
     cities.forEach((a:any )=>{
       if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
-        this.global.set_city(a);
+        // this.global.set_city(a);
         // console.log(a);
+        this.city = a;
       }
     });
-    this.city = this.global.get_city();
+    // this.city = this.global.get_city();
     this.global.get_popup().subscribe((data)=> {
       this.popup_type = data.type;
       this.popup_status = data.flag;
