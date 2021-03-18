@@ -227,6 +227,7 @@ export class GeoQueryComponent implements OnInit {
       draw: {
         marker: false,
         circlemarker: false,
+        polyline: false,
       },
       edit: {
         featureGroup: this.drawnItems,

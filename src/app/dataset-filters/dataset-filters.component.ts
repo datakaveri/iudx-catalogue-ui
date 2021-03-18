@@ -78,7 +78,7 @@ export class DatasetFiltersComponent implements OnInit {
   filter_by_provider() {
     let str = this.search.provider.toLowerCase();
     this.filtered_providers = this.providers.filter((e : any) => {
-      return e.name.toLowerCase().includes(str);
+      return e.description.toLowerCase().includes(str);
     });
   }
   
