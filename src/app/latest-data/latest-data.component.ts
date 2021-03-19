@@ -14,6 +14,7 @@ export class LatestDataComponent implements OnInit {
   data_type: any;
   
   constructor(private global: GlobalService, private network: NetworkService) {
+    this.latestData = '';
     this.item_id = this.global.get_item_id();
     this.data_type = this.global.get_data_type();
     if(this.data_type == 'SECURE') this.private = true;

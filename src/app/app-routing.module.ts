@@ -6,9 +6,6 @@ import {DatasetDetailsComponent} from './dataset-details/dataset-details.compone
 import {ResourcesListComponent} from './resources-list/resources-list.component';
 import {ResourcesMapComponent} from './resources-map/resources-map.component';
 import {GeoQueryComponent} from './geo-query/geo-query.component';
-import {LatestDataComponent} from "./latest-data/latest-data.component";
-import {SampleDataComponent} from "./sample-data/sample-data.component";
-import { ChangeCityComponent } from './change-city/change-city.component';
 
 const routes: Routes = [
   {
@@ -23,6 +20,11 @@ const routes: Routes = [
     path: 'dataset-details/:id',
     component: DatasetDetailsComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'resources',
+        pathMatch:' full'
+      },
       {
         path: 'resources',
         component: ResourcesListComponent

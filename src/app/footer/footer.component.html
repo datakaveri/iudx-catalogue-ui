@@ -1,10 +1,11 @@
 <footer>
     <div>
       <ul>
-        <li><a href="http://smartcities.gov.in/" target="blank"><img src="assets/smart-city-logo.png" alt=""></a></li>
-        <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/minstry-logo.png" alt=""></a>
+        <li *ngIf="city"><a href="/"><img src="{{city.logo}}"></a></li>
+        <li><a href="http://smartcities.gov.in/" target="blank"><img src="assets/smart-city-logo.png"></a></li>
+        <li><a href="http://mohua.gov.in/" target="blank"><img class='logo_big' src="assets/minstry-logo.png"></a>
         </li>
-        <li><a href="https://www.iisc.ac.in/" target="blank"><img src="assets/iisc-logo.png" alt=""></a>
+        <li><a href="https://www.iisc.ac.in/" target="blank"><img src="assets/iisc-logo.png"></a>
         </li>
       </ul>
     </div>

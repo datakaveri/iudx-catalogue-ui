@@ -142,7 +142,7 @@ export class DatasetsComponent implements OnInit {
   getResourceItems(resource : any) {
     window.sessionStorage.resource_group_id = resource.id;
     window.sessionStorage.resource_group_name = resource.name;
-    this.router.navigate(['/dataset-details',resource.id.split('/')[3]]);
+    this.router.navigate(['/dataset-details/' + resource.id.split('/')[3]]);
   }
 
 }
