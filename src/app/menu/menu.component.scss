@@ -22,12 +22,29 @@
     width: 100%;
     .col_style {
       margin: 70px 0 0 70px;
-      // width: 33%;
+      width: 33%;
     
       h1 {
         margin-bottom: 20px;
         font-size: 16px;
         color:var(--dark-grey);
+        position: relative;
+        img {
+          height: 30px;
+          vertical-align: middle;
+          cursor: pointer;
+        }
+        .info-text {
+          position: absolute;
+          background: var(--white);
+          width: 350px;
+          top: 60px;
+          box-shadow: 0 2px 2px 0 rgb(0 0 0 / 30%);
+          border-radius: 10px;
+          padding: 10px 15px;
+          left: 0;
+          cursor: pointer;
+        }
       }
     
       h2 {
@@ -42,6 +59,11 @@
         color: var(--blue);
         font-size: 16px;
         font-weight: 600;
+        img {
+          height: 50px;
+          vertical-align: middle;
+          margin-right: 10px;
+        }
       }
       .inner-list {
         margin: 8px 0px 0px 5px;
@@ -54,7 +76,6 @@
           line-height: 27px;
           // padding-left: 30px;
           padding: 5px 0 5px 30px;
-      
           a {
             font-weight: 400;
             font-size: 18px;
@@ -80,9 +101,11 @@
         padding-top:20px;
       }
     }
-
-    .panel,.change-city{
+    .panel {
       width:25%;
+    }
+    .change-city{
+      width:33%;
     }
   }
   .close-btn {

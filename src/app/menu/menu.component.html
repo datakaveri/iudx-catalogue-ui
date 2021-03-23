@@ -48,12 +48,22 @@
         <h1>Provider / Consumer Panel</h1>
         <h2>Go to Accounts</h2>
         <a href="https://accounts.iudx.org.in/" target="_blank">Register with Us</a>
-      </div>
-      <div class="change-city col_style">
-        <h1 *ngIf = "city">Current City</h1>
+        <h1 *ngIf = "city" style="margin-top: 50px;">Current City</h1>
         <h2  *ngIf = "city">{{current_city}}</h2>
         <a *ngIf = "city" (click)="open_city_popup()">Change City</a>
         <a *ngIf = "!city" (click)="open_city_popup()">Choose City</a>
+      </div>
+      <div class="change-city col_style">
+        <h1>
+          Complementary Datasets for<br>Innovative Solutions
+          <img src="assets/info.png" (mouseenter)="toggle_popup(true)" (mouseleave)="toggle_popup(false)">
+          <div class="info-text" *ngIf="show_info">
+            Application developers may find these non-IUDX data sets useful while developing innovative applications and solutions. The discovery and data access mechanisms are different from IUDX and the users will need to follow the mechanisms specified by the provider of these datasets.
+          </div>
+        </h1>
+        <ul>
+          <li><a class="outer-list" href="https://apisetu.gov.in/" target="_blank"><img src="assets/api_setu.png"></a></li>
+        </ul>
       </div>
     </div>
 </nav>

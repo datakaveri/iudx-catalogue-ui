@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit {
   popup_type: string = '';
   current_city: string;
   city: any;
-
+  show_info: Boolean;
   constructor(private router:Router,private globalservice: GlobalService) { 
     this.globalservice.get_popup().subscribe((data) => {
       this.popup_status = data.flag;
@@ -33,5 +33,8 @@ export class MenuComponent implements OnInit {
   open_city_popup(){
     this.globalservice.set_popup(false,'menu');
     this.globalservice.set_popup(true,'city-popup');
+  }
+  toggle_popup(flag: Boolean) {
+    this.show_info = flag;
   }
 }
