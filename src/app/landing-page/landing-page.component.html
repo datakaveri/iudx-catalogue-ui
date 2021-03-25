@@ -8,7 +8,6 @@
 </header>
 
 <section>
-  <!-- <div class="main-container"  [ngStyle]="{'background-image':  city ? 'linear-gradient(rgba(68, 68, 68, 0.75), rgba(68, 68, 68, 0.75)),url('+ {{coverImage}} +')' : 'linear-gradient(rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.6)), url(' +'assets/landingpagebg.jpeg'+ ')'}"> -->
   <div class="main-container"
        [ngStyle]="{'background-image': getImage()}">
     <div class="content-container">
@@ -59,26 +58,15 @@
 <section class="cities" *ngIf="!city">
   <h2>Where to start <span>?</span></h2>
   <h5>Search and find datasets by city and region</h5>
-    <div  *ngIf="cityCount <=8 || cities1">
-    <ul class="cities-container">
-      <li *ngFor="let city of cities">
-        <a (click)="go_to_city(city)" target="_self">
-          <div><img src="{{city.logo}}" alt=""></div>
-          {{city.name}}</a>
-      </li>
-    </ul>
-    <a class= "cities_btn"  *ngIf="btnLess" (click)="showLess()">Collapse</a>
-    </div>
-    <!-- <div  *ngIf="cityCount > 8 && cities2">
-      <ul  class="cities_container">
-        <li *ngFor="let city of cities | slice:0:4 ">
-          <a (click)="go_to_city(city)" target="_self">
-            <div><img src="{{city.logo}}" alt=""></div>
-            {{city.name}}</a>
-        </li>
-      </ul>
-      <a class="cities_btn" (click)="showMore()">View More Cities</a>
-    </div> -->
+  <ul class="cities-container">
+    <li *ngFor="let item of shown_cities">
+      <a (click)="go_to_city(item)" target="_self">
+        <div><img src="{{item.logo}}" alt=""></div>
+        {{item.name}}</a>
+    </li>
+  </ul>
+  <a class="linkage" *ngIf="!collapsed" (click)="toggle()">View Less</a>
+  <a class="linkage" *ngIf="collapsed" (click)="toggle()">View More Cities</a>
 </section>
 <app-footer></app-footer>
 <app-menu *ngIf="popup_status && popup_type === 'menu'"></app-menu>

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'https://stgmlayer.iudx.io/v1/'
+  api_url: 'https://mlayer.iudx.org.in/v1/'
 };
