@@ -11,7 +11,6 @@ import { NetworkService } from '../network.service';
 export class LandingPageComponent implements OnInit {
   popup_status:boolean = false;
   popup_type: string = '';
-  coverImage: string;
   searchQuery: {};
   query: string ='';
   filteredTags: any = [];
@@ -20,19 +19,12 @@ export class LandingPageComponent implements OnInit {
   tagSelected: any;
   summary: any;
   cities: any;
-  cityCount: number;
-  btnLess: boolean;
-  cities1: boolean;
-  cities2: boolean;
-    
+  shown_cities: any;
+  collapsed: Boolean;
   constructor(private router:Router, private globalservice : GlobalService, private network: NetworkService) { 
     this.cities = this.globalservice.get_cities();
-    // console.log(typeof(this.cities))
-    this.cityCount = this.cities.length;
-    this.cities1 = false;
-    this.cities2 = true;
-    this.btnLess = false;
-    this.coverImage = '';
+    this.collapsed = true;
+    this.shown_cities = this.cities.slice(0,8);
     this.globalservice.get_popup().subscribe((data) => {
       this.popup_status = data.flag;
       this.popup_type = data.type;
@@ -49,12 +41,6 @@ export class LandingPageComponent implements OnInit {
       publishers: 0
     };
     this.city = this.globalservice.get_city();
-    // console.log(this.city);
-    if (this.city) {
-      setTimeout(() => {
-        this.coverImage = this.city.cover;
-      }, 100);
-    }
     this.getSummary();
     this.tags = this.globalservice.get_tags();
   }
@@ -66,6 +52,11 @@ export class LandingPageComponent implements OnInit {
     this.network.get_api('customer/summary').then((data) => {
       this.summary = data;
     });
+  }
+
+  get_number() {
+    if(this.collapsed) return 8;
+    else return this.cities.length;
   }
  
   getSearchResultsByText(val: string) {
@@ -103,13 +94,12 @@ export class LandingPageComponent implements OnInit {
   }
 
   getAllDatasets(){
-  //  console.log(this.searchQuery)
-  this.searchQuery = {
-    text: '',
-    tags: [],
-    providers: [],
-    page: 0,
-  };
+    this.searchQuery = {
+      text: '',
+      tags: [],
+      providers: [],
+      page: 0,
+    };
     this.globalservice.set_search_query(this.searchQuery);
     this.router.navigate(['/datasets']);
   }
@@ -127,13 +117,12 @@ export class LandingPageComponent implements OnInit {
   go_to_city(city : any) {
     window.open('https://' + city.key + '.catalogue.iudx.org.in', '_self');
   }
-  showMore(){
-    this.cities1 = true;
-    this.cities2 = false;
-    this.btnLess = true;
-  }
-  showLess(){
-    this.cities2 = true;
-    this.cities1 = false;
+  toggle() {
+    this.collapsed = !this.collapsed;
+    if(this.collapsed) {
+      this.shown_cities = this.cities.slice(0,8);
+    } else {
+      this.shown_cities = this.cities;
+    }
   }
 }
