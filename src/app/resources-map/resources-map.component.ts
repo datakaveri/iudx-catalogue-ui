@@ -120,7 +120,8 @@ export class ResourcesMapComponent implements OnInit {
       else {
       isPublic = false;
       }
-      if (c.location.geometry.type == 'Point') {
+      // console.log(c);
+      if (c.location.gepmetry !== undefined && c.location.geometry.type == 'Point') {
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
 
