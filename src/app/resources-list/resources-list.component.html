@@ -19,7 +19,7 @@
                 <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
                 <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy == 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a> -->
                 <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">Get Latest Data</a> -->
-                <a *ngIf="item.resourceType == 'GSLAYER'" (click)="mapView(item.id,item.label)">Map View</a>
+                <a *ngIf="item.resourceType == 'GSLAYER' && item.dataDescriptor.location.dataSchema == 'iudx:Point'" (click)="mapView(item.id,item.label)">Map View</a>
             </div>
         </div>
     </div>
