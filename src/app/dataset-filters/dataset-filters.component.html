@@ -8,10 +8,10 @@
           <input [(ngModel)]="search.tag" type="text" name="Search" (ngModelChange)="filter_by_tag()" placeholder="Search tags . . .">
         </div>
         <ul> 
-          <li *ngFor="let item of filtered_tags" (click)="toggle_tag(item)" title="{{item}}">
-            <img src="assets/unchecked.png" *ngIf="!find_tag_status(item)">
-            <img src="assets/checked.png" *ngIf="find_tag_status(item)">
-            {{item | titlecase}}
+          <li *ngFor="let item of filtered_tags" (click)="toggle_tag(item.tag)" title="{{item.tag}}">
+            <img src="assets/unchecked.png" *ngIf="!find_tag_status(item.tag)">
+            <img src="assets/checked.png" *ngIf="find_tag_status(item.tag)">
+            {{item.tag | titlecase}}
           </li>
           <li *ngIf="filtered_tags.length === 0">
             No Tag found

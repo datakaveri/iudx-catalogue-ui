@@ -24,9 +24,7 @@ export class ResourcesListComponent implements OnInit {
     this.showDescriptor = false;
     this.flags = [];
     this.resource = this.global.get_resource_details();
-    // console.log(this.resource);
     this.sampleData = this.resource.dataset.dataSample;
-    // console.log(this.sampleData)
 
     this.resourceAuthControlLevel = this.resource.dataset.resourceAuthControlLevel;
     this.texts = this.global.get_nomenclatures();
@@ -35,7 +33,6 @@ export class ResourcesListComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.resource.dataset.hasOwnProperty('dataDescriptor')) {
-      // console.log(this.resource.resource_group.hasOwnProperty('dataDescriptor'))
       this.manipulate_data_descriptor(
         this.resource.dataset.dataDescriptor
       );
@@ -45,20 +42,16 @@ export class ResourcesListComponent implements OnInit {
     }
   }
   manipulate_data_descriptor(obj :any) {
-    //  console.log(obj);
     let arr: any =  [] ;
     let keys = Object.keys(obj);
     keys.forEach((a: any, i) => {
-        // if (typeof obj[a] == 'object' && a != '@context' && a != 'type' && a != 'id' && a != 'name' && a != 'description' && a != 'label' && a != 'dataDescriptorLabel'
         if (typeof obj[a] == 'object' && a != 'dataDescriptorLabel' && a != 'type') {
           let o = { key: a, ...obj[a] };
-          // console.log(o);
           arr.push(o);
         }
       });
 
     this.data_descriptor = arr;
-    // console.log(this.data_descriptor);
     this.flags.length = this.data_descriptor.length;
     this.data_descriptor.forEach((a :any, i : number) => {
       this.data_descriptor[i] = this.convert_obj_array_of_objs(a);
@@ -75,7 +68,6 @@ export class ResourcesListComponent implements OnInit {
           data = {
             key: a,
             value: obj[a].includes(':') ? obj[a].split(':')[1] : obj[a],
-            // level: 1
           };
         } else if (typeof obj[a] == 'number') {
           data = {
@@ -106,7 +98,6 @@ export class ResourcesListComponent implements OnInit {
     this.label = val.dataDescriptorLabel;
   }
   openSampleData(data:any){
-    // console.log(data);
     if (data) {
       this.global.set_resource_item(data);
     } else {
@@ -144,12 +135,7 @@ export class ResourcesListComponent implements OnInit {
     );
   }
   mapView(id :any,label:any) {
-    //  console.log(id,label);
-    // if (data.location) {
-      console.log(id,label);
-      this.global.set_map_coordinates(id,label);
-    // }
-    // this.router.navigate(['/search/dataset/items/map-gs']);
+    this.global.set_map_coordinates(id,label);
     this.global.set_popup(true,'gs-map')
   }
 }

@@ -32,8 +32,7 @@ export class LandingPageComponent implements OnInit {
     this.searchQuery = {
       text: '',
       tags: [],
-      providers: [],
-      // page: 0,
+      providers: []
     };
     this.summary = {
       datasets: 0,
@@ -64,8 +63,7 @@ export class LandingPageComponent implements OnInit {
       this.searchQuery= {
         text: val,
         tags: [],
-        providers: [],
-        // page: 0,
+        providers: []
       };
       this.globalservice.set_search_query(this.searchQuery);
       this.router.navigate(['/datasets']);
@@ -76,8 +74,7 @@ export class LandingPageComponent implements OnInit {
     this.searchQuery = {
       text: '',
       tags: [this.tagSelected],
-      providers: [],
-      // page: 0,
+      providers: []
     };
     this.globalservice.set_search_query(this.searchQuery);
     this.router.navigate(['/datasets']);

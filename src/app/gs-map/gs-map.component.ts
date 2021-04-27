@@ -50,10 +50,9 @@ export class GsMapComponent implements OnInit {
     this.results=[];
     this.resource = this.global.get_resource_details();
     this.map_geometry = this.global.get_map_coordinates();
-    //  console.log(this.map_geometry);
     let cities = this.global.get_cities();
     cities.forEach((a:any)=>{
-      if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
+      if(a.name == this.resource.dataset.location.address.split(',')[0]) {
         this.city = a;
       }
     });

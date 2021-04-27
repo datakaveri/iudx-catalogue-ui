@@ -28,16 +28,13 @@ export class DatasetDetailsComponent implements OnInit {
     this.get_items();
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      // console.log(this.id)
    });
    this.router.events.subscribe((route: any) => {
     if(Object.keys(route).length == 3 && route.url == ('/dataset-details/'+this.id) && route.urlAfterRedirects == ('dataset-details/'+this.id)) this.get_items();
   });
     this.router.events.subscribe((event) => {
-      // console.log(event)
       if (event instanceof NavigationEnd) {
         this.set_route(this.router.url);
-        // console.log(this.router.url)
       }
     });
    }
@@ -53,7 +50,6 @@ export class DatasetDetailsComponent implements OnInit {
     this.network.post_api('customer/dataset', post_data).then((res: any) => {
       this.show_data = true;
       this.resource = res;
-      console.log(this.resource);
       this.schema_url = this.resource.dataset['@context'] + this.resource.dataset.type[1].split('iudx:')[1];
       this.global.set_resource_details(res);
       if(this.router.url == '/dataset-details/'+this.id) {
@@ -90,7 +86,6 @@ export class DatasetDetailsComponent implements OnInit {
     this.router.navigate(['/datasets']);
   }
   copy(id:any) {
-    // console.log(id)
     const el = document.createElement('textarea');
     el.value = id;
     document.body.appendChild(el);

@@ -39,10 +39,7 @@ export class DatasetsComponent implements OnInit {
         this.tags_filter = '',
         this.searchQuery =  this.globalservice.get_search_query();
         if(this.searchQuery.tags.length != 0 || this.searchQuery.providers.length !=0){
-          this.get_provider_name();
-          // this.filters.tag = this.searchQuery.tags[0].charAt(0).toUpperCase() + this.searchQuery.tags[0].substr(1) + ', ' + this.searchQuery.tags.slice(1).join(', ');
           this.filters.tag = this.searchQuery.tags.join(', ');
-          console.log(this.filters.tag );
           }
           else{
             this.filters = {
@@ -55,24 +52,18 @@ export class DatasetsComponent implements OnInit {
     });
     this.globalservice.get_filter().subscribe((query: any) => {
       this.searchQuery = query;
-      //console.log(this.searchQuery)
       if(this.searchQuery.tags){
         this.filters.tag = '',
         this.tags_filter = this.searchQuery.tags;
-        //console.log(this.tags_filter)
       }
       if(this.searchQuery.text){
         this.filters.tag = '',
         this.tags_filter = this.searchQuery.text;
-        //console.log(this.tags_filter)
       }
       this.searchDatasets();
     });
     this.searchQuery = this.globalservice.get_search_query();
-     //console.log(this.searchQuery)
-    this.get_provider_name();
     if(this.searchQuery.tags.length !== 0){
-    //  this.filters.tag = this.searchQuery.tags[0].charAt(0).toUpperCase() + this.searchQuery.tags[0].substr(1) + ', ' + this.searchQuery.tags.slice(1).join(', ');
     this.filters.tag = this.searchQuery.tags.join(', ');
     }
     this.texts = this.globalservice.get_nomenclatures();
@@ -84,39 +75,31 @@ export class DatasetsComponent implements OnInit {
   }
 
   get_provider_name(){
-      let resp = this.globalservice.get_id_name_rel();
-      this.searchQuery.providers.forEach((a:any) => {
-        if(resp.hasOwnProperty(a)) {
-          a = resp[a];
-          //console.log(a)
-        this.filter_name.push(a);
-        }
-        this.filters.provider = this.filter_name.join(', ');
-         console.log(this.filters.provider)
-      });
-    
+    let resp = this.globalservice.get_id_name_rel();
+    this.searchQuery.providers.forEach((a:any) => {
+      if(resp.hasOwnProperty(a)) {
+        a = resp[a];
+      this.filter_name.push(a);
+      }
+      this.filters.provider = this.filter_name.join(', ');
+    });
   }
 
   searchDatasets() {
-    // if (this.searchQuery.text != '') {
-      console.log(this.searchQuery.text);
-
-      this.network
-        .post_api('customer/datasets', this.searchQuery)
-        .then((response: any) => {
-           console.log(response);
-          this.datasets = response;
-        });
-    // } else {
-    //   this.search_text = '';
-    //   this.search_text = this.searchQuery.tags.join(', ');
-    //   // console.log(this.searchQuery)
-    //   this.network
-    //     .post_api('customer/datasets', this.searchQuery)
-    //     .then((response: any) => {
-    //       this.datasets = response;
-    //     });
-    // }
+    if (this.searchQuery.text != '') {
+      this.search_text = this.searchQuery.text;
+    } else {
+      this.search_text = this.searchQuery.tags.join(', ');
+    }
+    this.network
+    .post_api('customer/datasets', this.searchQuery)
+    .then((response: any) => {
+      this.datasets = response;
+      this.datasets.tags.forEach((a: any, i:number)=>{
+        this.datasets.tags[i] = { tag: a };
+      });
+      this.get_provider_name();
+    });
   }
 
   back() {

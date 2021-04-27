@@ -4,22 +4,13 @@
             <div class="title">
                 <h2>{{item.label}}</h2><a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy {{texts.resource_items}} ID</a>
             </div>
-           
-            <!-- <p title="{{item.id}}"> -->
-            <!-- Unique ID: {{ item.id.length > 55 ? item.id.substring(0,55)+'.....' : item.id }} -->
-            <!-- Resource ID: {{item.id}} -->
-            <!-- <a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy ID</a> -->
-            <!-- </p> -->
             <p>Description: {{item.description}}</p>
             
             <div class="links-container" >
                 <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
                 <a *ngIf="resource.dataset?.resourceType != 'FILE'" (click)="openSampleData(item.dataSample)">View Sample Data</a>
                 <a *ngIf="resource.dataset?.resourceType == 'FILE'" (click)="openSampleData(item.dataSample)">Download Sample Data</a>
-                <!-- <a (click)="downloadJson(resource.dataset.dataSample)">Get Sample Data</a> -->
                 <a *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
-                <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy == 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a> -->
-                <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">Get Latest Data</a> -->
                 <a *ngIf="item.resourceType == 'GSLAYER' && item.dataDescriptor.location.dataSchema == 'iudx:Point'" (click)="mapView(item.id,item.label)">Map View</a>
             </div>
         </div>
@@ -62,8 +53,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <p>description: <span>Last reported time of observation.</span></p>
-            <p>dataSchema: <span>DateTime</span></p> -->
         </div>
       
     </div>

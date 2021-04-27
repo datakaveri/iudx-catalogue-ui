@@ -3,7 +3,6 @@
   <img src="assets/close-btn.png" alt="close" class="close" (click)="close_filter()">
  
   <div class="list_style box-right" >
-    <!-- <p *ngIf="count == 0" >* Please select one or more {{texts.resource_groups}}.</p> -->
     <h4> Filter by {{texts.resource_groups}}(s)</h4>
     <div class="search_container">
       <img src="assets/search.png" alt="Search">
@@ -24,6 +23,5 @@
     <a class="apply-btn" (click)="apply_filter()">Apply Filters</a>
     <a (click)="clear()" class="danger">Clear All Filters</a>
   </div>
-
 </div>
 <router-outlet></router-outlet>

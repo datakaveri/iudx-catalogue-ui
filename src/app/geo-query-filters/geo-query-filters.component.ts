@@ -20,12 +20,7 @@ export class GeoQueryFiltersComponent implements OnInit {
 
   constructor(private global: GlobalService) {
     this.limit = 5;
-    // this.count = 0;
     this.texts = this.global.get_nomenclatures();
-    // this.searchQuery = window.sessionStorage.map_search
-    //   ? window.sessionStorage.map_search
-    //   : { resource_groups: [] };
-      // this.count = this.searchQuery.resource_groups.length;
     this.search = {
       group: '',
     };
@@ -34,7 +29,6 @@ export class GeoQueryFiltersComponent implements OnInit {
     this.get_filters();
   }
   get_filters() {
-      // this.resource_groups = this.global.resource_groups_list;
       this.filtered_resource_groups = this.resource_groups;
       this.resource_groups.forEach((a : any) => {
         if (this.searchQuery.resource_groups.includes(a.id)) a.flag = true;

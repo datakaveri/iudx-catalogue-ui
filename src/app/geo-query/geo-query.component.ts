@@ -35,17 +35,6 @@ export class GeoQueryComponent implements OnInit {
   pr_detail:any = {};
 
   constructor(private router: Router, private global: GlobalService, private network: NetworkService, private locate : Location, private elementRef: ElementRef, public ngZone: NgZone) {
-    // this.searchQuery = window.sessionStorage.map_search
-    // ? JSON.parse(window.sessionStorage.map_search)
-    // : { resource_groups: [] };
-    //  console.log(window.sessionStorage.map_search)
-    //  if(this.searchQuery.resource_groups === [] || window.sessionStorage.map_search === undefined || window.sessionStorage.map_search){
-    //   this.network.post_api('customer/map', this.searchQuery)
-    //   .then((data: any) => {
-    //     this.global.set_filter_rsg(data.resource_groups);
-    //     this.global.set_popup(true,'geo-filter');
-    //   })
-    // }
     this.searchQuery = { resource_groups: []};
     this.getMapData();
     this.global.get_popup().subscribe((data) => {
@@ -98,7 +87,6 @@ export class GeoQueryComponent implements OnInit {
     let c : any;
     for (c of this.filtered_resource_items) {
       let isPublic: Boolean;
-      // Condition to check whether the geometry type is polygon or point
       if (c.location && c.location.geometry && (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Point')) {
         var lng = c.location.geometry.coordinates[0];
         var lat = c.location.geometry.coordinates[1];
@@ -157,7 +145,6 @@ export class GeoQueryComponent implements OnInit {
           }
         });
       } else if (c.location && c.location.geometry && (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Polygon')) {
-        // var points = c.location.geometry.coordinates[0];
         if (mySet.has(c.resourceGroup)) {
           isPublic = true;
         } else {
@@ -172,13 +159,9 @@ export class GeoQueryComponent implements OnInit {
             fillOpacity: 0.5,
           },
           onEachFeature: function (feature, layer) {
-            // layer.bindTooltip(`<div><p style="font-size:20px;"><strong>`+_resourceId+`</strong></p></div>`)
                 layer.on('mouseover', function(e) {
-                // this.bindTooltip(`<div><p style="font-size:20px;"><strong>`+c.resourceGroup.split('/')[3]+`</strong></p></div>`)
-                // this.bringToFront();
                 });
                 layer.on('mouseout', function(e) {
-                // this.bringToBack();
                 });
           },
         }).addTo(this.markersLayer);
@@ -188,7 +171,6 @@ export class GeoQueryComponent implements OnInit {
   }
   onMapReady(map: Map) {
     this.map = map;
-    // this.getMapData();
   }
   initMap() {
     let zoom = 12;
@@ -206,12 +188,9 @@ export class GeoQueryComponent implements OnInit {
             maxZoom: 19,
             attribution:
               '<span class="icons-font" id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
-              '</span>' ,
-              // +
-              // '<div class="icons-font"> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> ',
+              '</span>' 
           }
-        ),
-        // ,L.marker([ this.city.coordinates[0], this.city.coordinates[1]], { icon :iconDefault })
+        )
       ],
       zoom: zoom,
       center: latLng({
@@ -242,9 +221,7 @@ export class GeoQueryComponent implements OnInit {
       this.network
         .post_api('customer/coordinates', this.drawQuery)
         .then((data: any) => {
-           console.log(data);
           this.is_drawn = false;
-          // this.resource_items = data.items;
           this.resource_items = data.resources;
           this.filtered_resource_items = this.resource_items;
           this.filter_map_data();
@@ -254,21 +231,13 @@ export class GeoQueryComponent implements OnInit {
         this.filter_data();
       } else {
         this.network
-          // .post_api('customer/map', this.searchQuery)
           .get_api('customer/map')
           .then((data: any) => {
-              console.log(data);
-            // this.resource_items = data.items;
-            // this.resource_groups = data.resource_groups;
             this.resource_items = data.resources;
             this.resource_groups = data.datasets;
-            // console.log(this.resource_groups);
-
             this.resource_groups.forEach((a:any) => {
-              // let resource_groups=[];
               this.searchQuery.resource_groups.push(a.id);
             });
-            // console.log(this.searchQuery)
             this.global.set_filter_rsg(this.resource_groups)
             if (this.searchQuery.resource_groups.length != 0) this.filter_data();
             else this.showLegends(this.resource_items);
@@ -340,7 +309,6 @@ export class GeoQueryComponent implements OnInit {
       var boundingPoints = [];
       boundingPoints.push([bound_points[1]['lng'], bound_points[1]['lat']]);
       boundingPoints.push([bound_points[3]['lng'], bound_points[3]['lat']]);
-      //Api call for getting items for that area
       this.markersLayer.clearLayers();
       this.api_call(boundingPoints, radius, types, geometry);
     }
@@ -473,19 +441,14 @@ export class GeoQueryComponent implements OnInit {
       this.markersLayer.addTo(this.map);
       let self = this;
       markers.on('popupopen', function () {
-        // add event listener to newly added a.merch-link element
         self.elementRef.nativeElement
           .querySelector('.data-link')
           .addEventListener('click', (e: any) => {
-            // get id from attribute
             var dataId = e.target.getAttribute('data-Id');
             var dataRsg = e.target.getAttribute('data-rsg');
             self.display_latest_data(dataId,dataRsg);
           });
       });
-      // markers.getPopup().on('remove', function () {
-      //   this.map.closePopup();
-      // });
     }
     
   }
@@ -509,13 +472,10 @@ export class GeoQueryComponent implements OnInit {
     `;
   }
   display_latest_data(id: any, rsg:any) {
-    console.log(rsg);
-    console.log(id);
      this.resource_groups.forEach((e:any) => {
       if(e.name == rsg) {
         this.accesspolicy = e.accessPolicy;}
     });
-    // console.log(this.accesspolicy)
     this.global.set_item_id(id);
     this.global.set_data_type(this.accesspolicy);
     this.ngZone.run(() => {
@@ -524,9 +484,6 @@ export class GeoQueryComponent implements OnInit {
     
   }
   display_sample_data(id: any) {
-    // this.ngZone.run(() => {
-    //   this.router.navigate(['/search/map/sample-data']);
-    // });
   }
   stringToColour(str: any) {
     var color = [
@@ -542,9 +499,7 @@ export class GeoQueryComponent implements OnInit {
     let index = -1;
     for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
       if (this.searchQuery.resource_groups[i].split('/')[3] === str) {
-        // console.log(this.searchQuery.resource_groups[i]);
         index = i;
-        // console.log(index);
         break;
       }
   }
@@ -563,23 +518,20 @@ export class GeoQueryComponent implements OnInit {
 
               if(this.pr_detail.hasOwnProperty(val[j].resourceGroup)) {
                 this.grades.push(this.pr_detail[val[j].resourceGroup]);
-                }
-              // this.grades.push(val[j].resourceGroup.split('/')[3]);
+              }
               this.markerValues.push(true);
               break;
             }
           } else if(val[j].location.geometry.type == 'Point' ){
             var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
             if(res === true) {
-              // console.log(val[j].resourceGroup)
               if(this.pr_detail.hasOwnProperty(val[j].resourceGroup)) {
                 this.grades.push(this.pr_detail[val[j].resourceGroup]);
-                }
-            // this.grades.push(val[j].resourceGroup.split('/')[3]);
+              }
             this.markerValues.push(false);
             break;
             }
-            }
+          }
         }
       }
     } 
@@ -588,10 +540,8 @@ export class GeoQueryComponent implements OnInit {
       let resp = this.global.get_id_name_rel();
       this.pr_detail = resp ;
   }
-   searchStringInArray (str: any, strArray: string) {
-    // for (var j=0; j<strArray.length; j++) {
-        if (strArray.match(str)) return true;
-    // }
+  searchStringInArray (str: any, strArray: string) {
+    if (strArray.match(str)) return true;
     return false;
   }
   back() {

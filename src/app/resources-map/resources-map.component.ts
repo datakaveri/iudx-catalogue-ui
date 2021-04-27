@@ -5,15 +5,11 @@ import { latLng, tileLayer, FeatureGroup, Map, featureGroup } from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
-// import 'leaflet.markercluster';
-// import { getLocaleFirstDayOfWeek } from '@angular/common';
 import { Router } from '@angular/router';
 
-// const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
 const iconDefault = L.icon({
-  // iconRetinaUrl,
   iconUrl,
   shadowUrl,
   iconSize: [25, 41],
@@ -44,14 +40,12 @@ export class ResourcesMapComponent implements OnInit {
   constructor( private global: GlobalService,
     private elementRef: ElementRef,
     private router: Router,
-    public ngZone: NgZone) { 
-
+    public ngZone: NgZone
+  ) { 
     this.resource = this.global.get_resource_details();
-    console.log(this.resource)
     this.accessPolicy = this.resource.dataset.accessPolicy;
-    this.resources = this.global.get_resource_details().resources;
+    this.resources = this.resource.resources;
     this.map_geometry = this.global.get_map_coordinates();
-    console.log(this.map_geometry);
     if (this.accessPolicy == 'OPEN') {
       this.access = true;
     } else {
@@ -60,18 +54,14 @@ export class ResourcesMapComponent implements OnInit {
     let cities = this.global.get_cities();
     cities.forEach((a:any )=>{
       if(a.name == this.resource.dataset.location.address.split(',')[0]) {
-        // this.global.set_city(a);
-        // console.log(a);
         this.city = a;
       }
     });
-    // this.city = this.global.get_city();
     this.global.get_popup().subscribe((data)=> {
       this.popup_type = data.type;
       this.popup_status = data.flag;
-      // console.log(this.popup_status,this.popup_type)
-      });
-    }
+    });
+  }
 
   ngOnInit(): void {
     this.options = this.initMap();
@@ -104,60 +94,56 @@ export class ResourcesMapComponent implements OnInit {
   getMapData(map: Map) {
     const container = document.getElementById('map')
     if(container) {
-    // code to render map here...
-      if (this.map_geometry) {
+      if(this.map_geometry) {
         var lng = this.map_geometry.location.coordinates[0];
         var lat = this.map_geometry.location.coordinates[1];
         const markers = L.marker([lat, lng], {
-        // icon: this.getMarkerIcon(this.resource.resource_group),
         icon: this.getMarkerIcon(this.resource.dataset),
-        }).bindPopup(this.map_geometry.depot_name);
+      }).bindPopup(this.map_geometry.depot_name);
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(map);
       }
       for (const c of this.resources) {
-      let isPublic: Boolean;
-      if (this.accessPolicy == 'OPEN') {
-      isPublic = true;
-      } 
-      else {
-      isPublic = false;
-      }
-      // console.log(c);
-      if (c.location.gepmetry !== undefined && c.location.geometry.type == 'Point') {
-      var lng = c.location.geometry.coordinates[0];
-      var lat = c.location.geometry.coordinates[1];
-      const markers = L.marker([lat, lng], {
-        // icon: this.getMarkerIcon(this.resource.resource_group),
-        icon: this.getMarkerIcon(this.resource.dataset),
-      }).bindPopup(
-        `<div id="name"> <p style='font-weight:bold'>` +
-          c.label +
-          `</p> </div>
-        <div class = "text-centre"> <p>` +
-          this.resource.dataset.description +
-          `</p><p>Group: ` +
-          c.resourceGroup.split('/')[3] +
-          `</p> </div>
-        <div id="pop_up_` +
-          c.id +
-          `"> <p class="text-center" style='padding-right:2px'> </p>` +
-          (isPublic
-            ? `<a  class="data-link" data-Id=` +
-              c.id + ` data-rsg =`+c.resourceGroup.split('/')[3] +
-              ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
-            : `<a  class="sample-link" data-Id=` +
+        let isPublic: Boolean;
+        if (this.accessPolicy == 'OPEN') {
+          isPublic = true;
+        } 
+        else {
+          isPublic = false;
+        }
+        if (c.location.geometry !== undefined && c.location.geometry.type == 'Point') {
+          var lng = c.location.geometry.coordinates[0];
+          var lat = c.location.geometry.coordinates[1];
+          const markers = L.marker([lat, lng], {
+            icon: this.getMarkerIcon(this.resource.dataset),
+          }).bindPopup(
+            `<div id="name"> <p style='font-weight:bold'>` +
+              c.label +
+              `</p> </div>
+            <div class = "text-centre"> <p>` +
+              this.resource.dataset.description +
+              `</p><p>Group: ` +
+              c.resourceGroup.split('/')[3] +
+              `</p> </div>
+            <div id="pop_up_` +
               c.id +
-              ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-              `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
-              `</div>`)
-      );
-      this.markersLayer.addLayer(markers);
-      this.markersLayer.addTo(map);
-      let self = this;
-      markers.on('popupopen', function () {
-        if (isPublic) {
-          self.elementRef.nativeElement
+              `"> <p class="text-center" style='padding-right:2px'> </p>` +
+              (isPublic
+                ? `<a  class="data-link" data-Id=` +
+                  c.id + ` data-rsg =`+c.resourceGroup.split('/')[3] +
+                  ` style="color: var(--highlight); font-weight:bold;"> Get Latest Data </a>`
+                : `<a  class="sample-link" data-Id=` +
+                  c.id +
+                  ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+                  `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+                  `</div>`)
+        );
+        this.markersLayer.addLayer(markers);
+        this.markersLayer.addTo(map);
+        let self = this;
+        markers.on('popupopen', function () {
+          if (isPublic) {
+            self.elementRef.nativeElement
             .querySelector('.data-link')
             .addEventListener('click', (e: { target: { getAttribute: (arg0: string) => any; }; }) => {
               var dataId = e.target.getAttribute('data-Id');
@@ -166,32 +152,31 @@ export class ResourcesMapComponent implements OnInit {
               .querySelector('.leaflet-popup-close-button').click();
               self.display_latest_data(dataId,dataRsg);
             });
-        } else {
-          self.elementRef.nativeElement
+          } else {
+            self.elementRef.nativeElement
             .querySelector('.sample-link')
             .addEventListener('click', (e: { target: { getAttribute: (arg0: string) => any; }; }) => {
               var dataId = e.target.getAttribute('data-Id');
               self.display_sample_data(dataId);
             });
-        }
-      });
-    } else if (c.location.geometry.type == 'Polygon') {
-      var points = c.location.geometry.coordinates[0];
-      L.geoJSON(c.location.geometry, {
-        style: {
-          fillColor: '#0ea3b1',
-          weight: 2,
-          opacity: 1,
-          fillOpacity: 0.5,
-        },
-      }).addTo(map);
+          }
+        });
+      } else if (c.location.geometry.type == 'Polygon') {
+        var points = c.location.geometry.coordinates[0];
+        L.geoJSON(c.location.geometry, {
+          style: {
+            fillColor: '#0ea3b1',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.5,
+          },
+        }).addTo(map);
+      }
     }
   }
 }
-}
 
   display_latest_data(id: any, rsg:any) {
-    //  console.log(this.accessPolicy);
     this.global.set_data_type(this.accessPolicy);
     this.global.set_item_id(id);
     this.ngZone.run(() => {

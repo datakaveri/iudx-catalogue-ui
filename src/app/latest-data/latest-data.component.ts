@@ -25,8 +25,6 @@ export class LatestDataComponent implements OnInit {
   ngOnInit(): void {
   }
   getLatestData(id: string) {
-    // console.log(id);
-    //  this.interceptorService.get_api_resource_server('https://rs.iudx.io/ngsi-ld/v1/entities/iisc.ac.in/89a36273d77dac4cf38114fca1bbe64392547f86/rs.iudx.io/surat-itms-realtime-information/surat-itms-live-eta').then((data)=>{
     this.network
       .get_api_resource_server(
         'https://rs.iudx.org.in/ngsi-ld/v1/entities/' + id

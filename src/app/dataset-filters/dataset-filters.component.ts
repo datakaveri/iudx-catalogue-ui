@@ -83,7 +83,6 @@ export class DatasetFiltersComponent implements OnInit {
   }
   
   apply_filter() {
-    // console.log(this.searchQuery);
     let tags = this.tags
     .filter((a:any) => {
       return a.flag == true;

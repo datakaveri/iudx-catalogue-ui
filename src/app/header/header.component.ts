@@ -51,7 +51,6 @@ export class HeaderComponent implements OnInit {
     });
   }
   getSearchResultsByText(text: string) {
-    // console.log(text);
     if (text.trim() !== '') {
       this.searchQuery = {
         text: text,
