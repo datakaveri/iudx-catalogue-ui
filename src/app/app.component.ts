@@ -56,7 +56,7 @@ export class AppComponent {
   }
 
   get_provider_name(){
-    this.network.get_api('customer/get-name-id-rel').then((resp:any)=>{
+    this.network.get_api('customer/name-id').then((resp:any)=>{
       this.global.set_id_name_rel(resp);
     });
   }

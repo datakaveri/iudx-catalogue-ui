@@ -33,7 +33,7 @@ export class GlobalService {
     this.city = {};
     this.search_params = window.sessionStorage.search_params
       ? JSON.parse(window.sessionStorage.search_params)
-      : { text: '', tags: [], providers: [], page: 0, resource_groups: [] };
+      : { text: '', tags: [], providers: [], resource_groups: [] };
   }
 
   get_popup(): Observable<any> {

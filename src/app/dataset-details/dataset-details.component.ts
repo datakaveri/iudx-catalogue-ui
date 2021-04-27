@@ -47,13 +47,11 @@ export class DatasetDetailsComponent implements OnInit {
 
   get_items() {
     this.show_data = false;
-    let post_data = {
-      "resource_groups":[window.sessionStorage.resource_group_id],
-      "page": 0
+    let post_data: any = {
+      id: window.sessionStorage.resource_group_id
     }
-    this.network.post_api('customer/items', post_data).then((res: any) => {
+    this.network.post_api('customer/dataset', post_data).then((res: any) => {
       this.show_data = true;
-      // console.log(res)
       this.resource = res;
       this.schema_url = this.resource.resource_group['@context'] + this.resource.resource_group.type[1].split('iudx:')[1];
       this.global.set_resource_details(res);
