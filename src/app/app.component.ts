@@ -66,7 +66,7 @@ export class AppComponent {
     .then((data: any)=>{
       let cities = data;
       let city : any = '';
-      let host = location.host == 'localhost:4200' ? 'pune' : location.host.split('.')[0];
+      let host = location.host == 'localhost:4200' ? 'faridabad' : location.host.split('.')[0];
       if(host != '' && host != 'catalogue' && host != 'stgcatalogue') {
         cities.forEach((a: any)=>{
           if(a.key == host) city = a;
