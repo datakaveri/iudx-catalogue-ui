@@ -242,9 +242,10 @@ export class GeoQueryComponent implements OnInit {
       this.network
         .post_api('customer/coordinates', this.drawQuery)
         .then((data: any) => {
-          // console.log(data);
+           console.log(data);
           this.is_drawn = false;
-          this.resource_items = data.items;
+          // this.resource_items = data.items;
+          this.resource_items = data.resources;
           this.filtered_resource_items = this.resource_items;
           this.filter_map_data();
         });
@@ -253,11 +254,14 @@ export class GeoQueryComponent implements OnInit {
         this.filter_data();
       } else {
         this.network
-          .post_api('customer/map', this.searchQuery)
+          // .post_api('customer/map', this.searchQuery)
+          .get_api('customer/map')
           .then((data: any) => {
-            //  console.log(data);
-            this.resource_items = data.items;
-            this.resource_groups = data.resource_groups;
+              console.log(data);
+            // this.resource_items = data.items;
+            // this.resource_groups = data.resource_groups;
+            this.resource_items = data.resources;
+            this.resource_groups = data.datasets;
             // console.log(this.resource_groups);
 
             this.resource_groups.forEach((a:any) => {

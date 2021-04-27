@@ -25,19 +25,19 @@ export class ResourcesListComponent implements OnInit {
     this.flags = [];
     this.resource = this.global.get_resource_details();
     // console.log(this.resource);
-    this.sampleData = this.resource.resource_group.dataSample;
+    this.sampleData = this.resource.dataset.dataSample;
     // console.log(this.sampleData)
 
-    this.resourceAuthControlLevel = this.resource.resource_group.resourceAuthControlLevel;
+    this.resourceAuthControlLevel = this.resource.dataset.resourceAuthControlLevel;
     this.texts = this.global.get_nomenclatures();
    
    }
 
   ngOnInit(): void {
-    if (this.resource.resource_group.hasOwnProperty('dataDescriptor')) {
+    if (this.resource.dataset.hasOwnProperty('dataDescriptor')) {
       // console.log(this.resource.resource_group.hasOwnProperty('dataDescriptor'))
       this.manipulate_data_descriptor(
-        this.resource.resource_group.dataDescriptor
+        this.resource.dataset.dataDescriptor
       );
       this.descriptor_items = false;
     } else {
@@ -128,7 +128,7 @@ export class ResourcesListComponent implements OnInit {
     if(id){
       this.global.set_item_id(id);
     }
-    this.global.set_data_type(this.resource.resource_group.accessPolicy);
+    this.global.set_data_type(this.resource.dataset.accessPolicy);
     this.global.set_popup(true,'latest-data');
   }
   copy(id :string) {
@@ -144,8 +144,9 @@ export class ResourcesListComponent implements OnInit {
     );
   }
   mapView(id :any,label:any) {
-    // console.log(id,label);
+    //  console.log(id,label);
     // if (data.location) {
+      console.log(id,label);
       this.global.set_map_coordinates(id,label);
     // }
     // this.router.navigate(['/search/dataset/items/map-gs']);

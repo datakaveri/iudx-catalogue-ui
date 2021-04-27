@@ -42,6 +42,7 @@ export class DatasetsComponent implements OnInit {
           this.get_provider_name();
           // this.filters.tag = this.searchQuery.tags[0].charAt(0).toUpperCase() + this.searchQuery.tags[0].substr(1) + ', ' + this.searchQuery.tags.slice(1).join(', ');
           this.filters.tag = this.searchQuery.tags.join(', ');
+          console.log(this.filters.tag );
           }
           else{
             this.filters = {
@@ -91,30 +92,31 @@ export class DatasetsComponent implements OnInit {
         this.filter_name.push(a);
         }
         this.filters.provider = this.filter_name.join(', ');
-        // console.log(this.filters.provider)
+         console.log(this.filters.provider)
       });
     
   }
 
   searchDatasets() {
-    if (this.searchQuery.text != '') {
-      this.search_text = this.searchQuery.text;
-      this.network
-        .post_api('customer/search', this.searchQuery)
-        .then((response: any) => {
-           //console.log(response);
-          this.datasets = response;
-        });
-    } else {
-      this.search_text = '';
-      this.search_text = this.searchQuery.tags.join(', ');
-      // console.log(this.searchQuery)
+    // if (this.searchQuery.text != '') {
+      console.log(this.searchQuery.text);
+
       this.network
         .post_api('customer/datasets', this.searchQuery)
         .then((response: any) => {
+           console.log(response);
           this.datasets = response;
         });
-    }
+    // } else {
+    //   this.search_text = '';
+    //   this.search_text = this.searchQuery.tags.join(', ');
+    //   // console.log(this.searchQuery)
+    //   this.network
+    //     .post_api('customer/datasets', this.searchQuery)
+    //     .then((response: any) => {
+    //       this.datasets = response;
+    //     });
+    // }
   }
 
   back() {

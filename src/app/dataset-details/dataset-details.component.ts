@@ -53,7 +53,8 @@ export class DatasetDetailsComponent implements OnInit {
     this.network.post_api('customer/dataset', post_data).then((res: any) => {
       this.show_data = true;
       this.resource = res;
-      this.schema_url = this.resource.resource_group['@context'] + this.resource.resource_group.type[1].split('iudx:')[1];
+      console.log(this.resource);
+      this.schema_url = this.resource.dataset['@context'] + this.resource.dataset.type[1].split('iudx:')[1];
       this.global.set_resource_details(res);
       if(this.router.url == '/dataset-details/'+this.id) {
         this.change_tab('Items');

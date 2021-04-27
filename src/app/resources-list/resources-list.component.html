@@ -1,6 +1,6 @@
 <div class="results-container">
     <div class="box-div">
-        <div class="list-container" [ngClass] ="{'private': resource.resource_group.accessPolicy == 'SECURE', 'lightgreen': resource.resource_group.accessPolicy == 'MISC'}" *ngFor="let item of resource?.items">
+        <div class="list-container" [ngClass] ="{'private': resource.dataset.accessPolicy == 'SECURE', 'lightgreen': resource.dataset.accessPolicy == 'MISC'}" *ngFor="let item of resource?.resources">
             <div class="title">
                 <h2>{{item.label}}</h2><a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy {{texts.resource_items}} ID</a>
             </div>
@@ -15,16 +15,16 @@
             <div class="links-container" >
                 <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
                 <a (click)="openSampleData(item.dataSample)">View Sample Data</a>
-                <!-- <a (click)="downloadJson(resource.resource_group.dataSample)">Get Sample Data</a> -->
-                <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
+                <!-- <a (click)="downloadJson(resource.dataset.dataSample)">Get Sample Data</a> -->
+                <a *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
                 <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy == 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a> -->
                 <!-- <a *ngIf="resource.resource_group?.resourceType == 'MESSAGESTREAM' && resource?.resource_group.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">Get Latest Data</a> -->
                 <a *ngIf="item.resourceType == 'GSLAYER' && item.dataDescriptor.location.dataSchema == 'iudx:Point'" (click)="mapView(item.id,item.label)">Map View</a>
             </div>
         </div>
     </div>
-    <div *ngIf="resource.resource_group.dataDescriptor" class="descriptor-container">
-        <h3>Data Descriptors: <span>{{ resource.resource_group.label }}</span></h3>
+    <div *ngIf="resource.dataset.dataDescriptor" class="descriptor-container">
+        <h3>Data Descriptors: <span>{{ resource.dataset.label }}</span></h3>
         <div class="box-container" *ngFor="let resource of data_descriptor; let i = index;">
             <h4 (click)="toggle(i)"> {{ resource[0].value }}
                 <img src="../../assets/collapse.png" *ngIf="flags[i]">

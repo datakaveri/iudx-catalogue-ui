@@ -47,9 +47,11 @@ export class ResourcesMapComponent implements OnInit {
     public ngZone: NgZone) { 
 
     this.resource = this.global.get_resource_details();
-    this.accessPolicy = this.resource.resource_group.accessPolicy;
-    this.resources = this.global.get_resource_details().items;
+    console.log(this.resource)
+    this.accessPolicy = this.resource.dataset.accessPolicy;
+    this.resources = this.global.get_resource_details().resources;
     this.map_geometry = this.global.get_map_coordinates();
+    console.log(this.map_geometry);
     if (this.accessPolicy == 'OPEN') {
       this.access = true;
     } else {
@@ -57,7 +59,7 @@ export class ResourcesMapComponent implements OnInit {
     }
     let cities = this.global.get_cities();
     cities.forEach((a:any )=>{
-      if(a.name == this.resource.resource_group.location.address.split(',')[0]) {
+      if(a.name == this.resource.dataset.location.address.split(',')[0]) {
         // this.global.set_city(a);
         // console.log(a);
         this.city = a;
@@ -107,7 +109,8 @@ export class ResourcesMapComponent implements OnInit {
         var lng = this.map_geometry.location.coordinates[0];
         var lat = this.map_geometry.location.coordinates[1];
         const markers = L.marker([lat, lng], {
-        icon: this.getMarkerIcon(this.resource.resource_group),
+        // icon: this.getMarkerIcon(this.resource.resource_group),
+        icon: this.getMarkerIcon(this.resource.dataset),
         }).bindPopup(this.map_geometry.depot_name);
         this.markersLayer.addLayer(markers);
         this.markersLayer.addTo(map);
@@ -124,15 +127,15 @@ export class ResourcesMapComponent implements OnInit {
       if (c.location.gepmetry !== undefined && c.location.geometry.type == 'Point') {
       var lng = c.location.geometry.coordinates[0];
       var lat = c.location.geometry.coordinates[1];
-
       const markers = L.marker([lat, lng], {
-        icon: this.getMarkerIcon(this.resource.resource_group),
+        // icon: this.getMarkerIcon(this.resource.resource_group),
+        icon: this.getMarkerIcon(this.resource.dataset),
       }).bindPopup(
         `<div id="name"> <p style='font-weight:bold'>` +
           c.label +
           `</p> </div>
         <div class = "text-centre"> <p>` +
-          this.resource.resource_group.description +
+          this.resource.dataset.description +
           `</p><p>Group: ` +
           c.resourceGroup.split('/')[3] +
           `</p> </div>

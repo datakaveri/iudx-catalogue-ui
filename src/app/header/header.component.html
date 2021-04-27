@@ -21,8 +21,8 @@
       <div *ngIf="query != ''" class="searchBox-dropdown">
         <ul *ngIf="filteredTags.length != 0">
           <li *ngFor="let item of filteredTags; let i = index">
-            <p (click)='getSearchResultsByTag(item.tag)'>
-              <span class='tagSelected'>{{item.tag | titlecase}}</span>
+            <p (click)='getSearchResultsByTag(item)'>
+              <span class='tagSelected'>{{item| titlecase}}</span>
             </p>
           </li>
         </ul>

@@ -24,8 +24,8 @@
         <input type="text" name='input' (input)="filterItems(query)" placeholder="Search for datasets. eg. mobility, transport..." [(ngModel)]="query" />
         <div *ngIf="query != ''" class="searchBox-dropdown">
           <ul *ngIf="filteredTags.length != 0">
-            <li tabIndex="-1" *ngFor="let item of filteredTags" (click)='getSearchResultsByTag(item.tag)'>
-              {{item.tag | titlecase}}
+            <li tabIndex="-1" *ngFor="let item of filteredTags" (click)='getSearchResultsByTag(item)'>
+              {{item | titlecase}}
             </li>
           </ul>
         </div>
@@ -41,15 +41,15 @@
   <div class="stats_data">
     <ul>
       <li>
-        <h1>{{summary.datasets}}</h1>
+        <h1>{{summary.resource_groups}}</h1>
         <p>Datasets</p>
       </li>
       <li>
-        <h1>{{summary.resources}}</h1>
+        <h1>{{summary.resource_items}}</h1>
         <p>Resources </p>
       </li>
       <li>
-        <h1>{{summary.publishers}}</h1>
+        <h1>{{summary.providers}}</h1>
         <p>Publishers </p>
       </li>
     </ul>

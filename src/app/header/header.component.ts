@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
       text: '',
       tags: [],
       providers: [],
-      page: 0,
     };
     this.router_url = this.router.url;
     this.names = this.globalservice.get_nomenclatures();
@@ -48,7 +47,7 @@ export class HeaderComponent implements OnInit {
   filterItems(val :string) {
     let str = val.toLowerCase();
     this.filteredTags = this.tags.filter((e:any) => {
-      return e.tag.toLowerCase().includes(str);
+      return e.toLowerCase().includes(str);
     });
   }
   getSearchResultsByText(text: string) {
@@ -58,7 +57,6 @@ export class HeaderComponent implements OnInit {
         text: text,
         tags: [],
         providers: [],
-        page: 0,
       };
       this.globalservice.set_filter(this.searchQuery);
       this.router.navigate(['/datasets']);
@@ -71,7 +69,6 @@ export class HeaderComponent implements OnInit {
       text: '',
       tags: [this.tagSelected],
       providers: [],
-      page: 0,
     };
     this.globalservice.set_filter(this.searchQuery);
     this.router.navigate(['/datasets']);

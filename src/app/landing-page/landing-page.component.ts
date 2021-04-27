@@ -33,7 +33,7 @@ export class LandingPageComponent implements OnInit {
       text: '',
       tags: [],
       providers: [],
-      page: 0,
+      // page: 0,
     };
     this.summary = {
       datasets: 0,
@@ -65,7 +65,7 @@ export class LandingPageComponent implements OnInit {
         text: val,
         tags: [],
         providers: [],
-        page: 0,
+        // page: 0,
       };
       this.globalservice.set_search_query(this.searchQuery);
       this.router.navigate(['/datasets']);
@@ -77,15 +77,16 @@ export class LandingPageComponent implements OnInit {
       text: '',
       tags: [this.tagSelected],
       providers: [],
-      page: 0,
+      // page: 0,
     };
     this.globalservice.set_search_query(this.searchQuery);
     this.router.navigate(['/datasets']);
   }
   filterItems(val:string) {
+    console.log(val);
     const str = val.toLowerCase();
     this.filteredTags = this.tags.filter((e : any) => {
-      return e.tag.toLowerCase().includes(str);
+      return e.toLowerCase().includes(str);
     });
   }
   

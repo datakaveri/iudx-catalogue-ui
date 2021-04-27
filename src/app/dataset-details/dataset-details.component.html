@@ -6,27 +6,27 @@
             
             <img class="back" (click)="back()" src="assets/back.png">
             
-            <h2>{{ resource.resource_group.label }} 
+            <h2>{{ resource.dataset.label }} 
                
-                <span style="color:var(--red)" *ngIf="resource.resource_group.accessPolicy == 'SECURE'">(Private)</span>
-                <span *ngIf="resource.resource_group.accessPolicy == 'OPEN'">(Public)</span>
-                <span style="color:var(--light-green)" *ngIf="resource.resource_group.accessPolicy == 'MISC'">(Public/Private)</span>
-                <span class='copy'><a title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.resource_group.id)">Copy {{texts.resource_groups}} ID</a></span>
+                <span style="color:var(--red)" *ngIf="resource.dataset.accessPolicy == 'SECURE'">(Private)</span>
+                <span *ngIf="resource.dataset.accessPolicy == 'OPEN'">(Public)</span>
+                <span style="color:var(--light-green)" *ngIf="resource.dataset.accessPolicy == 'MISC'">(Public/Private)</span>
+                <span class='copy'><a title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.dataset.id)">Copy {{texts.resource_groups}} ID</a></span>
             </h2>
         </div>
-        <p>Location: {{resource.resource_group.location.address}}</p>
+        <p>Location: {{resource.dataset.location.address}}</p>
         <!-- <p>Dataset ID: {{ resource.resource_group.id }}
             <span class='copy'><a title="Copy {{texts.resource_groups}} ID" (click)="copy(resource.resource_group.id)">Copy ID</a></span></p> -->
-        <p>Description: {{ resource.resource_group.description }}</p>
-        <p>{{texts.providers}}: {{ resource.resource_group.provider.description }}</p>
+        <p>Description: {{ resource.dataset.description }}</p>
+        <p>{{texts.providers}}: {{ resource.dataset.provider.name }}</p>
         <p>Schema:<span><a href="{{ schema_url }}" target="_blank">{{ schema_url }}</a></span></p>
     </div>
     <div class="tab_div" *ngIf="show_data">
         <ul>
             <li [ngClass]="{'active': active_tab == 'Items'}" (click)="change_tab('Items')">
-                Resources ({{resource.count}})
+                Resources ({{resource.dataset.count}})
             </li>
-            <li *ngIf ="resource.resource_group.dataDescriptor" [ngClass]="{'active': active_tab == 'Map'}" (click)="change_tab('Map')">
+            <li *ngIf ="resource.dataset.dataDescriptor" [ngClass]="{'active': active_tab == 'Map'}" (click)="change_tab('Map')">
                 Map View
             </li>
         </ul>
