@@ -8,15 +8,17 @@
             
             <div class="links-container" >
                 <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
-                <a *ngIf="resource.dataset?.resourceType != 'FILE'" (click)="openSampleData(item.dataSample)">View Sample Data</a>
-                <a *ngIf="resource.dataset?.resourceType == 'FILE'" (click)="openSampleData(item.dataSample)">Download Sample Data</a>
+                <a  (click)="openSampleData(item.dataSample)">View Sample Data</a> 
+                <a  (click)="openSampleData(item.dataSample)">Download Sample Data</a>
+                <!-- <a *ngIf="resource.dataset?.resourceType != 'FILE'" (click)="openSampleData(item.dataSample)">View Sample Data</a> -->
+                <!-- <a *ngIf="resource.dataset?.resourceType == 'FILE'" (click)="openSampleData(item.dataSample)">Download Sample Data</a> -->
                 <a *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
                 <a *ngIf="item.resourceType == 'GSLAYER' && item.dataDescriptor.location.dataSchema == 'iudx:Point'" (click)="mapView(item.id,item.label)">Map View</a>
             </div>
         </div>
     </div>
     <div *ngIf="resource.dataset.dataDescriptor" class="descriptor-container">
-        <h3>Data Descriptors: <span>{{ resource.dataset.label }}</span></h3>
+        <h3>Data Descriptors: <span>{{ resource.dataset.dataDescriptor.dataDescriptorLabel }}</span></h3>
         <div class="box-container" *ngFor="let resource of data_descriptor; let i = index;">
             <h4 (click)="toggle(i)"> {{ resource[0].value }}
                 <img src="../../assets/collapse.png" *ngIf="flags[i]">
