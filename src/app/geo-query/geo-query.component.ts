@@ -101,20 +101,18 @@ export class GeoQueryComponent implements OnInit {
           icon: this.getMarkerIcon(c.resourceGroup),
         }).bindPopup(
           `<div id="name"> <p style='font-weight:bold'>` +
-          c.name +
+          c.label +
           `</p> </div>
             <div class = "text-centre"> <p>` +
           c.description +
-          `</p><p>Group: ` +
-          // c.resourceGroup.split('/')[3] +
-          c.label +
-          `</p> </div>
+          `</p>` +
+          ` </div>
             <div id="pop_up_` +
           c.id +
           `"> <p class="text-center" style='padding-right:2px'> </p>` +
           (isPublic
             ? `<a  class="data-link" data-Id=` +
-            c.id +` data-rsg =`+c.resourceGroup.split('/')[3] +
+            c.id + ` data-rsg =` + c.resourceGroup.split('/')[3] +
             ` style="color:color: var(--highlight); font-weight:bold;"> View Latest Data </a>`
             : `<a  class="sample-link" data-Id=` +
             c.id +
@@ -422,10 +420,8 @@ export class GeoQueryComponent implements OnInit {
         `</p> </div>
         <div class = "text-centre"> <p>` +
         data.description +
-        `</p><p>Group: ` +
-        // data.resourceGroup.split('/')[3] +
-        data.label +
-        `</p> </div>
+        `</p>` +
+        ` </div>
         <div id="pop_up_` +
         data.id +
         `"> <p class="text-center" style='padding-right:2px'> </p>` +
