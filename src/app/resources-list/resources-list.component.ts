@@ -105,6 +105,8 @@ export class ResourcesListComponent implements OnInit {
   }
 
   openSampleData(data: any) {
+    console.log(data);
+
     if (data) {
       this.global.set_resource_item(data);
     } else {
@@ -113,11 +115,17 @@ export class ResourcesListComponent implements OnInit {
     this.global.set_popup(true, 'sample-data');
   }
 
-  openShowVideo(data: any) {
-    if (data) {
+  downloadData(data: any) {
+    // console.log(data)
+    if(data.includes('.mp4')){
       this.global.set_resource_item(data);
+      this.global.set_popup(true, 'sample-video');
+
     }
-    this.global.set_popup(true, 'sample-video');
+    else{
+      window.open('data', '_blank');
+    }
+  
   }
 
   downloadJson(myJson: any) {

@@ -19,17 +19,12 @@
            (click)="openSampleData(item.dataSample)">View Sample
           Data
         </a>
-        <a *ngIf="item.dataSample"
-           (click)="openSampleData(item.dataSample)">Download
-          Sample Data
-        </a>
-        <a *ngIf="item.dataSampleFile &&
+        <a *ngIf="item.dataSampleFile "
+           (click)="downloadData(item.dataSampleFile)">Download Sample
+           Data</a> 
+        <!-- <a *ngIf="item.dataSampleFile &&
         item.dataSampleFile.includes('.mp4')"
-           (click)="openShowVideo(item.dataSampleFile)">Show Sample Video</a>
-        <a *ngIf="item.dataSampleFile &&
-        !item.dataSampleFile.includes('.mp4')"
-           (click)="openSampleData(item.dataSampleFile)">Download Sample
-          File</a>
+           (click)="openShowVideo(item.dataSampleFile)">Show Sample Video</a> -->
         <a
           *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'"
           (click)="openLatestData(item.id)">View Latest Data</a>

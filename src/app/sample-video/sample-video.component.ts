@@ -11,6 +11,7 @@ export class SampleVideoComponent implements OnInit {
 
   constructor(private global: GlobalService) {
     this.data = this.global.get_resource_item();
+    // console.log(this.data)
   }
 
   ngOnInit(): void {
