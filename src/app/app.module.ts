@@ -24,6 +24,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 import { AlertComponent } from './alert/alert.component';
 import { GsMapComponent } from './gs-map/gs-map.component';
+import { SampleVideoComponent } from './sample-video/sample-video.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { GsMapComponent } from './gs-map/gs-map.component';
     LoaderComponent,
     ChangeCityComponent,
     AlertComponent,
-    GsMapComponent
+    GsMapComponent,
+    SampleVideoComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@
 <app-change-city *ngIf="popup_status && popup_type == 'city-popup'"></app-change-city>
 <app-latest-data *ngIf="popup_status && popup_type == 'latest-data'"></app-latest-data>
 <app-sample-data *ngIf="popup_status && popup_type == 'sample-data'"></app-sample-data>
+<app-sample-video *ngIf="popup_status && popup_type == 'sample-video'"></app-sample-video>
 <app-toaster *ngIf="show_toast" [props]="toast_props"></app-toaster>
 <app-alert *ngIf="show_alert" [props]="alert_props"></app-alert>
 <app-loader *ngIf="loader"></app-loader>

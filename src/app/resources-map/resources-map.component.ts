@@ -41,7 +41,7 @@ export class ResourcesMapComponent implements OnInit {
     private elementRef: ElementRef,
     private router: Router,
     public ngZone: NgZone
-  ) { 
+  ) {
     this.resource = this.global.get_resource_details();
     this.accessPolicy = this.resource.dataset.accessPolicy;
     this.resources = this.resource.resources;
@@ -107,7 +107,7 @@ export class ResourcesMapComponent implements OnInit {
         let isPublic: Boolean;
         if (this.accessPolicy == 'OPEN') {
           isPublic = true;
-        } 
+        }
         else {
           isPublic = false;
         }
@@ -123,7 +123,8 @@ export class ResourcesMapComponent implements OnInit {
             <div class = "text-centre"> <p>` +
               this.resource.dataset.description +
               `</p><p>Group: ` +
-              c.resourceGroup.split('/')[3] +
+            c.label +
+              // c.resourceGroup.split('/')[3] +
               `</p> </div>
             <div id="pop_up_` +
               c.id +
@@ -182,7 +183,7 @@ export class ResourcesMapComponent implements OnInit {
     this.ngZone.run(() => {
       this.global.set_popup(true,'latest-data');
     });
-    
+
   }
   display_sample_data(id: any) {
     // this.ngZone.run(() => {

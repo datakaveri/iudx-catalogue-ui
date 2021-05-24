@@ -1,104 +1,130 @@
 <div class="results-container">
-    <div class="box-div">
-        <div class="list-container" [ngClass] ="{'private': resource.dataset.accessPolicy == 'SECURE', 'lightgreen': resource.dataset.accessPolicy == 'MISC'}" *ngFor="let item of resource?.resources">
-            <div class="title">
-                <h2>{{item.label}}</h2><a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy {{texts.resource_items}} ID</a>
-            </div>
-            <p>Description: {{item.description}}</p>
-            
-            <div class="links-container" >
-                <a *ngIf="descriptor_items" (click)="showDataDescriptor(item.dataDescriptor)">Show Data Descriptor</a>
-                <a  (click)="openSampleData(item.dataSample)">View Sample Data</a> 
-                <a  (click)="openSampleData(item.dataSample)">Download Sample Data</a>
-                <!-- <a *ngIf="resource.dataset?.resourceType != 'FILE'" (click)="openSampleData(item.dataSample)">View Sample Data</a> -->
-                <!-- <a *ngIf="resource.dataset?.resourceType == 'FILE'" (click)="openSampleData(item.dataSample)">Download Sample Data</a> -->
-                <a *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'" (click)="openLatestData(item.id)">View Latest Data</a>
-                <a *ngIf="item.resourceType == 'GSLAYER' && item.dataDescriptor.location.dataSchema == 'iudx:Point'" (click)="mapView(item.id,item.label)">Map View</a>
-            </div>
-        </div>
+  <div class="box-div">
+    <div class="list-container"
+         [ngClass]="{'private': resource.dataset.accessPolicy == 'SECURE', 'lightgreen': resource.dataset.accessPolicy == 'MISC'}"
+         *ngFor="let item of resource?.resources">
+      <div class="title">
+        <h2>{{item.label}}</h2><a title="Copy {{texts.resource_items}} ID"
+                                  (click)="copy(item.id)">Copy {{texts.resource_items}}
+        ID</a>
+      </div>
+      <p>Description: {{item.description}}</p>
+
+      <div class="links-container">
+        <a *ngIf="descriptor_items"
+           (click)="showDataDescriptor(item.dataDescriptor)">Show Data
+          Descriptor
+        </a>
+        <a *ngIf="item.dataSample"
+           (click)="openSampleData(item.dataSample)">View Sample
+          Data
+        </a>
+        <a *ngIf="item.dataSample"
+           (click)="openSampleData(item.dataSample)">Download
+          Sample Data
+        </a>
+        <a *ngIf="item.dataSampleFile &&
+        item.dataSampleFile.includes('.mp4')"
+           (click)="openShowVideo(item.dataSampleFile)">Show Sample Video</a>
+        <a *ngIf="item.dataSampleFile &&
+        !item.dataSampleFile.includes('.mp4')"
+           (click)="openSampleData(item.dataSampleFile)">Download Sample
+          File</a>
+        <a
+          *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'"
+          (click)="openLatestData(item.id)">View Latest Data</a>
+        <a
+          *ngIf="item.resourceType == 'GSLAYER' && item.dataDescriptor.location.dataSchema == 'iudx:Point'"
+          (click)="mapView(item.id,item.label)">Map View</a>
+      </div>
     </div>
-    <div *ngIf="resource.dataset.dataDescriptor" class="descriptor-container">
-        <h3>Data Descriptors: <span>{{ resource.dataset.dataDescriptor.dataDescriptorLabel }}</span></h3>
-        <div class="box-container" *ngFor="let resource of data_descriptor; let i = index;">
-            <h4 (click)="toggle(i)"> {{ resource[0].value }}
-                <img src="../../assets/collapse.png" *ngIf="flags[i]">
-                <img src="../../assets/expand.png" *ngIf="!flags[i]">
-            </h4>
-            <div *ngIf="flags[i]">
-                <div *ngFor="let key of resource;let j=index;">
-                    <div *ngIf="j != 0 && typeOf(key.value) != 'object'">
-                        <p>
-                            {{key.key}}: <span> {{key.value}}</span>
-                        </p>
-                    </div>
-                    <div *ngIf="j != 0 && typeOf(key.value) == 'object'">
-                        <p>
-                            {{key.key}}: 
-                        </p>
-                        <div *ngFor="let item of key.value;let k=index;" class="level_2">
-                            <div *ngIf="k != 0 && typeOf(item.value) != 'object'">
-                                <p>
-                                    {{item.key}}: <span> {{item.value}}</span>
-                                </p>
-                            </div>
-                            <div *ngIf="k != 0 && typeOf(item.value) == 'object'">
-                                <p>
-                                    <span>{{item.key}}: </span>
-                                </p>
-                                <div *ngFor="let data of item.value" class="level_3">
-                                    <p>
-                                        <span>{{data.key}}: </span> {{data.value}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  </div>
+  <div *ngIf="resource.dataset.dataDescriptor" class="descriptor-container">
+    <h3>Data Descriptors:
+      <span>{{ resource.dataset.dataDescriptor.dataDescriptorLabel }}</span>
+    </h3>
+    <div class="box-container"
+         *ngFor="let resource of data_descriptor; let i = index;">
+      <h4 (click)="toggle(i)"> {{ resource[0].value }}
+        <img src="../../assets/collapse.png" *ngIf="flags[i]">
+        <img src="../../assets/expand.png" *ngIf="!flags[i]">
+      </h4>
+      <div *ngIf="flags[i]">
+        <div *ngFor="let key of resource;let j=index;">
+          <div *ngIf="j != 0 && typeOf(key.value) != 'object'">
+            <p>
+              {{key.key}}: <span> {{key.value}}</span>
+            </p>
+          </div>
+          <div *ngIf="j != 0 && typeOf(key.value) == 'object'">
+            <p>
+              {{key.key}}:
+            </p>
+            <div *ngFor="let item of key.value;let k=index;" class="level_2">
+              <div *ngIf="k != 0 && typeOf(item.value) != 'object'">
+                <p>
+                  {{item.key}}: <span> {{item.value}}</span>
+                </p>
+              </div>
+              <div *ngIf="k != 0 && typeOf(item.value) == 'object'">
+                <p>
+                  <span>{{item.key}}: </span>
+                </p>
+                <div *ngFor="let data of item.value" class="level_3">
+                  <p>
+                    <span>{{data.key}}: </span> {{data.value}}
+                  </p>
                 </div>
-            </div>
-        </div>
-      
-    </div>
-    <div *ngIf="showDescriptor" class="descriptor-container">
-        <h3>
-          Data Descriptors: <span>{{ label }} </span>
-        </h3>
-        <div class="box-container" *ngFor="let resource of data_descriptor; let i = index;">
-          <h4 (click)="toggle(i)">
-            {{ resource[0].value }}
-            <img src="assets/collapse.png" *ngIf="flags[i]">
-            <img src="assets/expand.png" *ngIf="!flags[i]">
-          </h4>
-          <div *ngIf="flags[i]">
-            <div *ngFor="let key of resource;let j=index;">
-                <div *ngIf="j != 0 && typeOf(key.value) != 'object'">
-                    <p>
-                        <span>{{key.key}}: </span> {{key.value}}
-                    </p>
-                </div>
-                <div *ngIf="j != 0 && typeOf(key.value) == 'object'">
-                    <p>
-                        <span>{{key.key}}: </span>
-                    </p>
-                    <div *ngFor="let item of key.value;let k=index;" class="level_2">
-                        <div *ngIf="k != 0 && typeOf(item.value) != 'object'">
-                            <p>
-                                <span>{{item.key}}: </span> {{item.value}}
-                            </p>
-                        </div>
-                        <div *ngIf="k != 0 && typeOf(item.value) == 'object'">
-                            <p>
-                                <span>{{item.key}}: </span>
-                            </p>
-                            <div *ngFor="let data of item.value" class="level_3">
-                                <p>
-                                    <span>{{data.key}}: </span> {{data.value}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
+
+  </div>
+  <div *ngIf="showDescriptor" class="descriptor-container">
+    <h3>
+      Data Descriptors: <span>{{ label }} </span>
+    </h3>
+    <div class="box-container"
+         *ngFor="let resource of data_descriptor; let i = index;">
+      <h4 (click)="toggle(i)">
+        {{ resource[0].value }}
+        <img src="assets/collapse.png" *ngIf="flags[i]">
+        <img src="assets/expand.png" *ngIf="!flags[i]">
+      </h4>
+      <div *ngIf="flags[i]">
+        <div *ngFor="let key of resource;let j=index;">
+          <div *ngIf="j != 0 && typeOf(key.value) != 'object'">
+            <p>
+              <span>{{key.key}}: </span> {{key.value}}
+            </p>
+          </div>
+          <div *ngIf="j != 0 && typeOf(key.value) == 'object'">
+            <p>
+              <span>{{key.key}}: </span>
+            </p>
+            <div *ngFor="let item of key.value;let k=index;" class="level_2">
+              <div *ngIf="k != 0 && typeOf(item.value) != 'object'">
+                <p>
+                  <span>{{item.key}}: </span> {{item.value}}
+                </p>
+              </div>
+              <div *ngIf="k != 0 && typeOf(item.value) == 'object'">
+                <p>
+                  <span>{{item.key}}: </span>
+                </p>
+                <div *ngFor="let data of item.value" class="level_3">
+                  <p>
+                    <span>{{data.key}}: </span> {{data.value}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
