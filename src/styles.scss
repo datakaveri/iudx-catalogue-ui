@@ -1,27 +1,27 @@
 :root {
-    --blue: #0C57F6;
-    --black: #1c1c1c;
-    --dark-grey: #6C6C6C;
-    --grey: #989898;
-    --light-grey:#DDDDDD;
-    --red: #BD4931;
-    --green: #00796B;
-    --white: #FFFFFF;
-    --off-white: #F8F9FB;
-    --orange:#fc8019;
-    --light-green: #2FCB83;
+  --blue: #0C57F6;
+  --black: #1c1c1c;
+  --dark-grey: #6C6C6C;
+  --grey: #989898;
+  --light-grey: #DDDDDD;
+  --red: #BD4931;
+  --green: #00796B;
+  --white: #FFFFFF;
+  --off-white: #F8F9FB;
+  --orange: #fc8019;
+  --light-green: #2FCB83;
 }
 
 * {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    outline: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    color: var(--black);
-    line-height: 1.5;
-    letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: var(--black);
+  line-height: 1.5;
+  letter-spacing: 0.5px;
 }
 
 // ::-webkit-scrollbar {
@@ -34,29 +34,42 @@
 // }
 
 :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    font-weight: 400;
-    color: var(--dark-grey);
+  /* Internet Explorer 10-11 */
+  font-weight: 400;
+  color: var(--dark-grey);
 }
 
 ::placeholder {
-    font-weight: 400;
-    color: var(--dark-grey);
+  font-weight: 400;
+  color: var(--dark-grey);
 }
 
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 button,
 a {
-    cursor: pointer;
+  cursor: pointer;
+}
+/*STYLING FOR MAP POPUPS*/
+.leaflet-container {
+  .leaflet-popup-content {
+    p {
+      line-break: anywhere;
+    }
+
+    a {
+      color: var(--blue) !important;
+    }
+  }
+
 }

@@ -1,11 +1,11 @@
 import {Component, OnInit, ElementRef, NgZone} from '@angular/core';
-import { Location } from '@angular/common';
-import { Router } from "@angular/router";
-import { latLng, FeatureGroup, Map, featureGroup } from 'leaflet';
+import {Location} from '@angular/common';
+import {Router} from "@angular/router";
+import {latLng, FeatureGroup, Map, featureGroup} from 'leaflet';
 import * as L from 'leaflet';
 
-import { NetworkService } from '../network.service';
-import { GlobalService } from '../global.service';
+import {NetworkService} from '../network.service';
+import {GlobalService} from '../global.service';
 
 @Component({
   selector: 'app-geo-query',
@@ -14,51 +14,52 @@ import { GlobalService } from '../global.service';
 })
 export class GeoQueryComponent implements OnInit {
   [x: string]: any;
+
   map: Map;
   markersLayer = new L.FeatureGroup();
   drawnItems: FeatureGroup = featureGroup();
   is_drawn: boolean;
   pathFillColor: string[];
-  grades: any =[];
-  markerValues: any=[];
-  resource_items: any =[];
-  filtered_resource_items: any=[];
+  grades: any = [];
+  markerValues: any = [];
+  resource_items: any = [];
+  filtered_resource_items: any = [];
   searchQuery: any;
-  drawQuery: any ={};
+  drawQuery: any = {};
   resource_groups: any;
   texts: any;
   city: any;
   options: any;
   drawOptions: any;
   data: any;
-  name: string='';
-  pr_detail:any = {};
+  name: string = '';
+  pr_detail: any = {};
 
-  constructor(private router: Router, private global: GlobalService, private network: NetworkService, private locate : Location, private elementRef: ElementRef, public ngZone: NgZone) {
-    this.searchQuery = { resource_groups: []};
+  constructor(private router: Router, private global: GlobalService, private network: NetworkService, private locate: Location, private elementRef: ElementRef, public ngZone: NgZone) {
+    this.searchQuery = {resource_groups: []};
     this.getMapData();
     this.global.get_popup().subscribe((data) => {
-      if(data.flag == false && data.type == 'geo-filter'){
-      this.is_drawn = false;
-      this.markersLayer.clearLayers();
-      this.searchQuery =  window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : { resource_groups: [] };
-      this.getMapData();
+      if (data.flag == false && data.type == 'geo-filter') {
+        this.is_drawn = false;
+        this.markersLayer.clearLayers();
+        this.searchQuery = window.sessionStorage.map_search ? JSON.parse(window.sessionStorage.map_search) : {resource_groups: []};
+        this.getMapData();
       }
     });
 
     this.global.get_filter().subscribe((query: any) => {
       this.searchQuery = query;
-      if(this.searchQuery.tags != '' || this.searchQuery.text !=''){
-      this.router.navigate(['/datasets']);
+      if (this.searchQuery.tags != '' || this.searchQuery.text != '') {
+        this.router.navigate(['/datasets']);
       }
-      
+
     });
-    
+
     this.is_drawn = false;
-     this.search = {
+    this.search = {
       group: '',
     };
-    this.pathFillColor=[ 
+    this.pathFillColor = [
       '#1c699d',
       '#ff7592',
       '#564d65',
@@ -70,21 +71,22 @@ export class GeoQueryComponent implements OnInit {
     ];
     this.texts = this.global.get_nomenclatures();
     this.city = this.global.get_city();
-   }
+  }
 
   ngOnInit(): void {
     this.options = this.initMap();
     this.drawOptions = this.drawOptionsInit();
   }
-  mark_on_map( ) {
+
+  mark_on_map() {
     let mySet = new Set();
-    for ( var i = 0; i < this.resource_groups.length; i++) {
+    for (var i = 0; i < this.resource_groups.length; i++) {
       if (this.resource_groups[i].accessPolicy == 'OPEN') {
         mySet.add(this.resource_groups[i].id);
       }
     }
     const data: L.Marker[] = [];
-    let c : any;
+    let c: any;
     for (c of this.filtered_resource_items) {
       let isPublic: Boolean;
       if (c.location && c.location.geometry && (c.location.geometry.type == 'undefined' || c.location.geometry.type == 'Point')) {
@@ -99,25 +101,26 @@ export class GeoQueryComponent implements OnInit {
           icon: this.getMarkerIcon(c.resourceGroup),
         }).bindPopup(
           `<div id="name"> <p style='font-weight:bold'>` +
-            c.name +
-            `</p> </div>
+          c.name +
+          `</p> </div>
             <div class = "text-centre"> <p>` +
-            c.description +
-            `</p><p>Group: ` +
-            c.resourceGroup.split('/')[3] +
-            `</p> </div>
+          c.description +
+          `</p><p>Group: ` +
+          // c.resourceGroup.split('/')[3] +
+          c.label +
+          `</p> </div>
             <div id="pop_up_` +
+          c.id +
+          `"> <p class="text-center" style='padding-right:2px'> </p>` +
+          (isPublic
+            ? `<a  class="data-link" data-Id=` +
+            c.id +` data-rsg =`+c.resourceGroup.split('/')[3] +
+            ` style="color:color: var(--highlight); font-weight:bold;"> View Latest Data </a>`
+            : `<a  class="sample-link" data-Id=` +
             c.id +
-            `"> <p class="text-center" style='padding-right:2px'> </p>` +
-            (isPublic
-              ? `<a  class="data-link" data-Id=` +
-                c.id +` data-rsg =`+c.resourceGroup.split('/')[3] +
-                ` style="color:color: var(--highlight); font-weight:bold;"> View Latest Data </a>`
-              : `<a  class="sample-link" data-Id=` +
-                c.id +
-                ` style="color: var(--highlight);font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-                `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
-                `</div>`)
+            ` style="color: var(--highlight);font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+            `</div>`)
         );
 
         this.markersLayer.addLayer(markers);
@@ -131,8 +134,8 @@ export class GeoQueryComponent implements OnInit {
                 var dataId = e.target.getAttribute('data-Id');
                 var dataRsg = e.target.getAttribute('data-rsg');
                 self.elementRef.nativeElement
-              .querySelector('.leaflet-popup-close-button').click();
-                self.display_latest_data(dataId,dataRsg);
+                  .querySelector('.leaflet-popup-close-button').click();
+                self.display_latest_data(dataId, dataRsg);
 
               });
           } else {
@@ -159,24 +162,26 @@ export class GeoQueryComponent implements OnInit {
             fillOpacity: 0.5,
           },
           onEachFeature: function (feature, layer) {
-                layer.on('mouseover', function(e) {
-                });
-                layer.on('mouseout', function(e) {
-                });
+            layer.on('mouseover', function (e) {
+            });
+            layer.on('mouseout', function (e) {
+            });
           },
         }).addTo(this.markersLayer);
         this.markersLayer.addTo(this.map);
       }
     }
   }
+
   onMapReady(map: Map) {
     this.map = map;
   }
+
   initMap() {
     let zoom = 12;
-    if(!this.city) {
+    if (!this.city) {
       this.city = {
-        coordinates: [20.5937,78.9629]
+        coordinates: [20.5937, 78.9629]
       }
       zoom = 5;
     }
@@ -185,10 +190,7 @@ export class GeoQueryComponent implements OnInit {
         L.tileLayer(
           'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
           {
-            maxZoom: 19,
-            attribution:
-              '<span class="icons-font" id="map_attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions" target="_blank">CARTO</a><br>' +
-              '</span>' 
+            maxZoom: 19
           }
         )
       ],
@@ -200,6 +202,7 @@ export class GeoQueryComponent implements OnInit {
     };
     return map_options;
   }
+
   drawOptionsInit() {
     var draw_options = {
       position: 'topleft',
@@ -235,7 +238,7 @@ export class GeoQueryComponent implements OnInit {
           .then((data: any) => {
             this.resource_items = data.resources;
             this.resource_groups = data.datasets;
-            this.resource_groups.forEach((a:any) => {
+            this.resource_groups.forEach((a: any) => {
               this.searchQuery.resource_groups.push(a.id);
             });
             this.global.set_filter_rsg(this.resource_groups)
@@ -245,6 +248,7 @@ export class GeoQueryComponent implements OnInit {
       }
     }
   }
+
   filter_data() {
     this.filtered_resource_items = [];
     this.resource_items.forEach((a: any) => {
@@ -260,9 +264,10 @@ export class GeoQueryComponent implements OnInit {
     this.showLegends(this.filtered_resource_items);
     this.mark_on_map();
   }
+
   filter_map_data() {
     this.filtered_resource_items = [];
-    this.resource_items.forEach((a :any) => {
+    this.resource_items.forEach((a: any) => {
       let flag = this.check_if_contained(
         this.searchQuery.resource_groups,
         a.resourceGroup
@@ -271,6 +276,7 @@ export class GeoQueryComponent implements OnInit {
     });
     this.callGeoJsonPlot(this.filtered_resource_items);
   }
+
   check_if_contained(arr: string | any[], str: any) {
     return arr.includes(str);
   }
@@ -375,7 +381,7 @@ export class GeoQueryComponent implements OnInit {
     this.getMapData();
   }
 
-  callGeoJsonPlot(items : any) {
+  callGeoJsonPlot(items: any) {
     for (const i of items) {
       if (i.hasOwnProperty('location')) {
         this.plotGeoJSONs(
@@ -393,7 +399,7 @@ export class GeoQueryComponent implements OnInit {
     }
   }
 
-  plotGeoJSONs(geoJsonObject: any, data: any,rsg: any) {
+  plotGeoJSONs(geoJsonObject: any, data: any, rsg: any) {
     let mySet = new Set();
     for (var i = 0; i < this.resource_groups.length; i++) {
       if (this.resource_groups[i].accessPolicy == 'OPEN') {
@@ -417,20 +423,21 @@ export class GeoQueryComponent implements OnInit {
         <div class = "text-centre"> <p>` +
         data.description +
         `</p><p>Group: ` +
-        data.resourceGroup.split('/')[3] +
+        // data.resourceGroup.split('/')[3] +
+        data.label +
         `</p> </div>
         <div id="pop_up_` +
         data.id +
         `"> <p class="text-center" style='padding-right:2px'> </p>` +
         (isPublic
           ? `<a  class="data-link" data-Id=` +
-            data.id +  ` data-rsg =`+data.resourceGroup.split('/')[3] +
-            ` style="color: var(--highlight); font-weight:bold;"> View Latest Data </a>`
+          data.id + ` data-rsg =` + data.resourceGroup.split('/')[3] +
+          ` style="color: var(--highlight); font-weight:bold;"> View Latest Data </a>`
           : `<a  class="sample-link" data-Id=` +
-            data.id + ` data-rsg =`+data.resourceGroup.split('/')[3] +
-            ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
-            `</div>`);
+          data.id + ` data-rsg =` + data.resourceGroup.split('/')[3] +
+          ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
+          `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+          `</div>`);
 
       const markers = L.marker([lat, lng], {
         icon: this.getMarkerIcon(rsg),
@@ -446,11 +453,11 @@ export class GeoQueryComponent implements OnInit {
           .addEventListener('click', (e: any) => {
             var dataId = e.target.getAttribute('data-Id');
             var dataRsg = e.target.getAttribute('data-rsg');
-            self.display_latest_data(dataId,dataRsg);
+            self.display_latest_data(dataId, dataRsg);
           });
       });
     }
-    
+
   }
 
   getMarkerIcon(_rsg: any) {
@@ -471,20 +478,24 @@ export class GeoQueryComponent implements OnInit {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill=${this.pathFillColor[index]} width="50px" height="50px" outline="5px solid white"><path d="M12 4C9.24 4 7 6.24 7 9c0 2.85 2.92 7.21 5 9.88 2.11-2.69 5-7 5-9.88 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2-1.12-2-2s1.12-2 2-2 2 1.12 2 2-1.12 2-2 2z" opacity="1" stroke="white" stroke-width="0.5" /><circle cx="12" cy="9.5" r="2" fill="white"/></svg>
     `;
   }
-  display_latest_data(id: any, rsg:any) {
-     this.resource_groups.forEach((e:any) => {
-      if(e.name == rsg) {
-        this.accesspolicy = e.accessPolicy;}
+
+  display_latest_data(id: any, rsg: any) {
+    this.resource_groups.forEach((e: any) => {
+      if (e.name == rsg) {
+        this.accesspolicy = e.accessPolicy;
+      }
     });
     this.global.set_item_id(id);
     this.global.set_data_type(this.accesspolicy);
     this.ngZone.run(() => {
-        this.global.set_popup(true,'latest-data');
-      });
-    
+      this.global.set_popup(true, 'latest-data');
+    });
+
   }
+
   display_sample_data(id: any) {
   }
+
   stringToColour(str: any) {
     var color = [
       '#1c699d',
@@ -502,48 +513,52 @@ export class GeoQueryComponent implements OnInit {
         index = i;
         break;
       }
+    }
+    return color[index];
   }
-  return color[index];
-  }
-  showLegends(val:any){
+
+  showLegends(val: any) {
     this.grades = [];
     this.markerValues = [];
     this.getProviderDetails();
-    for(let i=0;i<this.searchQuery.resource_groups.length;i++){
-      for(let j = 0 ; j < val.length ; j++){
-        if(val[j].location && val[j].location.geometry){
-          if(val[j].location.geometry.type == 'Polygon'){
-            var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i]);
-            if(res === true) {
+    for (let i = 0; i < this.searchQuery.resource_groups.length; i++) {
+      for (let j = 0; j < val.length; j++) {
+        if (val[j].location && val[j].location.geometry) {
+          if (val[j].location.geometry.type == 'Polygon') {
+            var res = this.searchStringInArray(val[j].resourceGroup, this.searchQuery.resource_groups[i]);
+            if (res === true) {
 
-              if(this.pr_detail.hasOwnProperty(val[j].resourceGroup)) {
+              if (this.pr_detail.hasOwnProperty(val[j].resourceGroup)) {
                 this.grades.push(this.pr_detail[val[j].resourceGroup]);
               }
               this.markerValues.push(true);
               break;
             }
-          } else if(val[j].location.geometry.type == 'Point' ){
-            var res = this.searchStringInArray(val[j].resourceGroup,this.searchQuery.resource_groups[i] );
-            if(res === true) {
-              if(this.pr_detail.hasOwnProperty(val[j].resourceGroup)) {
+          } else if (val[j].location.geometry.type == 'Point') {
+            var res = this.searchStringInArray(val[j].resourceGroup, this.searchQuery.resource_groups[i]);
+            if (res === true) {
+              if (this.pr_detail.hasOwnProperty(val[j].resourceGroup)) {
                 this.grades.push(this.pr_detail[val[j].resourceGroup]);
               }
-            this.markerValues.push(false);
-            break;
+              this.markerValues.push(false);
+              break;
             }
           }
         }
       }
-    } 
+    }
   }
-  getProviderDetails(){
-      let resp = this.global.get_id_name_rel();
-      this.pr_detail = resp ;
+
+  getProviderDetails() {
+    let resp = this.global.get_id_name_rel();
+    this.pr_detail = resp;
   }
-  searchStringInArray (str: any, strArray: string) {
+
+  searchStringInArray(str: any, strArray: string) {
     if (strArray.match(str)) return true;
     return false;
   }
+
   back() {
     this.locate.back();
   }
