@@ -131,14 +131,13 @@ export class DatasetsComponent implements OnInit {
   }
 
   downloadData(data: any) {
-    // console.log(data)
     if(data.includes('.mp4')){
       this.globalservice.set_resource_item(data);
       this.globalservice.set_popup(true, 'sample-video');
 
     }
     else{
-      window.open('data', '_blank');
+      window.open(data, '_blank');
     }
   
   }
