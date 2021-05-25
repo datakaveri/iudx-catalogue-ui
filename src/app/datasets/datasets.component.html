@@ -33,6 +33,11 @@
       <!-- </p> -->
       <p>Description: {{resource.description}}</p>
       <p>Publisher: {{resource.provider.name}}</p>
+      <div class="links-container">
+          <a *ngIf="resource.dataSampleFile"
+           (click)="downloadData(resource.dataSampleFile)">Download Sample
+           Data</a> 
+      </div>
     </div>
   </div>
 </div>
