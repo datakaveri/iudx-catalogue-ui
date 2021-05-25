@@ -107,7 +107,6 @@ export class ResourcesListComponent implements OnInit {
   openSampleData(data: any) {
     if (data) {
       this.global.set_resource_item(data);
-      window.open(data, '_blank');
     } else {
       this.global.set_resource_item(this.sampleData);
     }
