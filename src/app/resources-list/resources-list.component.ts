@@ -115,7 +115,6 @@ export class ResourcesListComponent implements OnInit {
   }
 
   downloadData(data: any) {
-    // console.log(data)
     if(data.includes('.mp4')){
       this.global.set_resource_item(data);
       this.global.set_popup(true, 'sample-video');

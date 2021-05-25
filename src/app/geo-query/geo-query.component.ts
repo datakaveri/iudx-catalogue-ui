@@ -34,6 +34,7 @@ export class GeoQueryComponent implements OnInit {
   data: any;
   name: string = '';
   pr_detail: any = {};
+  resourceGroupLabel: any = '';
 
   constructor(private router: Router, private global: GlobalService, private network: NetworkService, private locate: Location, private elementRef: ElementRef, public ngZone: NgZone) {
     this.searchQuery = {resource_groups: []};
@@ -97,6 +98,9 @@ export class GeoQueryComponent implements OnInit {
         } else {
           isPublic = false;
         }
+        if (this.pr_detail.hasOwnProperty(c.resourceGroup)) {
+           this.resourceGroupLabel = this.pr_detail[c.resourceGroup];
+        }
         const markers = L.marker([lat, lng], {
           icon: this.getMarkerIcon(c.resourceGroup),
         }).bindPopup(
@@ -105,8 +109,10 @@ export class GeoQueryComponent implements OnInit {
           `</p> </div>
             <div class = "text-centre"> <p>` +
           c.description +
-          `</p>` +
-          ` </div>
+          `</p> <p>Dataset: ` +
+          // c.resourceGroup.split('/')[3] +
+          this.resourceGroupLabel +
+          `</p> </div>
             <div id="pop_up_` +
           c.id +
           `"> <p class="text-center" style='padding-right:2px'> </p>` +
@@ -414,14 +420,19 @@ export class GeoQueryComponent implements OnInit {
       } else {
         isPublic = false;
       }
+      if (this.pr_detail.hasOwnProperty(data.resourceGroup)) {
+         this.resourceGroupLabel = this.pr_detail[data.resourceGroup];
+      }
       var customPopup =
         `<div id="name"> <p style='font-weight:bold'>` +
-        this.name +
+        this.label +
         `</p> </div>
         <div class = "text-centre"> <p>` +
         data.description +
-        `</p>` +
-        ` </div>
+        `</p><p>Dataset: ` +
+        // data.resourceGroup.split('/')[3] +
+        data.label +
+        `</p> </div>
         <div id="pop_up_` +
         data.id +
         `"> <p class="text-center" style='padding-right:2px'> </p>` +
@@ -548,6 +559,7 @@ export class GeoQueryComponent implements OnInit {
   getProviderDetails() {
     let resp = this.global.get_id_name_rel();
     this.pr_detail = resp;
+    
   }
 
   searchStringInArray(str: any, strArray: string) {

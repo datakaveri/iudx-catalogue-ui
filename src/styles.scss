@@ -64,7 +64,8 @@ a {
 .leaflet-container {
   .leaflet-popup-content {
     p {
-      line-break: anywhere;
+      // line-break: anywhere;
+      word-wrap: break-word;
     }
 
     a {
