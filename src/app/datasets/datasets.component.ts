@@ -130,17 +130,4 @@ export class DatasetsComponent implements OnInit {
     this.router.navigate(['/dataset-details/' + resource.id.split('/')[3]]);
   }
 
-  downloadData(data: any) {
-    if(data.includes('.mp4')){
-      this.globalservice.set_resource_item(data);
-      this.globalservice.set_popup(true, 'sample-video');
-
-    }
-    else{
-      window.open(data, '_blank');
-    }
-  
-  }
-
-
 }

@@ -4,9 +4,10 @@
          [ngClass]="{'private': resource.dataset.accessPolicy == 'SECURE', 'lightgreen': resource.dataset.accessPolicy == 'MISC'}"
          *ngFor="let item of resource?.resources">
       <div class="title">
-        <h2>{{item.label}}</h2><a title="Copy {{texts.resource_items}} ID"
+        <h2>{{item.label}}</h2>
+        <!-- <a title="Copy {{texts.resource_items}} ID"
                                   (click)="copy(item.id)">Copy {{texts.resource_items}}
-        ID</a>
+        ID</a> -->
       </div>
       <p>Description: {{item.description}}</p>
 

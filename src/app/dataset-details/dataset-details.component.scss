@@ -45,6 +45,16 @@
                 }
             }
         }
+        .links-container{
+            padding-top: 10px;
+            a{
+                font-weight: 500;
+                font-size: 16px;
+                color: var(--blue);
+                padding-left:50px;
+               
+            }
+          }
     }
     .tab_div{
         display:flex;
@@ -85,5 +95,6 @@
 
     }
     
+
 }
 

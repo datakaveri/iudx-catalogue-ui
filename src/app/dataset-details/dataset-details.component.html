@@ -20,6 +20,11 @@
         <p>Description: {{ resource.dataset.description }}</p>
         <p>{{texts.providers}}: {{ resource.dataset.provider.name }}</p>
         <p>Schema:<span><a href="{{ schema_url }}" target="_blank">{{ schema_url }}</a></span></p>
+        <div class="links-container">
+            <a *ngIf="resource.dataset.dataSampleFile"
+             (click)="downloadData(resource.dataset.dataSampleFile);$event.stopPropagation()">Download Sample
+             Data</a> 
+        </div>
     </div>
     <div class="tab_div" *ngIf="show_data">
         <ul>

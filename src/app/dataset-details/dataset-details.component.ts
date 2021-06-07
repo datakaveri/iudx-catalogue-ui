@@ -50,6 +50,7 @@ export class DatasetDetailsComponent implements OnInit {
     this.network.post_api('customer/dataset', post_data).then((res: any) => {
       this.show_data = true;
       this.resource = res;
+      console.log(this.resource);
       this.schema_url = this.resource.dataset['@context'] + this.resource.dataset.type[1].split('iudx:')[1];
       this.global.set_resource_details(res);
       if(this.router.url == '/dataset-details/'+this.id) {
@@ -93,5 +94,16 @@ export class DatasetDetailsComponent implements OnInit {
     document.execCommand('copy');
     document.body.removeChild(el);
     this.global.set_toaster('success', this.texts.resource_groups + ' ID copied to Clipboard.');
+  }
+   downloadData(data: any) {
+    if(data.includes('.mp4')){
+      this.global.set_resource_item(data);
+      this.global.set_popup(true, 'sample-video');
+
+    }
+    else{
+      window.open(data, '_blank');
+    }
+  
   }
 }
