@@ -137,7 +137,7 @@ export class ResourcesMapComponent implements OnInit {
               : `<a  class="sample-link" data-Id=` +
               c.id +
               ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-              `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+              // `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
               `</div>`)
           );
           this.markersLayer.addLayer(markers);

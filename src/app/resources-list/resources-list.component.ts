@@ -125,16 +125,16 @@ export class ResourcesListComponent implements OnInit {
   
   }
 
-  downloadJson(myJson: any) {
-    var sJson = JSON.stringify(myJson);
-    var element = document.createElement('a');
-    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
-    element.setAttribute('download', "sampleData.json");
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click(); // simulate click
-    document.body.removeChild(element);
-  }
+  // downloadJson(myJson: any) {
+  //   var sJson = JSON.stringify(myJson);
+  //   var element = document.createElement('a');
+  //   element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
+  //   element.setAttribute('download', "sampleData.json");
+  //   element.style.display = 'none';
+  //   document.body.appendChild(element);
+  //   element.click(); // simulate click
+  //   document.body.removeChild(element);
+  // }
 
   openLatestData(id: any) {
     if (id) {

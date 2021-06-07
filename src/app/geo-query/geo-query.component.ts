@@ -123,7 +123,7 @@ export class GeoQueryComponent implements OnInit {
             : `<a  class="sample-link" data-Id=` +
             c.id +
             ` style="color: var(--highlight);font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-            `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+            // `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
             `</div>`)
         );
 
@@ -443,7 +443,7 @@ export class GeoQueryComponent implements OnInit {
           : `<a  class="sample-link" data-Id=` +
           data.id + ` data-rsg =` + data.resourceGroup.split('/')[3] +
           ` style="color: var(--highlight); font-weight:bold;"> Get Sample Data </a>&nbsp;&nbsp; ` +
-          `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
+          // `<a style="color: var(--error); font-weight:bold;"> Request Access </a><br>` +
           `</div>`);
 
       const markers = L.marker([lat, lng], {
