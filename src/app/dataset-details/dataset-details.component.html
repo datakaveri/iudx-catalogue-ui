@@ -24,6 +24,9 @@
             <a *ngIf="resource.dataset.dataSampleFile"
              (click)="downloadData(resource.dataset.dataSampleFile);$event.stopPropagation()">Download Sample
              Data</a> 
+            <a *ngIf="resource.dataset.dataSample"
+             (click)="openSampleData(resource.dataset.dataSample);$event.stopPropagation()">View Sample
+             Data</a> 
         </div>
     </div>
     <div class="tab_div" *ngIf="show_data">

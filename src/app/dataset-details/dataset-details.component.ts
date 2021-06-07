@@ -106,4 +106,10 @@ export class DatasetDetailsComponent implements OnInit {
     }
   
   }
+
+  openSampleData(data: any) {
+    this.global.set_resource_item(data);
+    this.global.set_popup(true, 'sample-data');
+  }
+
 }
