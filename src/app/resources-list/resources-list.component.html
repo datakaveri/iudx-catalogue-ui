@@ -5,9 +5,7 @@
          *ngFor="let item of resource?.resources">
       <div class="title">
         <h2>{{item.label}}</h2>
-        <!-- <a title="Copy {{texts.resource_items}} ID"
-                                  (click)="copy(item.id)">Copy {{texts.resource_items}}
-        ID</a> -->
+        <a title="Copy {{texts.resource_items}} ID" (click)="copy(item.id)">Copy {{texts.resource_items}} ID</a>
       </div>
       <p>Description: {{item.description}}</p>
 
@@ -22,10 +20,7 @@
         </a>
         <a *ngIf="item.dataSampleFile "
            (click)="downloadData(item.dataSampleFile)">Download Sample
-           Data</a> 
-        <!-- <a *ngIf="item.dataSampleFile &&
-        item.dataSampleFile.includes('.mp4')"
-           (click)="openShowVideo(item.dataSampleFile)">Show Sample Video</a> -->
+           Data</a>
         <a
           *ngIf="resource.dataset?.resourceType == 'MESSAGESTREAM' && resource?.dataset.accessPolicy != 'SECURE'"
           (click)="openLatestData(item.id)">View Latest Data</a>
