@@ -14,27 +14,43 @@
       <img src='assets/iudx-logo-white.png' class='logo' alt='logo'>
 
       <h1>India Urban Data Exchange Catalogue</h1>
-      <p>We seek to <span class="highlight">Facilitate </span>the use of <span class="highlight">Data </span>to achieve<br>
-        full potential of <span class="highlight">Technology and Innovation </span>within Indian cities.<br>Discover
-        <span class="highlight">Datasets</span> that fit your <span class="highlight">Region.</span></p>
+      <p>We seek to <span class="highlight">Facilitate </span>the use of <span
+        class="highlight">Data </span>to achieve<br>
+        full potential of <span
+          class="highlight">Technology and Innovation </span>within Indian
+        cities.<br>Discover
+        <span class="highlight">Datasets</span> that fit your <span
+          class="highlight">Region.</span></p>
       <div class="search-box" [ngClass]="{'border-style': query != ''}">
         <div class="img-container">
-          <img src="assets/search.png" alt="search" (click)="getSearchResultsByText(query)"/>
+          <img src="assets/search.png" alt="search"
+               (click)="getSearchResultsByText(query)"/>
         </div>
-        <input type="text" name='input' (input)="filterItems(query)" placeholder="Search for datasets. eg. mobility, transport..." [(ngModel)]="query" />
+        <input type="text" name='input' (input)="filterItems(query)"
+               placeholder="Search for datasets. eg. mobility, transport..."
+               [(ngModel)]="query"/>
         <div *ngIf="query != ''" class="searchBox-dropdown">
           <ul *ngIf="filteredTags.length != 0">
-            <li tabIndex="-1" *ngFor="let item of filteredTags" (click)='getSearchResultsByTag(item)'>
+            <li tabIndex="-1" *ngFor="let item of filteredTags"
+                (click)='getSearchResultsByTag(item)'>
               {{item | titlecase}}
             </li>
           </ul>
         </div>
       </div>
       <div class="links-container">
-        <a (click)="getAllDatasets()"><span class="link-style">View All Datasets</span></a>
+        <a (click)="getAllDatasets()"><span
+          class="link-style">View All Datasets</span></a>
         <a *ngIf="city" (click)="getGeoInfo()"><span class="link-style">Make Geo Query</span></a>
       </div>
     </div>
+
+    <marquee direction="left"  loop="-1">
+      <span>Announcement !!</span>
+      As part of our maintenance schedule, the IUDX v3.0.0 system will be live
+      on 26-10-2021 at 6:00 PM IST after which the old tokens, certificates, etc
+      will not be accepted.
+    </marquee>
   </div>
 </section>
 <section class="stats">
